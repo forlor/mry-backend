@@ -9,17 +9,6 @@ import java.util.Map;
 import java.util.Set;
 
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.app.domain.page.control.ControlType.ATTACHMENT_VIEW;
-import static com.mryqr.core.app.domain.page.control.ControlType.ATTRIBUTE_DASHBOARD;
-import static com.mryqr.core.app.domain.page.control.ControlType.BAR;
-import static com.mryqr.core.app.domain.page.control.ControlType.DOUGHNUT;
-import static com.mryqr.core.app.domain.page.control.ControlType.ITEM_COUNT;
-import static com.mryqr.core.app.domain.page.control.ControlType.MEMBER_SELECT;
-import static com.mryqr.core.app.domain.page.control.ControlType.NUMBER_RANGE_SEGMENT;
-import static com.mryqr.core.app.domain.page.control.ControlType.PIE;
-import static com.mryqr.core.app.domain.page.control.ControlType.SIGNATURE;
-import static com.mryqr.core.app.domain.page.control.ControlType.TIME_SEGMENT;
-import static com.mryqr.core.app.domain.page.control.ControlType.TREND;
 import static com.mryqr.core.app.domain.page.control.ControlType.VIDEO_VIEW;
 import static com.mryqr.core.plan.domain.PlanType.ADVANCED;
 import static com.mryqr.core.plan.domain.PlanType.BASIC;
@@ -32,69 +21,47 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @AllArgsConstructor(access = PRIVATE)
 public class Plan {
-    private static final Set<ControlType> FREE_PLAN_EXCLUDES = Set.of(
-            VIDEO_VIEW,
-            ATTACHMENT_VIEW,
-            ATTRIBUTE_DASHBOARD,
-            BAR,
-            PIE,
-            TREND,
-            DOUGHNUT,
-            TIME_SEGMENT,
-            NUMBER_RANGE_SEGMENT,
-
-            MEMBER_SELECT,
-            ITEM_COUNT,
-            SIGNATURE
-    );
-
-    private static final Set<ControlType> BASIC_PLAN_EXCLUDES = Set.of(
-            VIDEO_VIEW,
-            TIME_SEGMENT,
-            NUMBER_RANGE_SEGMENT,
-
-            MEMBER_SELECT,
-            ITEM_COUNT
-    );
+    private static final Set<ControlType> FREE_PLAN_EXCLUDES = Set.of(VIDEO_VIEW);
+    private static final Set<ControlType> BASIC_PLAN_EXCLUDES = Set.of(VIDEO_VIEW);
 
     public static final Plan FREE_PLAN = Plan.builder()
             .type(FREE)
-            .maxAppCount(2)
-            .maxQrCount(1000)
-            .maxSubmissionCount(5000)
-            .maxMemberCount(5)
-            .maxStorage(0.1f)
+            .maxAppCount(5)
+            .maxQrCount(10000)
+            .maxSubmissionCount(30000)
+            .maxMemberCount(30)
+            .maxStorage(1)
             .maxSmsCountPerMonth(20)
-            .maxDepartmentCount(5)
-            .maxGroupCountPerApp(10)
+            .maxDepartmentCount(10)
+            .maxGroupCountPerApp(20)
             .maxVideoTrafficPerMonth(1)
             .supportedControlTypes(freePlanControlTypes())
             .customSubdomainAllowed(false)
-            .customLogoAllowed(false)
+            .customLogoAllowed(true)
             .hideBottomMryLogo(false)
             .hideAds(false)
             .videoAudioAllowed(false)
             .developerAllowed(false)
-            .reportingAllowed(false)
-            .kanbanAllowed(false)
-            .submissionNotifyAllowed(false)
-            .batchImportQrAllowed(false)
-            .batchImportMemberAllowed(false)
-            .submissionApprovalAllowed(false)
-            .assignmentAllowed(false)
+            .reportingAllowed(true)
+            .kanbanAllowed(true)
+            .submissionNotifyAllowed(true)
+            .batchImportQrAllowed(true)
+            .batchImportMemberAllowed(true)
+            .submissionApprovalAllowed(true)
+            .assignmentAllowed(true)
             .build();
 
     public static final Plan BASIC_PLAN = Plan.builder()
             .type(BASIC)
-            .maxAppCount(5)
-            .maxQrCount(10000)
-            .maxSubmissionCount(50000)
-            .maxMemberCount(20)
+            .maxAppCount(10)
+            .maxQrCount(30000)
+            .maxSubmissionCount(100000)
+            .maxMemberCount(50)
             .maxStorage(3)
-            .maxSmsCountPerMonth(200)
+            .maxSmsCountPerMonth(100)
             .maxDepartmentCount(20)
             .maxGroupCountPerApp(50)
-            .maxVideoTrafficPerMonth(30)
+            .maxVideoTrafficPerMonth(1)
             .supportedControlTypes(basicPlanControlTypes())
             .customSubdomainAllowed(false)
             .customLogoAllowed(true)
@@ -102,13 +69,13 @@ public class Plan {
             .hideAds(false)
             .videoAudioAllowed(false)
             .developerAllowed(false)
-            .reportingAllowed(false)
+            .reportingAllowed(true)
             .kanbanAllowed(true)
-            .submissionNotifyAllowed(false)
+            .submissionNotifyAllowed(true)
             .batchImportQrAllowed(true)
             .batchImportMemberAllowed(true)
-            .submissionApprovalAllowed(false)
-            .assignmentAllowed(false)
+            .submissionApprovalAllowed(true)
+            .assignmentAllowed(true)
             .build();
 
     public static final Plan ADVANCED_PLAN = Plan.builder()
@@ -116,7 +83,7 @@ public class Plan {
             .maxAppCount(20)
             .maxQrCount(100000)
             .maxSubmissionCount(500000)
-            .maxMemberCount(50)
+            .maxMemberCount(80)
             .maxStorage(10)
             .maxSmsCountPerMonth(500)
             .maxDepartmentCount(50)
