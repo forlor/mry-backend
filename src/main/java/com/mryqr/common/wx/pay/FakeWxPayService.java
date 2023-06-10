@@ -3,7 +3,6 @@ package com.mryqr.common.wx.pay;
 import com.mryqr.common.wx.pay.notify.WxNotifyResult;
 import com.mryqr.core.order.domain.Order;
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +10,6 @@ import java.time.Instant;
 
 import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
 
-@Profile("!prod")
 @Component
 @AllArgsConstructor
 public class FakeWxPayService implements WxPayService {

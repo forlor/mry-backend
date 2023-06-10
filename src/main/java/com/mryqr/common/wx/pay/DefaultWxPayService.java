@@ -16,9 +16,7 @@ import com.wechat.pay.java.service.payments.nativepay.model.Amount;
 import com.wechat.pay.java.service.payments.nativepay.model.PrepayRequest;
 import com.wechat.pay.java.service.payments.nativepay.model.PrepayResponse;
 import org.apache.commons.io.IOUtils;
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.GCMParameterSpec;
@@ -34,8 +32,8 @@ import static java.lang.Float.parseFloat;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static javax.crypto.Cipher.DECRYPT_MODE;
 
-@Component
-@Profile("prod")
+//@Component
+//@Profile("prod")
 public class DefaultWxPayService implements WxPayService {
     private final NativePayService nativePayService;
     private final Validator validator;
