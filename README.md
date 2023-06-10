@@ -1,6 +1,5 @@
 ## 项目信息
 - **码如云**是一个基于二维码的一物一码管理平台，可用于固定资产管理，设备巡检和问卷调查等众多场景。在技术上，码如云是一个无代码平台，全程采用DDD、事件驱动架构和整洁架构思想完成开发。
-- 本项目为码如云后端代码，Github地址：[https://github.com/mryqr-com/mry-backend](https://github.com/mryqr-com/mry-backend)
 - 与本项目配套的码如云前端代码请访问：[https://github.com/mryqr-com/mry-frontend](https://github.com/mryqr-com/mry-frontend)
 
 ## 在线免费使用
