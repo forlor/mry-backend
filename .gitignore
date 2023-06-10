@@ -17,7 +17,7 @@ tmp.txt
 .DS_Store
 
 #Below are files used for prod deployment
-prod-deploy.sh
 deploy/
+prod-deploy.sh
 src/main/resources/application-prod.yml
 src/main/resources/logback-spring.xml
