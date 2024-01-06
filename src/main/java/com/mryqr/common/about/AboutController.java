@@ -14,14 +14,14 @@ import static java.time.ZonedDateTime.now;
 
 @Validated
 @RestController
-@RequestMapping(value = "/about")
+@RequestMapping
 @RequiredArgsConstructor
 public class AboutController {
     private final ZonedDateTime deployTime = now();
     private final Environment environment;
     private final MryRateLimiter mryRateLimiter;
 
-    @GetMapping
+    @GetMapping(value = "/about")
     public QAboutInfo about() {
         mryRateLimiter.applyFor("About", 10);
         String buildTime = environment.getProperty("buildTime");
@@ -37,6 +37,11 @@ public class AboutController {
                 .gitBranch(gitBranch)
                 .environment(environment)
                 .build();
+    }
+
+    @GetMapping("/favicon.ico")
+    public void dummyFavicon() {
+        //nop
     }
 
 }
