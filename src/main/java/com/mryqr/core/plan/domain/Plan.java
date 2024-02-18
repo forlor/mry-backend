@@ -21,8 +21,8 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @AllArgsConstructor(access = PRIVATE)
 public class Plan {
-    private static final Set<ControlType> FREE_PLAN_EXCLUDES = Set.of(VIDEO_VIEW);
-    private static final Set<ControlType> BASIC_PLAN_EXCLUDES = Set.of(VIDEO_VIEW);
+    private static final Set<ControlType> FREE_PLAN_EXCLUDES = Set.of();
+    private static final Set<ControlType> BASIC_PLAN_EXCLUDES = Set.of();
 
     public static final Plan FREE_PLAN = Plan.builder()
             .type(FREE)
@@ -40,7 +40,7 @@ public class Plan {
             .customLogoAllowed(true)
             .hideBottomMryLogo(false)
             .hideAds(false)
-            .videoAudioAllowed(false)
+            .videoAudioAllowed(true)
             .developerAllowed(false)
             .reportingAllowed(true)
             .kanbanAllowed(true)
