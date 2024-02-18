@@ -1,6 +1,9 @@
-package com.mryqr.common.notification.wx;
+package com.mryqr.common.notification.email;
 
 import com.mryqr.common.notification.NotificationService;
+import com.mryqr.common.notification.wx.Response;
+import com.mryqr.common.notification.wx.ValueItem;
+import com.mryqr.common.notification.wx.WxTemplateMessage;
 import com.mryqr.common.wx.accesstoken.WxAccessTokenService;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.page.Page;
@@ -15,8 +18,13 @@ import com.mryqr.core.member.domain.MemberRepository;
 import com.mryqr.core.qr.domain.QrRepository;
 import com.mryqr.core.submission.domain.Submission;
 import com.mryqr.core.submission.domain.SubmissionApproval;
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Profile;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.Instant;
@@ -35,8 +43,10 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @Slf4j
+@Component
+@Profile("prod")
 @RequiredArgsConstructor
-public class WxNotificationService implements NotificationService {
+public class EmailNotificationService implements NotificationService {
     private final WxProperties wxProperties;
     private final MemberRepository memberRepository;
     private final GroupRepository groupRepository;
@@ -45,60 +55,58 @@ public class WxNotificationService implements NotificationService {
     private final WxAccessTokenService wxAccessTokenService;
     private final PropertyService propertyService;
 
+    private final JavaMailSender mailSender;
+
     @Override
     public void notifyOnSubmissionCreated(Submission submission, Page page, App app, List<NotificationRole> notifyRoles) {
         Group group = groupRepository.cachedById(submission.getGroupId());
-        Set<String> toBeNotifiedOpenIds = toBeNotifiedMobileOpenIdsForSubmission(app, group, notifyRoles, submission.getCreatedBy());
-        if (isEmpty(toBeNotifiedOpenIds)) {
+        Set<String> toBeNotifiedEmails = toBeNotifiedEmailsForSubmission(app, group, notifyRoles, submission.getCreatedBy());
+        if (isEmpty(toBeNotifiedEmails)) {
             return;
         }
 
         String url = submissionUrlOf(submission.getId(), page.getId(), submission.getPlateId());
         String qrName = qrRepository.qrNameOf(submission.getQrId());
-        String submittedBy = isNotBlank(submission.getCreatedBy()) ? memberRepository.cachedMemberNameOf(submission.getCreatedBy()) : null;
-        Instant createdAt = submission.getCreatedAt();
+        String submittedBy = isNotBlank(submission.getCreatedBy()) ? memberRepository.cachedMemberNameOf(submission.getCreatedBy()) : "匿名";
+        String createdAt = MRY_DATE_TIME_FORMATTER.format(submission.getCreatedAt());
+        toBeNotifiedEmails.forEach(mail -> {
+            try {
+                MimeMessage mailMessage = mailSender.createMimeMessage();
+                MimeMessageHelper helper = new MimeMessageHelper(mailMessage, "utf-8");
+                String html = "<div style=\"margin-bottom:12px;\">您有新的表单提交，详情如下：</div>\n" +
+                              "<div style=\"padding-left:16px;margin-bottom:5px;\">\n" +
+                              "  <span style=\"color:#909399;padding-right:10px;\">" + app.instanceDesignation() + "名称：</span>" + qrName + "\n" +
+                              "</div>\n" +
+                              "<div style=\"padding-left:16px;margin-bottom:5px;\">\n" +
+                              "  <span style=\"color:#909399;padding-right:10px;\">所在" + app.groupDesignation() + "：</span>" + group.getName() + "\n" +
+                              "</div>\n" +
+                              "<div style=\"padding-left:16px;margin-bottom:5px;\">\n" +
+                              "  <span style=\"color:#909399;padding-right:10px;\">所在应用：</span>" + app.getName() + "\n" +
+                              "</div>\n" +
+                              "<div style=\"padding-left:16px;margin-bottom:5px;\">\n" +
+                              "  <span style=\"color:#909399;padding-right:10px;\">提交时间：</span>" + createdAt + "\n" +
+                              "</div>\n" +
+                              "<div style=\"padding-left:16px;\">\n" +
+                              "  <span style=\"color:#909399;padding-right:10px;\">提交人：</span>" + submittedBy + "\n" +
+                              "</div>\n" +
+                              "<div style=\"margin-top:12px;\">如需查看表单详情，请点击<a href=\"" + url + "\" target=\"_blank\">此链接</a>。</div>\n";
 
-        toBeNotifiedOpenIds.forEach(openId -> {
-            WxTemplateMessage message = createNotifyOnCreationMessage(openId,
-                    url,
-                    page,
-                    qrName,
-                    group.getName(),
-                    app.getName(),
-                    submittedBy,
-                    createdAt);
-
-            sendTemplateMessage(message);
+                helper.setText(html, true);
+                helper.setTo(mail);
+                helper.setSubject("您有新的表单提交，请关注。");
+                helper.setFrom("码如云 <noreply@directmail.mryqr.com>");
+                mailSender.send(mailMessage);
+            } catch (Throwable t) {
+                log.warn("Failed to send submission creation email for submission[{}].", submission.getId());
+            }
         });
-    }
 
-    private WxTemplateMessage createNotifyOnCreationMessage(String openId,
-                                                            String url,
-                                                            Page page,
-                                                            String qrName,
-                                                            String groupName,
-                                                            String appName,
-                                                            String submittedBy,
-                                                            Instant createdAt) {
-        return WxTemplateMessage.builder()
-                .touser(openId)
-                .template_id(wxProperties.getSubmissionCreatedTemplateId())
-                .url(url)
-                .data(Map.of("first", valueItemOf(qrName),
-                        "thing2", valueItemOf(page.getSetting().getPageName()),
-                        "thing7", valueItemOf(appName),
-                        "thing6", valueItemOf(groupName),
-                        "time3", valueItemOf(MRY_DATE_TIME_FORMATTER.format(createdAt)),
-                        "thing4", valueItemOf(submittedBy),
-                        "remark", valueItemOf("点击可查看详情")
-                ))
-                .build();
     }
 
     @Override
     public void notifyOnSubmissionUpdated(Submission submission, Page page, App app, List<NotificationRole> notifyRoles) {
         Group group = groupRepository.cachedById(submission.getGroupId());
-        Set<String> toBeNotifiedOpenIds = toBeNotifiedMobileOpenIdsForSubmission(app, group, notifyRoles, submission.getUpdatedBy());
+        Set<String> toBeNotifiedOpenIds = toBeNotifiedEmailsForSubmission(app, group, notifyRoles, submission.getUpdatedBy());
         if (isEmpty(toBeNotifiedOpenIds)) {
             return;
         }
@@ -114,22 +122,22 @@ public class WxNotificationService implements NotificationService {
         });
     }
 
-    private Set<String> toBeNotifiedMobileOpenIdsForSubmission(App app, Group group, List<NotificationRole> notifyRoles, String memberId) {
-        Set<String> toBeNotifiedOpenIds = new HashSet<>();
+    private Set<String> toBeNotifiedEmailsForSubmission(App app, Group group, List<NotificationRole> notifyRoles, String memberId) {
+        Set<String> toBeNotifiedEmails = new HashSet<>();
         if (notifyRoles.contains(APP_MANAGER)) {
-            toBeNotifiedOpenIds.addAll(memberRepository.cachedMobileWxOpenIdsOf(app.getTenantId(), app.getManagers()).values());
+            toBeNotifiedEmails.addAll(memberRepository.cachedEmailsOf(app.getTenantId(), app.getManagers()).values());
         }
 
         if (notifyRoles.contains(GROUP_MANAGER)) {
-            toBeNotifiedOpenIds.addAll(memberRepository.cachedMobileWxOpenIdsOf(app.getTenantId(), group.getManagers()).values());
+            toBeNotifiedEmails.addAll(memberRepository.cachedEmailsOf(app.getTenantId(), group.getManagers()).values());
         }
 
         if (notifyRoles.contains(SUBMITTER) && isNotBlank(memberId)) {
-            toBeNotifiedOpenIds.addAll(memberRepository.cachedMobileWxOpenIdsOf(app.getTenantId(), List.of(memberId)).values());
+            toBeNotifiedEmails.addAll(memberRepository.cachedEmailsOf(app.getTenantId(), List.of(memberId)).values());
         }
 
-        toBeNotifiedOpenIds.removeAll(singleton(null));
-        return toBeNotifiedOpenIds;
+        toBeNotifiedEmails.removeAll(singleton(null));
+        return toBeNotifiedEmails;
     }
 
 

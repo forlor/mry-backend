@@ -237,6 +237,20 @@ public class MongoMemberRepository extends MongoBaseRepository<Member> implement
     }
 
     @Override
+    public Map<String, String> cachedEmailsOf(String tenantId, List<String> memberIds) {
+        requireNonBlank(tenantId, "TenantId must not be blank.");
+        requireNonNull(memberIds, "Member IDs must not be blank.");
+
+        if (isEmpty(memberIds)) {
+            return ImmutableMap.of();
+        }
+        return cachedMemberRepository.cachedTenantAllMembers(tenantId).stream()
+                .filter(member -> memberIds.contains(member.getId()))
+                .filter(member -> isNotBlank(member.getMobileWxOpenId()))
+                .collect(toImmutableMap(TenantCachedMember::getId, TenantCachedMember::getEmail));
+    }
+
+    @Override
     public List<TenantCachedMember> cachedAllActiveTenantAdmins(String tenantId) {
         requireNonBlank(tenantId, "TenantId must not be blank.");
 

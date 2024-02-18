@@ -14,7 +14,7 @@ import java.util.List;
 
 @Slf4j
 @Component
-@Profile("ci")
+@Profile("!prod")
 public class FakeNotificationService implements NotificationService {
     public static String id;
 

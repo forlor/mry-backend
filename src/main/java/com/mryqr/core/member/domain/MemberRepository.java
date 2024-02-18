@@ -46,6 +46,8 @@ public interface MemberRepository {
 
     Map<String, String> cachedMobileWxOpenIdsOf(String tenantId, List<String> memberIds);
 
+    Map<String, String> cachedEmailsOf(String tenantId, List<String> memberIds);
+
     List<TenantCachedMember> cachedAllActiveTenantAdmins(String tenantId);
 
     List<MemberReference> cachedAllMemberReferences(String tenantId);
