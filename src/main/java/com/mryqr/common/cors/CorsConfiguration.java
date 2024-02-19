@@ -1,5 +1,6 @@
 package com.mryqr.common.cors;
 
+import com.mryqr.core.common.properties.CommonProperties;
 import com.mryqr.core.common.properties.PropertyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -16,7 +17,7 @@ import static org.springframework.core.Ordered.HIGHEST_PRECEDENCE;
 @Configuration
 @RequiredArgsConstructor
 public class CorsConfiguration {
-    private final PropertyService propertyService;
+    private final CommonProperties commonProperties;
 
     @Bean
     @Profile("prod")
@@ -24,7 +25,7 @@ public class CorsConfiguration {
         org.springframework.web.cors.CorsConfiguration configuration = new org.springframework.web.cors.CorsConfiguration();
         configuration.setAllowCredentials(true);
         configuration.setAllowedHeaders(List.of("*"));
-        configuration.setAllowedOriginPatterns(List.of("*." + propertyService.rootDomainName()));
+        configuration.setAllowedOriginPatterns(List.of("*." + commonProperties.getBaseDomainName()));
         configuration.setAllowedMethods(List.of("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

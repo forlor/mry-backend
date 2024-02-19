@@ -1,7 +1,7 @@
 package com.mryqr.common.security.jwt;
 
+import com.mryqr.core.common.properties.CommonProperties;
 import com.mryqr.core.common.properties.JwtProperties;
-import com.mryqr.core.common.properties.PropertyService;
 import jakarta.servlet.http.Cookie;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
@@ -15,7 +15,7 @@ import static java.util.Arrays.asList;
 public class JwtCookieFactory {
     private final Environment environment;
     private final JwtProperties jwtProperties;
-    private final PropertyService propertyService;
+    private final CommonProperties commonProperties;
 
     public Cookie newJwtCookie(String jwt) {
         String[] activeProfiles = environment.getActiveProfiles();
@@ -32,14 +32,14 @@ public class JwtCookieFactory {
         Cookie cookie = new Cookie(AUTH_COOKIE_NAME, jwt);
         cookie.setMaxAge(jwtProperties.getExpire() * 60);
         cookie.setPath("/");
-        cookie.setDomain(propertyService.rootDomainName());
+        cookie.setDomain(commonProperties.getBaseDomainName());
         return cookie;
     }
 
     private Cookie newProdCookie(String jwt) {
         Cookie cookie = new Cookie(AUTH_COOKIE_NAME, jwt);
         cookie.setMaxAge(jwtProperties.getExpire() * 60);
-        cookie.setDomain(propertyService.rootDomainName());
+        cookie.setDomain(commonProperties.getBaseDomainName());
         cookie.setPath("/");
         cookie.setSecure(true);
         cookie.setHttpOnly(true);
@@ -49,7 +49,7 @@ public class JwtCookieFactory {
     public Cookie logoutCookie() {
         Cookie cookie = new Cookie(AUTH_COOKIE_NAME, "");
         cookie.setMaxAge(0);
-        cookie.setDomain(propertyService.rootDomainName());
+        cookie.setDomain(commonProperties.getBaseDomainName());
         cookie.setPath("/");
         return cookie;
     }
