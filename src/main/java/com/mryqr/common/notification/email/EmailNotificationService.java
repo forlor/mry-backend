@@ -18,6 +18,7 @@ import com.mryqr.core.member.domain.MemberRepository;
 import com.mryqr.core.qr.domain.QrRepository;
 import com.mryqr.core.submission.domain.Submission;
 import com.mryqr.core.submission.domain.SubmissionApproval;
+import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -69,38 +70,26 @@ public class EmailNotificationService implements NotificationService {
         String qrName = qrRepository.qrNameOf(submission.getQrId());
         String submittedBy = isNotBlank(submission.getCreatedBy()) ? memberRepository.cachedMemberNameOf(submission.getCreatedBy()) : "匿名";
         String createdAt = MRY_DATE_TIME_FORMATTER.format(submission.getCreatedAt());
-        toBeNotifiedEmails.forEach(mail -> {
-            try {
-                MimeMessage mailMessage = mailSender.createMimeMessage();
-                MimeMessageHelper helper = new MimeMessageHelper(mailMessage, "utf-8");
-                String html = "<div style=\"margin-bottom:12px;\">您有新的表单提交，详情如下：</div>\n" +
-                              "<div style=\"padding-left:16px;margin-bottom:5px;\">\n" +
-                              "  <span style=\"color:#909399;padding-right:10px;\">" + app.instanceDesignation() + "名称：</span>" + qrName + "\n" +
-                              "</div>\n" +
-                              "<div style=\"padding-left:16px;margin-bottom:5px;\">\n" +
-                              "  <span style=\"color:#909399;padding-right:10px;\">所在" + app.groupDesignation() + "：</span>" + group.getName() + "\n" +
-                              "</div>\n" +
-                              "<div style=\"padding-left:16px;margin-bottom:5px;\">\n" +
-                              "  <span style=\"color:#909399;padding-right:10px;\">所在应用：</span>" + app.getName() + "\n" +
-                              "</div>\n" +
-                              "<div style=\"padding-left:16px;margin-bottom:5px;\">\n" +
-                              "  <span style=\"color:#909399;padding-right:10px;\">提交时间：</span>" + createdAt + "\n" +
-                              "</div>\n" +
-                              "<div style=\"padding-left:16px;\">\n" +
-                              "  <span style=\"color:#909399;padding-right:10px;\">提交人：</span>" + submittedBy + "\n" +
-                              "</div>\n" +
-                              "<div style=\"margin-top:12px;\">如需查看表单详情，请点击<a href=\"" + url + "\" target=\"_blank\">此链接</a>。</div>\n";
+        String subject = "您有新的表单提交，请关注。";
+        String content = "<div style=\"margin-bottom:12px;\">您有新的表单提交，详情如下：</div>\n" +
+                         "<div style=\"padding-left:16px;margin-bottom:5px;\">\n" +
+                         "  <span style=\"color:#909399;padding-right:10px;\">" + app.instanceDesignation() + "名称：</span>" + qrName + "\n" +
+                         "</div>\n" +
+                         "<div style=\"padding-left:16px;margin-bottom:5px;\">\n" +
+                         "  <span style=\"color:#909399;padding-right:10px;\">所在" + app.groupDesignation() + "：</span>" + group.getName() + "\n" +
+                         "</div>\n" +
+                         "<div style=\"padding-left:16px;margin-bottom:5px;\">\n" +
+                         "  <span style=\"color:#909399;padding-right:10px;\">所在应用：</span>" + app.getName() + "\n" +
+                         "</div>\n" +
+                         "<div style=\"padding-left:16px;margin-bottom:5px;\">\n" +
+                         "  <span style=\"color:#909399;padding-right:10px;\">提交时间：</span>" + createdAt + "\n" +
+                         "</div>\n" +
+                         "<div style=\"padding-left:16px;\">\n" +
+                         "  <span style=\"color:#909399;padding-right:10px;\">提交人：</span>" + submittedBy + "\n" +
+                         "</div>\n" +
+                         "<div style=\"margin-top:12px;\">如需查看表单详情，请点击<a href=\"" + url + "\" target=\"_blank\">此链接</a>。</div>\n";
 
-                helper.setText(html, true);
-                helper.setTo(mail);
-                helper.setSubject("您有新的表单提交，请关注。");
-                helper.setFrom("码如云 <noreply@directmail.mryqr.com>");
-                mailSender.send(mailMessage);
-            } catch (Throwable t) {
-                log.warn("Failed to send submission creation email for submission[{}].", submission.getId());
-            }
-        });
-
+        toBeNotifiedEmails.forEach(mailTo -> sendMail(mailTo, subject, content));
     }
 
     @Override
@@ -301,4 +290,18 @@ public class EmailNotificationService implements NotificationService {
         }
     }
 
+
+    private void sendMail(String mailTo, String subject, String content) {
+        try {
+            MimeMessage mailMessage = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mailMessage, "utf-8");
+            helper.setText(content, true);
+            helper.setTo(mailTo);
+            helper.setSubject(subject);
+            helper.setFrom("码如云 <noreply@directmail.mryqr.com>");
+            mailSender.send(mailMessage);
+        } catch (Throwable t) {
+            log.error("Failed to send notification email: ", t);
+        }
+    }
 }
