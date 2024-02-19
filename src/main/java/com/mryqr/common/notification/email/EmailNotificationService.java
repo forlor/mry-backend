@@ -37,6 +37,7 @@ import java.util.Set;
 import static com.mryqr.common.notification.wx.WxTemplateMessage.valueItemOf;
 import static com.mryqr.core.app.domain.page.setting.notification.NotificationRole.*;
 import static com.mryqr.core.common.utils.MryConstants.MRY_DATE_TIME_FORMATTER;
+import static com.mryqr.management.crm.MryTenantManageApp.MRY_TENANT_MANAGE_APP_ID;
 import static java.util.Collections.singleton;
 import static java.util.Set.copyOf;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
@@ -70,10 +71,14 @@ public class EmailNotificationService implements NotificationService {
         String qrName = qrRepository.qrNameOf(submission.getQrId());
         String submittedBy = isNotBlank(submission.getCreatedBy()) ? memberRepository.cachedMemberNameOf(submission.getCreatedBy()) : "匿名";
         String createdAt = MRY_DATE_TIME_FORMATTER.format(submission.getCreatedAt());
-        String subject = "您有新的表单提交，请关注。";
-        String content = "<div style=\"margin-bottom:12px;\">您有新的表单提交，详情如下：</div>\n" +
+        String subject = app.getId().equals(MRY_TENANT_MANAGE_APP_ID) && page.getId().equals("p_3nbM6aYj9y4FuaFTYrLADG") ? "码如云有新租户注册了！" : "请关注表单提交。";
+
+        String content = "<div style=\"margin-bottom:12px;\">您有新的表单提交需关注，详情如下：</div>\n" +
                          "<div style=\"padding-left:16px;margin-bottom:5px;\">\n" +
                          "  <span style=\"color:#909399;padding-right:10px;\">" + app.instanceDesignation() + "名称：</span>" + qrName + "\n" +
+                         "</div>\n" +
+                         "<div style=\"padding-left:16px;margin-bottom:5px;\">\n" +
+                         "  <span style=\"color:#909399;padding-right:10px;\">页面名称：</span>" + page.pageName() + "\n" +
                          "</div>\n" +
                          "<div style=\"padding-left:16px;margin-bottom:5px;\">\n" +
                          "  <span style=\"color:#909399;padding-right:10px;\">所在" + app.groupDesignation() + "：</span>" + group.getName() + "\n" +
@@ -95,20 +100,39 @@ public class EmailNotificationService implements NotificationService {
     @Override
     public void notifyOnSubmissionUpdated(Submission submission, Page page, App app, List<NotificationRole> notifyRoles) {
         Group group = groupRepository.cachedById(submission.getGroupId());
-        Set<String> toBeNotifiedOpenIds = toBeNotifiedEmailsForSubmission(app, group, notifyRoles, submission.getUpdatedBy());
-        if (isEmpty(toBeNotifiedOpenIds)) {
+        Set<String> toBeNotifiedEmails = toBeNotifiedEmailsForSubmission(app, group, notifyRoles, submission.getUpdatedBy());
+        if (isEmpty(toBeNotifiedEmails)) {
             return;
         }
 
         String url = submissionUrlOf(submission.getId(), page.getId(), submission.getPlateId());
         String qrName = qrRepository.qrNameOf(submission.getQrId());
-        String updatedBy = isNotBlank(submission.getUpdatedBy()) ? memberRepository.cachedMemberNameOf(submission.getUpdatedBy()) : null;
-        Instant updatedAt = submission.getUpdatedAt();
+        String updatedBy = isNotBlank(submission.getUpdatedBy()) ? memberRepository.cachedMemberNameOf(submission.getUpdatedBy()) : "匿名";
+        String updatedAt = MRY_DATE_TIME_FORMATTER.format(submission.getUpdatedAt());
+        String subject = "请关注表单更新。";
 
-        toBeNotifiedOpenIds.forEach(openId -> {
-            WxTemplateMessage message = createNotifyOnUpdateMessage(openId, url, page, qrName, group.getName(), app.getName(), updatedBy, updatedAt);
-            sendTemplateMessage(message);
-        });
+        String content = "<div style=\"margin-bottom:12px;\">您有新的表单更新需关注，详情如下：</div>\n" +
+                         "<div style=\"padding-left:16px;margin-bottom:5px;\">\n" +
+                         "  <span style=\"color:#909399;padding-right:10px;\">" + app.instanceDesignation() + "名称：</span>" + qrName + "\n" +
+                         "</div>\n" +
+                         "<div style=\"padding-left:16px;margin-bottom:5px;\">\n" +
+                         "  <span style=\"color:#909399;padding-right:10px;\">页面名称：</span>" + page.pageName() + "\n" +
+                         "</div>\n" +
+                         "<div style=\"padding-left:16px;margin-bottom:5px;\">\n" +
+                         "  <span style=\"color:#909399;padding-right:10px;\">所在" + app.groupDesignation() + "：</span>" + group.getName() + "\n" +
+                         "</div>\n" +
+                         "<div style=\"padding-left:16px;margin-bottom:5px;\">\n" +
+                         "  <span style=\"color:#909399;padding-right:10px;\">所在应用：</span>" + app.getName() + "\n" +
+                         "</div>\n" +
+                         "<div style=\"padding-left:16px;margin-bottom:5px;\">\n" +
+                         "  <span style=\"color:#909399;padding-right:10px;\">更新时间：</span>" + updatedAt + "\n" +
+                         "</div>\n" +
+                         "<div style=\"padding-left:16px;\">\n" +
+                         "  <span style=\"color:#909399;padding-right:10px;\">更新人：</span>" + updatedBy + "\n" +
+                         "</div>\n" +
+                         "<div style=\"margin-top:12px;\">如需查看表单详情，请点击<a href=\"" + url + "\" target=\"_blank\">此链接</a>。</div>\n";
+
+        toBeNotifiedEmails.forEach(mailTo -> sendMail(mailTo, subject, content));
     }
 
     private Set<String> toBeNotifiedEmailsForSubmission(App app, Group group, List<NotificationRole> notifyRoles, String memberId) {
@@ -127,30 +151,6 @@ public class EmailNotificationService implements NotificationService {
 
         toBeNotifiedEmails.removeAll(singleton(null));
         return toBeNotifiedEmails;
-    }
-
-
-    private WxTemplateMessage createNotifyOnUpdateMessage(String openId,
-                                                          String url,
-                                                          Page page,
-                                                          String qrName,
-                                                          String groupName,
-                                                          String appName,
-                                                          String updatedBy,
-                                                          Instant updatedAt) {
-        return WxTemplateMessage.builder()
-                .touser(openId)
-                .template_id(wxProperties.getSubmissionUpdatedTemplateId())
-                .url(url)
-                .data(Map.of("first", valueItemOf(qrName),
-                        "thing2", valueItemOf(page.getSetting().getPageName()),
-                        "thing7", valueItemOf(appName),
-                        "thing6", valueItemOf(groupName),
-                        "time3", valueItemOf(MRY_DATE_TIME_FORMATTER.format(updatedAt)),
-                        "thing4", valueItemOf(updatedBy),
-                        "remark", valueItemOf("表单已更新，点击可查看详情")
-                ))
-                .build();
     }
 
     @Override
