@@ -1,7 +1,6 @@
 package com.mryqr.common.cors;
 
 import com.mryqr.core.common.properties.CommonProperties;
-import com.mryqr.core.common.properties.PropertyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
