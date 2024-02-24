@@ -49,4 +49,7 @@ public class QTenantInfo {
 
     private int usedSmsCountForCurrentMonth;
     private int effectiveMaxSmsCountPerMonth;
+
+    private int effectiveMaxGroupCountPerApp;
+    private int effectiveMaxDepartmentCount;
 }

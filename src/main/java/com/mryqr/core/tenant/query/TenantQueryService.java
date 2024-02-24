@@ -61,6 +61,8 @@ public class TenantQueryService {
                 .effectiveMaxStorage(valueOf(max(packages.effectiveMaxStorage(), 0)).setScale(2, HALF_UP).toString())
                 .usedSmsCountForCurrentMonth(resourceUsage.getSmsSentCountForCurrentMonth())
                 .effectiveMaxSmsCountPerMonth(max(packages.effectiveMaxSmsCountPerMonth(), 0))
+                .effectiveMaxGroupCountPerApp(max(packages.effectiveMaxGroupCountPerApp(), 0))
+                .effectiveMaxDepartmentCount(max(packages.effectiveMaxDepartmentCount(), 0))
                 .build();
     }
 
