@@ -2,6 +2,7 @@ package com.mryqr.core.tenant.command;
 
 import com.mryqr.common.ratelimit.MryRateLimiter;
 import com.mryqr.core.common.domain.user.User;
+import com.mryqr.core.plan.domain.Plan;
 import com.mryqr.core.plan.domain.PlanType;
 import com.mryqr.core.tenant.domain.Tenant;
 import com.mryqr.core.tenant.domain.TenantDomainService;
@@ -118,11 +119,20 @@ public class TenantCommandService {
     }
 
     @Transactional
-    public void updateTenantPlan(String tenantId, PlanType planType, Instant expire, User user) {
+    public void updateTenantPlanType(String tenantId, PlanType planType, Instant expire, User user) {
+        mryRateLimiter.applyFor(tenantId, "Tenant:UpdatePlanType", 5);
+
+        Tenant tenant = tenantRepository.byId(tenantId);
+        tenant.updatePlanType(planType, expire, user);
+        tenantRepository.save(tenant);
+    }
+
+    @Transactional
+    public void updateTenantPlan(String tenantId, Plan plan, User user) {
         mryRateLimiter.applyFor(tenantId, "Tenant:UpdatePlan", 5);
 
         Tenant tenant = tenantRepository.byId(tenantId);
-        tenant.updatePlan(planType, expire, user);
+        tenant.updatePlan(plan, user);
         tenantRepository.save(tenant);
     }
 

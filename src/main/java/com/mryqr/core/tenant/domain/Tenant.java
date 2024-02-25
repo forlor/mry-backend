@@ -198,10 +198,16 @@ public class Tenant extends AggregateRoot {
         addOpsLog("更新发票抬头", user);
     }
 
-    public void updatePlan(PlanType planType, Instant expireAt, User user) {
-        this.packages.updatePlan(planType, expireAt);
+    public void updatePlanType(PlanType planType, Instant expireAt, User user) {
+        this.packages.updatePlanType(planType, expireAt);
         raiseEvent(new TenantPlanUpdatedEvent(this.getId(), planType, user));
         addOpsLog("设置套餐为" + planType.getName() + "(" + ofInstant(expireAt, systemDefault()) + "过期)", user);
+    }
+
+    public void updatePlan(Plan plan, User user) {
+        this.packages.updatePlan(plan);
+        raiseEvent(new TenantPlanUpdatedEvent(this.getId(), plan.getType(), user));
+        addOpsLog("更新套餐", user);
     }
 
     public Plan effectivePlan() {
@@ -258,7 +264,7 @@ public class Tenant extends AggregateRoot {
             case PLAN -> {
                 if (Objects.equals(order.getPlanVersion(), packages.planVersion())) {
                     PlanOrderDetail detail = (PlanOrderDetail) orderDetail;
-                    this.packages.updatePlan(detail.getPlanType(), packages.calculateExpirationFor(detail.getYearDuration()));
+                    this.packages.updatePlanType(detail.getPlanType(), packages.calculateExpirationFor(detail.getYearDuration()));
                 } else {
                     log.warn("Order[{}] plan version not match with tenant[{}] current plan version, skip applying order.",
                             order.getId(), this.getId());

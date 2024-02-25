@@ -111,13 +111,13 @@ public class SetupApi {
     }
 
     public void updateTenantPackages(Tenant tenant, PlanType planType, Instant expireAt) {
-        tenant.updatePlan(planType, expireAt, NOUSER);
+        tenant.updatePlanType(planType, expireAt, NOUSER);
         tenantRepository.save(tenant);
     }
 
     public void updateTenantPackages(String tenantId, PlanType planType) {
         Tenant tenant = tenantRepository.byId(tenantId);
-        tenant.updatePlan(planType, now().plus(365, DAYS), NOUSER);
+        tenant.updatePlanType(planType, now().plus(365, DAYS), NOUSER);
         tenantRepository.save(tenant);
     }
 }

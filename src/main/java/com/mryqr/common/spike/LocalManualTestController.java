@@ -54,7 +54,7 @@ public class LocalManualTestController {
     @GetMapping(value = "/change-plan-to/{planType}")
     public String changePlan(@PathVariable("planType") String planType, @AuthenticationPrincipal User user) {
         Tenant tenant = tenantRepository.byId(user.getTenantId());
-        tenant.updatePlan(valueOf(planType.toUpperCase()), now().plus(365, DAYS), NOUSER);
+        tenant.updatePlanType(valueOf(planType.toUpperCase()), now().plus(365, DAYS), NOUSER);
         tenantRepository.save(tenant);
         return "Success!";
     }
@@ -63,7 +63,7 @@ public class LocalManualTestController {
     public String expirePlan(@AuthenticationPrincipal User user) {
         Tenant tenant = tenantRepository.byId(user.getTenantId());
         Plan plan = tenant.currentPlan();
-        tenant.updatePlan(plan.getType(), now().minus(30, DAYS), NOUSER);
+        tenant.updatePlanType(plan.getType(), now().minus(30, DAYS), NOUSER);
         tenantRepository.save(tenant);
         return "Success!";
     }

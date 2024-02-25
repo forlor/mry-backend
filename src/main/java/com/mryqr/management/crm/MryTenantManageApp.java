@@ -149,6 +149,19 @@ public class MryTenantManageApp {
     public static final String PACKAGE_SETTING_EXPIRE_DATE_CONTROL_ID = "c_1hkQA8H85m4jb9B4myJzrB";
     public static final String PACKAGE_SETTING_NOTE_CONTROL_ID = "c_SaFM2HRFR3iGB8N0tDpPyA";
 
+    public static final String LIMIT_SETTING_PAGE_ID = "p_qficmmMxEtojgY63YfQEDi";
+    public static final String LIMIT_SETTING_APP_COUNT_CONTROL_ID = "c_sxvakgU6FDwtXaARvRCd9h";
+    public static final String LIMIT_SETTING_QR_COUNT_CONTROL_ID = "c_aUNDaVSR4QhJbsxCS6WVkc";
+    public static final String LIMIT_SETTING_SUBMISSION_COUNT_CONTROL_ID = "c_3tFHzzxcELfaEZRFQy5faV";
+    public static final String LIMIT_SETTING_MEMBER_COUNT_CONTROL_ID = "c_4sk1gihGWCeTBDCtXjWS9y";
+    public static final String LIMIT_SETTING_STORAGE_COUNT_CONTROL_ID = "c_nuvyvVMt2tZeD2MvXkL6sT";
+    public static final String LIMIT_SETTING_SMS_COUNT_CONTROL_ID = "c_qkLkpzvDFUbQMwudDvMzy2";
+    public static final String LIMIT_SETTING_GROUP_PER_APP_COUNT_CONTROL_ID = "c_juLPVybyAh6FLdHDrg5Ga6";
+    public static final String LIMIT_SETTING_DEPARTMENT_COUNT_CONTROL_ID = "c_pJP21zyknit8EMwCWb7cve";
+    public static final String LIMIT_SETTING_DEVELOPER_CONTROL_ID = "c_oGbUQXb2oMptUvYsfTQe8f";
+    public static final String LIMIT_SETTING_DEVELOPER_ACTIVATED_ID = "gwYVvtXcaR1qe2av6D7sdL";
+    public static final String LIMIT_SETTING_DEVELOPER_DEACTIVATED_ID = "1YKmm2h7yPxLDoMTSsCgdh";
+
     public static final String TRIGGER_SYNC_PAGE_ID = "p_qugvuvgCyYbLboY94eJhey";
     public static final String TRIGGER_SYNC_NOTE_CONTROL_ID = "c_hu6G8Lk3Ei1M8FmbQHF8Xy";
 
@@ -554,12 +567,167 @@ public class MryTenantManageApp {
         Page packageSettingPage = Page.builder()
                 .id(PACKAGE_SETTING_PAGE_ID)
                 .header(defaultPageHeaderBuilder().type(INHERITED).build())
-                .title(defaultPageTitleBuilder().text("设置套餐").build())
+                .title(defaultPageTitleBuilder().text("设置套餐")
+                        .description("设置套餐和设置额度均会影响租户的功能额度，以最后设置的那个为准。")
+                        .build())
                 .controls(List.of(packageSettingControl, packageSettingExpireDateControl, packageSettingNoteControl))
                 .submitButton(defaultSubmitButton())
                 .setting(defaultPageSettingBuilder()
                         .submitType(NEW)
                         .pageName("设置套餐")
+                        .permission(CAN_MANAGE_APP)
+                        .submissionWebhookTypes(List.of(ON_CREATE))
+                        .build())
+                .build();
+
+        FNumberInputControl appCountControl = FNumberInputControl.builder()
+                .type(NUMBER_INPUT)
+                .id(LIMIT_SETTING_APP_COUNT_CONTROL_ID)
+                .name("应用额度")
+                .nameSetting(defaultControlNameSetting())
+                .descriptionStyle(defaultControlDescriptionStyle())
+                .styleSetting(defaultControlStyleSetting())
+                .fillableSetting(defaultControlFillableSetting())
+                .permission(CAN_MANAGE_APP)
+                .precision(0)
+                .minMaxSetting(minMaxOf(1, 1000))
+                .autoCalculateSetting(emptyAutoCalculateSetting())
+                .suffix("个")
+                .build();
+
+        FNumberInputControl qrCountControl = FNumberInputControl.builder()
+                .type(NUMBER_INPUT)
+                .id(LIMIT_SETTING_QR_COUNT_CONTROL_ID)
+                .name("实例额度")
+                .nameSetting(defaultControlNameSetting())
+                .descriptionStyle(defaultControlDescriptionStyle())
+                .styleSetting(defaultControlStyleSetting())
+                .fillableSetting(defaultControlFillableSetting())
+                .permission(CAN_MANAGE_APP)
+                .precision(0)
+                .minMaxSetting(minMaxOf(1, 10000000))
+                .autoCalculateSetting(emptyAutoCalculateSetting())
+                .suffix("个")
+                .build();
+
+        FNumberInputControl submissionCountControl = FNumberInputControl.builder()
+                .type(NUMBER_INPUT)
+                .id(LIMIT_SETTING_SUBMISSION_COUNT_CONTROL_ID)
+                .name("提交量额度")
+                .nameSetting(defaultControlNameSetting())
+                .descriptionStyle(defaultControlDescriptionStyle())
+                .styleSetting(defaultControlStyleSetting())
+                .fillableSetting(defaultControlFillableSetting())
+                .permission(CAN_MANAGE_APP)
+                .precision(0)
+                .minMaxSetting(minMaxOf(1, 10000000))
+                .autoCalculateSetting(emptyAutoCalculateSetting())
+                .suffix("份")
+                .build();
+
+        FNumberInputControl memberCountControl = FNumberInputControl.builder()
+                .type(NUMBER_INPUT)
+                .id(LIMIT_SETTING_MEMBER_COUNT_CONTROL_ID)
+                .name("成员额度")
+                .nameSetting(defaultControlNameSetting())
+                .descriptionStyle(defaultControlDescriptionStyle())
+                .styleSetting(defaultControlStyleSetting())
+                .fillableSetting(defaultControlFillableSetting())
+                .permission(CAN_MANAGE_APP)
+                .precision(0)
+                .minMaxSetting(minMaxOf(1, 10000))
+                .autoCalculateSetting(emptyAutoCalculateSetting())
+                .suffix("名")
+                .build();
+
+        FNumberInputControl storageCountControl = FNumberInputControl.builder()
+                .type(NUMBER_INPUT)
+                .id(LIMIT_SETTING_STORAGE_COUNT_CONTROL_ID)
+                .name("存储空间额度")
+                .nameSetting(defaultControlNameSetting())
+                .descriptionStyle(defaultControlDescriptionStyle())
+                .styleSetting(defaultControlStyleSetting())
+                .fillableSetting(defaultControlFillableSetting())
+                .permission(CAN_MANAGE_APP)
+                .precision(0)
+                .minMaxSetting(minMaxOf(1, 1000))
+                .autoCalculateSetting(emptyAutoCalculateSetting())
+                .suffix("G")
+                .build();
+
+        FNumberInputControl smsCountControl = FNumberInputControl.builder()
+                .type(NUMBER_INPUT)
+                .id(LIMIT_SETTING_SMS_COUNT_CONTROL_ID)
+                .name("短信额度")
+                .nameSetting(defaultControlNameSetting())
+                .descriptionStyle(defaultControlDescriptionStyle())
+                .styleSetting(defaultControlStyleSetting())
+                .fillableSetting(defaultControlFillableSetting())
+                .permission(CAN_MANAGE_APP)
+                .precision(0)
+                .minMaxSetting(minMaxOf(1, 1000))
+                .autoCalculateSetting(emptyAutoCalculateSetting())
+                .suffix("条/月")
+                .build();
+
+        FNumberInputControl groupCountControl = FNumberInputControl.builder()
+                .type(NUMBER_INPUT)
+                .id(LIMIT_SETTING_GROUP_PER_APP_COUNT_CONTROL_ID)
+                .name("分组额度")
+                .nameSetting(defaultControlNameSetting())
+                .descriptionStyle(defaultControlDescriptionStyle())
+                .styleSetting(defaultControlStyleSetting())
+                .fillableSetting(defaultControlFillableSetting())
+                .permission(CAN_MANAGE_APP)
+                .precision(0)
+                .minMaxSetting(minMaxOf(1, 1000))
+                .autoCalculateSetting(emptyAutoCalculateSetting())
+                .suffix("个/应用")
+                .build();
+
+        FNumberInputControl departmentCountControl = FNumberInputControl.builder()
+                .type(NUMBER_INPUT)
+                .id(LIMIT_SETTING_DEPARTMENT_COUNT_CONTROL_ID)
+                .name("部门额度")
+                .nameSetting(defaultControlNameSetting())
+                .descriptionStyle(defaultControlDescriptionStyle())
+                .styleSetting(defaultControlStyleSetting())
+                .fillableSetting(defaultControlFillableSetting())
+                .permission(CAN_MANAGE_APP)
+                .precision(0)
+                .minMaxSetting(minMaxOf(1, 1000))
+                .autoCalculateSetting(emptyAutoCalculateSetting())
+                .suffix("个")
+                .build();
+
+        FRadioControl developerEnabledControl = FRadioControl.builder()
+                .type(RADIO)
+                .id(LIMIT_SETTING_DEVELOPER_CONTROL_ID)
+                .name("开发者功能")
+                .nameSetting(defaultControlNameSetting())
+                .descriptionStyle(defaultControlDescriptionStyle())
+                .styleSetting(defaultControlStyleSetting())
+                .fillableSetting(defaultControlFillableSetting())
+                .permission(CAN_MANAGE_APP)
+                .options(List.of(
+                        TextOption.builder().id(LIMIT_SETTING_DEVELOPER_ACTIVATED_ID).name("开启").build(),
+                        TextOption.builder().id(LIMIT_SETTING_DEVELOPER_DEACTIVATED_ID).name("关闭").build()
+                ))
+                .build();
+
+        Page limitSettingPage = Page.builder()
+                .id(LIMIT_SETTING_PAGE_ID)
+                .header(defaultPageHeaderBuilder().type(INHERITED).build())
+                .title(defaultPageTitleBuilder().text("设置额度")
+                        .description("设置额度和设置套餐均会影响租户的功能额度，以最后设置的那个为准。")
+                        .build())
+                .controls(List.of(appCountControl, qrCountControl, submissionCountControl,
+                        memberCountControl, storageCountControl, smsCountControl,
+                        groupCountControl, departmentCountControl, developerEnabledControl))
+                .submitButton(defaultSubmitButton())
+                .setting(defaultPageSettingBuilder()
+                        .submitType(NEW)
+                        .pageName("设置额度")
                         .permission(CAN_MANAGE_APP)
                         .submissionWebhookTypes(List.of(ON_CREATE))
                         .build())
@@ -971,6 +1139,12 @@ public class MryTenantManageApp {
                                 .build(),
                         PageLink.builder()
                                 .id(newShortUuid())
+                                .name("设置额度")
+                                .type(PAGE)
+                                .pageId(limitSettingPage.getId())
+                                .build(),
+                        PageLink.builder()
+                                .id(newShortUuid())
                                 .name("同步后台数据")
                                 .type(PAGE)
                                 .pageId(triggerSyncPage.getId())
@@ -1014,7 +1188,7 @@ public class MryTenantManageApp {
                         .appManualEnabled(true)
                         .build())
                 .appTopBar(defaultAppTopBar())
-                .pages(List.of(homePage, syncPage, communicationPage, statusSettingPage, packageSettingPage,
+                .pages(List.of(homePage, syncPage, communicationPage, statusSettingPage, packageSettingPage, limitSettingPage,
                         triggerSyncPage, clearSubdomainPage, updateSubdomainReadyPage, clearCachePage, sendEventPage))
                 .menu(menu)
                 .attributes(List.of(currentPackageAttribute, packageExpireAttribute, packageStatusAttribute, tenantRegisterTimeAttribute,

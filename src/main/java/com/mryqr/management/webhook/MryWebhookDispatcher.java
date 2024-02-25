@@ -28,8 +28,8 @@ public class MryWebhookDispatcher {
         if (Objects.equals(payload.getAppId(), MRY_TENANT_MANAGE_APP_ID)) {
             if (payload instanceof BaseSubmissionWebhookPayload thePayload) {
                 tenantWebhookHandlers.stream()
-                        .filter(orderWebhookHandler -> orderWebhookHandler.canHandle(thePayload))
-                        .findFirst().ifPresent(orderWebhookHandler -> orderWebhookHandler.handle(thePayload));
+                        .filter(handler -> handler.canHandle(thePayload))
+                        .findFirst().ifPresent(handler -> handler.handle(thePayload));
             }
             return;
         }
@@ -37,8 +37,8 @@ public class MryWebhookDispatcher {
         if (Objects.equals(payload.getAppId(), ORDER_APP_ID)) {
             if (payload instanceof BaseSubmissionWebhookPayload thePayload) {
                 orderWebhookHandlers.stream()
-                        .filter(orderWebhookHandler -> orderWebhookHandler.canHandle(thePayload))
-                        .findFirst().ifPresent(orderWebhookHandler -> orderWebhookHandler.handle(thePayload));
+                        .filter(handler -> handler.canHandle(thePayload))
+                        .findFirst().ifPresent(handler -> handler.handle(thePayload));
             }
             return;
         }
@@ -46,8 +46,8 @@ public class MryWebhookDispatcher {
         if (Objects.equals(payload.getAppId(), MRY_OFFENCE_APP_ID)) {
             if (payload instanceof BaseSubmissionWebhookPayload thePayload) {
                 offenceWebhookHandlers.stream()
-                        .filter(orderWebhookHandler -> orderWebhookHandler.canHandle(thePayload))
-                        .findFirst().ifPresent(orderWebhookHandler -> orderWebhookHandler.handle(thePayload));
+                        .filter(handler -> handler.canHandle(thePayload))
+                        .findFirst().ifPresent(handler -> handler.handle(thePayload));
             }
         }
     }

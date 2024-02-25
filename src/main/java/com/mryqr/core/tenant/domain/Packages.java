@@ -53,7 +53,7 @@ public final class Packages {
                 .build();
     }
 
-    public void updatePlan(PlanType planType, Instant expireAt) {
+    public void updatePlanType(PlanType planType, Instant expireAt) {
         requireNonNull(planType, "Plan type cannot be null.");
         requireNonNull(expireAt, "Expire at cannot be null.");
 
@@ -61,6 +61,14 @@ public final class Packages {
         this.expireAt = expireAt;
         this.planVersion = newShortUuid();
     }
+
+    public void updatePlan(Plan plan) {
+        requireNonNull(plan, "Plan cannot be null.");
+
+        this.plan = plan;
+        this.planVersion = newShortUuid();
+    }
+
 
     public void increaseExtraMemberCount(int amount) {
         this.extraMemberCount = this.extraMemberCount + amount;

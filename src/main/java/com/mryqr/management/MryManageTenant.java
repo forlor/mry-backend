@@ -43,7 +43,7 @@ public class MryManageTenant {
         CreateTenantResult result = tenantFactory.create("码如云自运营", ADMIN_INIT_MOBILE, null, ADMIN_INIT_PASSWORD, user);
         memberRepository.save(result.getMember());
         Tenant tenant = result.getTenant();
-        tenant.updatePlan(FLAGSHIP, LocalDate.of(2099, 12, 31).atStartOfDay(systemDefault()).toInstant(), user);
+        tenant.updatePlanType(FLAGSHIP, LocalDate.of(2099, 12, 31).atStartOfDay(systemDefault()).toInstant(), user);
         tenantRepository.save(tenant);
         departmentHierarchyRepository.save(result.getDepartmentHierarchy());
 

@@ -70,7 +70,7 @@ public class SetTenantPackagesWebhookHandler implements TenantWebhookHandler {
         if (planType != null && expireDate != null) {
             LocalDate localDate = LocalDate.parse(expireDate);
             Instant expire = localDate.atStartOfDay(systemDefault()).toInstant();
-            tenantCommandService.updateTenantPlan(tenantId, planType, expire, NOUSER);
+            tenantCommandService.updateTenantPlanType(tenantId, planType, expire, NOUSER);
             log.info("Set tenant[{}] packages to {} and expire at {} with note[{}].", tenantId, planType, expire, note);
         }
     }
