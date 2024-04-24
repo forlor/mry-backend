@@ -14,7 +14,7 @@ public class TaskExecutorConfiguration {
     public TaskExecutor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(5);
-        executor.setMaxPoolSize(100);
+        executor.setMaxPoolSize(50);
         executor.setQueueCapacity(500);
         executor.initialize();
         executor.setThreadNamePrefix("mry-common-");
@@ -25,7 +25,7 @@ public class TaskExecutorConfiguration {
     public TaskExecutor qrAccessCountTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(5);
-        executor.setMaxPoolSize(100);
+        executor.setMaxPoolSize(50);
         executor.setQueueCapacity(500);
         executor.initialize();
         executor.setThreadNamePrefix("access-qr-");
@@ -35,8 +35,8 @@ public class TaskExecutorConfiguration {
     @Bean
     public TaskExecutor consumeDomainEventTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(5);
-        executor.setMaxPoolSize(100);
+        executor.setCorePoolSize(10);
+        executor.setMaxPoolSize(50);
         executor.setQueueCapacity(500);
         executor.initialize();
         executor.setThreadNamePrefix("mry-event-");
@@ -47,7 +47,7 @@ public class TaskExecutorConfiguration {
     public TaskExecutor sendWebhookTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(2);
-        executor.setMaxPoolSize(100);
+        executor.setMaxPoolSize(50);
         executor.setQueueCapacity(500);
         executor.initialize();
         executor.setThreadNamePrefix("mry-webhook-");
@@ -58,7 +58,7 @@ public class TaskExecutorConfiguration {
     public TaskExecutor sendNotificationTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(2);
-        executor.setMaxPoolSize(100);
+        executor.setMaxPoolSize(50);
         executor.setQueueCapacity(500);
         executor.initialize();
         executor.setThreadNamePrefix("mry-notify-");

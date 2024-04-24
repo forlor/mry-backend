@@ -31,6 +31,8 @@ import static org.springframework.data.redis.connection.stream.StreamOffset.crea
 @DependsOn("redisStreamInitializer")
 @RequiredArgsConstructor
 public class RedisEventContainerConfiguration {
+    // 要求所有节点的部署在10分钟内完成，否则可能导致多个节点重复消费消息
+    private static final LockConfiguration LOCK_CONFIGURATION = new LockConfiguration(now(), "domainEventsListenerContainer", ofMinutes(60), ofMinutes(10));
     private final MryRedisProperties mryRedisProperties;
     private final DomainEventListener domainEventListener;
 
@@ -41,6 +43,8 @@ public class RedisEventContainerConfiguration {
 
     @Bean
     public StreamMessageListenerContainer<String, ObjectRecord<String, String>> domainEventContainer(RedisConnectionFactory factory) throws Throwable {
+        log.info("Start create redis stream listener container for consuming domain events.");
+
         var options = StreamMessageListenerContainerOptions
                 .builder()
                 .batchSize(20)
@@ -52,20 +56,19 @@ public class RedisEventContainerConfiguration {
         var container = StreamMessageListenerContainer.create(factory, options);
 
         LockingTaskExecutor.TaskResult<Integer> taskResult = lockingTaskExecutor.executeWithLock(() -> {
-                    mryRedisProperties.allDomainEventStreams().forEach(stream -> {
-                        container.receiveAutoAck(
-                                from(REDIS_DOMAIN_EVENT_CONSUMER_GROUP, "DomainEventRedisStreamConsumer-" + stream),
-                                create(stream, lastConsumed()),
-                                domainEventListener);
-                    });
-                    return 0;
-                },
-                // 当前节点顺序部署，而不是并行部署，需要使用分布式锁，并且至少锁10分钟(ofMinutes(10))
-                // 也即表示多个节点顺序部署时，应该在10分钟之内可以部署完，否则下一次重新部署时可能上一次的锁都还没有释放，导致事件无法被消费
-                new LockConfiguration(now(), "domain-event-listener-container", ofMinutes(30), ofMinutes(10)));
+            mryRedisProperties.allDomainEventStreams().forEach(stream -> {
+                container.receiveAutoAck(
+                        from(REDIS_DOMAIN_EVENT_CONSUMER_GROUP, "DomainEventRedisStreamConsumer-" + stream),
+                        create(stream, lastConsumed()),
+                        domainEventListener);
+            });
+            return 0;
+        }, LOCK_CONFIGURATION);
 
-        if (!taskResult.wasExecuted()) {
-            log.info("Not consuming domain events from redis stream due to been locked.");
+        if (taskResult.wasExecuted()) {
+            log.info("Start consuming domain events from redis stream.");
+        } else {
+            log.info("Skip consuming domain events from redis stream due to been locked.");
         }
 
         container.start();
