@@ -13,7 +13,7 @@ public class TaskExecutorConfiguration {
     @Primary
     public TaskExecutor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(10);
+        executor.setCorePoolSize(5);
         executor.setMaxPoolSize(100);
         executor.setQueueCapacity(500);
         executor.initialize();
@@ -24,7 +24,7 @@ public class TaskExecutorConfiguration {
     @Bean
     public TaskExecutor qrAccessCountTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(10);
+        executor.setCorePoolSize(5);
         executor.setMaxPoolSize(100);
         executor.setQueueCapacity(500);
         executor.initialize();
@@ -35,7 +35,7 @@ public class TaskExecutorConfiguration {
     @Bean
     public TaskExecutor consumeDomainEventTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(10);
+        executor.setCorePoolSize(5);
         executor.setMaxPoolSize(100);
         executor.setQueueCapacity(500);
         executor.initialize();
@@ -46,7 +46,7 @@ public class TaskExecutorConfiguration {
     @Bean
     public TaskExecutor sendWebhookTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(10);
+        executor.setCorePoolSize(2);
         executor.setMaxPoolSize(100);
         executor.setQueueCapacity(500);
         executor.initialize();
@@ -57,7 +57,7 @@ public class TaskExecutorConfiguration {
     @Bean
     public TaskExecutor sendNotificationTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(10);
+        executor.setCorePoolSize(2);
         executor.setMaxPoolSize(100);
         executor.setQueueCapacity(500);
         executor.initialize();

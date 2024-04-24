@@ -25,7 +25,7 @@ public class RedisDomainEventSender {
             String eventString = mryObjectMapper.writeValueAsString(event);
             ObjectRecord<String, String> record = StreamRecords.newRecord()
                     .ofObject(eventString)
-                    .withStreamKey(mryRedisProperties.getDomainEventStream());
+                    .withStreamKey(mryRedisProperties.domainEventStreamForTenant(event.getArTenantId()));
             stringRedisTemplate.opsForStream().add(record);
             domainEventDao.successPublish(event);
         } catch (Throwable t) {

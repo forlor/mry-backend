@@ -8,9 +8,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StreamOperations;
 import org.springframework.stereotype.Component;
 
-import static com.mryqr.core.common.utils.MryConstants.REDIS_DOMAIN_EVENT_CONSUMER_GROUP;
-import static com.mryqr.core.common.utils.MryConstants.REDIS_NOTIFICATION_CONSUMER_GROUP;
-import static com.mryqr.core.common.utils.MryConstants.REDIS_WEBHOOK_CONSUMER_GROUP;
+import static com.mryqr.core.common.utils.MryConstants.*;
 
 @Slf4j
 @Component("redisStreamInitializer")
@@ -26,7 +24,7 @@ public class RedisStreamInitializer {
 
     private void ensureConsumerGroupsExist() {
         StreamOperations<String, Object, Object> operations = redisTemplate.opsForStream();
-        tryCreateConsumerGroup(operations, mryRedisProperties.getDomainEventStream(), REDIS_DOMAIN_EVENT_CONSUMER_GROUP);
+        mryRedisProperties.allDomainEventStreams().forEach(stream -> tryCreateConsumerGroup(operations, stream, REDIS_DOMAIN_EVENT_CONSUMER_GROUP));
         tryCreateConsumerGroup(operations, mryRedisProperties.getWebhookStream(), REDIS_WEBHOOK_CONSUMER_GROUP);
         tryCreateConsumerGroup(operations, mryRedisProperties.getNotificationStream(), REDIS_NOTIFICATION_CONSUMER_GROUP);
     }
@@ -34,11 +32,11 @@ public class RedisStreamInitializer {
     private void tryCreateConsumerGroup(StreamOperations<String, Object, Object> operations, String streamKey, String group) {
         try {
             operations.createGroup(streamKey, group);
-            log.info("Created redis consumer group[{}].", group);
+            log.info("Created redis consumer group[{}] for stream[{}].", group, streamKey);
         } catch (RedisSystemException ex) {
             var cause = ex.getRootCause();
             if (cause != null && RedisBusyException.class.equals(cause.getClass())) {
-                log.warn("Redis stream group[{}] already exists, skip.", group);
+                log.warn("Redis group[{}] for stream[{}] already exists, skip create group.", group, streamKey);
             } else {
                 throw ex;
             }

@@ -87,10 +87,12 @@ public class DomainEventJobs {
     @Retryable(backoff = @Backoff(delay = 1000, multiplier = 3))
     public void removeOldDomainEventsFromRedis(int count, boolean approximate) {
         log.info("Start remove old domain events from redis stream.");
-        Long domainEventCount = stringRedisTemplate.opsForStream().trim(mryRedisProperties.getDomainEventStream(), count, approximate);
-        if (domainEventCount != null) {
-            log.info("Removed {} old domains events from redis stream.", domainEventCount);
-        }
+        mryRedisProperties.allDomainEventStreams().forEach(stream -> {
+            Long domainEventCount = stringRedisTemplate.opsForStream().trim(stream, count, approximate);
+            if (domainEventCount != null) {
+                log.info("Removed {} old domains events from redis stream[{}].", domainEventCount, stream);
+            }
+        });
     }
 
     @Retryable(backoff = @Backoff(delay = 1000, multiplier = 3))
