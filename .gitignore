@@ -20,4 +20,6 @@ tmp.txt
 deploy/
 prod-deploy.sh
 src/main/resources/application-prod.yml
+src/main/resources/application-prod1.yml
+src/main/resources/application-prod2.yml
 src/main/resources/logback-spring.xml
