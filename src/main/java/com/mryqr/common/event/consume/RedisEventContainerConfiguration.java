@@ -31,8 +31,8 @@ import static org.springframework.data.redis.connection.stream.StreamOffset.crea
 @DependsOn("redisStreamInitializer")
 @RequiredArgsConstructor
 public class RedisEventContainerConfiguration {
-    // 要求所有节点的部署在10分钟内完成，否则可能导致多个节点重复消费消息
-    private static final LockConfiguration LOCK_CONFIGURATION = new LockConfiguration(now(), "domainEventsListenerContainer", ofMinutes(60), ofMinutes(10));
+    // 要求所有节点的部署在5分钟内完成，否则可能导致多个节点重复消费消息
+    private static final LockConfiguration LOCK_CONFIGURATION = new LockConfiguration(now(), "domainEventsListenerContainer", ofMinutes(30), ofMinutes(5));
     private final MryRedisProperties mryRedisProperties;
     private final DomainEventListener domainEventListener;
 
