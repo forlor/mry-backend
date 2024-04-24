@@ -20,8 +20,6 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 @ConfigurationProperties("mry.redis")
 public class MryRedisProperties {
 
-    private boolean domainEventStreamEnabled;
-
     @NotBlank
     private String domainEventStreamPrefix;
 

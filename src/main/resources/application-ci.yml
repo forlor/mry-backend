@@ -66,7 +66,6 @@ mry:
     webhookUserName: tFi7iVdAQwSQDnrhDGp7Vg
     webhookPassword: Dup7ANsTR0q6bIpbDTCl5w
   redis:
-    domainEventStreamEnabled: true
     domainEventStreamPrefix: DomainEvent.CI
     domainEventStreamCount: 10
     notificationStream: Notification.CI
