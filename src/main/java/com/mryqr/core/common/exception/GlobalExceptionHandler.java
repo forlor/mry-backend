@@ -22,9 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.google.common.collect.ImmutableMap.toImmutableMap;
-import static com.mryqr.core.common.exception.MryException.accessDeniedException;
-import static com.mryqr.core.common.exception.MryException.authenticationException;
-import static com.mryqr.core.common.exception.MryException.requestValidationException;
+import static com.mryqr.core.common.exception.MryException.*;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.springframework.http.HttpStatus.valueOf;
 
@@ -43,7 +41,7 @@ public class GlobalExceptionHandler {
         if (WARN_CODES.contains(ex.getCode().getStatus())) {
             log.warn("Mry warning: {}", ex.getMessage());
         } else {
-            log.error("Mry error: {}", ex.getMessage());
+            log.error("Mry error: {}", ex.getMessage(), ex);
         }
 
         return createErrorResponse(ex, request.getRequestURI());
