@@ -41,7 +41,7 @@ public class GlobalExceptionHandler {
         if (WARN_CODES.contains(ex.getCode().getStatus())) {
             log.warn("Mry warning: {}", ex.getMessage());
         } else {
-            log.error("Mry error: {}", ex.getMessage(), ex);
+            log.error("Mry error: {}", ex.getMessage());
         }
 
         return createErrorResponse(ex, request.getRequestURI());
