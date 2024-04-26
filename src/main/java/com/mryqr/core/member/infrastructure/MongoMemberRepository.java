@@ -246,7 +246,7 @@ public class MongoMemberRepository extends MongoBaseRepository<Member> implement
         }
         return cachedMemberRepository.cachedTenantAllMembers(tenantId).stream()
                 .filter(member -> memberIds.contains(member.getId()))
-                .filter(member -> isNotBlank(member.getMobileWxOpenId()))
+                .filter(member -> isNotBlank(member.getEmail()))
                 .collect(toImmutableMap(TenantCachedMember::getId, TenantCachedMember::getEmail));
     }
 
