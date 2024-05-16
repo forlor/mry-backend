@@ -8,7 +8,7 @@ import com.mryqr.core.assignment.job.ExpireAssignmentsJob;
 import com.mryqr.core.assignment.job.NearExpireAssignmentsJob;
 import com.mryqr.core.qr.job.RemoveQrRangedAttributeValuesForAllTenantsJob;
 import com.mryqr.core.tenant.job.CountStorageForAllTenantJob;
-import com.mryqr.management.operation.OperationalStatisticsJob;
+import com.mryqr.management.operation.MrySelfOperationJob;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.javacrumbs.shedlock.spring.annotation.EnableSchedulerLock;
@@ -21,10 +21,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
-import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.THIS_MONTH;
-import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.THIS_SEASON;
-import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.THIS_WEEK;
-import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.THIS_YEAR;
+import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.*;
 import static java.time.LocalDateTime.now;
 
 @Slf4j
@@ -39,7 +36,7 @@ public class SchedulingConfiguration {
     private final WxJsSdkService wxJsSdkService;
     private final DomainEventJobs domainEventJobs;
     private final CountStorageForAllTenantJob countStorageForAllTenantJob;
-    private final OperationalStatisticsJob operationalStatisticsJob;
+    private final MrySelfOperationJob mrySelfOperationJob;
     private final CreateAssignmentsJob createAssignmentsJob;
     private final ExpireAssignmentsJob expireAssignmentsJob;
     private final NearExpireAssignmentsJob nearExpireAssignmentsJob;
@@ -161,7 +158,7 @@ public class SchedulingConfiguration {
     @Scheduled(cron = "0 10 6 * * ?")
     @SchedulerLock(name = "operationalStatistics", lockAtMostFor = "30m", lockAtLeastFor = "1m")
     public void operationalStatistics() {
-        operationalStatisticsJob.run();
+        mrySelfOperationJob.run();
     }
 
     @Bean

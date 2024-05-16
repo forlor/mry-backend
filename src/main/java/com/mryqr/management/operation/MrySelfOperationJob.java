@@ -23,6 +23,8 @@ import com.mryqr.core.submission.domain.answer.Answer;
 import com.mryqr.core.submission.domain.answer.date.DateAnswer;
 import com.mryqr.core.submission.domain.answer.numberinput.NumberInputAnswer;
 import com.mryqr.core.tenant.domain.Tenant;
+import com.mryqr.core.tenant.domain.TenantRepository;
+import com.mryqr.core.tenant.domain.task.SyncTenantToManagedQrTask;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -36,22 +38,7 @@ import java.util.Set;
 
 import static com.google.common.collect.ImmutableMap.toImmutableMap;
 import static com.mryqr.core.common.domain.user.User.NOUSER;
-import static com.mryqr.management.operation.MryOperationApp.DELTA_APP_CONTROL_ID;
-import static com.mryqr.management.operation.MryOperationApp.DELTA_DATE_CONTROL_ID;
-import static com.mryqr.management.operation.MryOperationApp.DELTA_MEMBER_CONTROL_ID;
-import static com.mryqr.management.operation.MryOperationApp.DELTA_QR_CONTROL_ID;
-import static com.mryqr.management.operation.MryOperationApp.DELTA_SUBMISSION_CONTROL_ID;
-import static com.mryqr.management.operation.MryOperationApp.DELTA_TENANT_CONTROL_ID;
-import static com.mryqr.management.operation.MryOperationApp.MRY_OPERATION_APP_ID;
-import static com.mryqr.management.operation.MryOperationApp.MRY_OPERATION_GROUP_ID;
-import static com.mryqr.management.operation.MryOperationApp.OPERATION_QR_CUSTOM_ID;
-import static com.mryqr.management.operation.MryOperationApp.SYNC_DELTA_PAGE_ID;
-import static com.mryqr.management.operation.MryOperationApp.SYNC_TOTAL_PAGE_ID;
-import static com.mryqr.management.operation.MryOperationApp.TOTAL_APP_CONTROL_ID;
-import static com.mryqr.management.operation.MryOperationApp.TOTAL_MEMBER_CONTROL_ID;
-import static com.mryqr.management.operation.MryOperationApp.TOTAL_QR_CONTROL_ID;
-import static com.mryqr.management.operation.MryOperationApp.TOTAL_SUBMISSION_CONTROL_ID;
-import static com.mryqr.management.operation.MryOperationApp.TOTAL_TENANT_CONTROL_ID;
+import static com.mryqr.management.operation.MryOperationApp.*;
 import static java.time.ZoneId.systemDefault;
 import static java.util.Objects.requireNonNull;
 import static java.util.function.Function.identity;
@@ -60,7 +47,7 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class OperationalStatisticsJob {
+public class MrySelfOperationJob {
     private final MongoTemplate mongoTemplate;
     private final QrRepository qrRepository;
     private final AppRepository appRepository;
@@ -69,16 +56,31 @@ public class OperationalStatisticsJob {
     private final SubmissionFactory submissionFactory;
     private final SubmissionRepository submissionRepository;
     private final GroupRepository groupRepository;
+    private final TenantRepository tenantRepository;
+    private final SyncTenantToManagedQrTask syncTenantToManagedQrTask;
 
     public void run() {
+        syncOverallStatistics();
+        syncAllTenantsToManagedQrs();
+    }
+
+    private void syncOverallStatistics() {
         if (!qrRepository.existsByCustomId(OPERATION_QR_CUSTOM_ID, MRY_OPERATION_APP_ID)) {
             createStatisticsQr();
         }
 
         qrRepository.byCustomIdOptional(MRY_OPERATION_APP_ID, OPERATION_QR_CUSTOM_ID).ifPresent(qr -> {
             App app = appRepository.cachedById(MRY_OPERATION_APP_ID);
-            deltaStatistics(qr, app);
-            totalStatistics(qr, app);
+            try {
+                deltaStatistics(qr, app);
+            } catch (Throwable t) {
+                log.error("Error happened while do delta statistics.", t);
+            }
+            try {
+                totalStatistics(qr, app);
+            } catch (Throwable t) {
+                log.error("Error happened while do total statistics.", t);
+            }
         });
     }
 
@@ -195,5 +197,16 @@ public class OperationalStatisticsJob {
                 .build();
 
         return Set.of(totalTenantAnswer, totalAppAnswer, totalQrAnswer, totalSubmissionAnswer, totalMemberAnswer);
+    }
+
+    private void syncAllTenantsToManagedQrs() {
+        tenantRepository.allTenantIds().forEach(tenantId -> {
+            try {
+                syncTenantToManagedQrTask.sync(tenantId);
+                log.info("Synced tenant[{}] information to managed qr.", tenantId);
+            } catch (Throwable t) {
+                log.error("Error happened while sync tenant[{}] to managed qr.", tenantId, t);
+            }
+        });
     }
 }

@@ -3,27 +3,24 @@ package com.mryqr.core.job;
 import com.mryqr.BaseApiTest;
 import com.mryqr.core.qr.domain.QR;
 import com.mryqr.core.submission.domain.Submission;
-import com.mryqr.management.operation.OperationalStatisticsJob;
+import com.mryqr.management.operation.MrySelfOperationJob;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 
-import static com.mryqr.management.operation.MryOperationApp.MRY_OPERATION_APP_ID;
-import static com.mryqr.management.operation.MryOperationApp.OPERATION_QR_CUSTOM_ID;
-import static com.mryqr.management.operation.MryOperationApp.SYNC_DELTA_PAGE_ID;
-import static com.mryqr.management.operation.MryOperationApp.SYNC_TOTAL_PAGE_ID;
+import static com.mryqr.management.operation.MryOperationApp.*;
 import static java.time.ZoneId.systemDefault;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class MryOperationStatisticsJobTest extends BaseApiTest {
     @Autowired
-    private OperationalStatisticsJob operationalStatisticsJob;
+    private MrySelfOperationJob mrySelfOperationJob;
 
     @Test
     public void should_run() {
-        operationalStatisticsJob.run();
+        mrySelfOperationJob.run();
         QR qr = qrRepository.byCustomId(MRY_OPERATION_APP_ID, OPERATION_QR_CUSTOM_ID);
         assertNotNull(qr);
 
