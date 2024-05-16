@@ -7,7 +7,6 @@ import com.mryqr.core.plate.domain.Plate;
 import com.mryqr.core.plate.domain.PlateRepository;
 import com.mryqr.core.plate.domain.event.PlateBoundEvent;
 import com.mryqr.core.platebatch.domain.task.CountUsedPlatesForPlateBatchTask;
-import com.mryqr.core.platebatch.domain.task.DeltaCountUsedPlatesForPlateBatchTask;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -20,7 +19,6 @@ import static com.mryqr.core.common.domain.event.DomainEventType.PLATE_BOUND;
 public class PlateBoundEventHandler implements DomainEventHandler {
     private final PlateRepository plateRepository;
     private final CountUsedPlatesForPlateBatchTask countUsedPlatesForPlateBatchTask;
-    private final DeltaCountUsedPlatesForPlateBatchTask deltaCountUsedPlatesForPlateBatchTask;
 
     @Override
     public boolean canHandle(DomainEvent domainEvent) {
@@ -32,12 +30,6 @@ public class PlateBoundEventHandler implements DomainEventHandler {
         PlateBoundEvent event = (PlateBoundEvent) domainEvent;
         plateRepository.byIdOptional(event.getPlateId())
                 .filter(Plate::isBatched)
-                .ifPresent(plate -> {
-                    if (event.isNotConsumedBefore()) {
-                        taskRunner.run(() -> deltaCountUsedPlatesForPlateBatchTask.delta(plate.getBatchId(), 1));
-                    } else {
-                        taskRunner.run(() -> countUsedPlatesForPlateBatchTask.run(plate.getBatchId()));
-                    }
-                });
+                .ifPresent(plate -> taskRunner.run(() -> countUsedPlatesForPlateBatchTask.run(plate.getBatchId())));
     }
 }

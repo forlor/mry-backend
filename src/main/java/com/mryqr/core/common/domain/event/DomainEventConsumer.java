@@ -24,7 +24,8 @@ public class DomainEventConsumer {
     //所有能处理事件的handler依次处理，全部处理成功记录消费成功，否则记录为消费失败；
     //消费失败后，兜底机制将重新发送事件，重新发送最多不超过3次
     public void consume(DomainEvent domainEvent) {
-        log.info("Start consume domain event[{}:{}].", domainEvent.getType(), domainEvent.getId());
+        log.info("Start consume domain event[{}:{}:{}:{}].",
+                domainEvent.getType(), domainEvent.getId(), domainEvent.getArId(), domainEvent.getArTenantId());
 
         boolean hasError = false;
         MryTaskRunner taskRunner = newTaskRunner();

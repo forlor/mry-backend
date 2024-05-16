@@ -7,7 +7,6 @@ import com.mryqr.core.common.domain.event.DomainEventHandler;
 import com.mryqr.core.common.utils.MryTaskRunner;
 import com.mryqr.core.group.domain.event.GroupDeletedEvent;
 import com.mryqr.core.group.domain.task.CountGroupForAppTask;
-import com.mryqr.core.group.domain.task.DeltaCountGroupForAppTask;
 import com.mryqr.core.plate.domain.PlateRepository;
 import com.mryqr.core.plate.domain.task.UnbindAllPlatesUnderGroupTask;
 import com.mryqr.core.platebatch.domain.task.CountUsedPlatesForPlateBatchTask;
@@ -34,7 +33,6 @@ public class GroupDeletedEventHandler implements DomainEventHandler {
     private final CountGroupForAppTask countGroupForAppTask;
     private final PlateRepository plateRepository;
     private final CountSubmissionForAppTask countSubmissionForAppTask;
-    private final DeltaCountGroupForAppTask deltaCountGroupForAppTask;
     private final RemoveGroupFromAllAssignmentPlansTask removeGroupFromAllAssignmentPlansTask;
     private final RemoveAllAssignmentsUnderGroupTask removeAllAssignmentsUnderGroupTask;
     private final CountQrForAppTask countQrForAppTask;
@@ -55,13 +53,7 @@ public class GroupDeletedEventHandler implements DomainEventHandler {
         taskRunner.run(() -> unbindAllPlatesUnderGroupTask.run(groupId));
         taskRunner.run(() -> removeGroupFromAllAssignmentPlansTask.run(groupId, event.getAppId()));
         taskRunner.run(() -> removeAllAssignmentsUnderGroupTask.run(groupId));
-
-        if (event.isNotConsumedBefore()) {
-            taskRunner.run(() -> deltaCountGroupForAppTask.delta(event.getAppId(), event.getArTenantId(), -1));
-        } else {
-            taskRunner.run(() -> countGroupForAppTask.run(event.getAppId(), event.getArTenantId()));
-        }
-
+        taskRunner.run(() -> countGroupForAppTask.run(event.getAppId(), event.getArTenantId()));
         taskRunner.run(() -> countQrForAppTask.run(event.getAppId(), event.getArTenantId()));
         taskRunner.run(() -> countSubmissionForAppTask.run(event.getAppId(), event.getArTenantId()));
         affectedPlateBatchIds.forEach(plateBatchId -> taskRunner.run(() -> countUsedPlatesForPlateBatchTask.run(plateBatchId)));

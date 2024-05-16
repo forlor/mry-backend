@@ -5,7 +5,6 @@ import com.mryqr.core.common.domain.event.DomainEventHandler;
 import com.mryqr.core.common.utils.MryTaskRunner;
 import com.mryqr.core.member.domain.event.MemberCreatedEvent;
 import com.mryqr.core.member.domain.task.CountMembersForTenantTask;
-import com.mryqr.core.member.domain.task.DeltaCountMemberForTenantTask;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -17,7 +16,6 @@ import static com.mryqr.core.common.domain.event.DomainEventType.MEMBER_CREATED;
 @RequiredArgsConstructor
 public class MemberCreatedEventHandler implements DomainEventHandler {
     private final CountMembersForTenantTask countMembersForTenantTask;
-    private final DeltaCountMemberForTenantTask deltaCountMemberForTenantTask;
 
     @Override
     public boolean canHandle(DomainEvent domainEvent) {
@@ -27,12 +25,7 @@ public class MemberCreatedEventHandler implements DomainEventHandler {
     @Override
     public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
         MemberCreatedEvent event = (MemberCreatedEvent) domainEvent;
-
-        if (event.isNotConsumedBefore()) {
-            taskRunner.run(() -> deltaCountMemberForTenantTask.delta(event.getArTenantId(), 1));
-        } else {
-            taskRunner.run(() -> countMembersForTenantTask.run(event.getArTenantId()));
-        }
+        taskRunner.run(() -> countMembersForTenantTask.run(event.getArTenantId()));
     }
 
 }

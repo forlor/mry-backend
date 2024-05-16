@@ -14,7 +14,6 @@ import com.mryqr.core.platebatch.domain.task.RemoveAllPlateBatchesUnderAppTask;
 import com.mryqr.core.qr.domain.task.RemoveAllQrsUnderAppTask;
 import com.mryqr.core.submission.domain.task.RemoveAllSubmissionsForAppTask;
 import com.mryqr.core.tenant.domain.task.CountAppForTenantTask;
-import com.mryqr.core.tenant.domain.task.DeltaCountAppForTenantTask;
 import com.mryqr.core.tenant.domain.task.RemoveAppUsageFromTenantTask;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +35,6 @@ public class AppDeletedEventHandler implements DomainEventHandler {
     private final RemoveAllAssignmentsUnderAppTask removeAllAssignmentsUnderAppTask;
     private final RemoveAllGroupsForAppTask removeAllGroupsForAppTask;
     private final RemoveGroupHierarchyForAppTask removeGroupHierarchyForAppTask;
-    private final DeltaCountAppForTenantTask deltaCountAppForTenantTask;
     private final CountAppForTenantTask countAppForTenantTask;
 
     @Override
@@ -58,12 +56,7 @@ public class AppDeletedEventHandler implements DomainEventHandler {
         taskRunner.run(() -> removeManualForAppTask.run(appId));
         taskRunner.run(() -> removeAllAssignmentPlansUnderAppTask.run(appId));
         taskRunner.run(() -> removeAllAssignmentsUnderAppTask.run(appId));
-
-        if (event.isNotConsumedBefore()) {
-            taskRunner.run(() -> deltaCountAppForTenantTask.delta(event.getArTenantId(), -1));
-        } else {
-            taskRunner.run(() -> countAppForTenantTask.run(event.getArTenantId()));
-        }
+        taskRunner.run(() -> countAppForTenantTask.run(event.getArTenantId()));
     }
 
 }
