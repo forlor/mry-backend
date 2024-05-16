@@ -9,7 +9,7 @@ import com.mryqr.core.common.utils.MryTaskRunner;
 import com.mryqr.core.department.domain.task.RemoveManagerFromAllDepartmentsTask;
 import com.mryqr.core.group.domain.task.RemoveMemberFromAllGroupsTask;
 import com.mryqr.core.member.domain.event.MemberDeletedEvent;
-import com.mryqr.core.member.domain.task.CountMembersForTenantTask;
+import com.mryqr.core.tenant.domain.task.CountMembersForTenantTask;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
