@@ -3,13 +3,7 @@ package com.mryqr.core.tenant.domain.task;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.app.domain.page.Page;
-import com.mryqr.core.app.domain.page.control.Control;
-import com.mryqr.core.app.domain.page.control.FDateControl;
-import com.mryqr.core.app.domain.page.control.FDropdownControl;
-import com.mryqr.core.app.domain.page.control.FIdentifierControl;
-import com.mryqr.core.app.domain.page.control.FItemStatusControl;
-import com.mryqr.core.app.domain.page.control.FMultiLineTextControl;
-import com.mryqr.core.app.domain.page.control.FNumberInputControl;
+import com.mryqr.core.app.domain.page.control.*;
 import com.mryqr.core.common.domain.AggregateRoot;
 import com.mryqr.core.common.domain.invoice.InvoiceTitle;
 import com.mryqr.core.common.domain.permission.Permission;
@@ -58,31 +52,7 @@ import static com.mryqr.core.common.domain.user.User.NOUSER;
 import static com.mryqr.core.common.utils.MryConstants.MRY_DATE_FORMATTER;
 import static com.mryqr.core.common.utils.MryConstants.MRY_DATE_TIME_FORMATTER;
 import static com.mryqr.management.common.PlanTypeControl.PLAN_TO_OPTION_MAP;
-import static com.mryqr.management.crm.MryTenantManageApp.ACTIVE_STATUS_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.ACTIVE_STATUS_NO_OPTION_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.ACTIVE_STATUS_YES_OPTION_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.ADMINS_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.APP_USAGE_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.CURRENT_PACKAGE_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.EXPIRE_DATE_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.INVOICE_TITLE_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.MEMBER_USAGE_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.MRY_TENANT_MANAGE_APP_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.MRY_TENANT_MANAGE_GROUP_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.OPS_LOG_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.PACKAGES_STATUS_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.PACKAGES_STATUS_EXPIRED_OPTION_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.PACKAGES_STATUS_EXPIRING_OPTION_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.PACKAGES_STATUS_NORMAL_OPTION_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.PACKAGE_DESCRIPTION_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.QR_USAGE_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.RECENT_ACTIVE_DATE_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.REGISTER_DATE_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.SMS_USAGE_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.STORAGE_USAGE_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.SUBDOMAIN_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.SUBMISSION_USAGE_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.TENANT_SYNC_PAGE_ID;
+import static com.mryqr.management.crm.MryTenantManageApp.*;
 import static java.lang.Long.compare;
 import static java.math.BigDecimal.valueOf;
 import static java.math.RoundingMode.HALF_UP;
@@ -198,8 +168,10 @@ public class SyncTenantToManagedQrTask implements RepeatableTask {
                 .build();
 
         FNumberInputControl appUsageControl = (FNumberInputControl) allControls.get(APP_USAGE_CONTROL_ID);
+        long appCount = appRepository.countApp(tenant.getId());
+        double appUsage = Math.min(appCount, MAX_NUMBER);
         NumberInputAnswer appUsageAnswer = NumberInputAnswer.answerBuilder(requireNonNull(appUsageControl))
-                .number((double) tenant.getResourceUsage().getAppCount())
+                .number(appUsage)
                 .build();
 
         FNumberInputControl qrUsageControl = (FNumberInputControl) allControls.get(QR_USAGE_CONTROL_ID);
@@ -217,8 +189,10 @@ public class SyncTenantToManagedQrTask implements RepeatableTask {
                 .build();
 
         FNumberInputControl memberUsageControl = (FNumberInputControl) allControls.get(MEMBER_USAGE_CONTROL_ID);
+        long memberCount = memberRepository.countMembersUnderTenant(tenant.getId());
+        double memberUsage = Math.min(memberCount, MAX_NUMBER);
         NumberInputAnswer memberUsageAnswer = NumberInputAnswer.answerBuilder(requireNonNull(memberUsageControl))
-                .number((double) tenant.getResourceUsage().getMemberCount())
+                .number(memberUsage)
                 .build();
 
         FNumberInputControl storageUsageControl = (FNumberInputControl) allControls.get(STORAGE_USAGE_CONTROL_ID);
@@ -248,11 +222,11 @@ public class SyncTenantToManagedQrTask implements RepeatableTask {
         InvoiceTitle invoiceTitle = tenant.getInvoiceTitle();
         if (invoiceTitle != null) {
             invoiceTitleContent = "发票抬头：" + invoiceTitle.getTitle() + "\n" +
-                    "信用代码：" + invoiceTitle.getUnifiedCode() + "\n" +
-                    "开户银行：" + invoiceTitle.getBankName() + "\n" +
-                    "银行账号：" + invoiceTitle.getBankAccount() + "\n" +
-                    "注册地址：" + invoiceTitle.getAddress() + "\n" +
-                    "注册电话：" + invoiceTitle.getPhone() + "\n";
+                                  "信用代码：" + invoiceTitle.getUnifiedCode() + "\n" +
+                                  "开户银行：" + invoiceTitle.getBankName() + "\n" +
+                                  "银行账号：" + invoiceTitle.getBankAccount() + "\n" +
+                                  "注册地址：" + invoiceTitle.getAddress() + "\n" +
+                                  "注册电话：" + invoiceTitle.getPhone() + "\n";
         }
         MultiLineTextAnswer invoiceTitleAnswer = MultiLineTextAnswer.answerBuilder(requireNonNull(invoiceTitleControl))
                 .content(invoiceTitleContent)
@@ -262,31 +236,31 @@ public class SyncTenantToManagedQrTask implements RepeatableTask {
         Packages packages = tenant.getPackages();
         Plan currentPlan = packages.currentPlan();
         String packageDetailContent = "租户ID：" + tenant.getId() + "\n" +
-                "套餐名称：" + currentPlan.getType().getName() + "\n" +
-                "过期时间：" + MRY_DATE_TIME_FORMATTER.format(packages.expireAt()) + "\n" +
-                "应用数量：" + currentPlan.getMaxAppCount() + " 个\n" +
-                "提交总量：" + currentPlan.getMaxSubmissionCount() + "份\n" +
-                "实例总量：" + currentPlan.getMaxQrCount() + "个\n" +
-                "部门总量：" + currentPlan.getMaxDepartmentCount() + "个\n" +
-                "单应用分组数量：" + currentPlan.getMaxGroupCountPerApp() + "个\n" +
-                "成员数量：" + currentPlan.getMaxMemberCount() + " 名\n" +
-                "存储容量：" + currentPlan.getMaxStorage() + " G\n" +
-                "每月短信量：" + currentPlan.getMaxSmsCountPerMonth() + " 条\n" +
-                "增购成员数量：" + packages.getExtraMemberCount() + " 名\n" +
-                "增购存储空间：" + packages.getExtraStorage() + " G\n" +
-                "剩余增购短信量：" + packages.getExtraRemainSmsCount() + " 条\n" +
-                "允许自定义子域名：" + currentPlan.isCustomSubdomainAllowed() + "\n" +
-                "域名是否就绪：" + tenant.isSubdomainReady() + "\n" +
-                "是否允许自定义logo：" + currentPlan.isCustomLogoAllowed() + "\n" +
-                "去除页面底部码如云标识：" + currentPlan.isHideBottomMryLogo() + "\n" +
-                "去除广告：" + currentPlan.isHideAds() + "\n" +
-                "可上传音视频：" + currentPlan.isVideoAudioAllowed() + "\n" +
-                "开发功能：" + currentPlan.isDeveloperAllowed() + "\n" +
-                "报表功能：" + currentPlan.isReportingAllowed() + "\n" +
-                "提交提醒功能：" + currentPlan.isSubmissionNotifyAllowed() + "\n" +
-                "批量导入实例数据：" + currentPlan.isBatchImportQrAllowed() + "\n" +
-                "批量导入成员数据：" + currentPlan.isBatchImportMemberAllowed() + "\n" +
-                "提交审批：" + currentPlan.isSubmissionApprovalAllowed() + "\n";
+                                      "套餐名称：" + currentPlan.getType().getName() + "\n" +
+                                      "过期时间：" + MRY_DATE_TIME_FORMATTER.format(packages.expireAt()) + "\n" +
+                                      "应用数量：" + currentPlan.getMaxAppCount() + " 个\n" +
+                                      "提交总量：" + currentPlan.getMaxSubmissionCount() + "份\n" +
+                                      "实例总量：" + currentPlan.getMaxQrCount() + "个\n" +
+                                      "部门总量：" + currentPlan.getMaxDepartmentCount() + "个\n" +
+                                      "单应用分组数量：" + currentPlan.getMaxGroupCountPerApp() + "个\n" +
+                                      "成员数量：" + currentPlan.getMaxMemberCount() + " 名\n" +
+                                      "存储容量：" + currentPlan.getMaxStorage() + " G\n" +
+                                      "每月短信量：" + currentPlan.getMaxSmsCountPerMonth() + " 条\n" +
+                                      "增购成员数量：" + packages.getExtraMemberCount() + " 名\n" +
+                                      "增购存储空间：" + packages.getExtraStorage() + " G\n" +
+                                      "剩余增购短信量：" + packages.getExtraRemainSmsCount() + " 条\n" +
+                                      "允许自定义子域名：" + currentPlan.isCustomSubdomainAllowed() + "\n" +
+                                      "域名是否就绪：" + tenant.isSubdomainReady() + "\n" +
+                                      "是否允许自定义logo：" + currentPlan.isCustomLogoAllowed() + "\n" +
+                                      "去除页面底部码如云标识：" + currentPlan.isHideBottomMryLogo() + "\n" +
+                                      "去除广告：" + currentPlan.isHideAds() + "\n" +
+                                      "可上传音视频：" + currentPlan.isVideoAudioAllowed() + "\n" +
+                                      "开发功能：" + currentPlan.isDeveloperAllowed() + "\n" +
+                                      "报表功能：" + currentPlan.isReportingAllowed() + "\n" +
+                                      "提交提醒功能：" + currentPlan.isSubmissionNotifyAllowed() + "\n" +
+                                      "批量导入实例数据：" + currentPlan.isBatchImportQrAllowed() + "\n" +
+                                      "批量导入成员数据：" + currentPlan.isBatchImportMemberAllowed() + "\n" +
+                                      "提交审批：" + currentPlan.isSubmissionApprovalAllowed() + "\n";
 
         MultiLineTextAnswer packageDetailAnswer = MultiLineTextAnswer.answerBuilder(requireNonNull(packageDetailControl))
                 .content(packageDetailContent)
@@ -306,8 +280,8 @@ public class SyncTenantToManagedQrTask implements RepeatableTask {
 
         MultiLineTextAnswer adminsAnswer = MultiLineTextAnswer.answerBuilder(requireNonNull(adminsControl))
                 .content(adminsContent +
-                        "\n\n----------------------\n所有邮箱：" + emails +
-                        "\n注册人：" + tenant.getCreator())
+                         "\n\n----------------------\n所有邮箱：" + emails +
+                         "\n注册人：" + tenant.getCreator())
                 .build();
 
         FMultiLineTextControl opslogControl = (FMultiLineTextControl) allControls.get(OPS_LOG_CONTROL_ID);
