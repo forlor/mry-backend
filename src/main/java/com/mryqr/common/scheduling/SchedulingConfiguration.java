@@ -1,8 +1,6 @@
 package com.mryqr.common.scheduling;
 
 import com.mryqr.common.event.DomainEventJobs;
-import com.mryqr.common.wx.accesstoken.WxAccessTokenService;
-import com.mryqr.common.wx.jssdk.WxJsSdkService;
 import com.mryqr.core.assignment.job.CreateAssignmentsJob;
 import com.mryqr.core.assignment.job.ExpireAssignmentsJob;
 import com.mryqr.core.assignment.job.NearExpireAssignmentsJob;
@@ -32,8 +30,6 @@ import static java.time.LocalDateTime.now;
 @EnableSchedulerLock(defaultLockAtMostFor = "60m", defaultLockAtLeastFor = "10s")
 public class SchedulingConfiguration {
     private final RemoveQrRangedAttributeValuesForAllTenantsJob removeQrRangedAttributeValuesForAllTenantsJob;
-    private final WxAccessTokenService wxAccessTokenService;
-    private final WxJsSdkService wxJsSdkService;
     private final DomainEventJobs domainEventJobs;
     private final CountStorageForAllTenantJob countStorageForAllTenantJob;
     private final MrySelfOperationJob mrySelfOperationJob;
@@ -49,23 +45,6 @@ public class SchedulingConfiguration {
         int count = domainEventJobs.publishDomainEvents();
         if (count > 0) {
             log.info("House keep published {} domain events.", count);
-        }
-    }
-
-    //刷新微信access token，每29分钟运行
-    @Scheduled(cron = "0 */29 * * * ?")
-    @SchedulerLock(name = "refreshWxTokens", lockAtMostFor = "2m", lockAtLeastFor = "1m")
-    public void refreshWxTokens() {
-        try {
-            wxAccessTokenService.refreshAccessToken();
-        } catch (Throwable t) {
-            log.error("Failed to refresh wx access token.", t);
-        }
-
-        try {
-            wxJsSdkService.refreshJsApiTicket();
-        } catch (Throwable t) {
-            log.error("Failed to refresh wx JS API ticket.", t);
         }
     }
 
@@ -88,13 +67,6 @@ public class SchedulingConfiguration {
     @SchedulerLock(name = "nearExpireAssignments", lockAtMostFor = "40m", lockAtLeastFor = "1m")
     public void nearExpireAssignments() {
         nearExpireAssignmentsJob.run(now());
-    }
-
-    //统计每个tenant的存储用量，每4个小时的第15分钟运行一次
-    @Scheduled(cron = "0 15 */4 * * ?")
-    @SchedulerLock(name = "countStoragesForAllTenants", lockAtMostFor = "60m", lockAtLeastFor = "1m")
-    public void countStoragesForAllTenants() {
-        countStorageForAllTenantJob.run();
     }
 
     //每周开始重置所有按周统计的属性，每周一1点10分运行
@@ -125,33 +97,12 @@ public class SchedulingConfiguration {
         removeQrRangedAttributeValuesForAllTenantsJob.run(THIS_YEAR);
     }
 
-    //删除老的领域事件，包含mongo和redis，每天5点10分运行
-    @Scheduled(cron = "0 10 5 * * ?")
-    @SchedulerLock(name = "removeOldEvents", lockAtMostFor = "30m", lockAtLeastFor = "1m")
-    public void removeOldEvents() {
-        try {
-            domainEventJobs.removeOldDomainEventsFromMongo(100);
-        } catch (Throwable t) {
-            log.error("Failed remove old domain events from mongo.", t);
-        }
 
-        try {
-            domainEventJobs.removeOldDomainEventsFromRedis(1000000, true);
-        } catch (Throwable t) {
-            log.error("Failed remove old domain events from redis.", t);
-        }
-
-        try {
-            domainEventJobs.removeOldWebhookEventsFromRedis(1000000, true);
-        } catch (Throwable t) {
-            log.error("Failed remove old webhook events from redis.", t);
-        }
-
-        try {
-            domainEventJobs.removeOldNotificationEventsFromRedis(500000, true);
-        } catch (Throwable t) {
-            log.error("Failed remove old notification events from redis.", t);
-        }
+    //每周开始重置所有按周统计的属性，每周一1点2分运行
+    @Scheduled(cron = "0 2 1 ? * MON")
+    @SchedulerLock(name = "countStoragesForAllTenants", lockAtMostFor = "60m", lockAtLeastFor = "1m")
+    public void countStoragesForAllTenants() {
+        countStorageForAllTenantJob.run();
     }
 
     //统计整体运营数据，每天6点10分运行
