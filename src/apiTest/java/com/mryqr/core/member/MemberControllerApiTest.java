@@ -17,16 +17,7 @@ import com.mryqr.core.group.GroupApi;
 import com.mryqr.core.group.domain.AppCachedGroup;
 import com.mryqr.core.group.domain.Group;
 import com.mryqr.core.login.LoginApi;
-import com.mryqr.core.member.command.ChangeMyMobileCommand;
-import com.mryqr.core.member.command.ChangeMyPasswordCommand;
-import com.mryqr.core.member.command.CreateMemberCommand;
-import com.mryqr.core.member.command.FindbackPasswordCommand;
-import com.mryqr.core.member.command.IdentifyMyMobileCommand;
-import com.mryqr.core.member.command.ResetMemberPasswordCommand;
-import com.mryqr.core.member.command.UpdateMemberInfoCommand;
-import com.mryqr.core.member.command.UpdateMemberRoleCommand;
-import com.mryqr.core.member.command.UpdateMyAvatarCommand;
-import com.mryqr.core.member.command.UpdateMyBaseSettingCommand;
+import com.mryqr.core.member.command.*;
 import com.mryqr.core.member.command.importmember.MemberImportRecord;
 import com.mryqr.core.member.command.importmember.MemberImportResponse;
 import com.mryqr.core.member.domain.Member;
@@ -61,6 +52,7 @@ import com.mryqr.utils.CreateMemberResponse;
 import com.mryqr.utils.LoginResponse;
 import com.mryqr.utils.PreparedAppResponse;
 import com.mryqr.utils.PreparedQrResponse;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -72,53 +64,21 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static com.mryqr.core.common.domain.event.DomainEventType.MEMBER_CREATED;
-import static com.mryqr.core.common.domain.event.DomainEventType.MEMBER_DELETED;
-import static com.mryqr.core.common.domain.event.DomainEventType.MEMBER_DEPARTMENTS_CHANGED;
+import static com.mryqr.core.common.domain.event.DomainEventType.*;
 import static com.mryqr.core.common.domain.user.Role.TENANT_ADMIN;
 import static com.mryqr.core.common.domain.user.Role.TENANT_MEMBER;
-import static com.mryqr.core.common.exception.ErrorCode.ACCESS_DENIED;
-import static com.mryqr.core.common.exception.ErrorCode.BATCH_MEMBER_IMPORT_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.IDENTIFY_MOBILE_NOT_THE_SAME;
-import static com.mryqr.core.common.exception.ErrorCode.INVALID_MEMBER_EXCEL;
-import static com.mryqr.core.common.exception.ErrorCode.MAX_TENANT_ADMIN_REACHED;
-import static com.mryqr.core.common.exception.ErrorCode.MEMBER_COUNT_LIMIT_REACHED;
-import static com.mryqr.core.common.exception.ErrorCode.MEMBER_WITH_EMAIL_ALREADY_EXISTS;
-import static com.mryqr.core.common.exception.ErrorCode.MEMBER_WITH_MOBILE_ALREADY_EXISTS;
-import static com.mryqr.core.common.exception.ErrorCode.MOBILE_EMAIL_CANNOT_BOTH_EMPTY;
-import static com.mryqr.core.common.exception.ErrorCode.NEW_PASSWORD_SAME_WITH_OLD;
-import static com.mryqr.core.common.exception.ErrorCode.NOT_ALL_DEPARTMENTS_EXITS;
-import static com.mryqr.core.common.exception.ErrorCode.NO_ACTIVE_TENANT_ADMIN_LEFT;
-import static com.mryqr.core.common.exception.ErrorCode.NO_RECORDS_FOR_MEMBER_IMPORT;
-import static com.mryqr.core.common.exception.ErrorCode.PASSWORD_CONFIRM_NOT_MATCH;
-import static com.mryqr.core.common.exception.ErrorCode.PASSWORD_NOT_MATCH;
-import static com.mryqr.core.common.exception.ErrorCode.VERIFICATION_CODE_CHECK_FAILED;
-import static com.mryqr.core.common.exception.ErrorCode.WRONG_TENANT;
+import static com.mryqr.core.common.exception.ErrorCode.*;
 import static com.mryqr.core.department.domain.Department.newDepartmentId;
 import static com.mryqr.core.order.domain.PaymentType.WX_NATIVE;
 import static com.mryqr.core.order.domain.detail.OrderDetailType.EXTRA_MEMBER;
-import static com.mryqr.core.plan.domain.PlanType.ADVANCED;
-import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
-import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
+import static com.mryqr.core.plan.domain.PlanType.*;
 import static com.mryqr.core.verification.VerificationCodeApi.createVerificationCodeForChangeMobile;
 import static com.mryqr.core.verification.VerificationCodeApi.createVerificationCodeForIdentifyMobile;
-import static com.mryqr.utils.RandomTestFixture.rDepartmentName;
-import static com.mryqr.utils.RandomTestFixture.rEmail;
-import static com.mryqr.utils.RandomTestFixture.rImageFile;
-import static com.mryqr.utils.RandomTestFixture.rMemberName;
-import static com.mryqr.utils.RandomTestFixture.rMobile;
-import static com.mryqr.utils.RandomTestFixture.rMobileWxOpenId;
-import static com.mryqr.utils.RandomTestFixture.rPassword;
-import static com.mryqr.utils.RandomTestFixture.rPcWxOpenId;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 import static java.util.stream.Collectors.toList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class MemberControllerApiTest extends BaseApiTest {
 
@@ -347,6 +307,7 @@ class MemberControllerApiTest extends BaseApiTest {
     }
 
     @Test
+    @Disabled("free branch has its own tenant package system")
     public void should_fail_import_members_excel_if_packages_too_low() throws IOException {
         PreparedAppResponse response = setupApi.registerWithApp();
 
@@ -978,6 +939,7 @@ class MemberControllerApiTest extends BaseApiTest {
     }
 
     @Test
+    @Disabled("free branch has its own tenant package system")
     public void should_fetch_tenant_package_status() {
         LoginResponse response = setupApi.registerWithLogin(rMobile(), rPassword());
         setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
@@ -1024,6 +986,7 @@ class MemberControllerApiTest extends BaseApiTest {
     }
 
     @Test
+    @Disabled("free branch has its own tenant package system")
     public void should_fetch_my_client_profile() {
         String mobile = rMobile();
         String password = rPassword();

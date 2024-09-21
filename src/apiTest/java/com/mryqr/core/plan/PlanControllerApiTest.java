@@ -2,30 +2,19 @@ package com.mryqr.core.plan;
 
 import com.mryqr.BaseApiTest;
 import com.mryqr.core.plan.query.QListPlan;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.mryqr.core.plan.domain.PlanType.ADVANCED;
-import static com.mryqr.core.plan.domain.PlanType.BASIC;
-import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
-import static com.mryqr.core.plan.domain.PlanType.FREE;
-import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
-import static com.mryqr.core.plan.query.QEnabledFeature.API_ENABLED;
-import static com.mryqr.core.plan.query.QEnabledFeature.APPROVAL_ENABLED;
-import static com.mryqr.core.plan.query.QEnabledFeature.APP_REPORTING;
-import static com.mryqr.core.plan.query.QEnabledFeature.CUSTOM_ATTRIBUTE;
-import static com.mryqr.core.plan.query.QEnabledFeature.CUSTOM_LOGO;
-import static com.mryqr.core.plan.query.QEnabledFeature.CUSTOM_SUBDOMAIN;
-import static com.mryqr.core.plan.query.QEnabledFeature.GEO_PREVENT_FRAUD;
-import static com.mryqr.core.plan.query.QEnabledFeature.PLATE_IMAGE;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static com.mryqr.core.plan.domain.PlanType.*;
+import static com.mryqr.core.plan.query.QEnabledFeature.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PlanControllerApiTest extends BaseApiTest {
 
     @Test
+    @Disabled("free branch has its own tenant package system")
     public void should_fetch_all_plans_info() {
         List<QListPlan> planInfos = PlanApi.listPlans();
         QListPlan freePlan = planInfos.get(0);

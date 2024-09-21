@@ -160,13 +160,15 @@ public class EmailNotificationService implements NotificationService {
                     String approveResult = approval.isPassed() ? page.approvalPassText() : page.approvalNotPassText();
                     String content = "<div style=\"margin-bottom:12px;\">您提交的表单已经完成审批，详情如下：</div>\n" +
                                      "<div style=\"padding-left:16px;margin-bottom:5px;\">\n" +
-                                     "  <span style=\"color:#909399;padding-right:10px;\">" + app.instanceDesignation() + "名称：</span>" + qrName + "\n" +
+                                     "  <span style=\"color:#909399;padding-right:10px;\">" + app.instanceDesignation() +
+                                     "名称：</span>" + qrName + "\n" +
                                      "</div>\n" +
                                      "<div style=\"padding-left:16px;margin-bottom:5px;\">\n" +
                                      "  <span style=\"color:#909399;padding-right:10px;\">页面名称：</span>" + page.pageName() + "\n" +
                                      "</div>\n" +
                                      "<div style=\"padding-left:16px;margin-bottom:5px;\">\n" +
-                                     "  <span style=\"color:#909399;padding-right:10px;\">所在" + app.groupDesignation() + "：</span>" + group.getName() + "\n" +
+                                     "  <span style=\"color:#909399;padding-right:10px;\">所在" + app.groupDesignation() +
+                                     "：</span>" + group.getName() + "\n" +
                                      "</div>\n" +
                                      "<div style=\"padding-left:16px;margin-bottom:5px;\">\n" +
                                      "  <span style=\"color:#909399;padding-right:10px;\">所在应用：</span>" + app.getName() + "\n" +

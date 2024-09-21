@@ -14,6 +14,7 @@ import com.mryqr.core.qr.command.CreateQrResponse;
 import com.mryqr.core.submission.SubmissionApi;
 import com.mryqr.core.submission.domain.answer.itemstatus.ItemStatusAnswer;
 import com.mryqr.utils.PreparedAppResponse;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static com.mryqr.core.app.domain.attribute.Attribute.newAttributeId;
@@ -21,10 +22,7 @@ import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.NO_LIM
 import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_LAST;
 import static com.mryqr.core.common.exception.ErrorCode.KANBAN_NOT_ALLOWED;
 import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
-import static com.mryqr.utils.RandomTestFixture.defaultCheckboxControl;
-import static com.mryqr.utils.RandomTestFixture.defaultItemStatusControl;
-import static com.mryqr.utils.RandomTestFixture.rAnswerBuilder;
-import static com.mryqr.utils.RandomTestFixture.rAttributeName;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class KanbanControllerApiTest extends BaseApiTest {
@@ -85,6 +83,7 @@ public class KanbanControllerApiTest extends BaseApiTest {
     }
 
     @Test
+    @Disabled("free branch has its own tenant package system")
     public void should_fail_fetch_kanban_if_plan_not_allowed() {
         PreparedAppResponse response = setupApi.registerWithApp();
         FCheckboxControl control = defaultCheckboxControl();

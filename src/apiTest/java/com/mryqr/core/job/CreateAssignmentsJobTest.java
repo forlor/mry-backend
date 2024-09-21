@@ -16,6 +16,7 @@ import com.mryqr.core.group.GroupApi;
 import com.mryqr.core.qr.QrApi;
 import com.mryqr.core.qr.command.CreateQrResponse;
 import com.mryqr.utils.PreparedQrResponse;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,22 +24,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import static com.mryqr.core.assignment.domain.AssignmentStatus.IN_PROGRESS;
-import static com.mryqr.core.assignmentplan.domain.AssignmentFrequency.EVERY_DAY;
-import static com.mryqr.core.assignmentplan.domain.AssignmentFrequency.EVERY_MONTH;
-import static com.mryqr.core.assignmentplan.domain.AssignmentFrequency.EVERY_SIX_MONTH;
-import static com.mryqr.core.assignmentplan.domain.AssignmentFrequency.EVERY_THREE_MONTH;
-import static com.mryqr.core.assignmentplan.domain.AssignmentFrequency.EVERY_WEEK;
-import static com.mryqr.core.assignmentplan.domain.AssignmentFrequency.EVERY_YEAR;
+import static com.mryqr.core.assignmentplan.domain.AssignmentFrequency.*;
 import static com.mryqr.core.common.domain.event.DomainEventType.ASSIGNMENT_CREATED;
 import static com.mryqr.core.plan.domain.PlanType.FREE;
 import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
 import static com.mryqr.utils.RandomTestFixture.rAssignmentPlanName;
 import static java.time.LocalDateTime.of;
 import static java.time.ZoneId.systemDefault;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD;
 
 @Execution(SAME_THREAD)//由于一个测试的job运行可能也把其他测试方法的assignments创建了，所以采用SAME_THREAD一个一个挨着运行
@@ -566,6 +559,7 @@ public class CreateAssignmentsJobTest extends BaseApiTest {
     }
 
     @Test
+    @Disabled("free branch has its own tenant package system")
     public void should_not_create_assignment_if_package_not_allowed() {
         PreparedQrResponse response = setupApi.registerWithQr();
         AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);

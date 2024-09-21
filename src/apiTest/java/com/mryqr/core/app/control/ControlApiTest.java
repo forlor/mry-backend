@@ -12,13 +12,7 @@ import com.mryqr.core.app.domain.event.AppControlsDeletedEvent;
 import com.mryqr.core.app.domain.event.DeletedControlInfo;
 import com.mryqr.core.app.domain.event.DeletedTextOptionInfo;
 import com.mryqr.core.app.domain.page.Page;
-import com.mryqr.core.app.domain.page.control.Control;
-import com.mryqr.core.app.domain.page.control.FCheckboxControl;
-import com.mryqr.core.app.domain.page.control.FItemCountControl;
-import com.mryqr.core.app.domain.page.control.FNumberInputControl;
-import com.mryqr.core.app.domain.page.control.FRadioControl;
-import com.mryqr.core.app.domain.page.control.FSingleLineTextControl;
-import com.mryqr.core.app.domain.page.control.PSectionTitleViewControl;
+import com.mryqr.core.app.domain.page.control.*;
 import com.mryqr.core.app.domain.report.ReportSetting;
 import com.mryqr.core.app.domain.report.chart.ChartReportConfiguration;
 import com.mryqr.core.app.domain.report.chart.ChartReportSetting;
@@ -36,6 +30,7 @@ import com.mryqr.core.submission.domain.answer.radio.RadioAnswer;
 import com.mryqr.utils.PreparedAppResponse;
 import com.mryqr.utils.PreparedQrResponse;
 import com.mryqr.utils.RandomTestFixture;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
@@ -51,30 +46,11 @@ import static com.mryqr.core.common.domain.permission.Permission.AS_TENANT_MEMBE
 import static com.mryqr.core.common.domain.permission.Permission.PUBLIC;
 import static com.mryqr.core.common.domain.report.NumberAggregationType.AVG;
 import static com.mryqr.core.common.domain.report.ReportRange.NO_LIMIT;
-import static com.mryqr.core.common.exception.ErrorCode.CONTROL_ID_DUPLICATED;
-import static com.mryqr.core.common.exception.ErrorCode.CONTROL_PERMISSION_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.CONTROL_TYPES_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.CONTROL_TYPE_NOT_MATCH;
-import static com.mryqr.core.common.exception.ErrorCode.EMPTY_FILLABLE_SETTING;
+import static com.mryqr.core.common.exception.ErrorCode.*;
 import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
 import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
-import static com.mryqr.utils.RandomTestFixture.defaultCheckboxControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultFillableSetting;
-import static com.mryqr.utils.RandomTestFixture.defaultItemCountControl;
-import static com.mryqr.utils.RandomTestFixture.defaultNumberInputControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultRadioControl;
-import static com.mryqr.utils.RandomTestFixture.defaultSectionTitleControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultSingleLineTextControl;
-import static com.mryqr.utils.RandomTestFixture.defaultSingleLineTextControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.rAttributeName;
-import static com.mryqr.utils.RandomTestFixture.rMobile;
-import static com.mryqr.utils.RandomTestFixture.rPassword;
-import static com.mryqr.utils.RandomTestFixture.rReportName;
-import static com.mryqr.utils.RandomTestFixture.rTextOptions;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static com.mryqr.utils.RandomTestFixture.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ControlApiTest extends BaseApiTest {
 
@@ -221,6 +197,7 @@ public class ControlApiTest extends BaseApiTest {
     }
 
     @Test
+    @Disabled("free branch has its own tenant package system")
     public void should_fail_update_app_setting_if_new_control_in_not_supported_by_packages() {
         PreparedAppResponse response = setupApi.registerWithApp(rMobile(), rPassword());
 

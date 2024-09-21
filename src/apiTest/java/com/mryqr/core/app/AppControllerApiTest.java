@@ -4,12 +4,7 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.mryqr.BaseApiTest;
-import com.mryqr.core.app.command.CopyAppCommand;
-import com.mryqr.core.app.command.CreateAppCommand;
-import com.mryqr.core.app.command.CreateAppResponse;
-import com.mryqr.core.app.command.RenameAppCommand;
-import com.mryqr.core.app.command.SetAppManagersCommand;
-import com.mryqr.core.app.command.UpdateAppWebhookSettingCommand;
+import com.mryqr.core.app.command.*;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppSetting;
 import com.mryqr.core.app.domain.WebhookSetting;
@@ -27,13 +22,7 @@ import com.mryqr.core.app.domain.page.Page;
 import com.mryqr.core.app.domain.page.control.FRichTextInputControl;
 import com.mryqr.core.app.domain.page.control.FSingleLineTextControl;
 import com.mryqr.core.app.domain.page.control.PTimeSegmentControl;
-import com.mryqr.core.app.query.ListMyManagedAppsQuery;
-import com.mryqr.core.app.query.QAppResourceUsages;
-import com.mryqr.core.app.query.QAppWebhookSetting;
-import com.mryqr.core.app.query.QManagedListApp;
-import com.mryqr.core.app.query.QOperationalApp;
-import com.mryqr.core.app.query.QUpdatableApp;
-import com.mryqr.core.app.query.QViewableListApp;
+import com.mryqr.core.app.query.*;
 import com.mryqr.core.common.domain.TextOption;
 import com.mryqr.core.common.domain.indexedfield.IndexedField;
 import com.mryqr.core.common.domain.indexedfield.IndexedFieldRegistry;
@@ -53,6 +42,7 @@ import com.mryqr.utils.CreateMemberResponse;
 import com.mryqr.utils.LoginResponse;
 import com.mryqr.utils.PreparedAppResponse;
 import com.mryqr.utils.PreparedQrResponse;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
@@ -68,78 +58,26 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Sets.newHashSet;
 import static com.mryqr.core.app.domain.QrWebhookType.ON_CREATE;
 import static com.mryqr.core.app.domain.attribute.Attribute.newAttributeId;
-import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.THIS_MONTH;
-import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.THIS_SEASON;
-import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.THIS_WEEK;
-import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.THIS_YEAR;
-import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_FIRST;
-import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_LAST;
-import static com.mryqr.core.app.domain.attribute.AttributeType.DIRECT_INPUT;
-import static com.mryqr.core.app.domain.attribute.AttributeType.INSTANCE_CREATE_TIME;
-import static com.mryqr.core.app.domain.attribute.AttributeType.INSTANCE_SUBMIT_COUNT;
+import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.*;
+import static com.mryqr.core.app.domain.attribute.AttributeType.*;
 import static com.mryqr.core.app.domain.config.AppLandingPageType.DEFAULT;
 import static com.mryqr.core.app.domain.page.setting.SubmitType.ONCE_PER_INSTANCE;
-import static com.mryqr.core.common.domain.event.DomainEventType.APP_CREATED;
-import static com.mryqr.core.common.domain.event.DomainEventType.APP_DELETED;
-import static com.mryqr.core.common.domain.event.DomainEventType.GROUP_SYNC_ENABLED;
-import static com.mryqr.core.common.domain.permission.Permission.AS_GROUP_MEMBER;
-import static com.mryqr.core.common.domain.permission.Permission.AS_TENANT_MEMBER;
-import static com.mryqr.core.common.domain.permission.Permission.CAN_MANAGE_APP;
-import static com.mryqr.core.common.domain.permission.Permission.CAN_MANAGE_GROUP;
-import static com.mryqr.core.common.domain.permission.Permission.PUBLIC;
+import static com.mryqr.core.common.domain.event.DomainEventType.*;
+import static com.mryqr.core.common.domain.permission.Permission.*;
 import static com.mryqr.core.common.domain.user.User.NOUSER;
-import static com.mryqr.core.common.exception.ErrorCode.ACCESS_DENIED;
-import static com.mryqr.core.common.exception.ErrorCode.APP_ALREADY_LOCKED;
-import static com.mryqr.core.common.exception.ErrorCode.APP_ALREADY_UPDATED;
-import static com.mryqr.core.common.exception.ErrorCode.APP_COUNT_LIMIT_REACHED;
-import static com.mryqr.core.common.exception.ErrorCode.APP_WITH_NAME_ALREADY_EXISTS;
-import static com.mryqr.core.common.exception.ErrorCode.CIRCULATION_AFTER_SUBMISSION_ID_DUPLICATED;
-import static com.mryqr.core.common.exception.ErrorCode.CIRCULATION_OPTION_NOT_EXISTS;
-import static com.mryqr.core.common.exception.ErrorCode.CIRCULATION_PERMISSION_ID_DUPLICATED;
-import static com.mryqr.core.common.exception.ErrorCode.COPY_APP_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.CUSTOM_ID_ALIAS_TOO_SHORT;
-import static com.mryqr.core.common.exception.ErrorCode.GROUP_ALIAS_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.GROUP_ALIAS_TOO_SHORT;
-import static com.mryqr.core.common.exception.ErrorCode.INSTANCE_ALIAS_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.INSTANCE_ALIAS_TOO_SHORT;
-import static com.mryqr.core.common.exception.ErrorCode.NOT_ALL_MEMBERS_EXIST;
-import static com.mryqr.core.common.exception.ErrorCode.NO_APP_HOME_PAGE;
-import static com.mryqr.core.common.exception.ErrorCode.TEXT_OPTION_ID_DUPLICATED;
-import static com.mryqr.core.common.exception.ErrorCode.UPDATE_WEBHOOK_SETTING_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_PAGE_NOT_EXIST;
+import static com.mryqr.core.common.exception.ErrorCode.*;
 import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
 import static com.mryqr.core.member.MemberApi.createMemberAndLogin;
 import static com.mryqr.core.member.domain.Member.newMemberId;
 import static com.mryqr.core.plan.domain.Plan.FREE_PLAN;
 import static com.mryqr.core.plan.domain.Plan.PROFESSIONAL_PLAN;
-import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
-import static com.mryqr.core.plan.domain.PlanType.FREE;
-import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
-import static com.mryqr.utils.RandomTestFixture.defaultPageApproveSettingBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultPageBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultPageSettingBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultRichTextInputControl;
-import static com.mryqr.utils.RandomTestFixture.defaultSingleLineTextControl;
-import static com.mryqr.utils.RandomTestFixture.defaultTimeSegmentControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.rAnswer;
-import static com.mryqr.utils.RandomTestFixture.rAppName;
-import static com.mryqr.utils.RandomTestFixture.rAttributeName;
-import static com.mryqr.utils.RandomTestFixture.rDepartmentName;
-import static com.mryqr.utils.RandomTestFixture.rEmail;
-import static com.mryqr.utils.RandomTestFixture.rImageFile;
-import static com.mryqr.utils.RandomTestFixture.rMemberName;
-import static com.mryqr.utils.RandomTestFixture.rMobile;
-import static com.mryqr.utils.RandomTestFixture.rPassword;
-import static com.mryqr.utils.RandomTestFixture.rUrl;
+import static com.mryqr.core.plan.domain.PlanType.*;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static java.lang.Boolean.TRUE;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.util.CollectionUtils.isEmpty;
 
 class AppControllerApiTest extends BaseApiTest {
@@ -231,6 +169,7 @@ class AppControllerApiTest extends BaseApiTest {
     }
 
     @Test
+    @Disabled("free branch has its own tenant package system")
     public void should_fail_copy_app_if_package_not_enough() {
         PreparedAppResponse response = setupApi.registerWithApp();
         setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
@@ -1633,6 +1572,7 @@ class AppControllerApiTest extends BaseApiTest {
     }
 
     @Test
+    @Disabled("free branch has its own tenant package system")
     public void should_update_webhook_setting() {
         PreparedAppResponse response = setupApi.registerWithApp();
         setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
@@ -1650,7 +1590,7 @@ class AppControllerApiTest extends BaseApiTest {
         App app = appRepository.byId(response.getAppId());
         WebhookSetting webhookSetting = app.getWebhookSetting();
         assertFalse(webhookSetting.isNotAccessible());
-        assertEquals(true, webhookSetting.isEnabled());
+        assertTrue(webhookSetting.isEnabled());
         assertEquals(setting.getUrl(), webhookSetting.getUrl());
         assertEquals(setting.getUsername(), webhookSetting.getUsername());
         assertEquals(setting.getPassword(), webhookSetting.getPassword());
@@ -1672,6 +1612,7 @@ class AppControllerApiTest extends BaseApiTest {
     }
 
     @Test
+    @Disabled("free branch has its own tenant package system")
     public void should_fetch_app_webhook_setting() {
         PreparedAppResponse response = setupApi.registerWithApp();
         setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);

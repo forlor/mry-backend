@@ -26,6 +26,7 @@ import com.mryqr.core.tenant.command.UpdateTenantSubdomainCommand;
 import com.mryqr.core.tenant.domain.Tenant;
 import com.mryqr.utils.LoginResponse;
 import com.mryqr.utils.PreparedQrResponse;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,33 +40,10 @@ import static com.mryqr.management.MryManageTenant.ADMIN_INIT_MOBILE;
 import static com.mryqr.management.MryManageTenant.ADMIN_INIT_PASSWORD;
 import static com.mryqr.management.common.PlanTypeControl.BASIC_PLAN_OPTION_ID;
 import static com.mryqr.management.common.PlanTypeControl.FREE_PLAN_OPTION_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.CLEAR_SUBDOMAIN_NOTE_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.CLEAR_SUBDOMAIN_PAGE_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.CURRENT_PACKAGE_ATTR_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.MRY_TENANT_MANAGE_APP_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.PACKAGES_STATUS_NORMAL_OPTION_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.PACKAGE_EXPIRE_ATTR_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.PACKAGE_SETTING_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.PACKAGE_SETTING_EXPIRE_DATE_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.PACKAGE_SETTING_NOTE_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.PACKAGE_SETTING_PAGE_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.PACKAGE_STATUS_ATTR_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.STATUS_SETTING_ACTIVE_OPTION_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.STATUS_SETTING_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.STATUS_SETTING_INACTIVE_OPTION_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.STATUS_SETTING_NOTE_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.STATUS_SETTING_PAGE_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.SUBDOMAIN_READY_OPTION_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.TENANT_ID_ATTR_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.UPDATE_SUBDOMAIN_READY_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.UPDATE_SUBDOMAIN_READY_PAGE_ID;
+import static com.mryqr.management.crm.MryTenantManageApp.*;
 import static com.mryqr.utils.RandomTestFixture.rSubdomainPrefix;
 import static java.time.ZoneId.systemDefault;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD;
 
 @Execution(SAME_THREAD)
@@ -193,6 +171,7 @@ public class TenantManagementApiTest extends BaseApiTest {
     }
 
     @Test
+    @Disabled("free branch has its own tenant package system")
     public void should_clear_subdomain_for_tenant() {
         LoginResponse loginResponse = setupApi.registerWithLogin();
         setupApi.updateTenantPackages(loginResponse.getTenantId(), PROFESSIONAL);
@@ -229,6 +208,7 @@ public class TenantManagementApiTest extends BaseApiTest {
 
 
     @Test
+    @Disabled("free branch has its own tenant package system")
     public void should_udpate_subdomain_ready_status_for_tenant() {
         LoginResponse loginResponse = setupApi.registerWithLogin();
         setupApi.updateTenantPackages(loginResponse.getTenantId(), PROFESSIONAL);

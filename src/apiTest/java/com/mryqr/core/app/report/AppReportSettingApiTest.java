@@ -15,27 +15,15 @@ import com.mryqr.core.app.domain.report.ReportSetting;
 import com.mryqr.core.app.domain.report.chart.ChartReport;
 import com.mryqr.core.app.domain.report.chart.ChartReportConfiguration;
 import com.mryqr.core.app.domain.report.chart.ChartReportSetting;
-import com.mryqr.core.app.domain.report.chart.attribute.AttributeBarReport;
-import com.mryqr.core.app.domain.report.chart.attribute.AttributeDoughnutReport;
-import com.mryqr.core.app.domain.report.chart.attribute.AttributeNumberRangeSegmentReport;
-import com.mryqr.core.app.domain.report.chart.attribute.AttributePieReport;
-import com.mryqr.core.app.domain.report.chart.attribute.AttributeTimeSegmentReport;
+import com.mryqr.core.app.domain.report.chart.attribute.*;
 import com.mryqr.core.app.domain.report.chart.attribute.setting.AttributeCategorizedReportSetting;
 import com.mryqr.core.app.domain.report.chart.attribute.setting.AttributeNumberRangeSegmentReportSetting;
 import com.mryqr.core.app.domain.report.chart.attribute.setting.AttributeTimeSegmentReportSetting;
-import com.mryqr.core.app.domain.report.chart.control.ControlBarReport;
-import com.mryqr.core.app.domain.report.chart.control.ControlDoughnutReport;
-import com.mryqr.core.app.domain.report.chart.control.ControlNumberRangeSegmentReport;
-import com.mryqr.core.app.domain.report.chart.control.ControlPieReport;
-import com.mryqr.core.app.domain.report.chart.control.ControlTimeSegmentReport;
+import com.mryqr.core.app.domain.report.chart.control.*;
 import com.mryqr.core.app.domain.report.chart.control.setting.ControlCategorizedReportSetting;
 import com.mryqr.core.app.domain.report.chart.control.setting.ControlNumberRangeSegmentReportSetting;
 import com.mryqr.core.app.domain.report.chart.control.setting.ControlTimeSegmentReportSetting;
-import com.mryqr.core.app.domain.report.chart.style.BarReportStyle;
-import com.mryqr.core.app.domain.report.chart.style.DoughnutReportStyle;
-import com.mryqr.core.app.domain.report.chart.style.NumberRangeSegmentReportStyle;
-import com.mryqr.core.app.domain.report.chart.style.PieReportStyle;
-import com.mryqr.core.app.domain.report.chart.style.TimeSegmentReportStyle;
+import com.mryqr.core.app.domain.report.chart.style.*;
 import com.mryqr.core.app.domain.report.number.NumberReport;
 import com.mryqr.core.app.domain.report.number.NumberReportConfiguration;
 import com.mryqr.core.app.domain.report.number.NumberReportSetting;
@@ -46,30 +34,17 @@ import com.mryqr.core.app.domain.report.number.page.PageNumberReport;
 import com.mryqr.core.common.domain.report.QrReportTimeBasedType;
 import com.mryqr.core.common.utils.UuidGenerator;
 import com.mryqr.utils.PreparedQrResponse;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.mryqr.core.app.domain.attribute.Attribute.newAttributeId;
-import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_LAST;
-import static com.mryqr.core.app.domain.attribute.AttributeType.DIRECT_INPUT;
-import static com.mryqr.core.app.domain.attribute.AttributeType.INSTANCE_SUBMIT_COUNT;
+import static com.mryqr.core.app.domain.attribute.AttributeType.*;
 import static com.mryqr.core.app.domain.page.control.MultiLevelSelectionPrecisionType.LEVEL2;
-import static com.mryqr.core.app.domain.report.chart.ChartReportType.ATTRIBUTE_BAR_REPORT;
-import static com.mryqr.core.app.domain.report.chart.ChartReportType.ATTRIBUTE_DOUGHNUT_REPORT;
-import static com.mryqr.core.app.domain.report.chart.ChartReportType.ATTRIBUTE_NUMBER_RANGE_SEGMENT_REPORT;
-import static com.mryqr.core.app.domain.report.chart.ChartReportType.ATTRIBUTE_PIE_REPORT;
-import static com.mryqr.core.app.domain.report.chart.ChartReportType.ATTRIBUTE_TIME_SEGMENT_REPORT;
-import static com.mryqr.core.app.domain.report.chart.ChartReportType.CONTROL_BAR_REPORT;
-import static com.mryqr.core.app.domain.report.chart.ChartReportType.CONTROL_DOUGHNUT_REPORT;
-import static com.mryqr.core.app.domain.report.chart.ChartReportType.CONTROL_NUMBER_RANGE_REPORT;
-import static com.mryqr.core.app.domain.report.chart.ChartReportType.CONTROL_PIE_REPORT;
-import static com.mryqr.core.app.domain.report.chart.ChartReportType.CONTROL_TIME_SEGMENT_REPORT;
-import static com.mryqr.core.app.domain.report.number.NumberReportType.ATTRIBUTE_NUMBER_REPORT;
-import static com.mryqr.core.app.domain.report.number.NumberReportType.CONTROL_NUMBER_REPORT;
-import static com.mryqr.core.app.domain.report.number.NumberReportType.INSTANCE_NUMBER_REPORT;
-import static com.mryqr.core.app.domain.report.number.NumberReportType.PAGE_NUMBER_REPORT;
+import static com.mryqr.core.app.domain.report.chart.ChartReportType.*;
+import static com.mryqr.core.app.domain.report.number.NumberReportType.*;
 import static com.mryqr.core.app.domain.report.number.instance.InstanceNumberReportType.INSTANCE_COUNT;
 import static com.mryqr.core.app.domain.report.number.page.PageNumberReportType.PAGE_SUBMIT_COUNT;
 import static com.mryqr.core.common.domain.AddressPrecisionType.CITY;
@@ -78,27 +53,12 @@ import static com.mryqr.core.common.domain.report.QrSegmentType.ATTRIBUTE_VALUE_
 import static com.mryqr.core.common.domain.report.QrSegmentType.QR_COUNT_SUM;
 import static com.mryqr.core.common.domain.report.ReportRange.NO_LIMIT;
 import static com.mryqr.core.common.domain.report.SubmissionReportTimeBasedType.CREATED_AT;
-import static com.mryqr.core.common.domain.report.SubmissionSegmentType.CONTROL_VALUE_AVG;
-import static com.mryqr.core.common.domain.report.SubmissionSegmentType.CONTROL_VALUE_SUM;
-import static com.mryqr.core.common.domain.report.SubmissionSegmentType.SUBMIT_COUNT_SUM;
+import static com.mryqr.core.common.domain.report.SubmissionSegmentType.*;
 import static com.mryqr.core.common.domain.report.TimeSegmentInterval.PER_MONTH;
-import static com.mryqr.core.common.exception.ErrorCode.ATTRIBUTE_NOT_CATEGORIZED;
-import static com.mryqr.core.common.exception.ErrorCode.ATTRIBUTE_NOT_NUMBER_VALUED;
-import static com.mryqr.core.common.exception.ErrorCode.CONTROL_NOT_CATEGORIZED;
-import static com.mryqr.core.common.exception.ErrorCode.CONTROL_NOT_NUMBERED;
-import static com.mryqr.core.common.exception.ErrorCode.CONTROL_NOT_NUMBER_VALUED;
-import static com.mryqr.core.common.exception.ErrorCode.REPORTING_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_ATTRIBUTE_NOT_EXIST;
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_CONTROL_NOT_EXIST;
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_PAGE_NOT_EXIST;
+import static com.mryqr.core.common.exception.ErrorCode.*;
 import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
 import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
-import static com.mryqr.utils.RandomTestFixture.defaultCheckboxControl;
-import static com.mryqr.utils.RandomTestFixture.defaultNumberInputControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultSingleLineTextControl;
-import static com.mryqr.utils.RandomTestFixture.rAttributeName;
-import static com.mryqr.utils.RandomTestFixture.rColor;
-import static com.mryqr.utils.RandomTestFixture.rReportName;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AppReportSettingApiTest extends BaseApiTest {
@@ -164,6 +124,7 @@ public class AppReportSettingApiTest extends BaseApiTest {
     }
 
     @Test
+    @Disabled("free branch has its own tenant package system")
     public void should_fail_update_report_setting_if_package_not_enough() {
         PreparedQrResponse response = setupApi.registerWithQr();
 

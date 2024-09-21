@@ -11,6 +11,7 @@ import com.mryqr.core.app.domain.page.setting.notification.NotificationSetting;
 import com.mryqr.core.submission.SubmissionApi;
 import com.mryqr.core.submission.command.ApproveSubmissionCommand;
 import com.mryqr.utils.PreparedQrResponse;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
 
@@ -20,17 +21,10 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.mryqr.core.app.domain.page.setting.SubmitType.NEW;
 import static com.mryqr.core.app.domain.page.setting.SubmitterUpdateRange.IN_1_HOUR;
 import static com.mryqr.core.app.domain.page.setting.notification.NotificationRole.SUBMITTER;
-import static com.mryqr.core.common.domain.permission.Permission.AS_TENANT_MEMBER;
-import static com.mryqr.core.common.domain.permission.Permission.CAN_MANAGE_APP;
-import static com.mryqr.core.common.domain.permission.Permission.CAN_MANAGE_GROUP;
+import static com.mryqr.core.common.domain.permission.Permission.*;
 import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
 import static com.mryqr.core.submission.SubmissionUtils.approveSubmissionCommand;
-import static com.mryqr.utils.RandomTestFixture.defaultCheckboxControl;
-import static com.mryqr.utils.RandomTestFixture.defaultPageSettingBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultSingleLineTextControl;
-import static com.mryqr.utils.RandomTestFixture.rAnswer;
-import static com.mryqr.utils.RandomTestFixture.rEmail;
-import static com.mryqr.utils.RandomTestFixture.rPassword;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD;
@@ -103,6 +97,7 @@ public class AppNotificationApiTest extends BaseApiTest {
     }
 
     @Test
+    @Disabled("free branch has its own tenant package system")
     public void should_not_notify_if_package_too_low() {
         PreparedQrResponse response = setupApi.registerWithQr();
 

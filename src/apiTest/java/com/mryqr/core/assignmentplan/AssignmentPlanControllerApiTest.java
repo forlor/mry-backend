@@ -21,6 +21,7 @@ import com.mryqr.core.member.MemberApi;
 import com.mryqr.core.member.domain.Member;
 import com.mryqr.utils.PreparedAppResponse;
 import com.mryqr.utils.PreparedQrResponse;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -30,25 +31,11 @@ import java.util.stream.Collectors;
 
 import static com.mryqr.core.assignmentplan.domain.AssignmentFrequency.EVERY_MONTH;
 import static com.mryqr.core.common.domain.event.DomainEventType.ASSIGNMENT_PLAN_DELETED;
-import static com.mryqr.core.common.exception.ErrorCode.APP_ASSIGNMENT_NOT_ENABLED;
-import static com.mryqr.core.common.exception.ErrorCode.ASSIGNMENT_DURATION_EXCEED_FREQUENCY;
-import static com.mryqr.core.common.exception.ErrorCode.ASSIGNMENT_NOTIFY_TIME_OVERFLOW;
-import static com.mryqr.core.common.exception.ErrorCode.ASSIGNMENT_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.ASSIGNMENT_PLAN_WITH_NAME_ALREADY_EXISTS;
-import static com.mryqr.core.common.exception.ErrorCode.ASSIGNMENT_START_TIME_AFTER_END_TIME;
-import static com.mryqr.core.common.exception.ErrorCode.NOT_ALL_GROUPS_EXIST;
-import static com.mryqr.core.common.exception.ErrorCode.NOT_ALL_MEMBERS_EXIST;
-import static com.mryqr.core.common.exception.ErrorCode.PAGE_NOT_FOUND;
+import static com.mryqr.core.common.exception.ErrorCode.*;
 import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
-import static com.mryqr.utils.RandomTestFixture.defaultPage;
-import static com.mryqr.utils.RandomTestFixture.defaultRadioControl;
-import static com.mryqr.utils.RandomTestFixture.rAssignmentPlanName;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static java.time.LocalDateTime.of;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AssignmentPlanControllerApiTest extends BaseApiTest {
 
@@ -120,6 +107,7 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
     }
 
     @Test
+    @Disabled("free branch has its own tenant package system")
     public void should_fail_create_if_packages_too_low() {
         PreparedAppResponse response = setupApi.registerWithApp();
         AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);

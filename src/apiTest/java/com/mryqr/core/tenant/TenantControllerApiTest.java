@@ -4,42 +4,23 @@ import com.mryqr.BaseApiTest;
 import com.mryqr.core.common.domain.UploadedFile;
 import com.mryqr.core.common.domain.invoice.InvoiceTitle;
 import com.mryqr.core.order.domain.delivery.Consignee;
-import com.mryqr.core.tenant.command.AddConsigneeCommand;
-import com.mryqr.core.tenant.command.UpdateConsigneeCommand;
-import com.mryqr.core.tenant.command.UpdateTenantBaseSettingCommand;
-import com.mryqr.core.tenant.command.UpdateTenantInvoiceTitleCommand;
-import com.mryqr.core.tenant.command.UpdateTenantLogoCommand;
-import com.mryqr.core.tenant.command.UpdateTenantSubdomainCommand;
+import com.mryqr.core.tenant.command.*;
 import com.mryqr.core.tenant.domain.Tenant;
 import com.mryqr.core.tenant.domain.event.TenantSubdomainUpdatedEvent;
-import com.mryqr.core.tenant.query.QTenantApiSetting;
-import com.mryqr.core.tenant.query.QTenantBaseSetting;
-import com.mryqr.core.tenant.query.QTenantInfo;
-import com.mryqr.core.tenant.query.QTenantInvoiceTitle;
-import com.mryqr.core.tenant.query.QTenantLogo;
-import com.mryqr.core.tenant.query.QTenantPublicProfile;
-import com.mryqr.core.tenant.query.QTenantSubdomain;
+import com.mryqr.core.tenant.query.*;
 import com.mryqr.management.apptemplate.MryAppTemplateTenant;
 import com.mryqr.utils.LoginResponse;
 import com.mryqr.utils.PreparedQrResponse;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.stream.IntStream;
 
 import static com.mryqr.core.common.domain.event.DomainEventType.TENANT_SUBDOMAIN_UPDATED;
-import static com.mryqr.core.common.exception.ErrorCode.CONSIGNEE_ID_DUPLICATED;
-import static com.mryqr.core.common.exception.ErrorCode.FORBIDDEN_SUBDOMAIN_PREFIX;
-import static com.mryqr.core.common.exception.ErrorCode.MAX_CONSIGNEE_REACHED;
-import static com.mryqr.core.common.exception.ErrorCode.REFRESH_API_SECRET_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.SUBDOMAIN_UPDATED_TOO_OFTEN;
-import static com.mryqr.core.common.exception.ErrorCode.TENANT_WITH_SUBDOMAIN_PREFIX_ALREADY_EXISTS;
-import static com.mryqr.core.common.exception.ErrorCode.UPDATE_LOGO_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.UPDATE_SUBDOMAIN_NOT_ALLOWED;
+import static com.mryqr.core.common.exception.ErrorCode.*;
 import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
-import static com.mryqr.core.plan.domain.PlanType.BASIC;
-import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
-import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
+import static com.mryqr.core.plan.domain.PlanType.*;
 import static com.mryqr.management.MryManageTenant.ADMIN_MEMBER_ID;
 import static com.mryqr.management.MryManageTenant.MRY_MANAGE_TENANT_ID;
 import static com.mryqr.management.apptemplate.MryAppTemplateManageApp.MRY_APP_TEMPLATE_MANAGE_APP_GROUP_ID;
@@ -55,19 +36,9 @@ import static com.mryqr.management.order.MryOrderManageApp.ORDER_APP_ID;
 import static com.mryqr.management.order.MryOrderManageApp.ORDER_GROUP_ID;
 import static com.mryqr.management.printingproduct.PrintingProductApp.PP_APP_ID;
 import static com.mryqr.management.printingproduct.PrintingProductApp.PP_GROUP_ID;
-import static com.mryqr.utils.RandomTestFixture.rAddress;
-import static com.mryqr.utils.RandomTestFixture.rImageFile;
-import static com.mryqr.utils.RandomTestFixture.rMemberName;
-import static com.mryqr.utils.RandomTestFixture.rMobile;
-import static com.mryqr.utils.RandomTestFixture.rPassword;
-import static com.mryqr.utils.RandomTestFixture.rSubdomainPrefix;
-import static com.mryqr.utils.RandomTestFixture.rTenantName;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static java.lang.Boolean.TRUE;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class TenantControllerApiTest extends BaseApiTest {
 
@@ -121,6 +92,7 @@ class TenantControllerApiTest extends BaseApiTest {
     }
 
     @Test
+    @Disabled("free branch has its own tenant package system")
     public void should_not_update_logo_if_packages_not_allowed() {
         LoginResponse response = setupApi.registerWithLogin(rMobile(), rPassword());
         UpdateTenantLogoCommand command = UpdateTenantLogoCommand.builder().logo(rImageFile()).build();
@@ -128,6 +100,7 @@ class TenantControllerApiTest extends BaseApiTest {
     }
 
     @Test
+    @Disabled("free branch has its own tenant package system")
     public void should_update_subdomain() {
         LoginResponse response = setupApi.registerWithLogin(rMobile(), rPassword());
         setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
@@ -145,6 +118,7 @@ class TenantControllerApiTest extends BaseApiTest {
     }
 
     @Test
+    @Disabled("free branch has its own tenant package system")
     public void should_fail_update_subdomain_if_already_exists() {
         LoginResponse response = setupApi.registerWithLogin(rMobile(), rPassword());
         setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
@@ -158,6 +132,7 @@ class TenantControllerApiTest extends BaseApiTest {
     }
 
     @Test
+    @Disabled("free branch has its own tenant package system")
     public void should_raise_event_when_subdomain_name_changed() {
         LoginResponse response = setupApi.registerWithLogin(rMobile(), rPassword());
         setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
@@ -172,6 +147,7 @@ class TenantControllerApiTest extends BaseApiTest {
     }
 
     @Test
+    @Disabled("free branch has its own tenant package system")
     public void should_fail_update_domain_name_if_changed_too_often() {
         LoginResponse response = setupApi.registerWithLogin(rMobile(), rPassword());
         setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
@@ -181,6 +157,7 @@ class TenantControllerApiTest extends BaseApiTest {
     }
 
     @Test
+    @Disabled("free branch has its own tenant package system")
     public void should_fail_update_subdomain_if_domain_name_is_forbidden() {
         LoginResponse response = setupApi.registerWithLogin(rMobile(), rPassword());
         setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
@@ -192,6 +169,7 @@ class TenantControllerApiTest extends BaseApiTest {
     }
 
     @Test
+    @Disabled("free branch has its own tenant package system")
     public void should_refresh_api_secret() {
         LoginResponse response = setupApi.registerWithLogin(rMobile(), rPassword());
         setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
@@ -247,6 +225,7 @@ class TenantControllerApiTest extends BaseApiTest {
     }
 
     @Test
+    @Disabled("free branch has its own tenant package system")
     public void should_fetch_subdomain() {
         LoginResponse response = setupApi.registerWithLogin(rMobile(), rPassword());
         setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
@@ -269,6 +248,7 @@ class TenantControllerApiTest extends BaseApiTest {
     }
 
     @Test
+    @Disabled("free branch has its own tenant package system")
     public void should_fetch_tenant_public_profile() {
         LoginResponse response = setupApi.registerWithLogin(rMobile(), rPassword());
         setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);

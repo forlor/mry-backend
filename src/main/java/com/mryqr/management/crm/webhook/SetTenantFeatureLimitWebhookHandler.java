@@ -3,32 +3,22 @@ package com.mryqr.management.crm.webhook;
 import com.mryqr.common.webhook.submission.BaseSubmissionWebhookPayload;
 import com.mryqr.common.webhook.submission.SubmissionCreatedWebhookPayload;
 import com.mryqr.core.plan.domain.Plan;
-import com.mryqr.core.plan.domain.PlanType;
 import com.mryqr.core.submission.domain.answer.Answer;
-import com.mryqr.core.submission.domain.answer.date.DateAnswer;
-import com.mryqr.core.submission.domain.answer.dropdown.DropdownAnswer;
 import com.mryqr.core.submission.domain.answer.numberinput.NumberInputAnswer;
 import com.mryqr.core.submission.domain.answer.radio.RadioAnswer;
-import com.mryqr.core.submission.domain.answer.singlelinetext.SingleLineTextAnswer;
 import com.mryqr.core.tenant.command.TenantCommandService;
 import com.mryqr.core.tenant.domain.Tenant;
 import com.mryqr.core.tenant.domain.TenantRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.MapUtils;
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
-import java.time.LocalDate;
 import java.util.Map;
 import java.util.Objects;
 
 import static com.mryqr.core.common.domain.user.User.NOUSER;
 import static com.mryqr.management.MryManageTenant.MRY_MANAGE_TENANT_ID;
-import static com.mryqr.management.common.PlanTypeControl.OPTION_TO_PLAN_MAP;
 import static com.mryqr.management.crm.MryTenantManageApp.*;
-import static java.time.ZoneId.systemDefault;
 import static org.apache.commons.collections4.MapUtils.isEmpty;
 
 @Slf4j

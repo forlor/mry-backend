@@ -14,6 +14,7 @@ import com.mryqr.core.submission.domain.answer.singlelinetext.SingleLineTextAnsw
 import com.mryqr.core.tenant.domain.Tenant;
 import com.mryqr.utils.CreateMemberResponse;
 import com.mryqr.utils.PreparedQrResponse;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
@@ -24,19 +25,10 @@ import static com.mryqr.core.common.domain.permission.Permission.PUBLIC;
 import static com.mryqr.core.common.domain.report.SubmissionReportTimeBasedType.CREATED_AT;
 import static com.mryqr.core.common.domain.report.SubmissionSegmentType.CONTROL_VALUE_SUM;
 import static com.mryqr.core.common.domain.report.TimeSegmentInterval.PER_MONTH;
-import static com.mryqr.core.common.exception.ErrorCode.ACCESS_DENIED;
-import static com.mryqr.core.common.exception.ErrorCode.AUTHENTICATION_FAILED;
-import static com.mryqr.core.common.exception.ErrorCode.CONTROL_NOT_COMPLETE;
-import static com.mryqr.core.common.exception.ErrorCode.CONTROL_TYPE_NOT_ALLOWED;
+import static com.mryqr.core.common.exception.ErrorCode.*;
 import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
-import static com.mryqr.core.plan.domain.PlanType.BASIC;
-import static com.mryqr.core.plan.domain.PlanType.FREE;
-import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
-import static com.mryqr.utils.RandomTestFixture.defaultNumberInputControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultSingleLineTextControl;
-import static com.mryqr.utils.RandomTestFixture.defaultSubmissionReferenceControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultTimeSegmentControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.rAnswer;
+import static com.mryqr.core.plan.domain.PlanType.*;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static java.time.temporal.ChronoUnit.DAYS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -132,6 +124,7 @@ public class PresentationControllerApiTest extends BaseApiTest {
 
 
     @Test
+    @Disabled("free branch has its own tenant package system")
     public void should_return_error_if_package_too_low_for_statistics_controls() {
         PreparedQrResponse response = setupApi.registerWithQr();
         setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);

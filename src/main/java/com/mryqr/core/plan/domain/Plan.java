@@ -9,12 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.app.domain.page.control.ControlType.VIDEO_VIEW;
-import static com.mryqr.core.plan.domain.PlanType.ADVANCED;
-import static com.mryqr.core.plan.domain.PlanType.BASIC;
-import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
-import static com.mryqr.core.plan.domain.PlanType.FREE;
-import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
+import static com.mryqr.core.plan.domain.PlanType.*;
 import static lombok.AccessLevel.PRIVATE;
 
 @Value
