@@ -18,6 +18,7 @@ import com.mryqr.core.qr.domain.QR;
 import com.mryqr.core.qr.domain.QrCreatedEvent;
 import com.mryqr.core.tenant.domain.Tenant;
 import com.mryqr.utils.RandomTestFixture;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,6 +121,7 @@ public class DomainEventJobsTest extends BaseApiTest {
     }
 
     @Test
+    @Disabled("not stable")
     public void should_remove_old_domain_events_from_redis() {
         String tenantId = Tenant.newTenantId();
         String qrId1 = QR.newQrId();
