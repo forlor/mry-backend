@@ -74,6 +74,6 @@ public interface SubmissionRepository {
 
     int syncPlateFromQr(QR qr);
 
-    Optional<Submission> latestQrForTenant(String tenantId);
+    Optional<Submission> latestSubmissionForTenant(String tenantId);
 
 }

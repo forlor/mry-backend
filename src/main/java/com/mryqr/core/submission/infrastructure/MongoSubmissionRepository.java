@@ -356,7 +356,7 @@ public class MongoSubmissionRepository extends MongoBaseRepository<Submission> i
     }
 
     @Override
-    public Optional<Submission> latestQrForTenant(String tenantId) {
+    public Optional<Submission> latestSubmissionForTenant(String tenantId) {
         requireNonBlank(tenantId, "Tenant ID must not be null.");
 
         Query query = query(where("tenantId").is(tenantId)).with(by(DESC, "createdAt"));

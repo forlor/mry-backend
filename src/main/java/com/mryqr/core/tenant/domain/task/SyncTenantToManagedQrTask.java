@@ -158,7 +158,7 @@ public class SyncTenantToManagedQrTask implements RepeatableTask {
         Instant recentQrCreatedAt = qrRepository.latestQrForTenant(tenant.getId())
                 .map(AggregateRoot::getCreatedAt)
                 .orElse(defaultRecentActiveInstant);
-        Instant recentSubmissionCreatedAt = submissionRepository.latestQrForTenant(tenant.getId())
+        Instant recentSubmissionCreatedAt = submissionRepository.latestSubmissionForTenant(tenant.getId())
                 .map(AggregateRoot::getCreatedAt)
                 .orElse(defaultRecentActiveInstant);
         Instant recentActiveInstant = recentQrCreatedAt.isAfter(recentSubmissionCreatedAt) ? recentQrCreatedAt : recentSubmissionCreatedAt;
