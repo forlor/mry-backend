@@ -23,27 +23,17 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.common.domain.permission.Permission.AS_GROUP_MEMBER;
-import static com.mryqr.core.common.domain.permission.Permission.AS_TENANT_MEMBER;
-import static com.mryqr.core.common.domain.permission.Permission.CAN_MANAGE_GROUP;
-import static com.mryqr.core.common.domain.permission.Permission.PUBLIC;
+import static com.mryqr.core.common.domain.permission.Permission.*;
 import static com.mryqr.core.common.exception.ErrorCode.APP_ALREADY_LOCKED;
 import static com.mryqr.core.common.utils.MapUtils.mapOf;
 import static com.mryqr.core.common.utils.MongoCriteriaUtils.regexSearch;
-import static com.mryqr.core.common.utils.MryConstants.APP_COLLECTION;
-import static com.mryqr.core.common.utils.MryConstants.GROUP_COLLECTION;
-import static com.mryqr.core.common.utils.MryConstants.QR_COLLECTION;
+import static com.mryqr.core.common.utils.MryConstants.*;
 import static com.mryqr.core.common.utils.Pagination.pagination;
 import static com.mryqr.core.common.validation.id.app.AppIdValidator.isAppId;
 import static java.util.stream.Collectors.groupingBy;
@@ -226,6 +216,18 @@ public class AppQueryService {
     }
 
     public QUpdatableApp fetchUpdatableApp(String appId, User user) {
+        if (user.isMryManageTenantUser()) {
+            App app = appRepository.byId(appId);
+            return QUpdatableApp.builder()
+                    .id(app.getId())
+                    .name(app.getName())
+                    .tenantId(app.getTenantId())
+                    .version(app.getVersion())
+                    .webhookEnabled(app.isWebhookEnabled())
+                    .setting(app.getSetting())
+                    .build();
+        }
+
         mryRateLimiter.applyFor(user.getTenantId(), "App:FetchUpdatableApp", 5);
 
         App app = appRepository.byIdAndCheckTenantShip(appId, user);
