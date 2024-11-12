@@ -240,8 +240,8 @@ public class SyncTenantToManagedQrTask implements RepeatableTask {
         Packages packages = tenant.getPackages();
         Plan currentPlan = packages.currentPlan();
         String packageDetailContent = "租户ID：" + tenant.getId() + "\n" +
-                                      "套餐名称：" + currentPlan.getType().getName() + "\n" +
-                                      "过期时间：" + MRY_DATE_TIME_FORMATTER.format(packages.expireAt()) + "\n" +
+//                                      "套餐名称：" + currentPlan.getType().getName() + "\n" +
+//                                      "过期时间：" + MRY_DATE_TIME_FORMATTER.format(packages.expireAt()) + "\n" +
                                       "应用数量：" + currentPlan.getMaxAppCount() + " 个\n" +
                                       "提交总量：" + currentPlan.getMaxSubmissionCount() + "份\n" +
                                       "实例总量：" + currentPlan.getMaxQrCount() + "个\n" +
@@ -250,21 +250,21 @@ public class SyncTenantToManagedQrTask implements RepeatableTask {
                                       "成员数量：" + currentPlan.getMaxMemberCount() + " 名\n" +
                                       "存储容量：" + currentPlan.getMaxStorage() + " G\n" +
                                       "每月短信量：" + currentPlan.getMaxSmsCountPerMonth() + " 条\n" +
-                                      "增购成员数量：" + packages.getExtraMemberCount() + " 名\n" +
-                                      "增购存储空间：" + packages.getExtraStorage() + " G\n" +
-                                      "剩余增购短信量：" + packages.getExtraRemainSmsCount() + " 条\n" +
-                                      "允许自定义子域名：" + currentPlan.isCustomSubdomainAllowed() + "\n" +
-                                      "域名是否就绪：" + tenant.isSubdomainReady() + "\n" +
-                                      "是否允许自定义logo：" + currentPlan.isCustomLogoAllowed() + "\n" +
-                                      "去除页面底部码如云标识：" + currentPlan.isHideBottomMryLogo() + "\n" +
-                                      "去除广告：" + currentPlan.isHideAds() + "\n" +
-                                      "可上传音视频：" + currentPlan.isVideoAudioAllowed() + "\n" +
-                                      "开发功能：" + currentPlan.isDeveloperAllowed() + "\n" +
-                                      "报表功能：" + currentPlan.isReportingAllowed() + "\n" +
-                                      "提交提醒功能：" + currentPlan.isSubmissionNotifyAllowed() + "\n" +
-                                      "批量导入实例数据：" + currentPlan.isBatchImportQrAllowed() + "\n" +
-                                      "批量导入成员数据：" + currentPlan.isBatchImportMemberAllowed() + "\n" +
-                                      "提交审批：" + currentPlan.isSubmissionApprovalAllowed() + "\n" +
+//                                      "增购成员数量：" + packages.getExtraMemberCount() + " 名\n" +
+//                                      "增购存储空间：" + packages.getExtraStorage() + " G\n" +
+//                                      "剩余增购短信量：" + packages.getExtraRemainSmsCount() + " 条\n" +
+//                                      "允许自定义子域名：" + currentPlan.isCustomSubdomainAllowed() + "\n" +
+//                                      "域名是否就绪：" + tenant.isSubdomainReady() + "\n" +
+//                                      "是否允许自定义logo：" + currentPlan.isCustomLogoAllowed() + "\n" +
+//                                      "去除页面底部码如云标识：" + currentPlan.isHideBottomMryLogo() + "\n" +
+//                                      "去除广告：" + currentPlan.isHideAds() + "\n" +
+//                                      "可上传音视频：" + currentPlan.isVideoAudioAllowed() + "\n" +
+//                                      "开发功能：" + currentPlan.isDeveloperAllowed() + "\n" +
+//                                      "报表功能：" + currentPlan.isReportingAllowed() + "\n" +
+//                                      "提交提醒功能：" + currentPlan.isSubmissionNotifyAllowed() + "\n" +
+//                                      "批量导入实例数据：" + currentPlan.isBatchImportQrAllowed() + "\n" +
+//                                      "批量导入成员数据：" + currentPlan.isBatchImportMemberAllowed() + "\n" +
+//                                      "提交审批：" + currentPlan.isSubmissionApprovalAllowed() + "\n" +
                                       "应用列表：\n" +
                                       appStrings + "\n";
 
