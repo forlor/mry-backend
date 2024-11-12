@@ -2,6 +2,7 @@ package com.mryqr.core.tenant.domain.task;
 
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
+import com.mryqr.core.app.domain.TenantCachedApp;
 import com.mryqr.core.app.domain.page.Page;
 import com.mryqr.core.app.domain.page.control.*;
 import com.mryqr.core.common.domain.AggregateRoot;
@@ -232,6 +233,9 @@ public class SyncTenantToManagedQrTask implements RepeatableTask {
                 .content(invoiceTitleContent)
                 .build();
 
+        List<TenantCachedApp> apps = this.appRepository.cachedTenantAllApps(tenant.getId());
+        String appStrings = apps.stream().map(app -> app.getName() + "：" + app.getId()).collect(joining("\n"));
+
         FMultiLineTextControl packageDetailControl = (FMultiLineTextControl) allControls.get(PACKAGE_DESCRIPTION_CONTROL_ID);
         Packages packages = tenant.getPackages();
         Plan currentPlan = packages.currentPlan();
@@ -260,7 +264,9 @@ public class SyncTenantToManagedQrTask implements RepeatableTask {
                                       "提交提醒功能：" + currentPlan.isSubmissionNotifyAllowed() + "\n" +
                                       "批量导入实例数据：" + currentPlan.isBatchImportQrAllowed() + "\n" +
                                       "批量导入成员数据：" + currentPlan.isBatchImportMemberAllowed() + "\n" +
-                                      "提交审批：" + currentPlan.isSubmissionApprovalAllowed() + "\n";
+                                      "提交审批：" + currentPlan.isSubmissionApprovalAllowed() + "\n" +
+                                      "应用列表：\n" +
+                                      appStrings + "\n";
 
         MultiLineTextAnswer packageDetailAnswer = MultiLineTextAnswer.answerBuilder(requireNonNull(packageDetailControl))
                 .content(packageDetailContent)
