@@ -43,8 +43,7 @@ public class MryRedisProperties {
             return this.domainEventStreamOfIndex(1);
         }
 
-        int hashCode = tenantId.hashCode();
-        int index = (hashCode % this.domainEventStreamCount) + 1;
+        int index = Math.abs(tenantId.hashCode() % this.domainEventStreamCount) + 1;
         return this.domainEventStreamOfIndex(index);
     }
 
