@@ -98,7 +98,7 @@ public class SubmissionCommandService {
             );
 
             submissionRepository.houseKeepSave(submission, app);
-            log.info("Created submission[{}].", submission.getId());
+            log.info("Created submission[{}] for app[{}].", submission.getId(), app.getId());
 
             return submission.getId();
         }
@@ -129,7 +129,7 @@ public class SubmissionCommandService {
         );
 
         submissionRepository.houseKeepSave(submission, app);
-        log.info("Updated submission[{}].", submissionId);
+        log.info("Updated submission[{}] for app[{}].", submissionId, app.getId());
     }
 
     @Transactional
@@ -151,7 +151,7 @@ public class SubmissionCommandService {
 
         submission.approve(command.isPassed(), command.getNote(), page, user);
         submissionRepository.houseKeepSave(submission, app);
-        log.info("Approved submission[{}].", submissionId);
+        log.info("Approved submission[{}] for app[{}].", submissionId, app.getId());
     }
 
     @Transactional
@@ -164,6 +164,6 @@ public class SubmissionCommandService {
 
         submission.onDelete(user);
         submissionRepository.delete(submission);
-        log.info("Deleted submission[{}].", submissionId);
+        log.info("Deleted submission[{}] for app[{}].", submissionId, submission.getAppId());
     }
 }
