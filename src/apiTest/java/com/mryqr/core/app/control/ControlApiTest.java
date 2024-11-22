@@ -40,8 +40,8 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.mryqr.core.app.domain.attribute.Attribute.newAttributeId;
 import static com.mryqr.core.app.domain.page.control.ControlType.SECTION_TITLE;
 import static com.mryqr.core.app.domain.report.number.NumberReportType.CONTROL_NUMBER_REPORT;
-import static com.mryqr.core.common.domain.event.DomainEventType.CONTROLS_DELETED;
-import static com.mryqr.core.common.domain.event.DomainEventType.CONTROL_OPTIONS_DELETED;
+import static com.mryqr.core.common.domain.event.DomainEventType.APP_CONTROLS_DELETED;
+import static com.mryqr.core.common.domain.event.DomainEventType.APP_CONTROL_OPTIONS_DELETED;
 import static com.mryqr.core.common.domain.permission.Permission.AS_TENANT_MEMBER;
 import static com.mryqr.core.common.domain.permission.Permission.PUBLIC;
 import static com.mryqr.core.common.domain.report.NumberAggregationType.AVG;
@@ -73,7 +73,7 @@ public class ControlApiTest extends BaseApiTest {
 
         AppApi.updateAppControls(response.getJwt(), appId);
 
-        AppControlsDeletedEvent controlDeletedEvent = domainEventDao.latestEventFor(app.getId(), CONTROLS_DELETED, AppControlsDeletedEvent.class);
+        AppControlsDeletedEvent controlDeletedEvent = domainEventDao.latestEventFor(app.getId(), APP_CONTROLS_DELETED, AppControlsDeletedEvent.class);
         assertEquals(1, controlDeletedEvent.getControls().size());
         assertTrue(controlDeletedEvent.getControls().contains(DeletedControlInfo.builder()
                 .pageId(response.getHomePageId())
@@ -142,7 +142,7 @@ public class ControlApiTest extends BaseApiTest {
 
         AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
 
-        AppControlOptionsDeletedEvent event = domainEventDao.latestEventFor(response.getAppId(), CONTROL_OPTIONS_DELETED, AppControlOptionsDeletedEvent.class);
+        AppControlOptionsDeletedEvent event = domainEventDao.latestEventFor(response.getAppId(), APP_CONTROL_OPTIONS_DELETED, AppControlOptionsDeletedEvent.class);
         assertEquals(1, event.getControlOptions().size());
         DeletedTextOptionInfo controlOptionInfo = event.getControlOptions().stream().findFirst().get();
         assertEquals(control.getId(), controlOptionInfo.getControlId());

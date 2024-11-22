@@ -2,7 +2,7 @@ package com.mryqr.core.app.eventhandler;
 
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.app.domain.attribute.Attribute;
-import com.mryqr.core.app.domain.event.PageChangedToSubmitPerInstanceEvent;
+import com.mryqr.core.app.domain.event.AppPageChangedToSubmitPerInstanceEvent;
 import com.mryqr.core.app.domain.page.Page;
 import com.mryqr.core.common.domain.event.DomainEvent;
 import com.mryqr.core.common.domain.event.OneTimeDomainEventHandler;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.common.domain.event.DomainEventType.PAGE_CHANGED_TO_SUBMIT_PER_INSTANCE;
+import static com.mryqr.core.common.domain.event.DomainEventType.APP_PAGE_CHANGED_TO_SUBMIT_PER_INSTANCE;
 import static java.time.Instant.now;
 import static java.time.temporal.ChronoUnit.MINUTES;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
@@ -40,7 +40,7 @@ public class OneTimePageChangedToSubmitPerInstanceEventHandler extends OneTimeDo
 
     @Override
     public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent.getType() == PAGE_CHANGED_TO_SUBMIT_PER_INSTANCE;
+        return domainEvent.getType() == APP_PAGE_CHANGED_TO_SUBMIT_PER_INSTANCE;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class OneTimePageChangedToSubmitPerInstanceEventHandler extends OneTimeDo
             return;
         }
 
-        PageChangedToSubmitPerInstanceEvent event = (PageChangedToSubmitPerInstanceEvent) domainEvent;
+        AppPageChangedToSubmitPerInstanceEvent event = (AppPageChangedToSubmitPerInstanceEvent) domainEvent;
         appRepository.byIdOptional(event.getAppId()).ifPresent(app -> event.getPageIds().stream()
                 .flatMap(pageId -> app.pageByIdOptional(pageId).stream())
                 .filter(Page::isOncePerInstanceSubmitType)

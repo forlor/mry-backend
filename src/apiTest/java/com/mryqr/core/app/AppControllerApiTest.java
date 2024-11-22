@@ -17,7 +17,7 @@ import com.mryqr.core.app.domain.circulation.StatusPermission;
 import com.mryqr.core.app.domain.config.AppConfig;
 import com.mryqr.core.app.domain.event.AppCreatedEvent;
 import com.mryqr.core.app.domain.event.AppDeletedEvent;
-import com.mryqr.core.app.domain.event.GroupSyncEnabledEvent;
+import com.mryqr.core.app.domain.event.AppGroupSyncEnabledEvent;
 import com.mryqr.core.app.domain.page.Page;
 import com.mryqr.core.app.domain.page.control.FRichTextInputControl;
 import com.mryqr.core.app.domain.page.control.FSingleLineTextControl;
@@ -1639,7 +1639,7 @@ class AppControllerApiTest extends BaseApiTest {
         assertFalse(appRepository.byId(response.getAppId()).isGroupSynced());
         AppApi.enableGroupSync(response.getJwt(), response.getAppId());
         assertTrue(appRepository.byId(response.getAppId()).isGroupSynced());
-        GroupSyncEnabledEvent event = domainEventDao.latestEventFor(response.getAppId(), GROUP_SYNC_ENABLED, GroupSyncEnabledEvent.class);
+        AppGroupSyncEnabledEvent event = domainEventDao.latestEventFor(response.getAppId(), APP_GROUP_SYNC_ENABLED, AppGroupSyncEnabledEvent.class);
         assertEquals(response.getAppId(), event.getAppId());
     }
 

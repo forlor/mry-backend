@@ -2,7 +2,7 @@ package com.mryqr.core.app.eventhandler;
 
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.app.domain.attribute.Attribute;
-import com.mryqr.core.app.domain.event.PageChangedToSubmitPerMemberEvent;
+import com.mryqr.core.app.domain.event.AppPageChangedToSubmitPerMemberEvent;
 import com.mryqr.core.app.domain.page.Page;
 import com.mryqr.core.common.domain.event.DomainEvent;
 import com.mryqr.core.common.domain.event.OneTimeDomainEventHandler;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.common.domain.event.DomainEventType.PAGE_CHANGED_TO_SUBMIT_PER_MEMBER;
+import static com.mryqr.core.common.domain.event.DomainEventType.APP_PAGE_CHANGED_TO_SUBMIT_PER_MEMBER;
 import static java.time.Instant.now;
 import static java.time.temporal.ChronoUnit.MINUTES;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
@@ -40,7 +40,7 @@ public class OneTimePageChangedToSubmitPerMemberEventHandler extends OneTimeDoma
 
     @Override
     public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent.getType() == PAGE_CHANGED_TO_SUBMIT_PER_MEMBER;
+        return domainEvent.getType() == APP_PAGE_CHANGED_TO_SUBMIT_PER_MEMBER;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class OneTimePageChangedToSubmitPerMemberEventHandler extends OneTimeDoma
             return;
         }
 
-        PageChangedToSubmitPerMemberEvent event = (PageChangedToSubmitPerMemberEvent) domainEvent;
+        AppPageChangedToSubmitPerMemberEvent event = (AppPageChangedToSubmitPerMemberEvent) domainEvent;
 
         appRepository.byIdOptional(event.getAppId()).ifPresent(app -> event.getPageIds().stream()
                 .flatMap(pageId -> app.pageByIdOptional(pageId).stream())

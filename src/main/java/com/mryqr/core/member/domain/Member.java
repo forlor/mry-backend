@@ -194,7 +194,7 @@ public class Member extends AggregateRoot {
     }
 
     public void topApp(String appId, User user) {
-        topAppIds = Stream.concat(Stream.of(appId), this.topAppIds.stream()).limit(20).collect(toImmutableList());
+        topAppIds = Stream.concat(Stream.of(appId), this.topAppIds.stream()).distinct().limit(20).collect(toImmutableList());
         addOpsLog("顶置应用[" + appId + "]", user);
     }
 

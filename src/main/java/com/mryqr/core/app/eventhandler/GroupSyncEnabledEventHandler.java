@@ -1,6 +1,6 @@
 package com.mryqr.core.app.eventhandler;
 
-import com.mryqr.core.app.domain.event.GroupSyncEnabledEvent;
+import com.mryqr.core.app.domain.event.AppGroupSyncEnabledEvent;
 import com.mryqr.core.common.domain.event.DomainEvent;
 import com.mryqr.core.common.domain.event.DomainEventHandler;
 import com.mryqr.core.common.utils.MryTaskRunner;
@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import static com.mryqr.core.common.domain.event.DomainEventType.GROUP_SYNC_ENABLED;
+import static com.mryqr.core.common.domain.event.DomainEventType.APP_GROUP_SYNC_ENABLED;
 
 @Slf4j
 @Component
@@ -19,12 +19,12 @@ public class GroupSyncEnabledEventHandler implements DomainEventHandler {
 
     @Override
     public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent.getType() == GROUP_SYNC_ENABLED;
+        return domainEvent.getType() == APP_GROUP_SYNC_ENABLED;
     }
 
     @Override
     public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
-        GroupSyncEnabledEvent theEvent = (GroupSyncEnabledEvent) domainEvent;
+        AppGroupSyncEnabledEvent theEvent = (AppGroupSyncEnabledEvent) domainEvent;
         taskRunner.run(() -> syncAllDepartmentsToGroupTask.run(theEvent.getAppId()));
     }
 }

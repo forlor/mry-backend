@@ -17,9 +17,9 @@ import com.mryqr.core.app.domain.event.AppPagesDeletedEvent;
 import com.mryqr.core.app.domain.event.DeletedAttributeInfo;
 import com.mryqr.core.app.domain.event.DeletedControlInfo;
 import com.mryqr.core.app.domain.event.DeletedTextOptionInfo;
-import com.mryqr.core.app.domain.event.GroupSyncEnabledEvent;
-import com.mryqr.core.app.domain.event.PageChangedToSubmitPerInstanceEvent;
-import com.mryqr.core.app.domain.event.PageChangedToSubmitPerMemberEvent;
+import com.mryqr.core.app.domain.event.AppGroupSyncEnabledEvent;
+import com.mryqr.core.app.domain.event.AppPageChangedToSubmitPerInstanceEvent;
+import com.mryqr.core.app.domain.event.AppPageChangedToSubmitPerMemberEvent;
 import com.mryqr.core.app.domain.operationmenu.OperationMenuItem;
 import com.mryqr.core.app.domain.page.Page;
 import com.mryqr.core.app.domain.page.PageInfo;
@@ -313,12 +313,12 @@ public class App extends AggregateRoot {
     private void checkPageSubmitTypeChanges(AppSettingContext oldContext, AppSettingContext newContext, User user) {
         Set<String> changedToPerInstancePageIds = oldContext.calculateSubmitTypeChanges(newContext, ONCE_PER_INSTANCE);
         if (isNotEmpty(changedToPerInstancePageIds)) {
-            raiseEvent(new PageChangedToSubmitPerInstanceEvent(this.getId(), changedToPerInstancePageIds, user));
+            raiseEvent(new AppPageChangedToSubmitPerInstanceEvent(this.getId(), changedToPerInstancePageIds, user));
         }
 
         Set<String> changedToPerMemberPageIds = oldContext.calculateSubmitTypeChanges(newContext, ONCE_PER_MEMBER);
         if (isNotEmpty(changedToPerMemberPageIds)) {
-            raiseEvent(new PageChangedToSubmitPerMemberEvent(this.getId(), changedToPerMemberPageIds, user));
+            raiseEvent(new AppPageChangedToSubmitPerMemberEvent(this.getId(), changedToPerMemberPageIds, user));
         }
     }
 
@@ -407,7 +407,7 @@ public class App extends AggregateRoot {
 
         this.groupSynced = true;
         addOpsLog("启用分组与部门同步", user);
-        raiseEvent(new GroupSyncEnabledEvent(this.getId(), user));
+        raiseEvent(new AppGroupSyncEnabledEvent(this.getId(), user));
     }
 
     public String homePageId() {

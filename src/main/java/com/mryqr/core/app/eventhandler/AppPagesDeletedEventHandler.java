@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import static com.mryqr.core.common.domain.event.DomainEventType.PAGES_DELETED;
+import static com.mryqr.core.common.domain.event.DomainEventType.APP_PAGES_DELETED;
 
 @Slf4j
 @Component
@@ -25,7 +25,7 @@ public class AppPagesDeletedEventHandler implements DomainEventHandler {
 
     @Override
     public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent.getType() == PAGES_DELETED;
+        return domainEvent.getType() == APP_PAGES_DELETED;
     }
 
     @Override

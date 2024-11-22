@@ -131,8 +131,8 @@ import static com.mryqr.core.common.domain.ValueType.MEMBER_MOBILE_VALUE;
 import static com.mryqr.core.common.domain.ValueType.MEMBER_VALUE;
 import static com.mryqr.core.common.domain.ValueType.TEXT_VALUE;
 import static com.mryqr.core.common.domain.ValueType.TIMESTAMP_VALUE;
-import static com.mryqr.core.common.domain.event.DomainEventType.ATTRIBUTES_CREATED;
-import static com.mryqr.core.common.domain.event.DomainEventType.ATTRIBUTES_DELETED;
+import static com.mryqr.core.common.domain.event.DomainEventType.APP_ATTRIBUTES_CREATED;
+import static com.mryqr.core.common.domain.event.DomainEventType.APP_ATTRIBUTES_DELETED;
 import static com.mryqr.core.common.domain.report.NumberAggregationType.AVG;
 import static com.mryqr.core.common.domain.report.QrSegmentType.ATTRIBUTE_VALUE_MAX;
 import static com.mryqr.core.common.domain.report.TimeSegmentInterval.PER_MONTH;
@@ -338,7 +338,7 @@ public class AttributeApiTest extends BaseApiTest {
         Attribute attribute = Attribute.builder().id(attributeId).name(rAttributeName()).type(INSTANCE_CREATE_TIME).build();
         AppApi.updateAppAttributes(response.getJwt(), appId, attribute);
 
-        AppAttributesCreatedEvent attributesCreatedEvent = domainEventDao.latestEventFor(appId, ATTRIBUTES_CREATED, AppAttributesCreatedEvent.class);
+        AppAttributesCreatedEvent attributesCreatedEvent = domainEventDao.latestEventFor(appId, APP_ATTRIBUTES_CREATED, AppAttributesCreatedEvent.class);
         assertEquals(1, attributesCreatedEvent.getAttributes().size());
         assertTrue(attributesCreatedEvent.getAttributes().stream().map(AttributeInfo::getAttributeId).collect(toSet()).contains(attribute.getId()));
         App app = appRepository.byId(appId);
@@ -376,7 +376,7 @@ public class AttributeApiTest extends BaseApiTest {
 
         AppApi.updateAppAttributes(response.getJwt(), appId);
 
-        AppAttributesDeletedEvent attributesDeletedEvent = domainEventDao.latestEventFor(appId, ATTRIBUTES_DELETED, AppAttributesDeletedEvent.class);
+        AppAttributesDeletedEvent attributesDeletedEvent = domainEventDao.latestEventFor(appId, APP_ATTRIBUTES_DELETED, AppAttributesDeletedEvent.class);
         assertEquals(1, attributesDeletedEvent.getAttributes().size());
         assertTrue(attributesDeletedEvent.getAttributes().stream().map(DeletedAttributeInfo::getAttributeId).collect(toSet()).contains(attribute.getId()));
         QR updatedQr = qrRepository.byId(qrResponse.getQrId());
@@ -406,7 +406,7 @@ public class AttributeApiTest extends BaseApiTest {
                 .collect(Collectors.toList());
         AppApi.updateAppAttributes(response.getJwt(), appId, newAttributes);
 
-        AppAttributesDeletedEvent attributesDeletedEvent = domainEventDao.latestEventFor(appId, ATTRIBUTES_DELETED, AppAttributesDeletedEvent.class);
+        AppAttributesDeletedEvent attributesDeletedEvent = domainEventDao.latestEventFor(appId, APP_ATTRIBUTES_DELETED, AppAttributesDeletedEvent.class);
         assertEquals(1, attributesDeletedEvent.getAttributes().size());
         assertTrue(attributesDeletedEvent.getAttributes().stream().map(DeletedAttributeInfo::getAttributeId).collect(toSet()).contains(attribute.getId()));
         QR updatedQr = qrRepository.byId(qrResponse.getQrId());

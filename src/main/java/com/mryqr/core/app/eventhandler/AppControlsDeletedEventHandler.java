@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import java.util.Set;
 
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.common.domain.event.DomainEventType.CONTROLS_DELETED;
+import static com.mryqr.core.common.domain.event.DomainEventType.APP_CONTROLS_DELETED;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 
 @Slf4j
@@ -28,7 +28,7 @@ public class AppControlsDeletedEventHandler implements DomainEventHandler {
 
     @Override
     public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent.getType() == CONTROLS_DELETED;
+        return domainEvent.getType() == APP_CONTROLS_DELETED;
     }
 
     @Override

@@ -14,7 +14,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.common.domain.event.DomainEventType.ATTRIBUTES_CREATED;
+import static com.mryqr.core.common.domain.event.DomainEventType.APP_ATTRIBUTES_CREATED;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.apache.commons.collections4.SetUtils.emptyIfNull;
 
@@ -26,7 +26,7 @@ public class AppAttributesCreatedEventHandler implements DomainEventHandler {
 
     @Override
     public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent.getType() == ATTRIBUTES_CREATED;
+        return domainEvent.getType() == APP_ATTRIBUTES_CREATED;
     }
 
     @Override

@@ -7,17 +7,17 @@ import org.springframework.data.annotation.TypeAlias;
 
 import java.util.Set;
 
-import static com.mryqr.core.common.domain.event.DomainEventType.ATTRIBUTES_DELETED;
+import static com.mryqr.core.common.domain.event.DomainEventType.APP_ATTRIBUTES_DELETED;
 import static lombok.AccessLevel.PRIVATE;
 
 @Getter
-@TypeAlias("ATTRIBUTES_DELETED_EVENT")
+@TypeAlias("APP_ATTRIBUTES_DELETED_EVENT")
 @NoArgsConstructor(access = PRIVATE)
 public class AppAttributesDeletedEvent extends AppAwareDomainEvent {
     private Set<DeletedAttributeInfo> attributes;
 
     public AppAttributesDeletedEvent(String appId, Set<DeletedAttributeInfo> attributes, User user) {
-        super(ATTRIBUTES_DELETED, appId, user);
+        super(APP_ATTRIBUTES_DELETED, appId, user);
         this.attributes = attributes;
     }
 }

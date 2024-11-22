@@ -10,9 +10,9 @@ import com.mryqr.core.app.domain.event.AppCreatedEvent;
 import com.mryqr.core.app.domain.event.AppCreatedFromTemplateEvent;
 import com.mryqr.core.app.domain.event.AppDeletedEvent;
 import com.mryqr.core.app.domain.event.AppPagesDeletedEvent;
-import com.mryqr.core.app.domain.event.GroupSyncEnabledEvent;
-import com.mryqr.core.app.domain.event.PageChangedToSubmitPerInstanceEvent;
-import com.mryqr.core.app.domain.event.PageChangedToSubmitPerMemberEvent;
+import com.mryqr.core.app.domain.event.AppGroupSyncEnabledEvent;
+import com.mryqr.core.app.domain.event.AppPageChangedToSubmitPerInstanceEvent;
+import com.mryqr.core.app.domain.event.AppPageChangedToSubmitPerMemberEvent;
 import com.mryqr.core.assignment.event.AssignmentCreatedEvent;
 import com.mryqr.core.assignmentplan.domain.event.AssignmentPlanDeletedEvent;
 import com.mryqr.core.common.domain.AggregateRoot;
@@ -93,14 +93,14 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
         property = "type",
         visible = true)
 @JsonSubTypes(value = {
-        @JsonSubTypes.Type(value = AppAttributesCreatedEvent.class, name = "ATTRIBUTES_CREATED"),
-        @JsonSubTypes.Type(value = AppAttributesDeletedEvent.class, name = "ATTRIBUTES_DELETED"),
-        @JsonSubTypes.Type(value = AppControlOptionsDeletedEvent.class, name = "CONTROL_OPTIONS_DELETED"),
-        @JsonSubTypes.Type(value = AppControlsDeletedEvent.class, name = "CONTROLS_DELETED"),
+        @JsonSubTypes.Type(value = AppAttributesCreatedEvent.class, name = "APP_ATTRIBUTES_CREATED"),
+        @JsonSubTypes.Type(value = AppAttributesDeletedEvent.class, name = "APP_ATTRIBUTES_CREATED"),
+        @JsonSubTypes.Type(value = AppControlOptionsDeletedEvent.class, name = "APP_CONTROL_OPTIONS_DELETED"),
+        @JsonSubTypes.Type(value = AppControlsDeletedEvent.class, name = "APP_CONTROLS_DELETED"),
         @JsonSubTypes.Type(value = AppCreatedEvent.class, name = "APP_CREATED"),
         @JsonSubTypes.Type(value = AppCreatedFromTemplateEvent.class, name = "APP_CREATED_FROM_TEMPLATE"),
         @JsonSubTypes.Type(value = AppDeletedEvent.class, name = "APP_DELETED"),
-        @JsonSubTypes.Type(value = AppPagesDeletedEvent.class, name = "PAGES_DELETED"),
+        @JsonSubTypes.Type(value = AppPagesDeletedEvent.class, name = "APP_PAGES_DELETED"),
         @JsonSubTypes.Type(value = GroupCreatedEvent.class, name = "GROUP_CREATED"),
         @JsonSubTypes.Type(value = GroupDeactivatedEvent.class, name = "GROUP_DEACTIVATED"),
         @JsonSubTypes.Type(value = GroupActivatedEvent.class, name = "GROUP_ACTIVATED"),
@@ -110,8 +110,8 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
         @JsonSubTypes.Type(value = MemberDeletedEvent.class, name = "MEMBER_DELETED"),
         @JsonSubTypes.Type(value = MemberNameChangedEvent.class, name = "MEMBER_NAME_CHANGED"),
         @JsonSubTypes.Type(value = MemberDepartmentsChangedEvent.class, name = "MEMBER_DEPARTMENTS_CHANGED"),
-        @JsonSubTypes.Type(value = PageChangedToSubmitPerInstanceEvent.class, name = "PAGE_CHANGED_TO_SUBMIT_PER_INSTANCE"),
-        @JsonSubTypes.Type(value = PageChangedToSubmitPerMemberEvent.class, name = "PAGE_CHANGED_TO_SUBMIT_PER_MEMBER"),
+        @JsonSubTypes.Type(value = AppPageChangedToSubmitPerInstanceEvent.class, name = "APP_PAGE_CHANGED_TO_SUBMIT_PER_INSTANCE"),
+        @JsonSubTypes.Type(value = AppPageChangedToSubmitPerMemberEvent.class, name = "APP_PAGE_CHANGED_TO_SUBMIT_PER_MEMBER"),
         @JsonSubTypes.Type(value = PlateBatchCreatedEvent.class, name = "PLATE_BATCH_CREATED"),
         @JsonSubTypes.Type(value = PlateBatchDeletedEvent.class, name = "PLATE_BATCH_DELETED"),
         @JsonSubTypes.Type(value = PlateBoundEvent.class, name = "PLATE_BOUND"),
@@ -161,7 +161,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
         @JsonSubTypes.Type(value = DepartmentRenamedEvent.class, name = "DEPARTMENT_RENAMED"),
         @JsonSubTypes.Type(value = MemberAddedToDepartmentEvent.class, name = "MEMBER_ADDED_TO_DEPARTMENT"),
         @JsonSubTypes.Type(value = MemberRemovedFromDepartmentEvent.class, name = "MEMBER_REMOVED_FROM_DEPARTMENT"),
-        @JsonSubTypes.Type(value = GroupSyncEnabledEvent.class, name = "GROUP_SYNC_ENABLED"),
+        @JsonSubTypes.Type(value = AppGroupSyncEnabledEvent.class, name = "APP_GROUP_SYNC_ENABLED"),
         @JsonSubTypes.Type(value = DepartmentHierarchyChangedEvent.class, name = "DEPARTMENT_HIERARCHY_CHANGED"),
         @JsonSubTypes.Type(value = AssignmentCreatedEvent.class, name = "ASSIGNMENT_CREATED"),
 })

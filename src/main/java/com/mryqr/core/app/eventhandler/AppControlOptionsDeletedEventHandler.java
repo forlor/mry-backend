@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
-import static com.mryqr.core.common.domain.event.DomainEventType.CONTROL_OPTIONS_DELETED;
+import static com.mryqr.core.common.domain.event.DomainEventType.APP_CONTROL_OPTIONS_DELETED;
 
 @Slf4j
 @Component
@@ -24,7 +24,7 @@ public class AppControlOptionsDeletedEventHandler implements DomainEventHandler 
 
     @Override
     public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent.getType() == CONTROL_OPTIONS_DELETED;
+        return domainEvent.getType() == APP_CONTROL_OPTIONS_DELETED;
     }
 
     @Override

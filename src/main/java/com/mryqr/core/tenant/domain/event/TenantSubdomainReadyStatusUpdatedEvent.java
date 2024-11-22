@@ -9,7 +9,7 @@ import static com.mryqr.core.common.domain.event.DomainEventType.TENANT_SUBDOMAI
 import static lombok.AccessLevel.PRIVATE;
 
 @Getter
-@TypeAlias("TENANT_SUBDOMAIN_READY_STATUS_EVENT")
+@TypeAlias("TENANT_SUBDOMAIN_READY_STATUS_UPDATE_EVENT")
 @NoArgsConstructor(access = PRIVATE)
 public class TenantSubdomainReadyStatusUpdatedEvent extends TenantUpdatedEvent {
     private boolean ready;
