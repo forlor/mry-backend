@@ -10,7 +10,7 @@ import static lombok.AccessLevel.PROTECTED;
 
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-public class TenantUpdatedEvent extends DomainEvent {
+public abstract class TenantUpdatedEvent extends DomainEvent {
     private String tenantId;
 
     public TenantUpdatedEvent(DomainEventType type, String tenantId, User user) {

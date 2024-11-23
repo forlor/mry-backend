@@ -15,18 +15,7 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 
 import static com.fasterxml.jackson.annotation.JsonTypeInfo.As.PROPERTY;
 import static com.fasterxml.jackson.databind.ObjectMapper.DefaultTyping.NON_FINAL;
-import static com.mryqr.core.common.utils.MryConstants.API_TENANT_CACHE;
-import static com.mryqr.core.common.utils.MryConstants.APP_CACHE;
-import static com.mryqr.core.common.utils.MryConstants.APP_GROUPS_CACHE;
-import static com.mryqr.core.common.utils.MryConstants.DEPARTMENT_HIERARCHY_CACHE;
-import static com.mryqr.core.common.utils.MryConstants.GROUP_CACHE;
-import static com.mryqr.core.common.utils.MryConstants.GROUP_HIERARCHY_CACHE;
-import static com.mryqr.core.common.utils.MryConstants.MEMBER_CACHE;
-import static com.mryqr.core.common.utils.MryConstants.OPEN_ASSIGNMENT_PAGES_CACHE;
-import static com.mryqr.core.common.utils.MryConstants.TENANT_APPS_CACHE;
-import static com.mryqr.core.common.utils.MryConstants.TENANT_CACHE;
-import static com.mryqr.core.common.utils.MryConstants.TENANT_DEPARTMENTS_CACHE;
-import static com.mryqr.core.common.utils.MryConstants.TENANT_MEMBERS_CACHE;
+import static com.mryqr.core.common.utils.MryConstants.*;
 import static java.time.Duration.ofDays;
 import static java.time.Duration.ofHours;
 import static org.springframework.data.redis.cache.RedisCacheConfiguration.defaultCacheConfig;
@@ -69,6 +58,10 @@ public class CacheConfiguration {
                         .prefixCacheNameWith(CACHE_PREFIX)
                         .serializeValuesWith(fromSerializer(defaultSerializer))
                         .entryTtl(ofDays(7)))
+                .withCacheConfiguration(OPEN_ASSIGNMENT_PAGES_CACHE, defaultCacheConfig()
+                        .prefixCacheNameWith(CACHE_PREFIX)
+                        .serializeValuesWith(fromSerializer(defaultSerializer))
+                        .entryTtl(ofHours(12)))
                 .withCacheConfiguration(APP_CACHE, defaultCacheConfig()
                         .prefixCacheNameWith(CACHE_PREFIX)
                         .serializeValuesWith(fromSerializer(appSerializer))
@@ -96,10 +89,6 @@ public class CacheConfiguration {
                 .withCacheConfiguration(API_TENANT_CACHE, defaultCacheConfig()
                         .prefixCacheNameWith(CACHE_PREFIX)
                         .serializeValuesWith(fromSerializer(tenantSerializer))
-                        .entryTtl(ofDays(7)))
-                .withCacheConfiguration(OPEN_ASSIGNMENT_PAGES_CACHE, defaultCacheConfig()
-                        .prefixCacheNameWith(CACHE_PREFIX)
-                        .serializeValuesWith(fromSerializer(defaultSerializer))
-                        .entryTtl(ofHours(12)));
+                        .entryTtl(ofDays(7)));
     }
 }
