@@ -4,6 +4,8 @@ import com.mryqr.core.common.domain.event.DomainEvent;
 import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.common.utils.Identified;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.annotation.Version;
 
 import java.time.Instant;
@@ -15,8 +17,10 @@ import static com.mryqr.core.common.utils.CommonUtils.requireNonBlank;
 import static java.time.Instant.now;
 import static java.util.Objects.requireNonNull;
 import static lombok.AccessLevel.PRIVATE;
+import static lombok.AccessLevel.PROTECTED;
 
 @Getter
+@NoArgsConstructor(access = PROTECTED)
 public abstract class AggregateRoot implements Identified {
     private static final int MAX_OPS_LOG_SIZE = 20;
 
@@ -28,16 +32,14 @@ public abstract class AggregateRoot implements Identified {
     private Instant updatedAt;//更新时间
     private String updatedBy;//更新人MemberId
     private String updater;//更新人姓名
+
+    @Transient
     private List<DomainEvent> events;//领域事件列表，用于临时存放完成某个业务流程中所发出的事件，会被BaseRepository保存到事件表中
     private LinkedList<OpsLog> opsLogs;//操作日志
 
     @Version
     @Getter(PRIVATE)
     private Long _version;//版本号，实现乐观锁
-
-    protected AggregateRoot() {
-        this.clearEvents();
-    }
 
     protected AggregateRoot(String id, User user) {
         requireNonBlank(id, "ID must not be blank.");
@@ -90,10 +92,6 @@ public abstract class AggregateRoot implements Identified {
     protected void raiseEvent(DomainEvent event) {
         event.setArInfo(this);
         allEvents().add(event);
-    }
-
-    public void clearEvents() {
-        this.events = null;
     }
 
     private List<DomainEvent> allEvents() {

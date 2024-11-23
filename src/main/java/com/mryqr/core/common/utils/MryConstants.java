@@ -64,6 +64,9 @@ public class MryConstants {
     public static final String PLATE_TEMPLATE_COLLECTION = "plate_template";
     public static final String SHEDLOCK_COLLECTION = "shedlock";
 
+    public static final String PUBLISHING_DOMAIN_EVENT_COLLECTION = "publishing_domain_event";
+    public static final String CONSUMING_DOMAIN_EVENT_COLLECTION = "consuming_domain_event";
+
     public static final String APP_CACHE = "APP";
     public static final String TENANT_APPS_CACHE = "TENANT_APPS";
 

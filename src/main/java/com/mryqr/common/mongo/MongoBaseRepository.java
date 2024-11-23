@@ -11,23 +11,13 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.common.exception.ErrorCode.AR_NOT_FOUND;
-import static com.mryqr.core.common.exception.ErrorCode.AR_NOT_FOUND_ALL;
-import static com.mryqr.core.common.exception.ErrorCode.SYSTEM_ERROR;
+import static com.mryqr.core.common.exception.ErrorCode.*;
 import static com.mryqr.core.common.utils.CommonUtils.requireNonBlank;
+import static com.mryqr.core.common.utils.CommonUtils.singleParameterizedArgumentClassOf;
 import static com.mryqr.core.common.utils.MapUtils.mapOf;
 import static java.util.Collections.emptyList;
 import static java.util.List.copyOf;
@@ -44,7 +34,7 @@ import static org.springframework.data.mongodb.core.query.Query.query;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public abstract class MongoBaseRepository<AR extends AggregateRoot> {
-    private final Map<String, Class> classMapper = new HashMap<>();
+    private final Map<String, Class> arClassMapper = new ConcurrentHashMap<>();
 
     @Autowired
     protected MongoTemplate mongoTemplate;
@@ -54,14 +44,11 @@ public abstract class MongoBaseRepository<AR extends AggregateRoot> {
 
     @Transactional
     public void save(AR it) {
-        requireNonNull(it, "AR must not be null.");
-
-        if (!isEmpty(it.getEvents())) {
-            saveEvents(it.getEvents());
-            it.clearEvents();
-        }
+        requireNonNull(it, arTypeName() + " must not be null.");
+        requireNonBlank(it.getId(), arTypeName() + " ID must not be blank.");
 
         mongoTemplate.save(it);
+        saveEvents(it.getEvents());
     }
 
     @Transactional
@@ -75,7 +62,6 @@ public abstract class MongoBaseRepository<AR extends AggregateRoot> {
         ars.forEach(ar -> {
             if (!isEmpty(ar.getEvents())) {
                 events.addAll(ar.getEvents());
-                ar.clearEvents();
             }
             mongoTemplate.save(ar);
         });
@@ -85,14 +71,12 @@ public abstract class MongoBaseRepository<AR extends AggregateRoot> {
 
     @Transactional
     public void insert(AR it) {
-        requireNonNull(it, "AR must not be null.");
+        requireNonNull(it, arTypeName() + " must not be null.");
+        requireNonBlank(it.getId(), arTypeName() + " ID must not be blank.");
 
-        if (!isEmpty(it.getEvents())) {
-            saveEvents(it.getEvents());
-            it.clearEvents();
-        }
 
         mongoTemplate.insert(it);
+        saveEvents(it.getEvents());
     }
 
     @Transactional
@@ -106,7 +90,6 @@ public abstract class MongoBaseRepository<AR extends AggregateRoot> {
         ars.forEach(ar -> {
             if (!isEmpty(ar.getEvents())) {
                 events.addAll(ar.getEvents());
-                ar.clearEvents();
             }
         });
 
@@ -116,13 +99,11 @@ public abstract class MongoBaseRepository<AR extends AggregateRoot> {
 
     @Transactional
     public void delete(AR it) {
-        requireNonNull(it, "AR must not be null.");
+        requireNonNull(it, arTypeName() + " must not be null.");
+        requireNonBlank(it.getId(), arTypeName() + " ID must not be blank.");
 
-        if (!isEmpty(it.getEvents())) {
-            saveEvents(it.getEvents());
-            it.clearEvents();
-        }
         mongoTemplate.remove(it);
+        saveEvents(it.getEvents());
     }
 
     @Transactional
@@ -137,36 +118,36 @@ public abstract class MongoBaseRepository<AR extends AggregateRoot> {
         ars.forEach(ar -> {
             if (!isEmpty(ar.getEvents())) {
                 events.addAll(ar.getEvents());
-                ar.clearEvents();
             }
             ids.add(ar.getId());
         });
 
+        mongoTemplate.remove(query(where("_id").in(ids)), arClass());
         saveEvents(events);
-        mongoTemplate.remove(query(where("_id").in(ids)), getType());
     }
 
     public AR byId(String id) {
-        requireNonBlank(id, "AR ID must not be blank.");
+        requireNonBlank(id, arTypeName() + " ID must not be blank.");
 
-        Object it = mongoTemplate.findById(id, getType());
+
+        Object it = mongoTemplate.findById(id, arClass());
         if (it == null) {
             throw new MryException(AR_NOT_FOUND, "未找到资源。",
-                    mapOf("type", getType().getSimpleName(), "id", id));
+                    mapOf("type", arClass().getSimpleName(), "id", id));
         }
 
         return (AR) it;
     }
 
     public Optional<AR> byIdOptional(String id) {
-        requireNonBlank(id, "AR ID must not be blank.");
+        requireNonBlank(id, arTypeName() + " ID must not be blank.");
 
-        Object it = mongoTemplate.findById(id, getType());
+        Object it = mongoTemplate.findById(id, arClass());
         return it == null ? empty() : Optional.of((AR) it);
     }
 
     public AR byIdAndCheckTenantShip(String id, User user) {
-        requireNonBlank(id, "AR ID must not be blank.");
+        requireNonBlank(id, arTypeName() + " ID must not be blank.");
         requireNonNull(user, "User must not be null.");
 
         AR ar = byId(id);
@@ -179,7 +160,7 @@ public abstract class MongoBaseRepository<AR extends AggregateRoot> {
             return emptyList();
         }
 
-        List<AR> ars = mongoTemplate.find(query(where("_id").in(ids)), getType());
+        List<AR> ars = mongoTemplate.find(query(where("_id").in(ids)), arClass());
         checkSameTenant(ars);
         return copyOf(ars);
     }
@@ -207,7 +188,7 @@ public abstract class MongoBaseRepository<AR extends AggregateRoot> {
             Set<String> originalIds = new HashSet<>(ids);
             originalIds.removeAll(fetchedIds);
             throw new MryException(AR_NOT_FOUND_ALL, "未找到所有资源。",
-                    mapOf("type", getType().getSimpleName(), "missingIds", originalIds));
+                    mapOf("type", arClass().getSimpleName(), "missingIds", originalIds));
         }
         return copyOf(ars);
     }
@@ -228,30 +209,37 @@ public abstract class MongoBaseRepository<AR extends AggregateRoot> {
         requireNonBlank(tenantId, "Tenant ID must not be blank.");
 
         Query query = query(where("tenantId").is(tenantId));
-        return (int) mongoTemplate.count(query, getType());
+        return (int) mongoTemplate.count(query, arClass());
     }
 
     public boolean exists(String arId) {
-        requireNonBlank(arId, "AR ID must not be blank.");
+        requireNonBlank(arId, arTypeName() + " ID must not be blank.");
+
         Query query = query(where("_id").is(arId));
-        return mongoTemplate.exists(query, getType());
+        return mongoTemplate.exists(query, arClass());
     }
 
-    private Class getType() {
+    private Class arClass() {
         String className = getClass().getSimpleName();
 
-        if (!classMapper.containsKey(className)) {
-            Type genericSuperclass = getClass().getGenericSuperclass();
-            Type[] actualTypeArguments = ((ParameterizedType) genericSuperclass).getActualTypeArguments();
-            classMapper.put(className, (Class) actualTypeArguments[0]);
+        if (!this.arClassMapper.containsKey(className)) {
+            Class<?> arClass = singleParameterizedArgumentClassOf(this.getClass());
+            if (arClass != null) {
+                this.arClassMapper.put(className, arClass);
+            }
         }
 
-        return classMapper.get(className);
+        return this.arClassMapper.get(className);
+    }
+
+    private String arTypeName() {
+        return arClass().getSimpleName();
     }
 
     protected final void checkTenantShip(AggregateRoot ar, User user) {
-        requireNonNull(ar, "AR must not be null.");
+        requireNonNull(ar, arTypeName() + " must not be null.");
         requireNonNull(user, "User must not be null.");
+
 
         if (!Objects.equals(ar.getTenantId(), user.getTenantId())) {
             throw new MryException(AR_NOT_FOUND, "未找到资源。", mapOf("id", ar.getId(), "tenantId", ar.getTenantId()));

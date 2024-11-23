@@ -10,10 +10,7 @@ import java.util.stream.IntStream;
 
 import static com.mryqr.core.common.domain.user.Role.TENANT_ADMIN;
 import static com.mryqr.core.common.utils.SnowflakeIdGenerator.newSnowflakeId;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.*;
 
 class AggregateRootTest {
     private static final User TEST_USER = User.humanUser(Member.newMemberId(), "memberName", Tenant.newTenantId(), TENANT_ADMIN);
@@ -44,17 +41,6 @@ class AggregateRootTest {
 
         aggregate.raiseEvent(event);
         assertSame(event, aggregate.getEvents().get(0));
-    }
-
-    @Test
-    public void should_clear_events() {
-        String id = "Test" + newSnowflakeId();
-        TestAggregate aggregate = new TestAggregate(id);
-        DomainEvent event = new DomainEvent() {
-        };
-        aggregate.raiseEvent(event);
-        aggregate.clearEvents();
-        assertNull(aggregate.getEvents());
     }
 
     @Test
