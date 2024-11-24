@@ -1,4 +1,4 @@
-package com.mryqr.common.mongo;
+package com.mryqr.common.oss.mongo;
 
 import com.mryqr.core.common.domain.AggregateRoot;
 import com.mryqr.core.common.domain.event.DomainEvent;

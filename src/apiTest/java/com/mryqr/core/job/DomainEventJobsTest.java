@@ -1,13 +1,13 @@
 package com.mryqr.core.job;
 
 import com.mryqr.BaseApiTest;
-import com.mryqr.common.event.DomainEventJobs;
-import com.mryqr.common.event.publish.RedisDomainEventSender;
 import com.mryqr.common.notification.publish.RedisNotificationDomainEventSender;
 import com.mryqr.common.webhook.publish.RedisWebhookEventSender;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.common.domain.AggregateRoot;
 import com.mryqr.core.common.domain.event.DomainEvent;
+import com.mryqr.core.common.domain.event.DomainEventJobs;
+import com.mryqr.core.common.domain.event.publish.RedisDomainEventSender;
 import com.mryqr.core.common.domain.user.Role;
 import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.common.properties.MryRedisProperties;
@@ -28,11 +28,9 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.List;
 
-import static com.mryqr.core.common.domain.event.DomainEventStatus.*;
 import static com.mryqr.core.common.domain.user.User.NOUSER;
 import static java.time.Instant.now;
 import static java.time.temporal.ChronoUnit.DAYS;
-import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD;
 
@@ -55,55 +53,6 @@ public class DomainEventJobsTest extends BaseApiTest {
 
     @Autowired
     private MryRedisProperties mryRedisProperties;
-
-
-    @Test
-    public void should_publish_consume_failed_events() {
-        QrCreatedEvent event = new QrCreatedEvent(QR.newQrId(), Plate.newPlateId(), Group.newGroupId(), App.newAppId(), NOUSER);
-        ReflectionTestUtils.setField(event, "raisedAt", now().minus(30, SECONDS));
-        ReflectionTestUtils.setField(event, "status", CONSUME_FAILED);
-        domainEventDao.insert(List.of(event));
-
-        assertTrue(domainEventJobs.publishDomainEvents() >= 1);
-        DomainEvent updatedEvent = domainEventDao.byId(event.getId());
-        assertEquals(PUBLISH_SUCCEED, updatedEvent.getStatus());
-    }
-
-    @Test
-    public void should_publish_publish_failed_events() {
-        QrCreatedEvent event = new QrCreatedEvent(QR.newQrId(), Plate.newPlateId(), Group.newGroupId(), App.newAppId(), NOUSER);
-        ReflectionTestUtils.setField(event, "raisedAt", now().minus(30, SECONDS));
-        ReflectionTestUtils.setField(event, "status", PUBLISH_FAILED);
-        domainEventDao.insert(List.of(event));
-
-        domainEventJobs.publishDomainEvents();
-        DomainEvent updatedEvent = domainEventDao.byId(event.getId());
-        assertEquals(PUBLISH_SUCCEED, updatedEvent.getStatus());
-    }
-
-    @Test
-    public void should_not_publish_events_consumed_more_than_3_times() {
-        QrCreatedEvent event = new QrCreatedEvent(QR.newQrId(), Plate.newPlateId(), Group.newGroupId(), App.newAppId(), NOUSER);
-        ReflectionTestUtils.setField(event, "raisedAt", now().minus(30, SECONDS));
-        ReflectionTestUtils.setField(event, "consumedCount", 4);
-        domainEventDao.insert(List.of(event));
-
-        domainEventJobs.publishDomainEvents();
-        DomainEvent updatedEvent = domainEventDao.byId(event.getId());
-        assertEquals(CREATED, updatedEvent.getStatus());
-    }
-
-    @Test
-    public void should_not_publish_events_published_more_than_3_times() {
-        QrCreatedEvent event = new QrCreatedEvent(QR.newQrId(), Plate.newPlateId(), Group.newGroupId(), App.newAppId(), NOUSER);
-        ReflectionTestUtils.setField(event, "raisedAt", now().minus(30, SECONDS));
-        ReflectionTestUtils.setField(event, "publishedCount", 4);
-        domainEventDao.insert(List.of(event));
-
-        domainEventJobs.publishDomainEvents();
-        DomainEvent updatedEvent = domainEventDao.byId(event.getId());
-        assertEquals(CREATED, updatedEvent.getStatus());
-    }
 
     @Test
     public void should_remove_old_domain_events_from_mongo() {

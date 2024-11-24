@@ -2,7 +2,7 @@ package com.mryqr.core.assignment.infrastructure;
 
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
-import com.mryqr.common.mongo.MongoBaseRepository;
+import com.mryqr.common.oss.mongo.MongoBaseRepository;
 import com.mryqr.core.assignment.domain.Assignment;
 import com.mryqr.core.assignment.domain.AssignmentRepository;
 import com.mryqr.core.common.domain.user.User;

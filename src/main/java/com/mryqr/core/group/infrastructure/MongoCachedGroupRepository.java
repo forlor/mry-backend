@@ -1,6 +1,6 @@
 package com.mryqr.core.group.infrastructure;
 
-import com.mryqr.common.mongo.MongoBaseRepository;
+import com.mryqr.common.oss.mongo.MongoBaseRepository;
 import com.mryqr.core.group.domain.AppCachedGroup;
 import com.mryqr.core.group.domain.Group;
 import lombok.RequiredArgsConstructor;
@@ -14,9 +14,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 
 import static com.mryqr.core.common.utils.CommonUtils.requireNonBlank;
-import static com.mryqr.core.common.utils.MryConstants.APP_GROUPS_CACHE;
-import static com.mryqr.core.common.utils.MryConstants.GROUP_CACHE;
-import static com.mryqr.core.common.utils.MryConstants.GROUP_COLLECTION;
+import static com.mryqr.core.common.utils.MryConstants.*;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 //为了绕开Spring AOP必须从外部调用才生效的限制，否则方法可以直接放到GroupRepository中

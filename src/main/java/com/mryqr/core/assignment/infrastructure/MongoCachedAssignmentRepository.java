@@ -1,6 +1,6 @@
 package com.mryqr.core.assignment.infrastructure;
 
-import com.mryqr.common.mongo.MongoBaseRepository;
+import com.mryqr.common.oss.mongo.MongoBaseRepository;
 import com.mryqr.core.assignment.domain.Assignment;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

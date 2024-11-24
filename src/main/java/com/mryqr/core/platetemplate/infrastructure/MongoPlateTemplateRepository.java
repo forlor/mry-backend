@@ -1,6 +1,6 @@
 package com.mryqr.core.platetemplate.infrastructure;
 
-import com.mryqr.common.mongo.MongoBaseRepository;
+import com.mryqr.common.oss.mongo.MongoBaseRepository;
 import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.platetemplate.domain.PlateTemplate;
 import com.mryqr.core.platetemplate.domain.PlateTemplateRepository;

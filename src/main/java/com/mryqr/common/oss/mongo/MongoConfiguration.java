@@ -1,4 +1,4 @@
-package com.mryqr.common.mongo;
+package com.mryqr.common.oss.mongo;
 
 import org.springframework.boot.autoconfigure.mongo.MongoClientSettingsBuilderCustomizer;
 import org.springframework.context.annotation.Bean;

@@ -2,7 +2,7 @@ package com.mryqr.core.submission.infrastructure;
 
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
-import com.mryqr.common.mongo.MongoBaseRepository;
+import com.mryqr.common.oss.mongo.MongoBaseRepository;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.attribute.AttributeStatisticRange;
@@ -31,11 +31,7 @@ import java.util.Set;
 
 import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.startAt;
 import static com.mryqr.core.common.utils.CommonUtils.requireNonBlank;
-import static com.mryqr.core.common.utils.MongoCriteriaUtils.mongoAnswerFieldOf;
-import static com.mryqr.core.common.utils.MongoCriteriaUtils.mongoIndexedValueFieldOf;
-import static com.mryqr.core.common.utils.MongoCriteriaUtils.mongoReferencedFieldOf;
-import static com.mryqr.core.common.utils.MongoCriteriaUtils.mongoSortableFieldOf;
-import static com.mryqr.core.common.utils.MongoCriteriaUtils.mongoTextFieldOf;
+import static com.mryqr.core.common.utils.MongoCriteriaUtils.*;
 import static java.util.Objects.requireNonNull;
 import static java.util.Optional.ofNullable;
 import static lombok.AccessLevel.PRIVATE;
@@ -44,9 +40,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static org.springframework.data.domain.Sort.Direction.ASC;
 import static org.springframework.data.domain.Sort.Direction.DESC;
 import static org.springframework.data.domain.Sort.by;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 

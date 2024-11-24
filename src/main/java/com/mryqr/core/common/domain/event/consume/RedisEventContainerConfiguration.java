@@ -1,4 +1,4 @@
-package com.mryqr.common.event.consume;
+package com.mryqr.core.common.domain.event.consume;
 
 
 import com.mryqr.core.common.properties.MryRedisProperties;

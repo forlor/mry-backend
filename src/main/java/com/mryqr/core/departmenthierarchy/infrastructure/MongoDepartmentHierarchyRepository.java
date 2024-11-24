@@ -1,6 +1,6 @@
 package com.mryqr.core.departmenthierarchy.infrastructure;
 
-import com.mryqr.common.mongo.MongoBaseRepository;
+import com.mryqr.common.oss.mongo.MongoBaseRepository;
 import com.mryqr.core.common.exception.MryException;
 import com.mryqr.core.departmenthierarchy.domain.DepartmentHierarchy;
 import com.mryqr.core.departmenthierarchy.domain.DepartmentHierarchyRepository;

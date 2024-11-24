@@ -1,7 +1,7 @@
 package com.mryqr.core.grouphierarchy.infrastructure;
 
 import com.mongodb.client.result.DeleteResult;
-import com.mryqr.common.mongo.MongoBaseRepository;
+import com.mryqr.common.oss.mongo.MongoBaseRepository;
 import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.common.exception.MryException;
 import com.mryqr.core.grouphierarchy.domain.GroupHierarchy;

@@ -1,6 +1,6 @@
 package com.mryqr.core.app.infrastructure;
 
-import com.mryqr.common.mongo.MongoBaseRepository;
+import com.mryqr.common.oss.mongo.MongoBaseRepository;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.TenantCachedApp;
 import lombok.RequiredArgsConstructor;
@@ -14,9 +14,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 
 import static com.mryqr.core.common.utils.CommonUtils.requireNonBlank;
-import static com.mryqr.core.common.utils.MryConstants.APP_CACHE;
-import static com.mryqr.core.common.utils.MryConstants.APP_COLLECTION;
-import static com.mryqr.core.common.utils.MryConstants.TENANT_APPS_CACHE;
+import static com.mryqr.core.common.utils.MryConstants.*;
 import static org.springframework.data.domain.Sort.Direction.ASC;
 import static org.springframework.data.domain.Sort.by;
 import static org.springframework.data.mongodb.core.query.Criteria.where;

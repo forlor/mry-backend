@@ -1,4 +1,4 @@
-package com.mryqr.common.cors;
+package com.mryqr.common.dns.cors;
 
 import com.mryqr.core.common.properties.CommonProperties;
 import lombok.RequiredArgsConstructor;

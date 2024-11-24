@@ -1,9 +1,7 @@
-package com.mryqr.common.event;
+package com.mryqr.core.common.domain.event;
 
 import com.mongodb.client.result.DeleteResult;
-import com.mryqr.common.event.publish.RedisDomainEventSender;
-import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.DomainEventDao;
+import com.mryqr.core.common.domain.event.publish.RedisDomainEventSender;
 import com.mryqr.core.common.properties.MryRedisProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

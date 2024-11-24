@@ -1,6 +1,6 @@
 package com.mryqr.core.verification.infrastructure;
 
-import com.mryqr.common.mongo.MongoBaseRepository;
+import com.mryqr.common.oss.mongo.MongoBaseRepository;
 import com.mryqr.core.verification.domain.VerificationCode;
 import com.mryqr.core.verification.domain.VerificationCodeRepository;
 import com.mryqr.core.verification.domain.VerificationCodeType;

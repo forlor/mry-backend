@@ -1,4 +1,4 @@
-package com.mryqr.common.event.publish;
+package com.mryqr.core.common.domain.event.publish;
 
 import com.mryqr.core.common.domain.event.DomainEvent;
 import com.mryqr.core.common.domain.event.DomainEventDao;
