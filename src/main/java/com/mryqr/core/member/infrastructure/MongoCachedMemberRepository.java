@@ -46,14 +46,14 @@ public class MongoCachedMemberRepository extends MongoBaseRepository<Member> {
     public void evictMemberCache(String memberId) {
         requireNonBlank(memberId, "Member ID must not be blank.");
 
-        log.info("Evicted cache for member[{}].", memberId);
+        log.debug("Evicted cache for member[{}].", memberId);
     }
 
     @Caching(evict = {@CacheEvict(value = TENANT_MEMBERS_CACHE, key = "#tenantId")})
     public void evictTenantMembersCache(String tenantId) {
         requireNonBlank(tenantId, "Tenant ID must not be blank.");
 
-        log.info("Evicted all members cache for tenant[{}].", tenantId);
+        log.debug("Evicted all members cache for tenant[{}].", tenantId);
     }
 
 }

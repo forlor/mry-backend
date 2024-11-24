@@ -49,14 +49,14 @@ public class MongoCachedAppRepository extends MongoBaseRepository<App> {
     public void evictAppCache(String appId) {
         requireNonBlank(appId, "App ID must not be blank.");
 
-        log.info("Evicted cache for app[{}].", appId);
+        log.debug("Evicted cache for app[{}].", appId);
     }
 
     @Caching(evict = {@CacheEvict(value = TENANT_APPS_CACHE, key = "#tenantId")})
     public void evictTenantAppsCache(String tenantId) {
         requireNonBlank(tenantId, "Tenant ID must not be blank.");
 
-        log.info("Evicted all apps cache for tenant[{}].", tenantId);
+        log.debug("Evicted all apps cache for tenant[{}].", tenantId);
     }
 
 }

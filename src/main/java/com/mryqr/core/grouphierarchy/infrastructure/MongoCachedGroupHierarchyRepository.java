@@ -42,7 +42,7 @@ public class MongoCachedGroupHierarchyRepository extends MongoBaseRepository<Gro
     public void evictGroupHierarchyCache(String appId) {
         requireNonBlank(appId, "App ID must not be blank.");
 
-        log.info("Evicted group hierarchy cache for app[{}].", appId);
+        log.debug("Evicted group hierarchy cache for app[{}].", appId);
     }
 
 }

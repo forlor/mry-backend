@@ -24,6 +24,7 @@ public class DomainEventConsumer<T> {
     private final List<DomainEventHandler<T>> handlers;
 
     public void consume(ConsumingDomainEvent<T> consumingDomainEvent) {
+        log.debug("Start consume domain event[{}:{}].", consumingDomainEvent.getType(), consumingDomainEvent.getEventId());
         this.handlers.stream()
                 .filter(handler -> canHandle(handler, consumingDomainEvent.getEvent()))
                 .sorted(comparingInt(DomainEventHandler::priority))

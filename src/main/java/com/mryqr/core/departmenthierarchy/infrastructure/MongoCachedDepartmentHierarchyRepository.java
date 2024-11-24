@@ -43,7 +43,7 @@ public class MongoCachedDepartmentHierarchyRepository extends MongoBaseRepositor
     public void evictDepartmentHierarchyCache(String tenantId) {
         requireNonBlank(tenantId, "Tenant ID must not be blank.");
 
-        log.info("Evicted department hierarchy cache for tenant[{}].", tenantId);
+        log.debug("Evicted department hierarchy cache for tenant[{}].", tenantId);
     }
 
 }

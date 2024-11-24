@@ -37,6 +37,6 @@ public class MongoCachedAssignmentRepository extends MongoBaseRepository<Assignm
     public void evictOpenAssignmentPagesCache(String appId) {
         requireNonBlank(appId, "App ID must not be blank.");
 
-        log.info("Evicted all open assignment pages cache for app[{}].", appId);
+        log.debug("Evicted all open assignment pages cache for app[{}].", appId);
     }
 }

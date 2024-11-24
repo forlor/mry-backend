@@ -50,13 +50,13 @@ public class MongoCachedTenantRepository extends MongoBaseRepository<Tenant> {
     public void evictTenantCache(String tenantId) {
         requireNonBlank(tenantId, "Tenant ID must not be blank.");
 
-        log.info("Evicted tenant cache for tenant[{}].", tenantId);
+        log.debug("Evicted tenant cache for tenant[{}].", tenantId);
     }
 
     @Caching(evict = {@CacheEvict(value = API_TENANT_CACHE, key = "#apiKey")})
     public void evictTenantCacheByApiKey(String apiKey) {
         requireNonBlank(apiKey, "API Key must not be blank.");
 
-        log.info("Evicted tenant cache for tenant[{}] by API key.", apiKey);
+        log.debug("Evicted tenant cache for tenant[{}] by API key.", apiKey);
     }
 }

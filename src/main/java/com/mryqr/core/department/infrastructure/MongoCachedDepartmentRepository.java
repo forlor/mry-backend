@@ -41,7 +41,7 @@ public class MongoCachedDepartmentRepository extends MongoBaseRepository<Member>
     public void evictTenantDepartmentsCache(String tenantId) {
         requireNonBlank(tenantId, "Tenant ID must not be blank.");
 
-        log.info("Evicted all departments cache for tenant[{}].", tenantId);
+        log.debug("Evicted all departments cache for tenant[{}].", tenantId);
     }
 
 }

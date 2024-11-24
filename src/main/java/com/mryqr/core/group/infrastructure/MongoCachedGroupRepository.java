@@ -45,14 +45,14 @@ public class MongoCachedGroupRepository extends MongoBaseRepository<Group> {
     public void evictGroupCache(String groupId) {
         requireNonBlank(groupId, "Group ID must not be blank.");
 
-        log.info("Evicted cache for group[{}].", groupId);
+        log.debug("Evicted cache for group[{}].", groupId);
     }
 
     @Caching(evict = {@CacheEvict(value = APP_GROUPS_CACHE, key = "#appId")})
     public void evictAppGroupsCache(String appId) {
         requireNonBlank(appId, "App ID must not be blank.");
 
-        log.info("Evicted all groups cache for app[{}].", appId);
+        log.debug("Evicted all groups cache for app[{}].", appId);
     }
 
 }
