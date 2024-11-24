@@ -23,9 +23,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-import static com.mryqr.core.common.domain.permission.Permission.CAN_MANAGE_APP;
-import static com.mryqr.core.common.domain.permission.Permission.CAN_MANAGE_GROUP;
-import static com.mryqr.core.common.domain.permission.Permission.PUBLIC;
+import static com.mryqr.core.common.domain.permission.Permission.*;
 import static com.mryqr.core.common.exception.ErrorCode.CONTROL_PERMISSION_NOT_ALLOWED;
 import static com.mryqr.core.common.exception.ErrorCode.EMPTY_FILLABLE_SETTING;
 import static com.mryqr.core.common.utils.MapUtils.mapOf;
@@ -89,7 +87,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 })
 
 @Getter
-@Document
+@Document // todo: 不需要@Document了，也看看其他地方
 @SuperBuilder
 @EqualsAndHashCode
 @NoArgsConstructor(access = PROTECTED)

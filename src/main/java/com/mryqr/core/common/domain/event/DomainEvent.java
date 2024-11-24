@@ -130,12 +130,6 @@ public abstract class DomainEvent {
     private DomainEventType type;//事件类型
 
     @Deprecated
-    private DomainEventStatus status;//状态
-
-    @Deprecated
-    private int publishedCount;//已经发布的次数，无论成功与否
-
-    @Deprecated
     private int consumedCount;//已经被消费的次数，无论成功与否
     private String raisedBy;//引发该事件的memberId
     private Instant raisedAt;//事件产生时间
@@ -146,9 +140,6 @@ public abstract class DomainEvent {
 
         this.id = newEventId();
         this.type = type;
-        this.status = DomainEventStatus.CREATED;
-        this.publishedCount = 0;
-        this.consumedCount = 0;
         this.raisedBy = user.getMemberId();
         this.raisedAt = now();
     }
@@ -164,10 +155,6 @@ public abstract class DomainEvent {
 
     public boolean isConsumedBefore() {
         return this.consumedCount > 0;
-    }
-
-    public boolean isNotConsumedBefore() {
-        return !isConsumedBefore();
     }
 
     public boolean isRaisedByHuman() {

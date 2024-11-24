@@ -58,16 +58,18 @@ public class DomainEventJobsTest extends BaseApiTest {
     public void should_remove_old_domain_events_from_mongo() {
         QrCreatedEvent event = new QrCreatedEvent(QR.newQrId(), Plate.newPlateId(), Group.newGroupId(), App.newAppId(), NOUSER);
         ReflectionTestUtils.setField(event, "raisedAt", now().minus(300, DAYS));
-        domainEventDao.insert(List.of(event));
+        publishingDomainEventDao.stage(List.of(event));
 
-        List<DomainEvent> dbEvents = domainEventDao.byIds(List.of(event.getId()));
+        List<DomainEvent> dbEvents = publishingDomainEventDao.byIds(List.of(event.getId()));
         assertFalse(dbEvents.isEmpty());
 
-        domainEventJobs.removeOldDomainEventsFromMongo(100);
+        domainEventJobs.removeOldPublishingDomainEventsFromMongo(100);
 
-        List<DomainEvent> updatedEvents = domainEventDao.byIds(List.of(event.getId()));
+        List<DomainEvent> updatedEvents = publishingDomainEventDao.byIds(List.of(event.getId()));
         assertTrue(updatedEvents.isEmpty());
     }
+
+    //todo: 为removeOldConsumingDomainEventsFromMongo补充测试
 
     @Test
     @Disabled("not stable")

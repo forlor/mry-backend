@@ -108,7 +108,8 @@ public class MrySystemInitializer implements ApplicationListener<ApplicationRead
         ensureSubmissionIndex();
         ensureTenantIndex();
         ensureVerificationIndex();
-        ensureDomainEventIndex();
+        ensurePublishingDomainEventIndex();
+        ensureConsumingDomainEventIndex();
     }
 
     private void ensureAppIndex() {
@@ -275,13 +276,16 @@ public class MrySystemInitializer implements ApplicationListener<ApplicationRead
         indexOperations.ensureIndex(new Index().on("createdAt", DESC));
     }
 
-    private void ensureDomainEventIndex() {
-        // todo : 为PUBLISHING_DOMAIN_EVENT_COLLECTION 和CONSUMING_DOMAIN_EVENT_COLLECTION 创建index
-        IndexOperations indexOperations = mongoTemplate.indexOps(EVENT_COLLECTION);
+    private void ensurePublishingDomainEventIndex() {
+        IndexOperations indexOperations = mongoTemplate.indexOps(PUBLISHING_DOMAIN_EVENT_COLLECTION);
         indexOperations.ensureIndex(new Index().on("status", DESC));
         indexOperations.ensureIndex(new Index().on("publishedCount", DESC));
-        indexOperations.ensureIndex(new Index().on("consumedCount", DESC));
         indexOperations.ensureIndex(new Index().on("raisedAt", DESC));
+    }
+
+    private void ensureConsumingDomainEventIndex() {
+        IndexOperations indexOperations = mongoTemplate.indexOps(CONSUMING_DOMAIN_EVENT_COLLECTION);
+        indexOperations.ensureIndex(new Index().on("eventId", DESC));
     }
 
     private void ensureMryManageAppsExist() {

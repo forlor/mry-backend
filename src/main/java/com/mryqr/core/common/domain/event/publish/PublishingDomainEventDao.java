@@ -19,7 +19,7 @@ import static org.springframework.data.domain.Sort.by;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
-// When publishing domain event, firstly we Stage(Save) the event in DB in the same transaction that handles business logic
+// When publishing domain event, firstly we stage(save) the event in DB in the same transaction that handles business logic
 @Slf4j
 @Component
 @RequiredArgsConstructor
