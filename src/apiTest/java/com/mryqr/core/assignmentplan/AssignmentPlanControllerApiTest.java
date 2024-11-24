@@ -528,7 +528,7 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
         AssignmentPlanApi.deleteAssignmentPlan(response.getJwt(), assignmentPlanId);
         assertFalse(assignmentPlanRepository.exists(assignmentPlanId));
 
-        AssignmentPlanDeletedEvent deletedEvent = domainEventDao.latestEventFor(assignmentPlanId, ASSIGNMENT_PLAN_DELETED, AssignmentPlanDeletedEvent.class);
+        AssignmentPlanDeletedEvent deletedEvent = latestEventFor(assignmentPlanId, ASSIGNMENT_PLAN_DELETED, AssignmentPlanDeletedEvent.class);
         assertEquals(assignmentPlanId, deletedEvent.getAssignmentPlanId());
     }
 
@@ -560,7 +560,7 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
         AssignmentPlanApi.deleteAssignmentPlan(response.getJwt(), assignmentPlanId);
         assertFalse(assignmentPlanRepository.exists(assignmentPlanId));
 
-        AssignmentPlanDeletedEvent deletedEvent = domainEventDao.latestEventFor(assignmentPlanId, ASSIGNMENT_PLAN_DELETED, AssignmentPlanDeletedEvent.class);
+        AssignmentPlanDeletedEvent deletedEvent = latestEventFor(assignmentPlanId, ASSIGNMENT_PLAN_DELETED, AssignmentPlanDeletedEvent.class);
         assertEquals(assignmentPlanId, deletedEvent.getAssignmentPlanId());
 
         assertFalse(assignmentRepository.exists(assignment.getId()));

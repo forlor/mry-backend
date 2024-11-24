@@ -119,7 +119,7 @@ class AppControllerApiTest extends BaseApiTest {
     public void create_app_should_raise_event() {
         PreparedAppResponse response = setupApi.registerWithApp(rMobile(), rPassword());
 
-        AppCreatedEvent event = domainEventDao.latestEventFor(response.getAppId(), APP_CREATED, AppCreatedEvent.class);
+        AppCreatedEvent event = latestEventFor(response.getAppId(), APP_CREATED, AppCreatedEvent.class);
 
         assertEquals(response.getAppId(), event.getAppId());
         assertEquals(1, tenantRepository.byId(response.getTenantId()).getResourceUsage().getAppCount());
@@ -144,7 +144,7 @@ class AppControllerApiTest extends BaseApiTest {
         GroupHierarchy groupHierarchy = groupHierarchyRepository.byAppId(copiedApp.getId());
         assertTrue(groupHierarchy.allGroupIds().contains(createAppResponse.getDefaultGroupId()));
 
-        AppCreatedEvent event = domainEventDao.latestEventFor(copiedApp.getId(), APP_CREATED, AppCreatedEvent.class);
+        AppCreatedEvent event = latestEventFor(copiedApp.getId(), APP_CREATED, AppCreatedEvent.class);
         assertEquals(copiedApp.getId(), event.getAppId());
     }
 
@@ -678,7 +678,7 @@ class AppControllerApiTest extends BaseApiTest {
         assertEquals(1, tenant.getResourceUsage().getQrCountForApp(appId));
 
         AppApi.deleteApp(response.getJwt(), appId);
-        AppDeletedEvent event = domainEventDao.latestEventFor(appId, APP_DELETED, AppDeletedEvent.class);
+        AppDeletedEvent event = latestEventFor(appId, APP_DELETED, AppDeletedEvent.class);
         assertEquals(appId, event.getAppId());
 
         assertEquals(0, groupRepository.count(tenantId));
@@ -1638,7 +1638,7 @@ class AppControllerApiTest extends BaseApiTest {
         assertFalse(appRepository.byId(response.getAppId()).isGroupSynced());
         AppApi.enableGroupSync(response.getJwt(), response.getAppId());
         assertTrue(appRepository.byId(response.getAppId()).isGroupSynced());
-        AppGroupSyncEnabledEvent event = domainEventDao.latestEventFor(response.getAppId(), APP_GROUP_SYNC_ENABLED, AppGroupSyncEnabledEvent.class);
+        AppGroupSyncEnabledEvent event = latestEventFor(response.getAppId(), APP_GROUP_SYNC_ENABLED, AppGroupSyncEnabledEvent.class);
         assertEquals(response.getAppId(), event.getAppId());
     }
 

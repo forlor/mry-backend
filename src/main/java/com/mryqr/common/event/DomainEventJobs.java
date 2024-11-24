@@ -38,6 +38,7 @@ public class DomainEventJobs {
     private final MryRedisProperties mryRedisProperties;
     private final LockingTaskExecutor lockingTaskExecutor;
 
+    @Deprecated
     public int publishDomainEvents() {
         try {
             //通过分布式锁保证只有一个publisher工作，以此保证消息发送的顺序
@@ -76,6 +77,7 @@ public class DomainEventJobs {
         return count;
     }
 
+    // todo: 修改为基于publishDomainEvent的实现
     @Retryable(backoff = @Backoff(delay = 1000, multiplier = 3))
     public void removeOldDomainEventsFromMongo(int days) {
         log.info("Start remove old domain events from mongodb.");

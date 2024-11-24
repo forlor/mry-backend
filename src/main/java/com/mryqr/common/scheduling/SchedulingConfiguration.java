@@ -1,9 +1,9 @@
 package com.mryqr.common.scheduling;
 
-import com.mryqr.common.event.DomainEventJobs;
 import com.mryqr.core.assignment.job.CreateAssignmentsJob;
 import com.mryqr.core.assignment.job.ExpireAssignmentsJob;
 import com.mryqr.core.assignment.job.NearExpireAssignmentsJob;
+import com.mryqr.core.common.domain.event.publish.DomainEventPublisher;
 import com.mryqr.core.qr.job.RemoveQrRangedAttributeValuesForAllTenantsJob;
 import com.mryqr.core.tenant.job.CountStorageForAllTenantJob;
 import com.mryqr.management.operation.MrySelfOperationJob;
@@ -30,22 +30,20 @@ import static java.time.LocalDateTime.now;
 @EnableSchedulerLock(defaultLockAtMostFor = "60m", defaultLockAtLeastFor = "10s")
 public class SchedulingConfiguration {
     private final RemoveQrRangedAttributeValuesForAllTenantsJob removeQrRangedAttributeValuesForAllTenantsJob;
-    private final DomainEventJobs domainEventJobs;
     private final CountStorageForAllTenantJob countStorageForAllTenantJob;
     private final MrySelfOperationJob mrySelfOperationJob;
     private final CreateAssignmentsJob createAssignmentsJob;
     private final ExpireAssignmentsJob expireAssignmentsJob;
     private final NearExpireAssignmentsJob nearExpireAssignmentsJob;
 
+    private final DomainEventPublisher domainEventPublisher;
+
     //定时任务尽量放到前半个小时运行，以将后半个多小时留给部署时间
 
     //兜底发送尚未发送的事件，每2分钟运行，不能用@SchedulerLock，因为publishDomainEvents本身有分布式锁
     @Scheduled(cron = "0 */2 * * * ?")
     public void houseKeepPublishDomainEvent() {
-        int count = domainEventJobs.publishDomainEvents();
-        if (count > 0) {
-            log.info("House keep published {} domain events.", count);
-        }
+        domainEventPublisher.publishStagedDomainEvents();
     }
 
     //根据AssignmentPlan创建Assignment，每小时第1分钟运行，不能整点，因为整点有可能会被计算成上一小时

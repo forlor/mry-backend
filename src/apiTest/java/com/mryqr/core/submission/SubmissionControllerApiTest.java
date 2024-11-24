@@ -147,7 +147,7 @@ class SubmissionControllerApiTest extends BaseApiTest {
         SingleLineTextAnswer answer = rAnswer(control);
         String submissionId = SubmissionApi.newSubmission(response.getJwt(), response.getQrId(), response.getHomePageId(), answer);
 
-        SubmissionCreatedEvent submissionCreatedEvent = domainEventDao.latestEventFor(submissionId, SUBMISSION_CREATED, SubmissionCreatedEvent.class);
+        SubmissionCreatedEvent submissionCreatedEvent = latestEventFor(submissionId, SUBMISSION_CREATED, SubmissionCreatedEvent.class);
         assertEquals(submissionId, submissionCreatedEvent.getSubmissionId());
         assertEquals(response.getAppId(), submissionCreatedEvent.getAppId());
         assertEquals(response.getHomePageId(), submissionCreatedEvent.getPageId());
@@ -543,7 +543,7 @@ class SubmissionControllerApiTest extends BaseApiTest {
         SingleLineTextAnswer updateAnswer = rAnswer(control);
         SubmissionApi.updateSubmission(response.getJwt(), submissionId, updateAnswer);
 
-        SubmissionUpdatedEvent submissionUpdatedEvent = domainEventDao.latestEventFor(submissionId, SUBMISSION_UPDATED, SubmissionUpdatedEvent.class);
+        SubmissionUpdatedEvent submissionUpdatedEvent = latestEventFor(submissionId, SUBMISSION_UPDATED, SubmissionUpdatedEvent.class);
         assertEquals(submissionId, submissionUpdatedEvent.getSubmissionId());
         QR qr = qrRepository.byId(response.getQrId());
         TextAttributeValue attributeValue = (TextAttributeValue) qr.attributeValueOf(attribute.getId());
@@ -717,7 +717,7 @@ class SubmissionControllerApiTest extends BaseApiTest {
 
         ApproveSubmissionCommand command = approveSubmissionCommand(true);
         SubmissionApi.approveSubmission(response.getJwt(), submissionId, command);
-        SubmissionApprovedEvent approvedEvent = domainEventDao.latestEventFor(submissionId, SUBMISSION_APPROVED, SubmissionApprovedEvent.class);
+        SubmissionApprovedEvent approvedEvent = latestEventFor(submissionId, SUBMISSION_APPROVED, SubmissionApprovedEvent.class);
         assertEquals(submissionId, approvedEvent.getSubmissionId());
 
         Submission submission = submissionRepository.byId(submissionId);
@@ -869,7 +869,7 @@ class SubmissionControllerApiTest extends BaseApiTest {
 
         SubmissionApi.deleteSubmission(response.getJwt(), submissionId);
 
-        SubmissionDeletedEvent submissionDeletedEvent = domainEventDao.latestEventFor(submissionId, SUBMISSION_DELETED, SubmissionDeletedEvent.class);
+        SubmissionDeletedEvent submissionDeletedEvent = latestEventFor(submissionId, SUBMISSION_DELETED, SubmissionDeletedEvent.class);
         assertEquals(submissionId, submissionDeletedEvent.getSubmissionId());
         QR qr = qrRepository.byId(response.getQrId());
         IntegerAttributeValue attributeValue = (IntegerAttributeValue) qr.attributeValueOf(attribute.getId());

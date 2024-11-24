@@ -106,7 +106,7 @@ class MemberControllerApiTest extends BaseApiTest {
 
         String memberId = MemberApi.createMember(response.getJwt());
 
-        MemberCreatedEvent memberCreatedEvent = domainEventDao.latestEventFor(memberId, MEMBER_CREATED, MemberCreatedEvent.class);
+        MemberCreatedEvent memberCreatedEvent = latestEventFor(memberId, MEMBER_CREATED, MemberCreatedEvent.class);
         assertEquals(memberId, memberCreatedEvent.getMemberId());
         Tenant tenant = tenantRepository.byId(response.getTenantId());
         assertEquals(2, tenant.getResourceUsage().getMemberCount());
@@ -124,7 +124,7 @@ class MemberControllerApiTest extends BaseApiTest {
                 .password(rPassword())
                 .build());
 
-        MemberDepartmentsChangedEvent event = domainEventDao.latestEventFor(memberId, MEMBER_DEPARTMENTS_CHANGED, MemberDepartmentsChangedEvent.class);
+        MemberDepartmentsChangedEvent event = latestEventFor(memberId, MEMBER_DEPARTMENTS_CHANGED, MemberDepartmentsChangedEvent.class);
         assertTrue(event.getAddedDepartmentIds().contains(departmentId));
         assertTrue(event.getRemovedDepartmentIds().isEmpty());
         assertEquals(memberId, event.getMemberId());
@@ -378,7 +378,7 @@ class MemberControllerApiTest extends BaseApiTest {
 
         MemberApi.updateMember(jwt, memberId, command);
 
-        MemberNameChangedEvent event = domainEventDao.latestEventFor(memberId, MEMBER_NAME_CHANGED, MemberNameChangedEvent.class);
+        MemberNameChangedEvent event = latestEventFor(memberId, MEMBER_NAME_CHANGED, MemberNameChangedEvent.class);
         assertEquals(memberId, event.getMemberId());
 
         Member member = memberRepository.byId(memberId);
@@ -410,7 +410,7 @@ class MemberControllerApiTest extends BaseApiTest {
                 .build();
 
         MemberApi.updateMember(loginResponse.getJwt(), memberId, command);
-        MemberDepartmentsChangedEvent event = domainEventDao.latestEventFor(memberId, MEMBER_DEPARTMENTS_CHANGED, MemberDepartmentsChangedEvent.class);
+        MemberDepartmentsChangedEvent event = latestEventFor(memberId, MEMBER_DEPARTMENTS_CHANGED, MemberDepartmentsChangedEvent.class);
         assertEquals(memberId, event.getMemberId());
         assertEquals(1, event.getRemovedDepartmentIds().size());
         assertTrue(event.getRemovedDepartmentIds().contains(departmentId1));
@@ -541,7 +541,7 @@ class MemberControllerApiTest extends BaseApiTest {
 
         MemberApi.deleteMember(response.getJwt(), memberId);
 
-        MemberDeletedEvent event = domainEventDao.latestEventFor(memberId, MEMBER_DELETED, MemberDeletedEvent.class);
+        MemberDeletedEvent event = latestEventFor(memberId, MEMBER_DELETED, MemberDeletedEvent.class);
         assertEquals(memberId, event.getMemberId());
         assertFalse(appRepository.byId(response.getAppId()).getManagers().contains(memberId));
         assertFalse(groupRepository.byId(response.getDefaultGroupId()).getManagers().contains(memberId));
@@ -685,7 +685,7 @@ class MemberControllerApiTest extends BaseApiTest {
         UpdateMyBaseSettingCommand command = UpdateMyBaseSettingCommand.builder().name(newName).build();
         MemberApi.updateMyBaseSetting(response.getJwt(), command);
 
-        MemberNameChangedEvent event = domainEventDao.latestEventFor(response.getMemberId(), MEMBER_NAME_CHANGED, MemberNameChangedEvent.class);
+        MemberNameChangedEvent event = latestEventFor(response.getMemberId(), MEMBER_NAME_CHANGED, MemberNameChangedEvent.class);
         assertEquals(response.getMemberId(), event.getMemberId());
 
         App app = appRepository.byId(response.getAppId());

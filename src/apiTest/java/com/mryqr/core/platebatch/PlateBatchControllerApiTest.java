@@ -21,9 +21,7 @@ import static com.mryqr.core.common.domain.event.DomainEventType.PLATE_BATCH_CRE
 import static com.mryqr.core.common.exception.ErrorCode.PLATE_BATCH_WITH_NAME_ALREADY_EXISTS;
 import static com.mryqr.utils.RandomTestFixture.rPlateBatchName;
 import static com.mryqr.utils.RandomTestFixture.rQrName;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class PlateBatchControllerApiTest extends BaseApiTest {
 
@@ -46,7 +44,7 @@ class PlateBatchControllerApiTest extends BaseApiTest {
 
         String plateBatchId = PlateBatchApi.createPlateBatch(response.getJwt(), response.getAppId(), 10);
 
-        PlateBatchCreatedEvent event = domainEventDao.latestEventFor(plateBatchId, PLATE_BATCH_CREATED, PlateBatchCreatedEvent.class);
+        PlateBatchCreatedEvent event = latestEventFor(plateBatchId, PLATE_BATCH_CREATED, PlateBatchCreatedEvent.class);
         assertEquals(plateBatchId, event.getBatchId());
         Tenant tenant = tenantRepository.byId(response.getTenantId());
         assertEquals(10, tenant.getResourceUsage().getPlateCount());

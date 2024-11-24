@@ -196,7 +196,7 @@ class QrControllerApiTest extends BaseApiTest {
 
         CreateQrResponse qrResponse = QrApi.createQr(response.getJwt(), response.getDefaultGroupId());
 
-        QrCreatedEvent event = domainEventDao.latestEventFor(qrResponse.getQrId(), QR_CREATED, QrCreatedEvent.class);
+        QrCreatedEvent event = latestEventFor(qrResponse.getQrId(), QR_CREATED, QrCreatedEvent.class);
         assertEquals(qrResponse.getQrId(), event.getQrId());
         assertEquals(qrResponse.getAppId(), event.getAppId());
         assertEquals(qrResponse.getGroupId(), event.getGroupId());
@@ -207,7 +207,7 @@ class QrControllerApiTest extends BaseApiTest {
         TimestampAttributeValue attributeValue = (TimestampAttributeValue) qr.attributeValueOf(attribute.getId());
         assertEquals(qr.getCreatedAt(), attributeValue.getTimestamp());
 
-        PlateBoundEvent plateBoundEvent = domainEventDao.latestEventFor(qrResponse.getPlateId(), PLATE_BOUND, PlateBoundEvent.class);
+        PlateBoundEvent plateBoundEvent = latestEventFor(qrResponse.getPlateId(), PLATE_BOUND, PlateBoundEvent.class);
         assertEquals(qrResponse.getQrId(), plateBoundEvent.getQrId());
     }
 
@@ -290,12 +290,12 @@ class QrControllerApiTest extends BaseApiTest {
         String plateId = plateRepository.allPlateIdsUnderPlateBatch(plateBatchId).stream().findAny().get();
 
         CreateQrResponse qrResponse = QrApi.createQrFromPlate(response.getJwt(), rQrName(), response.getDefaultGroupId(), plateId);
-        QrCreatedEvent event = domainEventDao.latestEventFor(qrResponse.getQrId(), QR_CREATED, QrCreatedEvent.class);
+        QrCreatedEvent event = latestEventFor(qrResponse.getQrId(), QR_CREATED, QrCreatedEvent.class);
         assertEquals(qrResponse.getQrId(), event.getQrId());
         assertEquals(qrResponse.getAppId(), event.getAppId());
         assertEquals(qrResponse.getGroupId(), event.getGroupId());
         assertEquals(qrResponse.getPlateId(), event.getPlateId());
-        PlateBoundEvent plateBoundEvent = domainEventDao.latestEventFor(qrResponse.getPlateId(), PLATE_BOUND, PlateBoundEvent.class);
+        PlateBoundEvent plateBoundEvent = latestEventFor(qrResponse.getPlateId(), PLATE_BOUND, PlateBoundEvent.class);
         assertEquals(qrResponse.getQrId(), plateBoundEvent.getQrId());
         assertEquals(9, plateBatchRepository.byId(plateBatchId).getAvailableCount());
     }
@@ -590,7 +590,7 @@ class QrControllerApiTest extends BaseApiTest {
         String qrName = rQrName();
         QrApi.renameQr(response.getJwt(), response.getQrId(), qrName);
 
-        QrRenamedEvent qrRenamedEvent = domainEventDao.latestEventFor(response.getQrId(), QR_RENAMED, QrRenamedEvent.class);
+        QrRenamedEvent qrRenamedEvent = latestEventFor(response.getQrId(), QR_RENAMED, QrRenamedEvent.class);
         assertEquals(response.getQrId(), qrRenamedEvent.getQrId());
         TextAttributeValue attributeValue = (TextAttributeValue) qrRepository.byId(response.getQrId()).attributeValueOf(attribute.getId());
         assertEquals(qrName, attributeValue.getText());
@@ -643,7 +643,7 @@ class QrControllerApiTest extends BaseApiTest {
 
         QrApi.resetPlate(response.getJwt(), response.getQrId(), newPlateId);
 
-        QrPlateResetEvent qrPlateResetEvent = domainEventDao.latestEventFor(response.getQrId(), QR_PLATE_RESET, QrPlateResetEvent.class);
+        QrPlateResetEvent qrPlateResetEvent = latestEventFor(response.getQrId(), QR_PLATE_RESET, QrPlateResetEvent.class);
         assertEquals(newPlateId, qrPlateResetEvent.getNewPlateId());
         assertEquals(oldPlateId, qrPlateResetEvent.getOldPlateId());
         assertEquals(newPlateId, submissionRepository.byId(submissionId).getPlateId());
@@ -713,7 +713,7 @@ class QrControllerApiTest extends BaseApiTest {
         AppApi.updateAppAttributes(response.getJwt(), response.getAppId(), attribute);
 
         QrApi.resetCirculationStatus(response.getJwt(), response.getQrId(), option1.getId());
-        QrCirculationStatusChangedEvent theEvent = domainEventDao.latestEventFor(response.getQrId(), QR_CIRCULATION_STATUS_CHANGED, QrCirculationStatusChangedEvent.class);
+        QrCirculationStatusChangedEvent theEvent = latestEventFor(response.getQrId(), QR_CIRCULATION_STATUS_CHANGED, QrCirculationStatusChangedEvent.class);
         assertEquals(response.getQrId(), theEvent.getQrId());
 
         QR qr = qrRepository.byId(response.getQrId());
@@ -745,7 +745,7 @@ class QrControllerApiTest extends BaseApiTest {
 
         QrApi.deleteQr(response.getJwt(), qrResponse.getQrId());
 
-        QrDeletedEvent qrDeletedEvent = domainEventDao.latestEventFor(qrResponse.getQrId(), QR_DELETED, QrDeletedEvent.class);
+        QrDeletedEvent qrDeletedEvent = latestEventFor(qrResponse.getQrId(), QR_DELETED, QrDeletedEvent.class);
         assertEquals(qrResponse.getQrId(), qrDeletedEvent.getQrId());
         assertEquals(response.getAppId(), qrDeletedEvent.getAppId());
         assertEquals(qrResponse.getPlateId(), qrDeletedEvent.getPlateId());
@@ -806,7 +806,7 @@ class QrControllerApiTest extends BaseApiTest {
 
         QrApi.changeQrsGroup(response.getJwt(), groupId, response.getQrId());
 
-        QrGroupChangedEvent qrGroupChangedEvent = domainEventDao.latestEventFor(response.getQrId(), QR_GROUP_CHANGED, QrGroupChangedEvent.class);
+        QrGroupChangedEvent qrGroupChangedEvent = latestEventFor(response.getQrId(), QR_GROUP_CHANGED, QrGroupChangedEvent.class);
         assertEquals(response.getQrId(), qrGroupChangedEvent.getQrId());
         assertEquals(response.getDefaultGroupId(), qrGroupChangedEvent.getOldGroupId());
         assertEquals(groupId, qrGroupChangedEvent.getNewGroupId());
@@ -859,7 +859,7 @@ class QrControllerApiTest extends BaseApiTest {
 
         QrApi.markTemplate(response.getJwt(), response.getQrId());
 
-        QrMarkedAsTemplateEvent qrMarkedAsTemplateEvent = domainEventDao.latestEventFor(response.getQrId(), QR_MARKED_AS_TEMPLATE, QrMarkedAsTemplateEvent.class);
+        QrMarkedAsTemplateEvent qrMarkedAsTemplateEvent = latestEventFor(response.getQrId(), QR_MARKED_AS_TEMPLATE, QrMarkedAsTemplateEvent.class);
         assertEquals(response.getQrId(), qrMarkedAsTemplateEvent.getQrId());
         assertFalse(submissionRepository.byIdOptional(submissionId).isPresent());
         assertEquals(0, tenantRepository.byId(response.getTenantId()).getResourceUsage().getSubmissionCountForApp(response.getAppId()));
@@ -873,7 +873,7 @@ class QrControllerApiTest extends BaseApiTest {
         QrApi.unmarkTemplate(response.getJwt(), response.getQrId());
 
         assertFalse(qrRepository.byId(response.getQrId()).isTemplate());
-        QrUnMarkedAsTemplateEvent event = domainEventDao.latestEventFor(response.getQrId(), QR_UNMARKED_AS_TEMPLATE, QrUnMarkedAsTemplateEvent.class);
+        QrUnMarkedAsTemplateEvent event = latestEventFor(response.getQrId(), QR_UNMARKED_AS_TEMPLATE, QrUnMarkedAsTemplateEvent.class);
         assertEquals(response.getQrId(), event.getQrId());
     }
 
@@ -884,7 +884,7 @@ class QrControllerApiTest extends BaseApiTest {
 
         QR qr = qrRepository.byId(response.getQrId());
         assertFalse(qr.isActive());
-        QrDeactivatedEvent event = domainEventDao.latestEventFor(response.getQrId(), QR_DEACTIVATED, QrDeactivatedEvent.class);
+        QrDeactivatedEvent event = latestEventFor(response.getQrId(), QR_DEACTIVATED, QrDeactivatedEvent.class);
         assertEquals(response.getQrId(), event.getQrId());
     }
 
@@ -896,7 +896,7 @@ class QrControllerApiTest extends BaseApiTest {
 
         QrApi.activate(response.getJwt(), response.getQrId());
         assertTrue(qrRepository.byId(response.getQrId()).isActive());
-        QrActivatedEvent event = domainEventDao.latestEventFor(response.getQrId(), QR_ACTIVATED, QrActivatedEvent.class);
+        QrActivatedEvent event = latestEventFor(response.getQrId(), QR_ACTIVATED, QrActivatedEvent.class);
         assertEquals(response.getQrId(), event.getQrId());
     }
 
@@ -948,7 +948,7 @@ class QrControllerApiTest extends BaseApiTest {
 
         QrApi.updateQrBaseSetting(response.getJwt(), qrId, command);
 
-        QrBaseSettingUpdatedEvent event = domainEventDao.latestEventFor(qrId, QR_BASE_SETTING_UPDATED, QrBaseSettingUpdatedEvent.class);
+        QrBaseSettingUpdatedEvent event = latestEventFor(qrId, QR_BASE_SETTING_UPDATED, QrBaseSettingUpdatedEvent.class);
         assertEquals(qrId, event.getQrId());
 
         QR qr = qrRepository.byId(qrId);

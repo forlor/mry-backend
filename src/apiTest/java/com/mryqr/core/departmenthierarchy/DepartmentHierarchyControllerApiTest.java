@@ -21,14 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.mryqr.core.common.domain.event.DomainEventType.DEPARTMENT_HIERARCHY_CHANGED;
-import static com.mryqr.core.common.exception.ErrorCode.DEPARTMENT_HIERARCHY_NOT_MATCH;
-import static com.mryqr.core.common.exception.ErrorCode.DEPARTMENT_HIERARCHY_TOO_DEEP;
-import static com.mryqr.core.common.exception.ErrorCode.DEPARTMENT_NAME_DUPLICATES;
+import static com.mryqr.core.common.exception.ErrorCode.*;
 import static com.mryqr.utils.RandomTestFixture.rDepartmentName;
 import static java.lang.Boolean.TRUE;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DepartmentHierarchyControllerApiTest extends BaseApiTest {
 
@@ -71,7 +67,7 @@ public class DepartmentHierarchyControllerApiTest extends BaseApiTest {
         assertEquals(departmentId2, hierarchy.getHierarchy().schemaOf(departmentId2));
         assertEquals(departmentId3, hierarchy.getHierarchy().schemaOf(departmentId3));
 
-        assertEquals(response.getTenantId(), domainEventDao.latestEventFor(hierarchy.getId(), DEPARTMENT_HIERARCHY_CHANGED, DepartmentHierarchyChangedEvent.class).getTenantId());
+        assertEquals(response.getTenantId(), latestEventFor(hierarchy.getId(), DEPARTMENT_HIERARCHY_CHANGED, DepartmentHierarchyChangedEvent.class).getTenantId());
     }
 
     @Test

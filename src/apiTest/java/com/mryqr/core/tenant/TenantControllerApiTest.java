@@ -140,7 +140,7 @@ class TenantControllerApiTest extends BaseApiTest {
         String subdomainPrefix = rSubdomainPrefix();
         TenantApi.updateSubdomain(response.getJwt(), UpdateTenantSubdomainCommand.builder().subdomainPrefix(subdomainPrefix).build());
 
-        TenantSubdomainUpdatedEvent event = domainEventDao.latestEventFor(response.getTenantId(), TENANT_SUBDOMAIN_UPDATED, TenantSubdomainUpdatedEvent.class);
+        TenantSubdomainUpdatedEvent event = latestEventFor(response.getTenantId(), TENANT_SUBDOMAIN_UPDATED, TenantSubdomainUpdatedEvent.class);
         assertNull(event.getOldSubdomainPrefix());
         assertEquals(subdomainPrefix, event.getNewSubdomainPrefix());
         assertEquals(response.getTenantId(), event.getArTenantId());

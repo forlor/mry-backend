@@ -2,6 +2,7 @@ package com.mryqr.core.common.domain.event;
 
 import java.util.List;
 
+@Deprecated
 public interface DomainEventDao {
     void insert(List<DomainEvent> events);
 

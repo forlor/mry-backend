@@ -7,7 +7,10 @@ import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.appmanual.domain.AppManualRepository;
 import com.mryqr.core.assignment.domain.AssignmentRepository;
 import com.mryqr.core.assignmentplan.domain.AssignmentPlanRepository;
+import com.mryqr.core.common.domain.event.DomainEvent;
 import com.mryqr.core.common.domain.event.DomainEventDao;
+import com.mryqr.core.common.domain.event.DomainEventType;
+import com.mryqr.core.common.domain.event.publish.PublishingDomainEvent;
 import com.mryqr.core.common.exception.Error;
 import com.mryqr.core.common.exception.ErrorCode;
 import com.mryqr.core.common.exception.QErrorResponse;
@@ -39,6 +42,8 @@ import org.junit.jupiter.api.parallel.Execution;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -53,11 +58,18 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.parallel.ExecutionMode.CONCURRENT;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+import static org.springframework.data.domain.Sort.Direction.DESC;
+import static org.springframework.data.domain.Sort.by;
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+import static org.springframework.data.mongodb.core.query.Query.query;
 
 @ActiveProfiles("ci")
 @Execution(CONCURRENT)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 public abstract class BaseApiTest {
+
+    @Autowired
+    protected MongoTemplate mongoTemplate;
 
     @Autowired
     protected MryObjectMapper objectMapper;
@@ -181,6 +193,17 @@ public abstract class BaseApiTest {
     public static void assertError(Supplier<Response> apiCall, ErrorCode expectedCode) {
         Error error = apiCall.get().then().statusCode(expectedCode.getStatus()).extract().as(QErrorResponse.class).getError();
         assertEquals(expectedCode, error.getCode());
+    }
+
+    protected <T extends DomainEvent> T latestEventFor(String arId, DomainEventType type, Class<T> eventClass) {
+        Query query = query(where(PublishingDomainEvent.Fields.event + "." + DomainEvent.Fields.arId).is(arId)
+                .and(PublishingDomainEvent.Fields.event + "." + DomainEvent.Fields.type).is(type))
+                .with(by(DESC, PublishingDomainEvent.Fields.raisedAt));
+        PublishingDomainEvent publishingDomainEvent = mongoTemplate.findOne(query, PublishingDomainEvent.class);
+        if (publishingDomainEvent == null) {
+            return null;
+        }
+        return (T) publishingDomainEvent.getEvent();
     }
 
 }

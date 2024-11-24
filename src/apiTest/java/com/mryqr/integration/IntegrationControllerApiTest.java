@@ -29,11 +29,7 @@ import com.mryqr.core.qr.command.CreateQrResponse;
 import com.mryqr.core.qr.domain.QR;
 import com.mryqr.core.qr.domain.attribute.IdentifierAttributeValue;
 import com.mryqr.core.qr.domain.attribute.TextAttributeValue;
-import com.mryqr.core.qr.domain.event.QrAttributesUpdatedEvent;
-import com.mryqr.core.qr.domain.event.QrCustomIdUpdatedEvent;
-import com.mryqr.core.qr.domain.event.QrDescriptionUpdatedEvent;
-import com.mryqr.core.qr.domain.event.QrGeolocationUpdatedEvent;
-import com.mryqr.core.qr.domain.event.QrHeaderImageUpdatedEvent;
+import com.mryqr.core.qr.domain.event.*;
 import com.mryqr.core.register.command.RegisterResponse;
 import com.mryqr.core.submission.SubmissionApi;
 import com.mryqr.core.submission.domain.Submission;
@@ -45,17 +41,7 @@ import com.mryqr.integration.department.command.IntegrationCreateDepartmentComma
 import com.mryqr.integration.department.command.IntegrationUpdateDepartmentCustomIdCommand;
 import com.mryqr.integration.department.query.QIntegrationDepartment;
 import com.mryqr.integration.department.query.QIntegrationListDepartment;
-import com.mryqr.integration.group.command.IntegrationAddGroupManagersCommand;
-import com.mryqr.integration.group.command.IntegrationAddGroupMembersCommand;
-import com.mryqr.integration.group.command.IntegrationCreateGroupCommand;
-import com.mryqr.integration.group.command.IntegrationCustomAddGroupManagersCommand;
-import com.mryqr.integration.group.command.IntegrationCustomAddGroupMembersCommand;
-import com.mryqr.integration.group.command.IntegrationCustomRemoveGroupManagersCommand;
-import com.mryqr.integration.group.command.IntegrationCustomRemoveGroupMembersCommand;
-import com.mryqr.integration.group.command.IntegrationRemoveGroupManagersCommand;
-import com.mryqr.integration.group.command.IntegrationRemoveGroupMembersCommand;
-import com.mryqr.integration.group.command.IntegrationRenameGroupCommand;
-import com.mryqr.integration.group.command.IntegrationUpdateGroupCustomIdCommand;
+import com.mryqr.integration.group.command.*;
 import com.mryqr.integration.group.query.QIntegrationGroup;
 import com.mryqr.integration.group.query.QIntegrationListGroup;
 import com.mryqr.integration.member.command.IntegrationCreateMemberCommand;
@@ -63,16 +49,7 @@ import com.mryqr.integration.member.command.IntegrationUpdateMemberCustomIdComma
 import com.mryqr.integration.member.command.IntegrationUpdateMemberInfoCommand;
 import com.mryqr.integration.member.query.QIntegrationListMember;
 import com.mryqr.integration.member.query.QIntegrationMember;
-import com.mryqr.integration.qr.command.IntegrationCreateQrAdvancedCommand;
-import com.mryqr.integration.qr.command.IntegrationCreateQrResponse;
-import com.mryqr.integration.qr.command.IntegrationCreateQrSimpleCommand;
-import com.mryqr.integration.qr.command.IntegrationRenameQrCommand;
-import com.mryqr.integration.qr.command.IntegrationUpdateQrBaseSettingCommand;
-import com.mryqr.integration.qr.command.IntegrationUpdateQrCustomIdCommand;
-import com.mryqr.integration.qr.command.IntegrationUpdateQrDescriptionCommand;
-import com.mryqr.integration.qr.command.IntegrationUpdateQrDirectAttributesCommand;
-import com.mryqr.integration.qr.command.IntegrationUpdateQrGeolocationCommand;
-import com.mryqr.integration.qr.command.IntegrationUpdateQrHeaderImageCommand;
+import com.mryqr.integration.qr.command.*;
 import com.mryqr.integration.qr.query.QIntegrationQr;
 import com.mryqr.integration.submission.command.IntegrationNewSubmissionCommand;
 import com.mryqr.integration.submission.command.IntegrationUpdateSubmissionCommand;
@@ -96,52 +73,13 @@ import static com.mryqr.core.app.domain.attribute.AttributeType.DIRECT_INPUT;
 import static com.mryqr.core.app.domain.attribute.AttributeType.INSTANCE_CUSTOM_ID;
 import static com.mryqr.core.app.domain.page.setting.SubmitType.ONCE_PER_INSTANCE;
 import static com.mryqr.core.app.domain.page.setting.SubmitType.ONCE_PER_MEMBER;
-import static com.mryqr.core.common.domain.event.DomainEventType.DEPARTMENT_MANAGERS_CHANGED;
-import static com.mryqr.core.common.domain.event.DomainEventType.GROUP_CREATED;
-import static com.mryqr.core.common.domain.event.DomainEventType.GROUP_MANAGERS_CHANGED;
-import static com.mryqr.core.common.domain.event.DomainEventType.MEMBER_ADDED_TO_DEPARTMENT;
-import static com.mryqr.core.common.domain.event.DomainEventType.MEMBER_REMOVED_FROM_DEPARTMENT;
-import static com.mryqr.core.common.domain.event.DomainEventType.QR_ATTRIBUTES_UPDATED;
-import static com.mryqr.core.common.domain.event.DomainEventType.QR_CUSTOM_ID_UPDATED;
-import static com.mryqr.core.common.domain.event.DomainEventType.QR_DESCRIPTION_UPDATED;
-import static com.mryqr.core.common.domain.event.DomainEventType.QR_GEOLOCATION_UPDATED;
-import static com.mryqr.core.common.domain.event.DomainEventType.QR_HEADER_IMAGE_UPDATED;
-import static com.mryqr.core.common.exception.ErrorCode.AUTHENTICATION_FAILED;
-import static com.mryqr.core.common.exception.ErrorCode.GROUP_NOT_ACTIVE;
-import static com.mryqr.core.common.exception.ErrorCode.GROUP_WITH_CUSTOM_ID_ALREADY_EXISTS;
-import static com.mryqr.core.common.exception.ErrorCode.MAX_GROUP_MANAGER_REACHED;
-import static com.mryqr.core.common.exception.ErrorCode.MEMBER_WITH_CUSTOM_ID_ALREADY_EXISTS;
-import static com.mryqr.core.common.exception.ErrorCode.NOT_DEPARTMENT_MEMBER;
-import static com.mryqr.core.common.exception.ErrorCode.NO_ACTIVE_TENANT_ADMIN_LEFT;
-import static com.mryqr.core.common.exception.ErrorCode.NO_MORE_THAN_ONE_VISIBLE_GROUP_LEFT;
-import static com.mryqr.core.common.exception.ErrorCode.QR_NOT_ACTIVE;
-import static com.mryqr.core.common.exception.ErrorCode.QR_WITH_CUSTOM_ID_ALREADY_EXISTS;
-import static com.mryqr.core.common.exception.ErrorCode.SUBMISSION_REQUIRE_MEMBER;
+import static com.mryqr.core.common.domain.event.DomainEventType.*;
+import static com.mryqr.core.common.exception.ErrorCode.*;
 import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
-import static com.mryqr.utils.RandomTestFixture.defaultPageSettingBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultSingleLineTextControl;
-import static com.mryqr.utils.RandomTestFixture.rAnswer;
-import static com.mryqr.utils.RandomTestFixture.rAttributeName;
-import static com.mryqr.utils.RandomTestFixture.rCustomId;
-import static com.mryqr.utils.RandomTestFixture.rDepartmentName;
-import static com.mryqr.utils.RandomTestFixture.rEmail;
-import static com.mryqr.utils.RandomTestFixture.rGeolocation;
-import static com.mryqr.utils.RandomTestFixture.rGroupName;
-import static com.mryqr.utils.RandomTestFixture.rImageFile;
-import static com.mryqr.utils.RandomTestFixture.rMemberName;
-import static com.mryqr.utils.RandomTestFixture.rMobile;
-import static com.mryqr.utils.RandomTestFixture.rPassword;
-import static com.mryqr.utils.RandomTestFixture.rQrName;
-import static com.mryqr.utils.RandomTestFixture.rSentence;
-import static com.mryqr.utils.RandomTestFixture.rUrl;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static java.util.List.of;
 import static java.util.stream.Collectors.toList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class IntegrationControllerApiTest extends BaseApiTest {
 
@@ -158,7 +96,7 @@ public class IntegrationControllerApiTest extends BaseApiTest {
                         .name("aGroupName")
                         .build());
 
-        GroupCreatedEvent groupCreatedEvent = domainEventDao.latestEventFor(groupId, GROUP_CREATED, GroupCreatedEvent.class);
+        GroupCreatedEvent groupCreatedEvent = latestEventFor(groupId, GROUP_CREATED, GroupCreatedEvent.class);
         assertEquals(groupId, groupCreatedEvent.getGroupId());
         assertEquals(response.getAppId(), groupCreatedEvent.getAppId());
         Tenant updatedTenant = tenantRepository.byId(response.getTenantId());
@@ -872,7 +810,7 @@ public class IntegrationControllerApiTest extends BaseApiTest {
                 tenant.getApiSetting().getApiSecret(),
                 response.getQrId(),
                 IntegrationUpdateQrDescriptionCommand.builder().description("some description").build());
-        QrDescriptionUpdatedEvent event = domainEventDao.latestEventFor(response.getQrId(), QR_DESCRIPTION_UPDATED, QrDescriptionUpdatedEvent.class);
+        QrDescriptionUpdatedEvent event = latestEventFor(response.getQrId(), QR_DESCRIPTION_UPDATED, QrDescriptionUpdatedEvent.class);
         assertEquals(response.getQrId(), event.getQrId());
 
         QR qr = qrRepository.byId(response.getQrId());
@@ -914,7 +852,7 @@ public class IntegrationControllerApiTest extends BaseApiTest {
                 response.getQrId(),
                 IntegrationUpdateQrHeaderImageCommand.builder().headerImageUrl(headerImageUrl).build());
 
-        QrHeaderImageUpdatedEvent event = domainEventDao.latestEventFor(response.getQrId(), QR_HEADER_IMAGE_UPDATED, QrHeaderImageUpdatedEvent.class);
+        QrHeaderImageUpdatedEvent event = latestEventFor(response.getQrId(), QR_HEADER_IMAGE_UPDATED, QrHeaderImageUpdatedEvent.class);
         assertEquals(response.getQrId(), event.getQrId());
 
         QR qr = qrRepository.byId(response.getQrId());
@@ -981,7 +919,7 @@ public class IntegrationControllerApiTest extends BaseApiTest {
         QR updatedQr = qrRepository.byId(response.getQrId());
         assertEquals("hello11", ((TextAttributeValue) updatedQr.attributeValueOf(attribute1.getId())).getText());
         assertEquals("hello2", ((TextAttributeValue) updatedQr.attributeValueOf(attribute2.getId())).getText());
-        QrAttributesUpdatedEvent event = domainEventDao.latestEventFor(response.getQrId(), QR_ATTRIBUTES_UPDATED, QrAttributesUpdatedEvent.class);
+        QrAttributesUpdatedEvent event = latestEventFor(response.getQrId(), QR_ATTRIBUTES_UPDATED, QrAttributesUpdatedEvent.class);
         assertEquals(response.getQrId(), event.getQrId());
 
         Map<String, String> map = newHashMap();
@@ -1045,7 +983,7 @@ public class IntegrationControllerApiTest extends BaseApiTest {
                 IntegrationUpdateQrGeolocationCommand.builder().geolocation(geolocation).build()
         );
 
-        QrGeolocationUpdatedEvent event = domainEventDao.latestEventFor(response.getQrId(), QR_GEOLOCATION_UPDATED, QrGeolocationUpdatedEvent.class);
+        QrGeolocationUpdatedEvent event = latestEventFor(response.getQrId(), QR_GEOLOCATION_UPDATED, QrGeolocationUpdatedEvent.class);
         assertEquals(response.getQrId(), event.getQrId());
 
         QR qr = qrRepository.byId(response.getQrId());
@@ -1136,7 +1074,7 @@ public class IntegrationControllerApiTest extends BaseApiTest {
                 command
         );
 
-        QrCustomIdUpdatedEvent event = domainEventDao.latestEventFor(qrId, QR_CUSTOM_ID_UPDATED, QrCustomIdUpdatedEvent.class);
+        QrCustomIdUpdatedEvent event = latestEventFor(qrId, QR_CUSTOM_ID_UPDATED, QrCustomIdUpdatedEvent.class);
         assertEquals(qrId, event.getQrId());
 
         QR qr = qrRepository.byId(qrId);
@@ -1602,7 +1540,7 @@ public class IntegrationControllerApiTest extends BaseApiTest {
                 response.getDefaultGroupId(),
                 IntegrationAddGroupManagersCommand.builder().memberIds(of(memberId)).build());
 
-        assertNotNull(domainEventDao.latestEventFor(response.getDefaultGroupId(), GROUP_MANAGERS_CHANGED, GroupManagersChangedEvent.class));
+        assertNotNull(latestEventFor(response.getDefaultGroupId(), GROUP_MANAGERS_CHANGED, GroupManagersChangedEvent.class));
         Group group = groupRepository.byId(response.getDefaultGroupId());
         assertTrue(group.getManagers().contains(memberId));
     }
@@ -1702,7 +1640,7 @@ public class IntegrationControllerApiTest extends BaseApiTest {
                 response.getDefaultGroupId(),
                 IntegrationRemoveGroupManagersCommand.builder().memberIds(List.of(memberId)).build());
         assertFalse(groupRepository.byId(response.getDefaultGroupId()).getManagers().contains(memberId));
-        assertNotNull(domainEventDao.latestEventFor(response.getDefaultGroupId(), GROUP_MANAGERS_CHANGED, GroupManagersChangedEvent.class));
+        assertNotNull(latestEventFor(response.getDefaultGroupId(), GROUP_MANAGERS_CHANGED, GroupManagersChangedEvent.class));
     }
 
     @Test
@@ -1747,7 +1685,7 @@ public class IntegrationControllerApiTest extends BaseApiTest {
                 IntegrationCustomRemoveGroupManagersCommand.builder().memberCustomIds(List.of(memberCustomId)).build());
 
         assertFalse(groupRepository.byId(groupId).getManagers().contains(memberId));
-        assertNotNull(domainEventDao.latestEventFor(groupId, GROUP_MANAGERS_CHANGED, GroupManagersChangedEvent.class));
+        assertNotNull(latestEventFor(groupId, GROUP_MANAGERS_CHANGED, GroupManagersChangedEvent.class));
     }
 
     @Test
@@ -1848,7 +1786,7 @@ public class IntegrationControllerApiTest extends BaseApiTest {
         Group updatedGroup = groupRepository.byId(response.getDefaultGroupId());
         assertFalse(updatedGroup.getManagers().contains(memberId));
         assertFalse(updatedGroup.getMembers().contains(memberId));
-        GroupManagersChangedEvent event = domainEventDao.latestEventFor(response.getDefaultGroupId(), GROUP_MANAGERS_CHANGED, GroupManagersChangedEvent.class);
+        GroupManagersChangedEvent event = latestEventFor(response.getDefaultGroupId(), GROUP_MANAGERS_CHANGED, GroupManagersChangedEvent.class);
         assertEquals(response.getDefaultGroupId(), event.getGroupId());
     }
 
@@ -2343,7 +2281,7 @@ public class IntegrationControllerApiTest extends BaseApiTest {
         assertTrue(member.getDepartmentIds().contains(departmentId));
         assertEquals(1, member.getDepartmentIds().size());
 
-        MemberAddedToDepartmentEvent event = domainEventDao.latestEventFor(memberId, MEMBER_ADDED_TO_DEPARTMENT, MemberAddedToDepartmentEvent.class);
+        MemberAddedToDepartmentEvent event = latestEventFor(memberId, MEMBER_ADDED_TO_DEPARTMENT, MemberAddedToDepartmentEvent.class);
         assertEquals(departmentId, event.getDepartmentId());
     }
 
@@ -2379,7 +2317,7 @@ public class IntegrationControllerApiTest extends BaseApiTest {
         assertTrue(member.getDepartmentIds().contains(departmentId));
         assertEquals(1, member.getDepartmentIds().size());
 
-        MemberAddedToDepartmentEvent event = domainEventDao.latestEventFor(memberId, MEMBER_ADDED_TO_DEPARTMENT, MemberAddedToDepartmentEvent.class);
+        MemberAddedToDepartmentEvent event = latestEventFor(memberId, MEMBER_ADDED_TO_DEPARTMENT, MemberAddedToDepartmentEvent.class);
         assertEquals(departmentId, event.getDepartmentId());
     }
 
@@ -2402,7 +2340,7 @@ public class IntegrationControllerApiTest extends BaseApiTest {
 
         assertFalse(memberRepository.byId(memberId).getDepartmentIds().contains(departmentId));
 
-        MemberRemovedFromDepartmentEvent event = domainEventDao.latestEventFor(memberId, MEMBER_REMOVED_FROM_DEPARTMENT, MemberRemovedFromDepartmentEvent.class);
+        MemberRemovedFromDepartmentEvent event = latestEventFor(memberId, MEMBER_REMOVED_FROM_DEPARTMENT, MemberRemovedFromDepartmentEvent.class);
         assertEquals(departmentId, event.getDepartmentId());
     }
 
@@ -2440,7 +2378,7 @@ public class IntegrationControllerApiTest extends BaseApiTest {
                 tenant.getApiSetting().getApiSecret(), departmentCustomId, customMemberId);
 
         assertFalse(memberRepository.byId(memberId).getDepartmentIds().contains(departmentId));
-        MemberRemovedFromDepartmentEvent event = domainEventDao.latestEventFor(memberId, MEMBER_REMOVED_FROM_DEPARTMENT, MemberRemovedFromDepartmentEvent.class);
+        MemberRemovedFromDepartmentEvent event = latestEventFor(memberId, MEMBER_REMOVED_FROM_DEPARTMENT, MemberRemovedFromDepartmentEvent.class);
         assertEquals(departmentId, event.getDepartmentId());
     }
 
@@ -2464,7 +2402,7 @@ public class IntegrationControllerApiTest extends BaseApiTest {
         Department department = departmentRepository.byId(departmentId);
         assertTrue(department.getManagers().contains(memberId));
 
-        DepartmentManagersChangedEvent event = domainEventDao.latestEventFor(departmentId, DEPARTMENT_MANAGERS_CHANGED, DepartmentManagersChangedEvent.class);
+        DepartmentManagersChangedEvent event = latestEventFor(departmentId, DEPARTMENT_MANAGERS_CHANGED, DepartmentManagersChangedEvent.class);
         assertEquals(departmentId, event.getDepartmentId());
     }
 
@@ -2517,7 +2455,7 @@ public class IntegrationControllerApiTest extends BaseApiTest {
         Department department = departmentRepository.byId(departmentId);
         assertTrue(department.getManagers().contains(memberId));
 
-        DepartmentManagersChangedEvent event = domainEventDao.latestEventFor(departmentId, DEPARTMENT_MANAGERS_CHANGED, DepartmentManagersChangedEvent.class);
+        DepartmentManagersChangedEvent event = latestEventFor(departmentId, DEPARTMENT_MANAGERS_CHANGED, DepartmentManagersChangedEvent.class);
         assertEquals(departmentId, event.getDepartmentId());
     }
 
@@ -2538,14 +2476,14 @@ public class IntegrationControllerApiTest extends BaseApiTest {
         IntegrationApi.addDepartmentManager(tenant.getApiSetting().getApiKey(),
                 tenant.getApiSetting().getApiSecret(), departmentId, memberId);
         assertTrue(departmentRepository.byId(departmentId).getManagers().contains(memberId));
-        DepartmentManagersChangedEvent event = domainEventDao.latestEventFor(departmentId, DEPARTMENT_MANAGERS_CHANGED, DepartmentManagersChangedEvent.class);
+        DepartmentManagersChangedEvent event = latestEventFor(departmentId, DEPARTMENT_MANAGERS_CHANGED, DepartmentManagersChangedEvent.class);
         assertEquals(departmentId, event.getDepartmentId());
 
         IntegrationApi.removeDepartmentManager(tenant.getApiSetting().getApiKey(),
                 tenant.getApiSetting().getApiSecret(), departmentId, memberId);
         assertFalse(departmentRepository.byId(departmentId).getManagers().contains(memberId));
 
-        DepartmentManagersChangedEvent event1 = domainEventDao.latestEventFor(departmentId, DEPARTMENT_MANAGERS_CHANGED, DepartmentManagersChangedEvent.class);
+        DepartmentManagersChangedEvent event1 = latestEventFor(departmentId, DEPARTMENT_MANAGERS_CHANGED, DepartmentManagersChangedEvent.class);
         assertEquals(departmentId, event1.getDepartmentId());
         assertNotEquals(event.getId(), event1.getId());
     }
@@ -2582,13 +2520,13 @@ public class IntegrationControllerApiTest extends BaseApiTest {
         IntegrationApi.addDepartmentManagerByCustomId(tenant.getApiSetting().getApiKey(),
                 tenant.getApiSetting().getApiSecret(), departmentCustomId, customMemberId);
         assertTrue(departmentRepository.byId(departmentId).getManagers().contains(memberId));
-        DepartmentManagersChangedEvent event = domainEventDao.latestEventFor(departmentId, DEPARTMENT_MANAGERS_CHANGED, DepartmentManagersChangedEvent.class);
+        DepartmentManagersChangedEvent event = latestEventFor(departmentId, DEPARTMENT_MANAGERS_CHANGED, DepartmentManagersChangedEvent.class);
         assertEquals(departmentId, event.getDepartmentId());
 
         IntegrationApi.removeDepartmentManagerByCustomId(tenant.getApiSetting().getApiKey(),
                 tenant.getApiSetting().getApiSecret(), departmentCustomId, customMemberId);
         assertFalse(departmentRepository.byId(departmentId).getManagers().contains(memberId));
-        DepartmentManagersChangedEvent event1 = domainEventDao.latestEventFor(departmentId, DEPARTMENT_MANAGERS_CHANGED, DepartmentManagersChangedEvent.class);
+        DepartmentManagersChangedEvent event1 = latestEventFor(departmentId, DEPARTMENT_MANAGERS_CHANGED, DepartmentManagersChangedEvent.class);
         assertEquals(departmentId, event1.getDepartmentId());
         assertNotEquals(event.getId(), event1.getId());
     }

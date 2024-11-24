@@ -68,7 +68,7 @@ public class CreateAssignmentsJobTest extends BaseApiTest {
         createAssignmentsJob.run(of(2020, 7, 8, 0, 0));
 
         Assignment assignment = assignmentRepository.latestForGroup(response.getDefaultGroupId()).get();
-        AssignmentCreatedEvent event = domainEventDao.latestEventFor(assignment.getId(), ASSIGNMENT_CREATED, AssignmentCreatedEvent.class);
+        AssignmentCreatedEvent event = latestEventFor(assignment.getId(), ASSIGNMENT_CREATED, AssignmentCreatedEvent.class);
         assertEquals(assignment.getId(), event.getAssignmentId());
 
         assertEquals(assignmentPlanId, assignment.getAssignmentPlanId());

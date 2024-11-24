@@ -4,6 +4,7 @@ import com.mryqr.common.event.publish.RedisDomainEventSender;
 import com.mryqr.common.webhook.submission.BaseSubmissionWebhookPayload;
 import com.mryqr.common.webhook.submission.SubmissionCreatedWebhookPayload;
 import com.mryqr.core.common.domain.event.DomainEvent;
+import com.mryqr.core.common.domain.event.publish.PublishingDomainEvent;
 import com.mryqr.core.submission.domain.answer.Answer;
 import com.mryqr.core.submission.domain.answer.date.DateAnswer;
 import com.mryqr.core.submission.domain.answer.radio.RadioAnswer;
@@ -26,15 +27,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.mryqr.management.crm.MryTenantManageApp.MRY_TENANT_MANAGE_APP_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.SEND_EVENT_ALL_TENANT_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.SEND_EVENT_ALL_TENANT_YES_OPTION_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.SEND_EVENT_APP_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.SEND_EVENT_END_DATE_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.SEND_EVENT_END_TIME_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.SEND_EVENT_PAGE_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.SEND_EVENT_START_DATE_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.SEND_EVENT_START_TIME_CONTROL_ID;
+import static com.mryqr.core.common.domain.event.publish.PublishingDomainEvent.Fields.raisedAt;
+import static com.mryqr.management.crm.MryTenantManageApp.*;
 import static java.time.ZoneId.systemDefault;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
@@ -87,8 +81,11 @@ public class SendDomainEventWebhookHandler implements TenantWebhookHandler {
                 criteria.and("arTenantId").is(tenantId);
             }
 
-            Query query = Query.query(criteria).with(by(ASC, "raisedAt")).limit(200);
-            List<DomainEvent> domainEvents = mongoTemplate.find(query, DomainEvent.class);
+            Query query = Query.query(criteria).with(by(ASC, raisedAt)).limit(200);
+            List<DomainEvent> domainEvents = mongoTemplate.find(query, PublishingDomainEvent.class)
+                    .stream()
+                    .map(PublishingDomainEvent::getEvent)
+                    .toList();
 
             if (isEmpty(domainEvents)) {
                 break;
@@ -96,8 +93,8 @@ public class SendDomainEventWebhookHandler implements TenantWebhookHandler {
 
             for (DomainEvent event : domainEvents) {
                 if (!(event instanceof SubmissionCreatedEvent submissionCreatedEvent &&//排除触发发送事件的提交本身，否则将导致无限循环
-                        Objects.equals(submissionCreatedEvent.getAppId(), MRY_TENANT_MANAGE_APP_ID) &&
-                        Objects.equals(submissionCreatedEvent.getPageId(), SEND_EVENT_PAGE_ID))) {
+                      Objects.equals(submissionCreatedEvent.getAppId(), MRY_TENANT_MANAGE_APP_ID) &&
+                      Objects.equals(submissionCreatedEvent.getPageId(), SEND_EVENT_PAGE_ID))) {
                     redisDomainEventSender.send(event);
                 }
             }

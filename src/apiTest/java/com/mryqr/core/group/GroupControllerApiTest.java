@@ -12,11 +12,7 @@ import com.mryqr.core.group.command.AddGroupMembersCommand;
 import com.mryqr.core.group.command.CreateGroupCommand;
 import com.mryqr.core.group.command.RenameGroupCommand;
 import com.mryqr.core.group.domain.Group;
-import com.mryqr.core.group.domain.event.GroupActivatedEvent;
-import com.mryqr.core.group.domain.event.GroupCreatedEvent;
-import com.mryqr.core.group.domain.event.GroupDeactivatedEvent;
-import com.mryqr.core.group.domain.event.GroupDeletedEvent;
-import com.mryqr.core.group.domain.event.GroupManagersChangedEvent;
+import com.mryqr.core.group.domain.event.*;
 import com.mryqr.core.group.query.ListGroupQrsQuery;
 import com.mryqr.core.group.query.QGroupMembers;
 import com.mryqr.core.group.query.QGroupQr;
@@ -41,33 +37,12 @@ import java.util.List;
 
 import static com.mryqr.core.app.domain.attribute.Attribute.newAttributeId;
 import static com.mryqr.core.app.domain.attribute.AttributeType.INSTANCE_GROUP_MANAGERS;
-import static com.mryqr.core.common.domain.event.DomainEventType.GROUP_ACTIVATED;
-import static com.mryqr.core.common.domain.event.DomainEventType.GROUP_CREATED;
-import static com.mryqr.core.common.domain.event.DomainEventType.GROUP_DEACTIVATED;
-import static com.mryqr.core.common.domain.event.DomainEventType.GROUP_DELETED;
-import static com.mryqr.core.common.domain.event.DomainEventType.GROUP_MANAGERS_CHANGED;
-import static com.mryqr.core.common.exception.ErrorCode.ACCESS_DENIED;
-import static com.mryqr.core.common.exception.ErrorCode.AR_NOT_FOUND;
-import static com.mryqr.core.common.exception.ErrorCode.GROUP_COUNT_LIMIT_REACHED;
-import static com.mryqr.core.common.exception.ErrorCode.GROUP_HIERARCHY_TOO_DEEP;
-import static com.mryqr.core.common.exception.ErrorCode.GROUP_NOT_VISIBLE;
-import static com.mryqr.core.common.exception.ErrorCode.GROUP_SYNCED;
-import static com.mryqr.core.common.exception.ErrorCode.GROUP_WITH_NAME_ALREADY_EXISTS;
-import static com.mryqr.core.common.exception.ErrorCode.NOT_ALL_MEMBERS_EXIST;
-import static com.mryqr.core.common.exception.ErrorCode.NO_MORE_THAN_ONE_VISIBLE_GROUP_LEFT;
+import static com.mryqr.core.common.domain.event.DomainEventType.*;
+import static com.mryqr.core.common.exception.ErrorCode.*;
 import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
-import static com.mryqr.utils.RandomTestFixture.defaultSingleLineTextControl;
-import static com.mryqr.utils.RandomTestFixture.rAnswer;
-import static com.mryqr.utils.RandomTestFixture.rAttributeName;
-import static com.mryqr.utils.RandomTestFixture.rGroupName;
-import static com.mryqr.utils.RandomTestFixture.rMemberName;
-import static com.mryqr.utils.RandomTestFixture.rMobile;
-import static com.mryqr.utils.RandomTestFixture.rPassword;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static java.lang.Boolean.TRUE;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class GroupControllerApiTest extends BaseApiTest {
 
@@ -107,7 +82,7 @@ class GroupControllerApiTest extends BaseApiTest {
         CreateGroupCommand command = CreateGroupCommand.builder().name(rGroupName()).appId(appId).build();
         String groupId = GroupApi.createGroup(response.getJwt(), command);
 
-        GroupCreatedEvent groupCreatedEvent = domainEventDao.latestEventFor(groupId, GROUP_CREATED, GroupCreatedEvent.class);
+        GroupCreatedEvent groupCreatedEvent = latestEventFor(groupId, GROUP_CREATED, GroupCreatedEvent.class);
         assertEquals(groupId, groupCreatedEvent.getGroupId());
         assertEquals(appId, groupCreatedEvent.getAppId());
         Tenant tenant = tenantRepository.byId(response.getTenantId());
@@ -337,7 +312,7 @@ class GroupControllerApiTest extends BaseApiTest {
 
         GroupApi.addGroupMembers(response.getJwt(), response.getDefaultGroupId(), AddGroupMembersCommand.builder().memberIds(List.of(memberId1, memberId2)).build());
         GroupApi.addGroupManager(response.getJwt(), response.getDefaultGroupId(), memberId1);
-        GroupManagersChangedEvent event = domainEventDao.latestEventFor(response.getDefaultGroupId(), GROUP_MANAGERS_CHANGED, GroupManagersChangedEvent.class);
+        GroupManagersChangedEvent event = latestEventFor(response.getDefaultGroupId(), GROUP_MANAGERS_CHANGED, GroupManagersChangedEvent.class);
         assertEquals(response.getDefaultGroupId(), event.getGroupId());
 
         Group group = groupRepository.byId(response.getDefaultGroupId());
@@ -349,7 +324,7 @@ class GroupControllerApiTest extends BaseApiTest {
         assertTrue(updatedGroup.getMembers().contains(memberId2));
         assertFalse(updatedGroup.getMembers().contains(memberId1));
         assertFalse(updatedGroup.getManagers().contains(memberId1));
-        GroupManagersChangedEvent anotherEvent = domainEventDao.latestEventFor(response.getDefaultGroupId(), GROUP_MANAGERS_CHANGED, GroupManagersChangedEvent.class);
+        GroupManagersChangedEvent anotherEvent = latestEventFor(response.getDefaultGroupId(), GROUP_MANAGERS_CHANGED, GroupManagersChangedEvent.class);
         assertEquals(response.getDefaultGroupId(), anotherEvent.getGroupId());
         assertNotEquals(event.getId(), anotherEvent.getId());
     }
@@ -367,7 +342,7 @@ class GroupControllerApiTest extends BaseApiTest {
         GroupApi.addGroupManager(response.getJwt(), response.getDefaultGroupId(), memberId1);
         assertTrue(groupRepository.byId(response.getDefaultGroupId()).getManagers().contains(memberId1));
 
-        GroupManagersChangedEvent changedEvent = domainEventDao.latestEventFor(response.getDefaultGroupId(), GROUP_MANAGERS_CHANGED, GroupManagersChangedEvent.class);
+        GroupManagersChangedEvent changedEvent = latestEventFor(response.getDefaultGroupId(), GROUP_MANAGERS_CHANGED, GroupManagersChangedEvent.class);
         assertEquals(response.getDefaultGroupId(), changedEvent.getGroupId());
     }
 
@@ -392,7 +367,7 @@ class GroupControllerApiTest extends BaseApiTest {
         assertTrue(group.getMembers().contains(memberId));
         assertTrue(group.getManagers().contains(memberId));
 
-        GroupManagersChangedEvent changedEvent = domainEventDao.latestEventFor(response.getDefaultGroupId(), GROUP_MANAGERS_CHANGED, GroupManagersChangedEvent.class);
+        GroupManagersChangedEvent changedEvent = latestEventFor(response.getDefaultGroupId(), GROUP_MANAGERS_CHANGED, GroupManagersChangedEvent.class);
         assertEquals(response.getDefaultGroupId(), changedEvent.getGroupId());
     }
 
@@ -412,7 +387,7 @@ class GroupControllerApiTest extends BaseApiTest {
         GroupApi.removeGroupManager(response.getJwt(), response.getDefaultGroupId(), memberId1);
         assertTrue(groupRepository.byId(response.getDefaultGroupId()).getManagers().isEmpty());
 
-        GroupManagersChangedEvent anotherEvent = domainEventDao.latestEventFor(response.getDefaultGroupId(), GROUP_MANAGERS_CHANGED, GroupManagersChangedEvent.class);
+        GroupManagersChangedEvent anotherEvent = latestEventFor(response.getDefaultGroupId(), GROUP_MANAGERS_CHANGED, GroupManagersChangedEvent.class);
         assertEquals(response.getDefaultGroupId(), anotherEvent.getGroupId());
     }
 
@@ -434,7 +409,7 @@ class GroupControllerApiTest extends BaseApiTest {
         GroupApi.removeGroupManager(response.getJwt(), response.getDefaultGroupId(), oldManagerMemberId);
         GroupApi.addGroupManager(response.getJwt(), response.getDefaultGroupId(), newManagerMemberId);
 
-        GroupManagersChangedEvent event = domainEventDao.latestEventFor(response.getDefaultGroupId(), GROUP_MANAGERS_CHANGED, GroupManagersChangedEvent.class);
+        GroupManagersChangedEvent event = latestEventFor(response.getDefaultGroupId(), GROUP_MANAGERS_CHANGED, GroupManagersChangedEvent.class);
         assertEquals(response.getAppId(), event.getAppId());
         assertEquals(response.getDefaultGroupId(), event.getGroupId());
         QR updatedQr = qrRepository.byId(response.getQrId());
@@ -483,8 +458,8 @@ class GroupControllerApiTest extends BaseApiTest {
         assertFalse(hierarchy.allIds().contains(groupId));
         assertFalse(hierarchy.allIds().contains(groupId2));
 
-        assertEquals(groupId, domainEventDao.latestEventFor(groupId, GROUP_DELETED, GroupDeletedEvent.class).getGroupId());
-        assertEquals(groupId2, domainEventDao.latestEventFor(groupId2, GROUP_DELETED, GroupDeletedEvent.class).getGroupId());
+        assertEquals(groupId, latestEventFor(groupId, GROUP_DELETED, GroupDeletedEvent.class).getGroupId());
+        assertEquals(groupId2, latestEventFor(groupId2, GROUP_DELETED, GroupDeletedEvent.class).getGroupId());
     }
 
     @Test
@@ -588,13 +563,13 @@ class GroupControllerApiTest extends BaseApiTest {
         CreateQrResponse subQrResponse = QrApi.createQr(response.getJwt(), subGroupId);
 
         GroupApi.deactivateGroup(response.getJwt(), response.getDefaultGroupId());
-        assertEquals(response.getDefaultGroupId(), domainEventDao.latestEventFor(response.getDefaultGroupId(), GROUP_DEACTIVATED, GroupDeactivatedEvent.class).getGroupId());
-        assertEquals(subGroupId, domainEventDao.latestEventFor(subGroupId, GROUP_DEACTIVATED, GroupDeactivatedEvent.class).getGroupId());
+        assertEquals(response.getDefaultGroupId(), latestEventFor(response.getDefaultGroupId(), GROUP_DEACTIVATED, GroupDeactivatedEvent.class).getGroupId());
+        assertEquals(subGroupId, latestEventFor(subGroupId, GROUP_DEACTIVATED, GroupDeactivatedEvent.class).getGroupId());
         assertFalse(qrRepository.byId(response.getQrId()).isGroupActive());
         assertFalse(qrRepository.byId(subQrResponse.getQrId()).isGroupActive());
 
         GroupApi.activateGroup(response.getJwt(), response.getDefaultGroupId());
-        GroupActivatedEvent groupActivatedEvent = domainEventDao.latestEventFor(response.getDefaultGroupId(), GROUP_ACTIVATED, GroupActivatedEvent.class);
+        GroupActivatedEvent groupActivatedEvent = latestEventFor(response.getDefaultGroupId(), GROUP_ACTIVATED, GroupActivatedEvent.class);
         assertEquals(response.getDefaultGroupId(), groupActivatedEvent.getGroupId());
         assertTrue(qrRepository.byId(response.getQrId()).isGroupActive());
         assertTrue(qrRepository.byId(subQrResponse.getQrId()).isGroupActive());
@@ -642,7 +617,7 @@ class GroupControllerApiTest extends BaseApiTest {
 
         GroupApi.deleteGroup(response.getJwt(), groupId);
 
-        GroupDeletedEvent event = domainEventDao.latestEventFor(groupId, GROUP_DELETED, GroupDeletedEvent.class);
+        GroupDeletedEvent event = latestEventFor(groupId, GROUP_DELETED, GroupDeletedEvent.class);
         assertEquals(groupId, event.getGroupId());
         assertEquals(response.getAppId(), event.getAppId());
         assertFalse(qrRepository.byIdOptional(qrResponse.getQrId()).isPresent());

@@ -8,11 +8,7 @@ import com.mryqr.core.app.domain.AppSetting;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.attribute.AttributeStatisticRange;
 import com.mryqr.core.app.domain.config.AppConfig;
-import com.mryqr.core.app.domain.event.AppControlOptionsDeletedEvent;
-import com.mryqr.core.app.domain.event.AppControlsDeletedEvent;
-import com.mryqr.core.app.domain.event.AppPagesDeletedEvent;
-import com.mryqr.core.app.domain.event.AppPageChangedToSubmitPerInstanceEvent;
-import com.mryqr.core.app.domain.event.AppPageChangedToSubmitPerMemberEvent;
+import com.mryqr.core.app.domain.event.*;
 import com.mryqr.core.app.domain.page.Page;
 import com.mryqr.core.app.domain.page.PageInfo;
 import com.mryqr.core.app.domain.page.control.FRadioControl;
@@ -43,49 +39,18 @@ import java.util.Set;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.mryqr.core.app.domain.attribute.Attribute.newAttributeId;
 import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_LAST;
-import static com.mryqr.core.app.domain.page.setting.SubmitType.NEW;
-import static com.mryqr.core.app.domain.page.setting.SubmitType.ONCE_PER_INSTANCE;
-import static com.mryqr.core.app.domain.page.setting.SubmitType.ONCE_PER_MEMBER;
-import static com.mryqr.core.app.domain.page.setting.SubmitterUpdateRange.IN_1_DAY;
-import static com.mryqr.core.app.domain.page.setting.SubmitterUpdateRange.IN_1_HOUR;
-import static com.mryqr.core.app.domain.page.setting.SubmitterUpdateRange.NO_RESTRICTION;
+import static com.mryqr.core.app.domain.page.setting.SubmitType.*;
+import static com.mryqr.core.app.domain.page.setting.SubmitterUpdateRange.*;
 import static com.mryqr.core.app.domain.report.number.NumberReportType.PAGE_NUMBER_REPORT;
 import static com.mryqr.core.app.domain.report.number.page.PageNumberReportType.PAGE_SUBMIT_COUNT;
-import static com.mryqr.core.common.domain.event.DomainEventType.APP_CONTROLS_DELETED;
-import static com.mryqr.core.common.domain.event.DomainEventType.APP_CONTROL_OPTIONS_DELETED;
-import static com.mryqr.core.common.domain.event.DomainEventType.APP_PAGES_DELETED;
-import static com.mryqr.core.common.domain.event.DomainEventType.APP_PAGE_CHANGED_TO_SUBMIT_PER_INSTANCE;
-import static com.mryqr.core.common.domain.event.DomainEventType.APP_PAGE_CHANGED_TO_SUBMIT_PER_MEMBER;
-import static com.mryqr.core.common.domain.permission.Permission.AS_GROUP_MEMBER;
-import static com.mryqr.core.common.domain.permission.Permission.AS_TENANT_MEMBER;
-import static com.mryqr.core.common.domain.permission.Permission.CAN_MANAGE_APP;
-import static com.mryqr.core.common.domain.permission.Permission.CAN_MANAGE_GROUP;
-import static com.mryqr.core.common.domain.permission.Permission.PUBLIC;
+import static com.mryqr.core.common.domain.event.DomainEventType.*;
+import static com.mryqr.core.common.domain.permission.Permission.*;
 import static com.mryqr.core.common.domain.report.ReportRange.NO_LIMIT;
-import static com.mryqr.core.common.exception.ErrorCode.APPROVAL_PERMISSION_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.MODIFY_PERMISSION_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.OPERATION_PERMISSION_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.PAGE_ID_DUPLICATED;
+import static com.mryqr.core.common.exception.ErrorCode.*;
 import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
 import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
-import static com.mryqr.utils.RandomTestFixture.defaultPage;
-import static com.mryqr.utils.RandomTestFixture.defaultPageApproveSettingBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultPageBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultPageSettingBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultRadioControl;
-import static com.mryqr.utils.RandomTestFixture.rAnswer;
-import static com.mryqr.utils.RandomTestFixture.rAttributeName;
-import static com.mryqr.utils.RandomTestFixture.rEmail;
-import static com.mryqr.utils.RandomTestFixture.rFormName;
-import static com.mryqr.utils.RandomTestFixture.rMobile;
-import static com.mryqr.utils.RandomTestFixture.rPageActionName;
-import static com.mryqr.utils.RandomTestFixture.rPassword;
-import static com.mryqr.utils.RandomTestFixture.rReportName;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static com.mryqr.utils.RandomTestFixture.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AppPageApiTest extends BaseApiTest {
 
@@ -176,17 +141,17 @@ public class AppPageApiTest extends BaseApiTest {
         setting.getPages().remove(newPage);
         AppApi.updateAppSetting(response.getJwt(), appId, setting);
 
-        AppPagesDeletedEvent appPagesDeletedEvent = domainEventDao.latestEventFor(appId, APP_PAGES_DELETED, AppPagesDeletedEvent.class);
+        AppPagesDeletedEvent appPagesDeletedEvent = latestEventFor(appId, APP_PAGES_DELETED, AppPagesDeletedEvent.class);
         assertEquals(1, appPagesDeletedEvent.getPages().size());
         PageInfo pageInfo = appPagesDeletedEvent.getPages().stream().findFirst().get();
         assertEquals(newPage.toPageInfo(), pageInfo);
 
         //虽然页面中包含了控件，删除页面不会发出删除控件事件
-        AppControlsDeletedEvent controlDeletedEvent = domainEventDao.latestEventFor(app.getId(), APP_CONTROLS_DELETED, AppControlsDeletedEvent.class);
+        AppControlsDeletedEvent controlDeletedEvent = latestEventFor(app.getId(), APP_CONTROLS_DELETED, AppControlsDeletedEvent.class);
         assertNull(controlDeletedEvent);
 
         //虽然页面中包含了控件，删除页面不会发出删除控件选项事件
-        AppControlOptionsDeletedEvent optionsDeletedEvent = domainEventDao.latestEventFor(appId, APP_CONTROL_OPTIONS_DELETED, AppControlOptionsDeletedEvent.class);
+        AppControlOptionsDeletedEvent optionsDeletedEvent = latestEventFor(appId, APP_CONTROL_OPTIONS_DELETED, AppControlOptionsDeletedEvent.class);
         assertNull(optionsDeletedEvent);
 
         assertEquals(0, submissionRepository.count(response.getTenantId()));
@@ -252,7 +217,7 @@ public class AppPageApiTest extends BaseApiTest {
 
         AppApi.updateAppSetting(response.getJwt(), appId, setting);
 
-        AppPageChangedToSubmitPerInstanceEvent event = domainEventDao.latestEventFor(appId, APP_PAGE_CHANGED_TO_SUBMIT_PER_INSTANCE, AppPageChangedToSubmitPerInstanceEvent.class);
+        AppPageChangedToSubmitPerInstanceEvent event = latestEventFor(appId, APP_PAGE_CHANGED_TO_SUBMIT_PER_INSTANCE, AppPageChangedToSubmitPerInstanceEvent.class);
         assertEquals(appId, event.getAppId());
         assertEquals(1, event.getPageIds().size());
         assertTrue(event.getPageIds().contains(newPage.getId()));
@@ -310,7 +275,7 @@ public class AppPageApiTest extends BaseApiTest {
 
         AppApi.updateAppSetting(response.getJwt(), appId, setting);
 
-        AppPageChangedToSubmitPerMemberEvent event = domainEventDao.latestEventFor(appId, APP_PAGE_CHANGED_TO_SUBMIT_PER_MEMBER, AppPageChangedToSubmitPerMemberEvent.class);
+        AppPageChangedToSubmitPerMemberEvent event = latestEventFor(appId, APP_PAGE_CHANGED_TO_SUBMIT_PER_MEMBER, AppPageChangedToSubmitPerMemberEvent.class);
         assertEquals(appId, event.getAppId());
         assertEquals(1, event.getPageIds().size());
         assertTrue(event.getPageIds().contains(newPage.getId()));

@@ -27,30 +27,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-import static com.mryqr.core.common.domain.event.DomainEventType.DEPARTMENT_CREATED;
-import static com.mryqr.core.common.domain.event.DomainEventType.DEPARTMENT_DELETED;
-import static com.mryqr.core.common.domain.event.DomainEventType.DEPARTMENT_HIERARCHY_CHANGED;
-import static com.mryqr.core.common.domain.event.DomainEventType.DEPARTMENT_MANAGERS_CHANGED;
-import static com.mryqr.core.common.domain.event.DomainEventType.DEPARTMENT_RENAMED;
-import static com.mryqr.core.common.exception.ErrorCode.DEPARTMENT_COUNT_LIMIT_REACHED;
-import static com.mryqr.core.common.exception.ErrorCode.DEPARTMENT_HIERARCHY_TOO_DEEP;
-import static com.mryqr.core.common.exception.ErrorCode.DEPARTMENT_NOT_FOUND;
-import static com.mryqr.core.common.exception.ErrorCode.DEPARTMENT_WITH_NAME_ALREADY_EXISTS;
-import static com.mryqr.core.common.exception.ErrorCode.NOT_DEPARTMENT_MEMBER;
+import static com.mryqr.core.common.domain.event.DomainEventType.*;
+import static com.mryqr.core.common.exception.ErrorCode.*;
 import static com.mryqr.core.plan.domain.Plan.FREE_PLAN;
 import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
-import static com.mryqr.utils.RandomTestFixture.rDepartmentName;
-import static com.mryqr.utils.RandomTestFixture.rEmail;
-import static com.mryqr.utils.RandomTestFixture.rMemberName;
-import static com.mryqr.utils.RandomTestFixture.rMobile;
-import static com.mryqr.utils.RandomTestFixture.rPassword;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DepartmentControllerApiTest extends BaseApiTest {
     @Test
@@ -66,14 +50,14 @@ public class DepartmentControllerApiTest extends BaseApiTest {
         Tenant tenant = tenantRepository.byId(department.getTenantId());
         assertEquals(1, tenant.getResourceUsage().getDepartmentCount());
 
-        DepartmentCreatedEvent event = domainEventDao.latestEventFor(departmentId, DEPARTMENT_CREATED, DepartmentCreatedEvent.class);
+        DepartmentCreatedEvent event = latestEventFor(departmentId, DEPARTMENT_CREATED, DepartmentCreatedEvent.class);
         assertEquals(departmentId, event.getDepartmentId());
 
         DepartmentHierarchy departmentHierarchy = departmentHierarchyRepository.byTenantId(response.getTenantId());
         assertEquals(1, departmentHierarchy.allDepartmentIds().size());
         assertTrue(departmentHierarchy.containsDepartmentId(departmentId));
 
-        assertEquals(response.getTenantId(), domainEventDao.latestEventFor(departmentHierarchy.getId(), DEPARTMENT_HIERARCHY_CHANGED, DepartmentHierarchyChangedEvent.class).getTenantId());
+        assertEquals(response.getTenantId(), latestEventFor(departmentHierarchy.getId(), DEPARTMENT_HIERARCHY_CHANGED, DepartmentHierarchyChangedEvent.class).getTenantId());
     }
 
     @Test
@@ -180,7 +164,7 @@ public class DepartmentControllerApiTest extends BaseApiTest {
         Department department = departmentRepository.byId(departmentId);
         assertEquals(newName, department.getName());
 
-        DepartmentRenamedEvent event = domainEventDao.latestEventFor(departmentId, DEPARTMENT_RENAMED, DepartmentRenamedEvent.class);
+        DepartmentRenamedEvent event = latestEventFor(departmentId, DEPARTMENT_RENAMED, DepartmentRenamedEvent.class);
         assertEquals(department.getId(), event.getDepartmentId());
     }
 
@@ -237,7 +221,7 @@ public class DepartmentControllerApiTest extends BaseApiTest {
         Department department = departmentRepository.byId(departmentId);
         assertTrue(department.getManagers().contains(memberId));
 
-        DepartmentManagersChangedEvent event = domainEventDao.latestEventFor(departmentId, DEPARTMENT_MANAGERS_CHANGED, DepartmentManagersChangedEvent.class);
+        DepartmentManagersChangedEvent event = latestEventFor(departmentId, DEPARTMENT_MANAGERS_CHANGED, DepartmentManagersChangedEvent.class);
         assertEquals(departmentId, event.getDepartmentId());
     }
 
@@ -286,13 +270,13 @@ public class DepartmentControllerApiTest extends BaseApiTest {
 
         DepartmentApi.addDepartmentManager(response.getJwt(), departmentId, memberId);
         assertTrue(departmentRepository.byId(departmentId).getManagers().contains(memberId));
-        DepartmentManagersChangedEvent event = domainEventDao.latestEventFor(departmentId, DEPARTMENT_MANAGERS_CHANGED, DepartmentManagersChangedEvent.class);
+        DepartmentManagersChangedEvent event = latestEventFor(departmentId, DEPARTMENT_MANAGERS_CHANGED, DepartmentManagersChangedEvent.class);
         assertEquals(departmentId, event.getDepartmentId());
 
         DepartmentApi.removeDepartmentManager(response.getJwt(), departmentId, memberId);
         assertFalse(departmentRepository.byId(departmentId).getManagers().contains(memberId));
 
-        DepartmentManagersChangedEvent updatedEvent = domainEventDao.latestEventFor(departmentId, DEPARTMENT_MANAGERS_CHANGED, DepartmentManagersChangedEvent.class);
+        DepartmentManagersChangedEvent updatedEvent = latestEventFor(departmentId, DEPARTMENT_MANAGERS_CHANGED, DepartmentManagersChangedEvent.class);
         assertEquals(departmentId, updatedEvent.getDepartmentId());
         assertNotEquals(event.getId(), updatedEvent.getId());
     }
@@ -309,13 +293,13 @@ public class DepartmentControllerApiTest extends BaseApiTest {
         assertFalse(departmentRepository.exists(departmentId));
         assertEquals(0, tenantRepository.byId(response.getTenantId()).getResourceUsage().getDepartmentCount());
 
-        DepartmentDeletedEvent event = domainEventDao.latestEventFor(departmentId, DEPARTMENT_DELETED, DepartmentDeletedEvent.class);
+        DepartmentDeletedEvent event = latestEventFor(departmentId, DEPARTMENT_DELETED, DepartmentDeletedEvent.class);
         assertEquals(departmentId, event.getDepartmentId());
 
         DepartmentHierarchy departmentHierarchy = departmentHierarchyRepository.byTenantId(response.getTenantId());
         assertFalse(departmentHierarchy.containsDepartmentId(departmentId));
 
-        assertEquals(response.getTenantId(), domainEventDao.latestEventFor(departmentHierarchy.getId(), DEPARTMENT_HIERARCHY_CHANGED, DepartmentHierarchyChangedEvent.class).getTenantId());
+        assertEquals(response.getTenantId(), latestEventFor(departmentHierarchy.getId(), DEPARTMENT_HIERARCHY_CHANGED, DepartmentHierarchyChangedEvent.class).getTenantId());
     }
 
     @Test
@@ -343,8 +327,8 @@ public class DepartmentControllerApiTest extends BaseApiTest {
 
         DepartmentApi.deleteDepartment(response.getJwt(), departmentId);
         assertFalse(departmentRepository.exists(subDepartmentId));
-        assertEquals(subDepartmentId, domainEventDao.latestEventFor(subDepartmentId, DEPARTMENT_DELETED, DepartmentDeletedEvent.class).getDepartmentId());
-        assertEquals(departmentId, domainEventDao.latestEventFor(departmentId, DEPARTMENT_DELETED, DepartmentDeletedEvent.class).getDepartmentId());
+        assertEquals(subDepartmentId, latestEventFor(subDepartmentId, DEPARTMENT_DELETED, DepartmentDeletedEvent.class).getDepartmentId());
+        assertEquals(departmentId, latestEventFor(departmentId, DEPARTMENT_DELETED, DepartmentDeletedEvent.class).getDepartmentId());
     }
 
     @Test

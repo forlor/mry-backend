@@ -18,15 +18,8 @@ import java.time.ZoneId;
 import static com.mryqr.core.common.domain.event.DomainEventType.MEMBER_CREATED;
 import static com.mryqr.core.common.domain.event.DomainEventType.TENANT_CREATED;
 import static com.mryqr.core.common.domain.user.Role.TENANT_ADMIN;
-import static com.mryqr.core.common.exception.ErrorCode.MEMBER_WITH_MOBILE_OR_EMAIL_ALREADY_EXISTS;
-import static com.mryqr.core.common.exception.ErrorCode.MUST_SIGN_AGREEMENT;
-import static com.mryqr.core.common.exception.ErrorCode.VERIFICATION_CODE_CHECK_FAILED;
-import static com.mryqr.utils.RandomTestFixture.rEmail;
-import static com.mryqr.utils.RandomTestFixture.rMemberName;
-import static com.mryqr.utils.RandomTestFixture.rMobile;
-import static com.mryqr.utils.RandomTestFixture.rPassword;
-import static com.mryqr.utils.RandomTestFixture.rTenantName;
-import static com.mryqr.utils.RandomTestFixture.rVerificationCode;
+import static com.mryqr.core.common.exception.ErrorCode.*;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -200,7 +193,7 @@ class RegisterControllerApiTest extends BaseApiTest {
                 .agreement(true)
                 .build());
 
-        TenantCreatedEvent tenantCreatedEvent = domainEventDao.latestEventFor(response.getTenantId(), TENANT_CREATED, TenantCreatedEvent.class);
+        TenantCreatedEvent tenantCreatedEvent = latestEventFor(response.getTenantId(), TENANT_CREATED, TenantCreatedEvent.class);
         assertEquals(response.getTenantId(), tenantCreatedEvent.getTenantId());
     }
 
@@ -221,9 +214,9 @@ class RegisterControllerApiTest extends BaseApiTest {
                 .agreement(true)
                 .build());
 
-        MemberCreatedEvent memberCreatedEvent = domainEventDao.latestEventFor(response.getMemberId(), MEMBER_CREATED, MemberCreatedEvent.class);
+        MemberCreatedEvent memberCreatedEvent = latestEventFor(response.getMemberId(), MEMBER_CREATED, MemberCreatedEvent.class);
         assertEquals(response.getMemberId(), memberCreatedEvent.getMemberId());
-        TenantCreatedEvent tenantCreatedEvent = domainEventDao.latestEventFor(response.getTenantId(), TENANT_CREATED, TenantCreatedEvent.class);
+        TenantCreatedEvent tenantCreatedEvent = latestEventFor(response.getTenantId(), TENANT_CREATED, TenantCreatedEvent.class);
         assertEquals(response.getTenantId(), tenantCreatedEvent.getTenantId());
         Tenant tenant = tenantRepository.byId(response.getTenantId());
         assertEquals(1, tenant.getResourceUsage().getMemberCount());

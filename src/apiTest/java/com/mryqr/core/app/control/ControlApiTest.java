@@ -73,7 +73,7 @@ public class ControlApiTest extends BaseApiTest {
 
         AppApi.updateAppControls(response.getJwt(), appId);
 
-        AppControlsDeletedEvent controlDeletedEvent = domainEventDao.latestEventFor(app.getId(), APP_CONTROLS_DELETED, AppControlsDeletedEvent.class);
+        AppControlsDeletedEvent controlDeletedEvent = latestEventFor(app.getId(), APP_CONTROLS_DELETED, AppControlsDeletedEvent.class);
         assertEquals(1, controlDeletedEvent.getControls().size());
         assertTrue(controlDeletedEvent.getControls().contains(DeletedControlInfo.builder()
                 .pageId(response.getHomePageId())
@@ -142,7 +142,7 @@ public class ControlApiTest extends BaseApiTest {
 
         AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
 
-        AppControlOptionsDeletedEvent event = domainEventDao.latestEventFor(response.getAppId(), APP_CONTROL_OPTIONS_DELETED, AppControlOptionsDeletedEvent.class);
+        AppControlOptionsDeletedEvent event = latestEventFor(response.getAppId(), APP_CONTROL_OPTIONS_DELETED, AppControlOptionsDeletedEvent.class);
         assertEquals(1, event.getControlOptions().size());
         DeletedTextOptionInfo controlOptionInfo = event.getControlOptions().stream().findFirst().get();
         assertEquals(control.getId(), controlOptionInfo.getControlId());
