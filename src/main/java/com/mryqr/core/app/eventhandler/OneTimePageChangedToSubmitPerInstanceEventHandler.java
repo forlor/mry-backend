@@ -4,8 +4,7 @@ import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.event.AppPageChangedToSubmitPerInstanceEvent;
 import com.mryqr.core.app.domain.page.Page;
-import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.OneTimeDomainEventHandler;
+import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.core.qr.domain.task.RemoveAttributeValuesForAllQrsUnderAppTask;
 import com.mryqr.core.qr.domain.task.RemoveIndexedValueUnderAllQrsTask;
 import com.mryqr.core.submission.domain.task.CountSubmissionForAppTask;
@@ -18,7 +17,6 @@ import java.util.List;
 import java.util.Set;
 
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.common.domain.event.DomainEventType.APP_PAGE_CHANGED_TO_SUBMIT_PER_INSTANCE;
 import static java.time.Instant.now;
 import static java.time.temporal.ChronoUnit.MINUTES;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
@@ -26,7 +24,7 @@ import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class OneTimePageChangedToSubmitPerInstanceEventHandler extends OneTimeDomainEventHandler {
+public class OneTimePageChangedToSubmitPerInstanceEventHandler extends AbstractDomainEventHandler<AppPageChangedToSubmitPerInstanceEvent> {
     private final AppRepository appRepository;
     private final RemoveAllSubmissionsForPageTask removeAllSubmissionsForPageTask;
     private final CountSubmissionForAppTask countSubmissionForAppTask;
@@ -39,18 +37,12 @@ public class OneTimePageChangedToSubmitPerInstanceEventHandler extends OneTimeDo
     }
 
     @Override
-    public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent.getType() == APP_PAGE_CHANGED_TO_SUBMIT_PER_INSTANCE;
-    }
-
-    @Override
-    protected void doHandle(DomainEvent domainEvent) {
-        if (domainEvent.getRaisedAt().isBefore(now().minus(10, MINUTES))) {
-            log.warn("Domain event[{}:{}] is more than 10 minutes old, skip.", domainEvent.getType(), domainEvent.getId());
+    protected void doHandle(AppPageChangedToSubmitPerInstanceEvent event) {
+        if (event.getRaisedAt().isBefore(now().minus(10, MINUTES))) {
+            log.warn("Domain event[{}:{}] is more than 10 minutes old, skip.", event.getType(), event.getId());
             return;
         }
 
-        AppPageChangedToSubmitPerInstanceEvent event = (AppPageChangedToSubmitPerInstanceEvent) domainEvent;
         appRepository.byIdOptional(event.getAppId()).ifPresent(app -> event.getPageIds().stream()
                 .flatMap(pageId -> app.pageByIdOptional(pageId).stream())
                 .filter(Page::isOncePerInstanceSubmitType)

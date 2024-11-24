@@ -2,8 +2,7 @@ package com.mryqr.core.qr.eventhandler;
 
 import com.mryqr.common.webhook.publish.MryWebhookEventPublisher;
 import com.mryqr.core.app.domain.AppRepository;
-import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.DomainEventHandler;
+import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.core.common.utils.MryTaskRunner;
 import com.mryqr.core.qr.domain.event.QrUpdatedEvent;
 import com.mryqr.core.tenant.domain.TenantRepository;
@@ -16,20 +15,24 @@ import static com.mryqr.core.app.domain.QrWebhookType.ON_UPDATE;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class QrUpdatedEventWebhookPublishHandler implements DomainEventHandler {
+public class QrUpdatedEventWebhookPublishHandler extends AbstractDomainEventHandler<QrUpdatedEvent> {
     private final TenantRepository tenantRepository;
     private final AppRepository appRepository;
     private final MryWebhookEventPublisher webhookEventPublisher;
 
     @Override
-    public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent instanceof QrUpdatedEvent;
+    public boolean isIdempotent() {
+        return true;
     }
 
     @Override
-    public void handle(DomainEvent domainEvent) {
-        QrUpdatedEvent theEvent = (QrUpdatedEvent) domainEvent;
-        MryTaskRunner.run(() -> publishWebhookEvent(theEvent));
+    public int priority() {
+        return 100;
+    }
+
+    @Override
+    protected void doHandle(QrUpdatedEvent event) {
+        MryTaskRunner.run(() -> publishWebhookEvent(event));
     }
 
     private void publishWebhookEvent(QrUpdatedEvent theEvent) {
@@ -44,10 +47,5 @@ public class QrUpdatedEventWebhookPublishHandler implements DomainEventHandler {
                 }
             });
         });
-    }
-
-    @Override
-    public int priority() {
-        return 100;
     }
 }

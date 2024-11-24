@@ -3,8 +3,7 @@ package com.mryqr.core.member.eventhandler;
 import com.mryqr.core.app.domain.task.RemoveManagerFromAllAppsTask;
 import com.mryqr.core.assignment.domain.task.RemoveOperatorFromAllAssignmentsTask;
 import com.mryqr.core.assignmentplan.domain.task.RemoveOperatorFromAllAssignmentPlansTask;
-import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.DomainEventHandler;
+import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.core.common.utils.MryTaskRunner;
 import com.mryqr.core.department.domain.task.RemoveManagerFromAllDepartmentsTask;
 import com.mryqr.core.group.domain.task.RemoveMemberFromAllGroupsTask;
@@ -14,12 +13,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import static com.mryqr.core.common.domain.event.DomainEventType.MEMBER_DELETED;
-
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class MemberDeletedEventHandler implements DomainEventHandler {
+public class MemberDeletedEventHandler extends AbstractDomainEventHandler<MemberDeletedEvent> {
     private final RemoveMemberFromAllGroupsTask removeMemberFromAllGroupsTask;
     private final RemoveManagerFromAllAppsTask removeManagerFromAllAppsTask;
     private final RemoveOperatorFromAllAssignmentsTask removeOperatorFromAllAssignmentsTask;
@@ -28,13 +25,7 @@ public class MemberDeletedEventHandler implements DomainEventHandler {
     private final RemoveOperatorFromAllAssignmentPlansTask removeOperatorFromAllAssignmentPlansTask;
 
     @Override
-    public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent.getType() == MEMBER_DELETED;
-    }
-
-    @Override
-    public void handle(DomainEvent domainEvent) {
-        MemberDeletedEvent event = (MemberDeletedEvent) domainEvent;
+    protected void doHandle(MemberDeletedEvent event) {
         String memberId = event.getMemberId();
         MryTaskRunner.run(() -> removeMemberFromAllGroupsTask.run(memberId, event.getArTenantId()));
         MryTaskRunner.run(() -> removeManagerFromAllAppsTask.run(memberId, event.getArTenantId()));
@@ -44,4 +35,8 @@ public class MemberDeletedEventHandler implements DomainEventHandler {
         MryTaskRunner.run(() -> countMembersForTenantTask.run(event.getArTenantId()));
     }
 
+    @Override
+    public boolean isIdempotent() {
+        return true;
+    }
 }

@@ -1,7 +1,6 @@
 package com.mryqr.core.qr.eventhandler;
 
-import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.DomainEventHandler;
+import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.core.common.utils.MryTaskRunner;
 import com.mryqr.core.qr.domain.QrRepository;
 import com.mryqr.core.qr.domain.event.QrMarkedAsTemplateEvent;
@@ -14,12 +13,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import static com.mryqr.core.app.domain.attribute.AttributeType.INSTANCE_TEMPLATE_STATUS;
-import static com.mryqr.core.common.domain.event.DomainEventType.QR_MARKED_AS_TEMPLATE;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class QrMarkedAsTemplateEventHandler implements DomainEventHandler {
+public class QrMarkedAsTemplateEventHandler extends AbstractDomainEventHandler<QrMarkedAsTemplateEvent> {
     private final QrRepository qrRepository;
     private final RemoveAllSubmissionsForQrTask removeAllSubmissionsForQrTask;
     private final SyncSubmissionAwareAttributeValuesForQrTask syncSubmissionAwareAttributeValuesForQrTask;
@@ -27,14 +25,7 @@ public class QrMarkedAsTemplateEventHandler implements DomainEventHandler {
     private final SyncAttributeValuesForQrTask syncAttributeValuesForQrTask;
 
     @Override
-    public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent.getType() == QR_MARKED_AS_TEMPLATE;
-    }
-
-    @Override
-    public void handle(DomainEvent domainEvent) {
-        QrMarkedAsTemplateEvent event = (QrMarkedAsTemplateEvent) domainEvent;
-
+    protected void doHandle(QrMarkedAsTemplateEvent event) {
         qrRepository.byIdOptional(event.getQrId()).ifPresent(qr -> {
             if (qr.isTemplate()) {
                 MryTaskRunner.run(() -> removeAllSubmissionsForQrTask.run(qr.getId()));
@@ -46,5 +37,10 @@ public class QrMarkedAsTemplateEventHandler implements DomainEventHandler {
 
         MryTaskRunner.run(() -> countSubmissionForAppTask.run(event.getAppId(), event.getArTenantId()));
         MryTaskRunner.run(() -> syncAttributeValuesForQrTask.run(event.getQrId(), INSTANCE_TEMPLATE_STATUS));
+    }
+
+    @Override
+    public boolean isIdempotent() {
+        return true;
     }
 }

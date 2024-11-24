@@ -1,30 +1,26 @@
 package com.mryqr.core.app.eventhandler;
 
 import com.mryqr.core.app.domain.event.AppCreatedEvent;
-import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.DomainEventHandler;
+import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.core.common.utils.MryTaskRunner;
 import com.mryqr.core.tenant.domain.task.CountAppForTenantTask;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import static com.mryqr.core.common.domain.event.DomainEventType.APP_CREATED;
-
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class AppCreatedEventHandler implements DomainEventHandler {
+public class AppCreatedEventHandler extends AbstractDomainEventHandler<AppCreatedEvent> {
     private final CountAppForTenantTask countAppForTenantTask;
 
     @Override
-    public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent.getType() == APP_CREATED;
+    protected void doHandle(AppCreatedEvent event) {
+        MryTaskRunner.run(() -> countAppForTenantTask.run(event.getArTenantId()));
     }
 
     @Override
-    public void handle(DomainEvent domainEvent) {
-        AppCreatedEvent event = (AppCreatedEvent) domainEvent;
-        MryTaskRunner.run(() -> countAppForTenantTask.run(event.getArTenantId()));
+    public boolean isIdempotent() {
+        return true;
     }
 }

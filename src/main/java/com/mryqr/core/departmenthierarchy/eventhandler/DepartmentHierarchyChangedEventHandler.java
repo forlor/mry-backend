@@ -3,8 +3,7 @@ package com.mryqr.core.departmenthierarchy.eventhandler;
 
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.app.domain.TenantCachedApp;
-import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.DomainEventHandler;
+import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.core.common.utils.MryTaskRunner;
 import com.mryqr.core.departmenthierarchy.domain.event.DepartmentHierarchyChangedEvent;
 import com.mryqr.core.group.domain.task.SyncAllDepartmentsToGroupTask;
@@ -12,26 +11,22 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import static com.mryqr.core.common.domain.event.DomainEventType.DEPARTMENT_HIERARCHY_CHANGED;
-
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class DepartmentHierarchyChangedEventHandler implements DomainEventHandler {
+public class DepartmentHierarchyChangedEventHandler extends AbstractDomainEventHandler<DepartmentHierarchyChangedEvent> {
     private final SyncAllDepartmentsToGroupTask syncAllDepartmentsToGroupTask;
     private final AppRepository appRepository;
 
     @Override
-    public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent.getType() == DEPARTMENT_HIERARCHY_CHANGED;
+    protected void doHandle(DepartmentHierarchyChangedEvent event) {
+        appRepository.cachedTenantAllApps(event.getTenantId()).stream()
+                .filter(TenantCachedApp::isGroupSynced)
+                .forEach(app -> MryTaskRunner.run(() -> syncAllDepartmentsToGroupTask.run(app.getId())));
     }
 
     @Override
-    public void handle(DomainEvent domainEvent) {
-        DepartmentHierarchyChangedEvent theEvent = (DepartmentHierarchyChangedEvent) domainEvent;
-
-        appRepository.cachedTenantAllApps(theEvent.getTenantId()).stream()
-                .filter(TenantCachedApp::isGroupSynced)
-                .forEach(app -> MryTaskRunner.run(() -> syncAllDepartmentsToGroupTask.run(app.getId())));
+    public boolean isIdempotent() {
+        return true;
     }
 }

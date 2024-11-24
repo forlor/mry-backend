@@ -1,7 +1,6 @@
 package com.mryqr.core.qr.eventhandler;
 
-import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.DomainEventHandler;
+import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.core.common.utils.MryTaskRunner;
 import com.mryqr.core.plate.domain.Plate;
 import com.mryqr.core.plate.domain.PlateRepository;
@@ -15,12 +14,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import static com.mryqr.core.common.domain.event.DomainEventType.QR_DELETED;
-
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class QrDeletedEventHandler implements DomainEventHandler {
+public class QrDeletedEventHandler extends AbstractDomainEventHandler<QrDeletedEvent> {
     private final CountQrForAppTask countQrForAppTask;
     private final PlateRepository plateRepository;
     private final CountUsedPlatesForPlateBatchTask countUsedPlatesForPlateBatchTask;
@@ -29,13 +26,7 @@ public class QrDeletedEventHandler implements DomainEventHandler {
     private final CountSubmissionForAppTask countSubmissionForAppTask;
 
     @Override
-    public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent.getType() == QR_DELETED;
-    }
-
-    @Override
-    public void handle(DomainEvent domainEvent) {
-        QrDeletedEvent event = (QrDeletedEvent) domainEvent;
+    protected void doHandle(QrDeletedEvent event) {
         MryTaskRunner.run(() -> unbindPlateFromQrTask.run(event.getQrId()));
         MryTaskRunner.run(() -> removeAllSubmissionsForQrTask.run(event.getQrId()));
         MryTaskRunner.run(() -> countSubmissionForAppTask.run(event.getAppId(), event.getArTenantId()));
@@ -45,4 +36,8 @@ public class QrDeletedEventHandler implements DomainEventHandler {
                 .ifPresent(plate -> MryTaskRunner.run(() -> countUsedPlatesForPlateBatchTask.run(plate.getBatchId())));
     }
 
+    @Override
+    public boolean isIdempotent() {
+        return true;
+    }
 }

@@ -1,8 +1,7 @@
 package com.mryqr.core.submission.eventhandler;
 
 import com.mryqr.core.assignment.domain.task.FinishQrForAssignmentsTask;
-import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.DomainEventHandler;
+import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.core.common.utils.MryTaskRunner;
 import com.mryqr.core.qr.domain.task.SyncSubmissionAwareAttributeValuesForQrTask;
 import com.mryqr.core.submission.domain.event.SubmissionCreatedEvent;
@@ -11,24 +10,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import static com.mryqr.core.common.domain.event.DomainEventType.SUBMISSION_CREATED;
-
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class SubmissionCreatedEventHandler implements DomainEventHandler {
+public class SubmissionCreatedEventHandler extends AbstractDomainEventHandler<SubmissionCreatedEvent> {
     private final SyncSubmissionAwareAttributeValuesForQrTask syncSubmissionAwareAttributesTask;
     private final CountSubmissionForAppTask countSubmissionForAppTask;
     private final FinishQrForAssignmentsTask finishQrForAssignmentsTask;
 
     @Override
-    public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent.getType() == SUBMISSION_CREATED;
-    }
-
-    @Override
-    public void handle(DomainEvent domainEvent) {
-        SubmissionCreatedEvent event = (SubmissionCreatedEvent) domainEvent;
+    protected void doHandle(SubmissionCreatedEvent event) {
         MryTaskRunner.run(() -> syncSubmissionAwareAttributesTask.run(event.getQrId(), event.getPageId()));
         MryTaskRunner.run(() -> countSubmissionForAppTask.run(event.getAppId(), event.getArTenantId()));
         MryTaskRunner.run(() -> finishQrForAssignmentsTask.run(event.getQrId(),
@@ -37,5 +28,10 @@ public class SubmissionCreatedEventHandler implements DomainEventHandler {
                 event.getPageId(),
                 event.getRaisedBy(),
                 event.getRaisedAt()));
+    }
+
+    @Override
+    public boolean isIdempotent() {
+        return true;
     }
 }

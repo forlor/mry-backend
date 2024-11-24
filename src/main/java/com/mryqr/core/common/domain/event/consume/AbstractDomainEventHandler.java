@@ -24,5 +24,5 @@ public abstract class AbstractDomainEventHandler<T> implements DomainEventHandle
         }
     }
 
-    protected abstract void doHandle(T domainEvent);
+    protected abstract void doHandle(T event);
 }

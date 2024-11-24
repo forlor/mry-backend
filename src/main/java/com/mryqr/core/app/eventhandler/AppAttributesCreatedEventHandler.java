@@ -2,8 +2,7 @@ package com.mryqr.core.app.eventhandler;
 
 import com.mryqr.core.app.domain.attribute.AttributeInfo;
 import com.mryqr.core.app.domain.event.AppAttributesCreatedEvent;
-import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.DomainEventHandler;
+import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.core.common.utils.MryTaskRunner;
 import com.mryqr.core.qr.domain.task.SyncAttributeValuesForAllQrsUnderAppTask;
 import lombok.RequiredArgsConstructor;
@@ -14,24 +13,17 @@ import java.util.Objects;
 import java.util.Set;
 
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.common.domain.event.DomainEventType.APP_ATTRIBUTES_CREATED;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.apache.commons.collections4.SetUtils.emptyIfNull;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class AppAttributesCreatedEventHandler implements DomainEventHandler {
+public class AppAttributesCreatedEventHandler extends AbstractDomainEventHandler<AppAttributesCreatedEvent> {
     private final SyncAttributeValuesForAllQrsUnderAppTask syncAttributeValuesForAllQrsUnderAppTask;
 
     @Override
-    public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent.getType() == APP_ATTRIBUTES_CREATED;
-    }
-
-    @Override
-    public void handle(DomainEvent domainEvent) {
-        AppAttributesCreatedEvent event = (AppAttributesCreatedEvent) domainEvent;
+    protected void doHandle(AppAttributesCreatedEvent event) {
         Set<String> calculatedAttributeIds = emptyIfNull(event.getAttributes()).stream()
                 .filter(it -> it.getAttributeType().isValueCalculated())
                 .map(AttributeInfo::getAttributeId)
@@ -41,5 +33,10 @@ public class AppAttributesCreatedEventHandler implements DomainEventHandler {
         if (isNotEmpty(calculatedAttributeIds)) {
             MryTaskRunner.run(() -> syncAttributeValuesForAllQrsUnderAppTask.run(event.getAppId(), calculatedAttributeIds));
         }
+    }
+
+    @Override
+    public boolean isIdempotent() {
+        return true;
     }
 }

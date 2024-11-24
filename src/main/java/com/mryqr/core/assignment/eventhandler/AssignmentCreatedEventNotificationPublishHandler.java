@@ -1,28 +1,25 @@
 package com.mryqr.core.assignment.eventhandler;
 
 import com.mryqr.common.notification.publish.NotificationEventPublisher;
-import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.OneTimeDomainEventHandler;
+import com.mryqr.core.assignment.event.AssignmentCreatedEvent;
+import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import static com.mryqr.core.common.domain.event.DomainEventType.ASSIGNMENT_CREATED;
-
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class AssignmentCreatedEventNotificationPublishHandler extends OneTimeDomainEventHandler {
+public class AssignmentCreatedEventNotificationPublishHandler extends AbstractDomainEventHandler<AssignmentCreatedEvent> {
     private final NotificationEventPublisher notificationEventPublisher;
 
     @Override
-    public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent.getType() == ASSIGNMENT_CREATED;
+    protected void doHandle(AssignmentCreatedEvent event) {
+        notificationEventPublisher.publish(event);
     }
 
     @Override
-    protected void doHandle(DomainEvent domainEvent) {
-        notificationEventPublisher.publish(domainEvent);
+    public int priority() {
+        return 100;
     }
-
 }

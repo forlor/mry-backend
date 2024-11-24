@@ -2,6 +2,7 @@ package com.mryqr.core.common.domain.event.consume;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
@@ -15,7 +16,7 @@ import static java.util.Comparator.comparingInt;
 // without been impacted by exceptions thrown from other handlers
 
 @Slf4j
-//@Component
+@Component
 @RequiredArgsConstructor
 public class DomainEventConsumer<T> {
     private final Map<String, Class<?>> handlerEventClassMap = new ConcurrentHashMap<>();

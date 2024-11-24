@@ -1,7 +1,6 @@
 package com.mryqr.core.qr.eventhandler;
 
-import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.DomainEventHandler;
+import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.core.common.utils.MryTaskRunner;
 import com.mryqr.core.qr.domain.event.QrCirculationStatusChangedEvent;
 import com.mryqr.core.qr.domain.task.SyncAttributeValuesForQrTask;
@@ -10,22 +9,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import static com.mryqr.core.app.domain.attribute.AttributeType.INSTANCE_CIRCULATION_STATUS;
-import static com.mryqr.core.common.domain.event.DomainEventType.QR_CIRCULATION_STATUS_CHANGED;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class QrCirculationStatusChangedEventHandler implements DomainEventHandler {
+public class QrCirculationStatusChangedEventHandler extends AbstractDomainEventHandler<QrCirculationStatusChangedEvent> {
     private final SyncAttributeValuesForQrTask syncAttributeValuesForQrTask;
 
     @Override
-    public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent.getType() == QR_CIRCULATION_STATUS_CHANGED;
+    protected void doHandle(QrCirculationStatusChangedEvent event) {
+        MryTaskRunner.run(() -> syncAttributeValuesForQrTask.run(event.getQrId(), INSTANCE_CIRCULATION_STATUS));
     }
 
     @Override
-    public void handle(DomainEvent domainEvent) {
-        QrCirculationStatusChangedEvent theEvent = (QrCirculationStatusChangedEvent) domainEvent;
-        MryTaskRunner.run(() -> syncAttributeValuesForQrTask.run(theEvent.getQrId(), INSTANCE_CIRCULATION_STATUS));
+    public boolean isIdempotent() {
+        return true;
     }
 }

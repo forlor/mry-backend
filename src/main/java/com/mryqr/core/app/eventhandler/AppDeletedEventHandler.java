@@ -4,8 +4,7 @@ import com.mryqr.core.app.domain.event.AppDeletedEvent;
 import com.mryqr.core.appmanual.domain.task.RemoveManualForAppTask;
 import com.mryqr.core.assignment.domain.task.RemoveAllAssignmentsUnderAppTask;
 import com.mryqr.core.assignmentplan.domain.task.RemoveAllAssignmentPlansUnderAppTask;
-import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.DomainEventHandler;
+import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.core.common.utils.MryTaskRunner;
 import com.mryqr.core.group.domain.task.RemoveAllGroupsForAppTask;
 import com.mryqr.core.grouphierarchy.domain.task.RemoveGroupHierarchyForAppTask;
@@ -19,12 +18,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import static com.mryqr.core.common.domain.event.DomainEventType.APP_DELETED;
-
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class AppDeletedEventHandler implements DomainEventHandler {
+public class AppDeletedEventHandler extends AbstractDomainEventHandler<AppDeletedEvent> {
     private final RemoveAllSubmissionsForAppTask removeAllSubmissionsForAppTask;
     private final RemoveAllQrsUnderAppTask removeAllQrsUnderAppTask;
     private final RemoveAllPlatesUnderAppTask removeAllPlatesUnderAppTask;
@@ -38,13 +35,7 @@ public class AppDeletedEventHandler implements DomainEventHandler {
     private final CountAppForTenantTask countAppForTenantTask;
 
     @Override
-    public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent.getType() == APP_DELETED;
-    }
-
-    @Override
-    public void handle(DomainEvent domainEvent) {
-        AppDeletedEvent event = (AppDeletedEvent) domainEvent;
+    protected void doHandle(AppDeletedEvent event) {
         String appId = event.getAppId();
         MryTaskRunner.run(() -> removeAllSubmissionsForAppTask.run(appId));
         MryTaskRunner.run(() -> removeAllQrsUnderAppTask.run(appId));
@@ -59,4 +50,8 @@ public class AppDeletedEventHandler implements DomainEventHandler {
         MryTaskRunner.run(() -> countAppForTenantTask.run(event.getArTenantId()));
     }
 
+    @Override
+    public boolean isIdempotent() {
+        return true;
+    }
 }

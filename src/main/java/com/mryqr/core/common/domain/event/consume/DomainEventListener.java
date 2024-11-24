@@ -2,7 +2,6 @@ package com.mryqr.core.common.domain.event.consume;
 
 import com.mryqr.common.tracing.MryTracingService;
 import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.DomainEventConsumer;
 import com.mryqr.core.common.utils.MryObjectMapper;
 import io.micrometer.tracing.ScopedSpan;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class DomainEventListener implements StreamListener<String, ObjectRecord<String, String>> {
     private final MryObjectMapper mryObjectMapper;
-    private final DomainEventConsumer domainEventConsumer;
+    private final DomainEventConsumer<DomainEvent> domainEventConsumer;
     private final MryTracingService mryTracingService;
 
     @Override
@@ -26,7 +25,7 @@ public class DomainEventListener implements StreamListener<String, ObjectRecord<
         String jsonString = message.getValue();
         DomainEvent domainEvent = mryObjectMapper.readValue(jsonString, DomainEvent.class);
         try {
-            domainEventConsumer.consume(domainEvent);
+            domainEventConsumer.consume(new ConsumingDomainEvent<>(domainEvent.getId(), domainEvent.getType().name(), domainEvent));
         } catch (Throwable t) {
             log.error("Failed to listen domain event[{}:{}].", domainEvent.getType(), domainEvent.getId(), t);
         }

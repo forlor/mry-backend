@@ -1,7 +1,6 @@
 package com.mryqr.core.group.eventhandler;
 
-import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.DomainEventHandler;
+import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.core.common.utils.MryTaskRunner;
 import com.mryqr.core.group.domain.event.GroupManagersChangedEvent;
 import com.mryqr.core.qr.domain.task.SyncGroupManagerAttributesForAllQrsUnderGroupTask;
@@ -9,22 +8,19 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import static com.mryqr.core.common.domain.event.DomainEventType.GROUP_MANAGERS_CHANGED;
-
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class GroupManagersChangedEventHandler implements DomainEventHandler {
+public class GroupManagersChangedEventHandler extends AbstractDomainEventHandler<GroupManagersChangedEvent> {
     private final SyncGroupManagerAttributesForAllQrsUnderGroupTask syncGroupManagerAttributesForAllQrsUnderGroupTask;
 
     @Override
-    public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent.getType() == GROUP_MANAGERS_CHANGED;
+    protected void doHandle(GroupManagersChangedEvent event) {
+        MryTaskRunner.run(() -> syncGroupManagerAttributesForAllQrsUnderGroupTask.run(event.getGroupId()));
     }
 
     @Override
-    public void handle(DomainEvent domainEvent) {
-        GroupManagersChangedEvent event = (GroupManagersChangedEvent) domainEvent;
-        MryTaskRunner.run(() -> syncGroupManagerAttributesForAllQrsUnderGroupTask.run(event.getGroupId()));
+    public boolean isIdempotent() {
+        return true;
     }
 }

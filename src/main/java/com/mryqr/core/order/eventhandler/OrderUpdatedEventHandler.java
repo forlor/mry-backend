@@ -1,30 +1,27 @@
 package com.mryqr.core.order.eventhandler;
 
-import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.DomainEventHandler;
+import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.core.common.utils.MryTaskRunner;
 import com.mryqr.core.order.domain.event.OrderUpdatedEvent;
 import com.mryqr.core.order.domain.task.SyncOrderToManagedQrTask;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class OrderUpdatedEventHandler implements DomainEventHandler {
+public class OrderUpdatedEventHandler extends AbstractDomainEventHandler<OrderUpdatedEvent> {
     private final SyncOrderToManagedQrTask syncOrderToManagedQrTask;
 
     @Override
-    public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent instanceof OrderUpdatedEvent;
+    protected void doHandle(OrderUpdatedEvent event) {
+        MryTaskRunner.run(() -> syncOrderToManagedQrTask.sync(event.getOrderId()));
+
     }
 
     @Override
-    @Transactional
-    public void handle(DomainEvent domainEvent) {
-        OrderUpdatedEvent theEvent = (OrderUpdatedEvent) domainEvent;
-        MryTaskRunner.run(() -> syncOrderToManagedQrTask.sync(theEvent.getOrderId()));
+    public boolean isIdempotent() {
+        return true;
     }
 }

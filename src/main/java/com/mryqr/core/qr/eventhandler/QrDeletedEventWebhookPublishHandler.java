@@ -2,8 +2,7 @@ package com.mryqr.core.qr.eventhandler;
 
 import com.mryqr.common.webhook.publish.MryWebhookEventPublisher;
 import com.mryqr.core.app.domain.AppRepository;
-import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.DomainEventHandler;
+import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.core.common.utils.MryTaskRunner;
 import com.mryqr.core.qr.domain.event.QrDeletedEvent;
 import com.mryqr.core.tenant.domain.TenantRepository;
@@ -12,25 +11,29 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import static com.mryqr.core.app.domain.QrWebhookType.ON_DELETE;
-import static com.mryqr.core.common.domain.event.DomainEventType.QR_DELETED;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class QrDeletedEventWebhookPublishHandler implements DomainEventHandler {
+public class QrDeletedEventWebhookPublishHandler extends AbstractDomainEventHandler<QrDeletedEvent> {
     private final TenantRepository tenantRepository;
     private final AppRepository appRepository;
     private final MryWebhookEventPublisher webhookEventPublisher;
 
+
     @Override
-    public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent.getType() == QR_DELETED;
+    protected void doHandle(QrDeletedEvent event) {
+        MryTaskRunner.run(() -> publishWebhookEvent(event));
     }
 
     @Override
-    public void handle(DomainEvent domainEvent) {
-        QrDeletedEvent event = (QrDeletedEvent) domainEvent;
-        MryTaskRunner.run(() -> publishWebhookEvent(event));
+    public boolean isIdempotent() {
+        return true;
+    }
+
+    @Override
+    public int priority() {
+        return 100;
     }
 
     protected void publishWebhookEvent(QrDeletedEvent theEvent) {
@@ -46,5 +49,4 @@ public class QrDeletedEventWebhookPublishHandler implements DomainEventHandler {
             });
         });
     }
-
 }

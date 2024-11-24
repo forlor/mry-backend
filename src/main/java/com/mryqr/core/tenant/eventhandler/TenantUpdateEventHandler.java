@@ -1,7 +1,6 @@
 package com.mryqr.core.tenant.eventhandler;
 
-import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.DomainEventHandler;
+import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.core.common.utils.MryTaskRunner;
 import com.mryqr.core.tenant.domain.event.TenantUpdatedEvent;
 import com.mryqr.core.tenant.domain.task.SyncTenantToManagedQrTask;
@@ -12,17 +11,16 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class TenantUpdateEventHandler implements DomainEventHandler {
+public class TenantUpdateEventHandler extends AbstractDomainEventHandler<TenantUpdatedEvent> {
     private final SyncTenantToManagedQrTask syncTenantToManagedQrTask;
 
     @Override
-    public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent instanceof TenantUpdatedEvent;
+    protected void doHandle(TenantUpdatedEvent event) {
+        MryTaskRunner.run(() -> syncTenantToManagedQrTask.sync(event.getTenantId()));
     }
 
     @Override
-    public void handle(DomainEvent domainEvent) {
-        TenantUpdatedEvent theEvent = (TenantUpdatedEvent) domainEvent;
-        MryTaskRunner.run(() -> syncTenantToManagedQrTask.sync(theEvent.getTenantId()));
+    public boolean isIdempotent() {
+        return true;
     }
 }

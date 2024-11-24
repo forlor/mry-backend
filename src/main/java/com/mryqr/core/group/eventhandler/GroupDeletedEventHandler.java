@@ -2,8 +2,7 @@ package com.mryqr.core.group.eventhandler;
 
 import com.mryqr.core.assignment.domain.task.RemoveAllAssignmentsUnderGroupTask;
 import com.mryqr.core.assignmentplan.domain.task.RemoveGroupFromAllAssignmentPlansTask;
-import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.DomainEventHandler;
+import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.core.common.utils.MryTaskRunner;
 import com.mryqr.core.group.domain.event.GroupDeletedEvent;
 import com.mryqr.core.group.domain.task.CountGroupForAppTask;
@@ -20,12 +19,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
-import static com.mryqr.core.common.domain.event.DomainEventType.GROUP_DELETED;
-
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class GroupDeletedEventHandler implements DomainEventHandler {
+public class GroupDeletedEventHandler extends AbstractDomainEventHandler<GroupDeletedEvent> {
     private final CountUsedPlatesForPlateBatchTask countUsedPlatesForPlateBatchTask;
     private final RemoveAllQrsUnderGroupTask removeAllQrsUnderGroupTask;
     private final RemoveAllSubmissionsForGroupTask removeAllSubmissionsForGroupTask;
@@ -38,13 +35,7 @@ public class GroupDeletedEventHandler implements DomainEventHandler {
     private final CountQrForAppTask countQrForAppTask;
 
     @Override
-    public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent.getType() == GROUP_DELETED;
-    }
-
-    @Override
-    public void handle(DomainEvent domainEvent) {
-        GroupDeletedEvent event = (GroupDeletedEvent) domainEvent;
+    protected void doHandle(GroupDeletedEvent event) {
         String groupId = event.getGroupId();
 
         Set<String> affectedPlateBatchIds = plateRepository.allPlateBatchIdsReferencingGroup(groupId);
@@ -59,4 +50,8 @@ public class GroupDeletedEventHandler implements DomainEventHandler {
         affectedPlateBatchIds.forEach(plateBatchId -> MryTaskRunner.run(() -> countUsedPlatesForPlateBatchTask.run(plateBatchId)));
     }
 
+    @Override
+    public boolean isIdempotent() {
+        return true;
+    }
 }

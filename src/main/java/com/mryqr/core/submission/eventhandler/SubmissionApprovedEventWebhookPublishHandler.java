@@ -2,8 +2,7 @@ package com.mryqr.core.submission.eventhandler;
 
 import com.mryqr.common.webhook.publish.MryWebhookEventPublisher;
 import com.mryqr.core.app.domain.AppRepository;
-import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.DomainEventHandler;
+import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.core.common.utils.MryTaskRunner;
 import com.mryqr.core.submission.domain.event.SubmissionApprovedEvent;
 import com.mryqr.core.tenant.domain.TenantRepository;
@@ -12,25 +11,29 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import static com.mryqr.core.app.domain.page.setting.SubmissionWebhookType.ON_APPROVAL;
-import static com.mryqr.core.common.domain.event.DomainEventType.SUBMISSION_APPROVED;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class SubmissionApprovedEventWebhookPublishHandler implements DomainEventHandler {
+public class SubmissionApprovedEventWebhookPublishHandler extends AbstractDomainEventHandler<SubmissionApprovedEvent> {
     private final AppRepository appRepository;
     private final TenantRepository tenantRepository;
     private final MryWebhookEventPublisher webhookEventPublisher;
 
+
     @Override
-    public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent.getType() == SUBMISSION_APPROVED;
+    public boolean isIdempotent() {
+        return true;
     }
 
     @Override
-    public void handle(DomainEvent domainEvent) {
-        SubmissionApprovedEvent theEvent = (SubmissionApprovedEvent) domainEvent;
-        MryTaskRunner.run(() -> publishWebhookEvent(theEvent));
+    public int priority() {
+        return 100;
+    }
+
+    @Override
+    protected void doHandle(SubmissionApprovedEvent event) {
+        MryTaskRunner.run(() -> publishWebhookEvent(event));
     }
 
     private void publishWebhookEvent(SubmissionApprovedEvent theEvent) {
@@ -51,10 +54,5 @@ public class SubmissionApprovedEventWebhookPublishHandler implements DomainEvent
                 });
             });
         });
-    }
-
-    @Override
-    public int priority() {
-        return 100;
     }
 }

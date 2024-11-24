@@ -1,7 +1,6 @@
 package com.mryqr.core.qr.eventhandler;
 
-import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.DomainEventHandler;
+import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.core.common.utils.MryTaskRunner;
 import com.mryqr.core.qr.domain.event.QrCustomIdUpdatedEvent;
 import com.mryqr.core.qr.domain.task.SyncAttributeValuesForQrTask;
@@ -10,22 +9,21 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import static com.mryqr.core.app.domain.attribute.AttributeType.INSTANCE_CUSTOM_ID;
-import static com.mryqr.core.common.domain.event.DomainEventType.QR_CUSTOM_ID_UPDATED;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class QrCustomIdUpdatedEventHandler implements DomainEventHandler {
+public class QrCustomIdUpdatedEventHandler extends AbstractDomainEventHandler<QrCustomIdUpdatedEvent> {
     private final SyncAttributeValuesForQrTask syncAttributeValuesForQrTask;
 
     @Override
-    public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent.getType() == QR_CUSTOM_ID_UPDATED;
+    protected void doHandle(QrCustomIdUpdatedEvent event) {
+        MryTaskRunner.run(() -> syncAttributeValuesForQrTask.run(event.getQrId(), INSTANCE_CUSTOM_ID));
+
     }
 
     @Override
-    public void handle(DomainEvent domainEvent) {
-        QrCustomIdUpdatedEvent theEvent = (QrCustomIdUpdatedEvent) domainEvent;
-        MryTaskRunner.run(() -> syncAttributeValuesForQrTask.run(theEvent.getQrId(), INSTANCE_CUSTOM_ID));
+    public boolean isIdempotent() {
+        return true;
     }
 }

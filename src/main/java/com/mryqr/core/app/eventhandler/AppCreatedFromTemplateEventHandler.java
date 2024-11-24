@@ -3,32 +3,27 @@ package com.mryqr.core.app.eventhandler;
 import com.mryqr.core.app.domain.event.AppCreatedFromTemplateEvent;
 import com.mryqr.core.appmanual.domain.task.CloneAppManualTask;
 import com.mryqr.core.apptemplate.domain.task.CountAppTemplateAppliedTask;
-import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.DomainEventHandler;
+import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.core.common.utils.MryTaskRunner;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import static com.mryqr.core.common.domain.event.DomainEventType.APP_CREATED_FROM_TEMPLATE;
-
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class AppCreatedFromTemplateEventHandler implements DomainEventHandler {
+public class AppCreatedFromTemplateEventHandler extends AbstractDomainEventHandler<AppCreatedFromTemplateEvent> {
     private final CountAppTemplateAppliedTask countAppTemplateAppliedTask;
     private final CloneAppManualTask cloneAppManualTask;
 
     @Override
-    public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent.getType() == APP_CREATED_FROM_TEMPLATE;
+    protected void doHandle(AppCreatedFromTemplateEvent event) {
+        MryTaskRunner.run(() -> countAppTemplateAppliedTask.run(event.getAppTemplateId()));
+        MryTaskRunner.run(() -> cloneAppManualTask.run(event.getSourceAppId(), event.getAppId()));
     }
 
     @Override
-    public void handle(DomainEvent domainEvent) {
-        AppCreatedFromTemplateEvent theEvent = (AppCreatedFromTemplateEvent) domainEvent;
-
-        MryTaskRunner.run(() -> countAppTemplateAppliedTask.run(theEvent.getAppTemplateId()));
-        MryTaskRunner.run(() -> cloneAppManualTask.run(theEvent.getSourceAppId(), theEvent.getAppId()));
+    public boolean isIdempotent() {
+        return true;
     }
 }

@@ -6,6 +6,7 @@ import com.mryqr.core.app.domain.event.*;
 import com.mryqr.core.assignment.event.AssignmentCreatedEvent;
 import com.mryqr.core.assignmentplan.domain.event.AssignmentPlanDeletedEvent;
 import com.mryqr.core.common.domain.AggregateRoot;
+import com.mryqr.core.common.domain.AggregateRootType;
 import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.department.domain.event.DepartmentCreatedEvent;
 import com.mryqr.core.department.domain.event.DepartmentDeletedEvent;
@@ -128,9 +129,7 @@ public abstract class DomainEvent {
     private String arTenantId;//事件对应的租户ID，不能为空
     private String arId;//事件对应的聚合根ID，不能为空
     private DomainEventType type;//事件类型
-
-    @Deprecated
-    private int consumedCount;//已经被消费的次数，无论成功与否
+    private AggregateRootType arType; //事件来自哪种聚合根
     private String raisedBy;//引发该事件的memberId
     private Instant raisedAt;//事件产生时间
 
@@ -140,6 +139,7 @@ public abstract class DomainEvent {
 
         this.id = newEventId();
         this.type = type;
+        this.arType = type.getArType();
         this.raisedBy = user.getMemberId();
         this.raisedAt = now();
     }
@@ -151,10 +151,6 @@ public abstract class DomainEvent {
     public void setArInfo(AggregateRoot ar) {
         this.arTenantId = ar.getTenantId();
         this.arId = ar.getId();
-    }
-
-    public boolean isConsumedBefore() {
-        return this.consumedCount > 0;
     }
 
     public boolean isRaisedByHuman() {

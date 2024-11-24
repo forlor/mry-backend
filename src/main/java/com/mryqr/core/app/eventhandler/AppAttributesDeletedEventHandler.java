@@ -3,8 +3,7 @@ package com.mryqr.core.app.eventhandler;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.app.domain.event.AppAttributesDeletedEvent;
 import com.mryqr.core.app.domain.event.DeletedAttributeInfo;
-import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.DomainEventHandler;
+import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.core.common.utils.MryTaskRunner;
 import com.mryqr.core.qr.domain.task.RemoveAttributeValuesForAllQrsUnderAppTask;
 import com.mryqr.core.qr.domain.task.RemoveIndexedValueUnderAllQrsTask;
@@ -15,25 +14,18 @@ import org.springframework.stereotype.Component;
 import java.util.Set;
 
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.common.domain.event.DomainEventType.APP_ATTRIBUTES_DELETED;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class AppAttributesDeletedEventHandler implements DomainEventHandler {
+public class AppAttributesDeletedEventHandler extends AbstractDomainEventHandler<AppAttributesDeletedEvent> {
     private final RemoveAttributeValuesForAllQrsUnderAppTask removeAttributeValuesForAllQrsUnderAppTask;
     private final RemoveIndexedValueUnderAllQrsTask removeIndexedValueUnderAllQrsTask;
     private final AppRepository appRepository;
 
     @Override
-    public boolean canHandle(DomainEvent domainEvent) {
-        return domainEvent.getType() == APP_ATTRIBUTES_DELETED;
-    }
-
-    @Override
-    public void handle(DomainEvent domainEvent) {
-        AppAttributesDeletedEvent event = (AppAttributesDeletedEvent) domainEvent;
+    protected void doHandle(AppAttributesDeletedEvent event) {
         String appId = event.getAppId();
         Set<DeletedAttributeInfo> deletedAttributeInfos = event.getAttributes();
 
@@ -59,4 +51,8 @@ public class AppAttributesDeletedEventHandler implements DomainEventHandler {
         }
     }
 
+    @Override
+    public boolean isIdempotent() {
+        return true;
+    }
 }

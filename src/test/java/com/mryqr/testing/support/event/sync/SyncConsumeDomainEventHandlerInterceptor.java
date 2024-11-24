@@ -1,7 +1,8 @@
 package com.mryqr.testing.support.event.sync;
 
 import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.DomainEventConsumer;
+import com.mryqr.core.common.domain.event.consume.ConsumingDomainEvent;
+import com.mryqr.core.common.domain.event.consume.DomainEventConsumer;
 import com.mryqr.core.common.domain.event.publish.PublishingDomainEventDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,9 +27,10 @@ import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 @Component
 @Profile("ci")
 @RequiredArgsConstructor
+@SuppressWarnings({"unchecked"})
 public class SyncConsumeDomainEventHandlerInterceptor implements HandlerInterceptor {
     private final PublishingDomainEventDao publishingDomainEventDao;
-    private final DomainEventConsumer domainEventConsumer;
+    private final DomainEventConsumer<DomainEvent> domainEventConsumer;
 
     @After("execution(* com.mryqr.core.common.domain.event.publish.PublishingDomainEventDao.stage(..))")
     public void storeDomainEventIds(JoinPoint joinPoint) {
@@ -52,7 +54,7 @@ public class SyncConsumeDomainEventHandlerInterceptor implements HandlerIntercep
             List<DomainEvent> domainEvents = publishingDomainEventDao.byIds(eventIds);
             domainEvents.forEach(domainEvent -> {
                 try {
-                    domainEventConsumer.consume(domainEvent);
+                    domainEventConsumer.consume(new ConsumingDomainEvent<>(domainEvent.getId(), domainEvent.getType().name(), domainEvent));
                 } catch (Throwable t) {
                     log.error("Consume domain event[{}:{}] failed.", domainEvent.getType(), domainEvent.getId(), t);
                 }
