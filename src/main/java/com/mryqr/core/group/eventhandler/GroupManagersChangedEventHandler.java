@@ -23,8 +23,8 @@ public class GroupManagersChangedEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         GroupManagersChangedEvent event = (GroupManagersChangedEvent) domainEvent;
-        taskRunner.run(() -> syncGroupManagerAttributesForAllQrsUnderGroupTask.run(event.getGroupId()));
+        MryTaskRunner.run(() -> syncGroupManagerAttributesForAllQrsUnderGroupTask.run(event.getGroupId()));
     }
 }

@@ -23,9 +23,9 @@ public class DepartmentCreatedEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         DepartmentCreatedEvent event = (DepartmentCreatedEvent) domainEvent;
-        taskRunner.run(() -> countDepartmentForTenantTask.run(event.getArTenantId()));
+        MryTaskRunner.run(() -> countDepartmentForTenantTask.run(event.getArTenantId()));
     }
 
 }

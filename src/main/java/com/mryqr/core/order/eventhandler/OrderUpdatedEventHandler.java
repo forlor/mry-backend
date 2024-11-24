@@ -23,8 +23,8 @@ public class OrderUpdatedEventHandler implements DomainEventHandler {
 
     @Override
     @Transactional
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         OrderUpdatedEvent theEvent = (OrderUpdatedEvent) domainEvent;
-        taskRunner.run(() -> syncOrderToManagedQrTask.sync(theEvent.getOrderId()));
+        MryTaskRunner.run(() -> syncOrderToManagedQrTask.sync(theEvent.getOrderId()));
     }
 }

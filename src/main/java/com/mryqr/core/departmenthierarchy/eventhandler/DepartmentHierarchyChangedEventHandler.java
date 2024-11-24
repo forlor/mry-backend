@@ -27,11 +27,11 @@ public class DepartmentHierarchyChangedEventHandler implements DomainEventHandle
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         DepartmentHierarchyChangedEvent theEvent = (DepartmentHierarchyChangedEvent) domainEvent;
 
         appRepository.cachedTenantAllApps(theEvent.getTenantId()).stream()
                 .filter(TenantCachedApp::isGroupSynced)
-                .forEach(app -> taskRunner.run(() -> syncAllDepartmentsToGroupTask.run(app.getId())));
+                .forEach(app -> MryTaskRunner.run(() -> syncAllDepartmentsToGroupTask.run(app.getId())));
     }
 }

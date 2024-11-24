@@ -26,10 +26,10 @@ public class QrPlateResetEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         QrPlateResetEvent event = (QrPlateResetEvent) domainEvent;
-        taskRunner.run(() -> syncSubmissionPlateFromQrTask.run(event.getQrId()));
-        taskRunner.run(() -> syncAttributeValuesForQrTask.run(event.getQrId(), INSTANCE_PLATE_ID));
+        MryTaskRunner.run(() -> syncSubmissionPlateFromQrTask.run(event.getQrId()));
+        MryTaskRunner.run(() -> syncAttributeValuesForQrTask.run(event.getQrId(), INSTANCE_PLATE_ID));
     }
 
 }

@@ -23,7 +23,7 @@ public class CountStorageForAllTenantJob {
         MryTaskRunner taskRunner = new MryTaskRunner();
 
         allTenantIds.forEach(tenantId -> {
-            taskRunner.run(() -> countStorageForTenantTask.run(tenantId));
+            MryTaskRunner.run(() -> countStorageForTenantTask.run(tenantId));
         });
 
         log.info("Finished count storages for all tenants.");

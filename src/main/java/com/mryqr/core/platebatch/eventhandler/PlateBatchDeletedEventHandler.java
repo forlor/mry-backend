@@ -23,9 +23,9 @@ public class PlateBatchDeletedEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         PlateBatchDeletedEvent event = (PlateBatchDeletedEvent) domainEvent;
-        taskRunner.run(() -> unsetAllPlatesFromPlateBatchTask.run(event.getBatchId()));
+        MryTaskRunner.run(() -> unsetAllPlatesFromPlateBatchTask.run(event.getBatchId()));
     }
 
 }

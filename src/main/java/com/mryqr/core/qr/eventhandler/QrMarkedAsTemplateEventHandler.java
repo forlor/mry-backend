@@ -32,19 +32,19 @@ public class QrMarkedAsTemplateEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         QrMarkedAsTemplateEvent event = (QrMarkedAsTemplateEvent) domainEvent;
 
         qrRepository.byIdOptional(event.getQrId()).ifPresent(qr -> {
             if (qr.isTemplate()) {
-                taskRunner.run(() -> removeAllSubmissionsForQrTask.run(qr.getId()));
+                MryTaskRunner.run(() -> removeAllSubmissionsForQrTask.run(qr.getId()));
 
                 //须在removeAllSubmissionsForQrTask之后执行
-                taskRunner.run(() -> syncSubmissionAwareAttributeValuesForQrTask.run(event.getQrId()));
+                MryTaskRunner.run(() -> syncSubmissionAwareAttributeValuesForQrTask.run(event.getQrId()));
             }
         });
 
-        taskRunner.run(() -> countSubmissionForAppTask.run(event.getAppId(), event.getArTenantId()));
-        taskRunner.run(() -> syncAttributeValuesForQrTask.run(event.getQrId(), INSTANCE_TEMPLATE_STATUS));
+        MryTaskRunner.run(() -> countSubmissionForAppTask.run(event.getAppId(), event.getArTenantId()));
+        MryTaskRunner.run(() -> syncAttributeValuesForQrTask.run(event.getQrId(), INSTANCE_TEMPLATE_STATUS));
     }
 }

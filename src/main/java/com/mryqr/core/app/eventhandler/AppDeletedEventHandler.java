@@ -43,20 +43,20 @@ public class AppDeletedEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         AppDeletedEvent event = (AppDeletedEvent) domainEvent;
         String appId = event.getAppId();
-        taskRunner.run(() -> removeAllSubmissionsForAppTask.run(appId));
-        taskRunner.run(() -> removeAllQrsUnderAppTask.run(appId));
-        taskRunner.run(() -> removeAllGroupsForAppTask.run(appId));
-        taskRunner.run(() -> removeGroupHierarchyForAppTask.run(appId));
-        taskRunner.run(() -> removeAllPlatesUnderAppTask.run(appId));
-        taskRunner.run(() -> removeAllPlateBatchesUnderAppTask.run(appId));
-        taskRunner.run(() -> removeAppUsageFromTenantTask.run(event.getArTenantId(), appId));
-        taskRunner.run(() -> removeManualForAppTask.run(appId));
-        taskRunner.run(() -> removeAllAssignmentPlansUnderAppTask.run(appId));
-        taskRunner.run(() -> removeAllAssignmentsUnderAppTask.run(appId));
-        taskRunner.run(() -> countAppForTenantTask.run(event.getArTenantId()));
+        MryTaskRunner.run(() -> removeAllSubmissionsForAppTask.run(appId));
+        MryTaskRunner.run(() -> removeAllQrsUnderAppTask.run(appId));
+        MryTaskRunner.run(() -> removeAllGroupsForAppTask.run(appId));
+        MryTaskRunner.run(() -> removeGroupHierarchyForAppTask.run(appId));
+        MryTaskRunner.run(() -> removeAllPlatesUnderAppTask.run(appId));
+        MryTaskRunner.run(() -> removeAllPlateBatchesUnderAppTask.run(appId));
+        MryTaskRunner.run(() -> removeAppUsageFromTenantTask.run(event.getArTenantId(), appId));
+        MryTaskRunner.run(() -> removeManualForAppTask.run(appId));
+        MryTaskRunner.run(() -> removeAllAssignmentPlansUnderAppTask.run(appId));
+        MryTaskRunner.run(() -> removeAllAssignmentsUnderAppTask.run(appId));
+        MryTaskRunner.run(() -> countAppForTenantTask.run(event.getArTenantId()));
     }
 
 }

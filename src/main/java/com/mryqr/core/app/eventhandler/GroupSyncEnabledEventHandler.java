@@ -23,8 +23,8 @@ public class GroupSyncEnabledEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         AppGroupSyncEnabledEvent theEvent = (AppGroupSyncEnabledEvent) domainEvent;
-        taskRunner.run(() -> syncAllDepartmentsToGroupTask.run(theEvent.getAppId()));
+        MryTaskRunner.run(() -> syncAllDepartmentsToGroupTask.run(theEvent.getAppId()));
     }
 }

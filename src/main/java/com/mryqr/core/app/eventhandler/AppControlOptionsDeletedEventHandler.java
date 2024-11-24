@@ -28,18 +28,18 @@ public class AppControlOptionsDeletedEventHandler implements DomainEventHandler 
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         AppControlOptionsDeletedEvent theEvent = (AppControlOptionsDeletedEvent) domainEvent;
         String appId = theEvent.getAppId();
         Set<DeletedTextOptionInfo> options = theEvent.getControlOptions();
         options.forEach(option ->
-                taskRunner.run(() -> removeSubmissionIndexedOptionForAppTask.run(appId,
+                MryTaskRunner.run(() -> removeSubmissionIndexedOptionForAppTask.run(appId,
                         option.getPageId(),
                         option.getControlId(),
                         option.getOptionId())));
 
         options.forEach(option ->
-                taskRunner.run(() -> removeIndexedOptionUnderAllQrsTask.run(appId,
+                MryTaskRunner.run(() -> removeIndexedOptionUnderAllQrsTask.run(appId,
                         option.getControlId(),
                         option.getOptionId())));
 

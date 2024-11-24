@@ -21,9 +21,9 @@ public class GroupDeactivatedEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         GroupDeactivatedEvent event = (GroupDeactivatedEvent) domainEvent;
 
-        taskRunner.run(() -> syncGroupActiveStatusToQrsTask.run(event.getGroupId()));
+        MryTaskRunner.run(() -> syncGroupActiveStatusToQrsTask.run(event.getGroupId()));
     }
 }

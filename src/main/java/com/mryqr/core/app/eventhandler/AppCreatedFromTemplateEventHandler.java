@@ -25,10 +25,10 @@ public class AppCreatedFromTemplateEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         AppCreatedFromTemplateEvent theEvent = (AppCreatedFromTemplateEvent) domainEvent;
 
-        taskRunner.run(() -> countAppTemplateAppliedTask.run(theEvent.getAppTemplateId()));
-        taskRunner.run(() -> cloneAppManualTask.run(theEvent.getSourceAppId(), theEvent.getAppId()));
+        MryTaskRunner.run(() -> countAppTemplateAppliedTask.run(theEvent.getAppTemplateId()));
+        MryTaskRunner.run(() -> cloneAppManualTask.run(theEvent.getSourceAppId(), theEvent.getAppId()));
     }
 }

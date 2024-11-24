@@ -27,10 +27,10 @@ public class QrCreatedEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         QrCreatedEvent event = (QrCreatedEvent) domainEvent;
-        taskRunner.run(() -> countQrForAppTask.run(event.getAppId(), event.getArTenantId()));
-        taskRunner.run(() -> countPlateForTenantTask.run(event.getArTenantId()));
-        taskRunner.run(() -> syncAttributeValuesForQrTask.run(event.getQrId()));
+        MryTaskRunner.run(() -> countQrForAppTask.run(event.getAppId(), event.getArTenantId()));
+        MryTaskRunner.run(() -> countPlateForTenantTask.run(event.getArTenantId()));
+        MryTaskRunner.run(() -> syncAttributeValuesForQrTask.run(event.getQrId()));
     }
 }

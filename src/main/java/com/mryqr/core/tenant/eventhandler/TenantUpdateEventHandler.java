@@ -21,8 +21,8 @@ public class TenantUpdateEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         TenantUpdatedEvent theEvent = (TenantUpdatedEvent) domainEvent;
-        taskRunner.run(() -> syncTenantToManagedQrTask.sync(theEvent.getTenantId()));
+        MryTaskRunner.run(() -> syncTenantToManagedQrTask.sync(theEvent.getTenantId()));
     }
 }

@@ -27,11 +27,11 @@ public class SubmissionCreatedEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         SubmissionCreatedEvent event = (SubmissionCreatedEvent) domainEvent;
-        taskRunner.run(() -> syncSubmissionAwareAttributesTask.run(event.getQrId(), event.getPageId()));
-        taskRunner.run(() -> countSubmissionForAppTask.run(event.getAppId(), event.getArTenantId()));
-        taskRunner.run(() -> finishQrForAssignmentsTask.run(event.getQrId(),
+        MryTaskRunner.run(() -> syncSubmissionAwareAttributesTask.run(event.getQrId(), event.getPageId()));
+        MryTaskRunner.run(() -> countSubmissionForAppTask.run(event.getAppId(), event.getArTenantId()));
+        MryTaskRunner.run(() -> finishQrForAssignmentsTask.run(event.getQrId(),
                 event.getSubmissionId(),
                 event.getAppId(),
                 event.getPageId(),

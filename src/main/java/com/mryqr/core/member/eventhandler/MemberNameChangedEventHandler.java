@@ -23,9 +23,9 @@ public class MemberNameChangedEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         MemberNameChangedEvent event = (MemberNameChangedEvent) domainEvent;
-        taskRunner.run(() -> syncMemberNameToAggregateRootsTask.run(event.getMemberId()));
+        MryTaskRunner.run(() -> syncMemberNameToAggregateRootsTask.run(event.getMemberId()));
     }
 
 }

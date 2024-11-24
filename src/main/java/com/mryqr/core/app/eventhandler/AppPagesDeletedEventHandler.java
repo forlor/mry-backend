@@ -29,15 +29,15 @@ public class AppPagesDeletedEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         AppPagesDeletedEvent event = (AppPagesDeletedEvent) domainEvent;
         String appId = event.getAppId();
         event.getPages().forEach(page -> {
-            taskRunner.run(() -> removeAllSubmissionsForPageTask.run(page.getPageId(), appId));
-            taskRunner.run(() -> removeAllAssignmentPlansForPageTask.run(page.getPageId(), appId));
-            taskRunner.run(() -> removeAllAssignmentsForPageTask.run(page.getPageId(), appId));
+            MryTaskRunner.run(() -> removeAllSubmissionsForPageTask.run(page.getPageId(), appId));
+            MryTaskRunner.run(() -> removeAllAssignmentPlansForPageTask.run(page.getPageId(), appId));
+            MryTaskRunner.run(() -> removeAllAssignmentsForPageTask.run(page.getPageId(), appId));
         });
 
-        taskRunner.run(() -> countSubmissionForAppTask.run(event.getAppId(), event.getArTenantId()));
+        MryTaskRunner.run(() -> countSubmissionForAppTask.run(event.getAppId(), event.getArTenantId()));
     }
 }

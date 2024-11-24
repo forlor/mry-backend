@@ -24,8 +24,8 @@ public class QrCustomIdUpdatedEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         QrCustomIdUpdatedEvent theEvent = (QrCustomIdUpdatedEvent) domainEvent;
-        taskRunner.run(() -> syncAttributeValuesForQrTask.run(theEvent.getQrId(), INSTANCE_CUSTOM_ID));
+        MryTaskRunner.run(() -> syncAttributeValuesForQrTask.run(theEvent.getQrId(), INSTANCE_CUSTOM_ID));
     }
 }

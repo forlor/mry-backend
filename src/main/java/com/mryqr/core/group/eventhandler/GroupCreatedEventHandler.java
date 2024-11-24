@@ -21,8 +21,8 @@ public class GroupCreatedEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         GroupCreatedEvent event = (GroupCreatedEvent) domainEvent;
-        taskRunner.run(() -> countGroupForAppTask.run(event.getAppId(), event.getArTenantId()));
+        MryTaskRunner.run(() -> countGroupForAppTask.run(event.getAppId(), event.getArTenantId()));
     }
 }

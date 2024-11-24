@@ -28,9 +28,9 @@ public class QrDeletedEventWebhookPublishHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         QrDeletedEvent event = (QrDeletedEvent) domainEvent;
-        taskRunner.run(() -> publishWebhookEvent(event));
+        MryTaskRunner.run(() -> publishWebhookEvent(event));
     }
 
     protected void publishWebhookEvent(QrDeletedEvent theEvent) {

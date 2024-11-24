@@ -24,9 +24,9 @@ public class QrRenamedEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         QrRenamedEvent event = (QrRenamedEvent) domainEvent;
-        taskRunner.run(() -> syncAttributeValuesForQrTask.run(event.getQrId(), INSTANCE_NAME));
+        MryTaskRunner.run(() -> syncAttributeValuesForQrTask.run(event.getQrId(), INSTANCE_NAME));
     }
 
 }

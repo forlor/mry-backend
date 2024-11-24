@@ -23,9 +23,9 @@ public class PlateBatchCreatedEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         PlateBatchCreatedEvent event = (PlateBatchCreatedEvent) domainEvent;
-        taskRunner.run(() -> countPlateForTenantTask.run(event.getArTenantId()));
+        MryTaskRunner.run(() -> countPlateForTenantTask.run(event.getArTenantId()));
     }
 
 }

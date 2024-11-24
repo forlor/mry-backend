@@ -28,9 +28,9 @@ public class SubmissionCreatedEventWebhookPublishHandler implements DomainEventH
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         SubmissionCreatedEvent theEvent = (SubmissionCreatedEvent) domainEvent;
-        taskRunner.run(() -> publishWebhookEvent(theEvent));
+        MryTaskRunner.run(() -> publishWebhookEvent(theEvent));
     }
 
     private void publishWebhookEvent(SubmissionCreatedEvent theEvent) {

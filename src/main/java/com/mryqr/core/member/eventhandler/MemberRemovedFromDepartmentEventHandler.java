@@ -23,9 +23,9 @@ public class MemberRemovedFromDepartmentEventHandler implements DomainEventHandl
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         MemberRemovedFromDepartmentEvent event = (MemberRemovedFromDepartmentEvent) domainEvent;
-        taskRunner.run(() -> syncDepartmentMembersToGroupTask.run(event.getDepartmentId()));
+        MryTaskRunner.run(() -> syncDepartmentMembersToGroupTask.run(event.getDepartmentId()));
     }
 
 }

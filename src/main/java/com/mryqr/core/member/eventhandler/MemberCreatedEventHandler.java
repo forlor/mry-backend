@@ -23,9 +23,9 @@ public class MemberCreatedEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         MemberCreatedEvent event = (MemberCreatedEvent) domainEvent;
-        taskRunner.run(() -> countMembersForTenantTask.run(event.getArTenantId()));
+        MryTaskRunner.run(() -> countMembersForTenantTask.run(event.getArTenantId()));
     }
 
 }

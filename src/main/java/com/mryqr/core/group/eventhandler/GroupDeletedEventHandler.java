@@ -43,20 +43,20 @@ public class GroupDeletedEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         GroupDeletedEvent event = (GroupDeletedEvent) domainEvent;
         String groupId = event.getGroupId();
 
         Set<String> affectedPlateBatchIds = plateRepository.allPlateBatchIdsReferencingGroup(groupId);
-        taskRunner.run(() -> removeAllQrsUnderGroupTask.run(groupId));
-        taskRunner.run(() -> removeAllSubmissionsForGroupTask.run(groupId));
-        taskRunner.run(() -> unbindAllPlatesUnderGroupTask.run(groupId));
-        taskRunner.run(() -> removeGroupFromAllAssignmentPlansTask.run(groupId, event.getAppId()));
-        taskRunner.run(() -> removeAllAssignmentsUnderGroupTask.run(groupId));
-        taskRunner.run(() -> countGroupForAppTask.run(event.getAppId(), event.getArTenantId()));
-        taskRunner.run(() -> countQrForAppTask.run(event.getAppId(), event.getArTenantId()));
-        taskRunner.run(() -> countSubmissionForAppTask.run(event.getAppId(), event.getArTenantId()));
-        affectedPlateBatchIds.forEach(plateBatchId -> taskRunner.run(() -> countUsedPlatesForPlateBatchTask.run(plateBatchId)));
+        MryTaskRunner.run(() -> removeAllQrsUnderGroupTask.run(groupId));
+        MryTaskRunner.run(() -> removeAllSubmissionsForGroupTask.run(groupId));
+        MryTaskRunner.run(() -> unbindAllPlatesUnderGroupTask.run(groupId));
+        MryTaskRunner.run(() -> removeGroupFromAllAssignmentPlansTask.run(groupId, event.getAppId()));
+        MryTaskRunner.run(() -> removeAllAssignmentsUnderGroupTask.run(groupId));
+        MryTaskRunner.run(() -> countGroupForAppTask.run(event.getAppId(), event.getArTenantId()));
+        MryTaskRunner.run(() -> countQrForAppTask.run(event.getAppId(), event.getArTenantId()));
+        MryTaskRunner.run(() -> countSubmissionForAppTask.run(event.getAppId(), event.getArTenantId()));
+        affectedPlateBatchIds.forEach(plateBatchId -> MryTaskRunner.run(() -> countUsedPlatesForPlateBatchTask.run(plateBatchId)));
     }
 
 }

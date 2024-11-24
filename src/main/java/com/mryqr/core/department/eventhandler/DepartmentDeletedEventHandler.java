@@ -25,9 +25,9 @@ public class DepartmentDeletedEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         DepartmentDeletedEvent event = (DepartmentDeletedEvent) domainEvent;
-        taskRunner.run(() -> countDepartmentForTenantTask.run(event.getArTenantId()));
-        taskRunner.run(() -> removeDepartmentFromAllMembersTask.run(event.getDepartmentId(), event.getArTenantId()));
+        MryTaskRunner.run(() -> countDepartmentForTenantTask.run(event.getArTenantId()));
+        MryTaskRunner.run(() -> removeDepartmentFromAllMembersTask.run(event.getDepartmentId(), event.getArTenantId()));
     }
 }

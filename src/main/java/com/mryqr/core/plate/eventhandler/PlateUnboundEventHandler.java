@@ -26,10 +26,10 @@ public class PlateUnboundEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         PlateUnboundEvent event = (PlateUnboundEvent) domainEvent;
         plateRepository.byIdOptional(event.getPlateId())
                 .filter(Plate::isBatched)
-                .ifPresent(plate -> taskRunner.run(() -> countUsedPlatesForPlateBatchTask.run(plate.getBatchId())));
+                .ifPresent(plate -> MryTaskRunner.run(() -> countUsedPlatesForPlateBatchTask.run(plate.getBatchId())));
     }
 }

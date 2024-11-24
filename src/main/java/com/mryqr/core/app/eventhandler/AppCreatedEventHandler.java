@@ -23,8 +23,8 @@ public class AppCreatedEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         AppCreatedEvent event = (AppCreatedEvent) domainEvent;
-        taskRunner.run(() -> countAppForTenantTask.run(event.getArTenantId()));
+        MryTaskRunner.run(() -> countAppForTenantTask.run(event.getArTenantId()));
     }
 }

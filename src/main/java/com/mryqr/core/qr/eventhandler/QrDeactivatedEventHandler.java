@@ -24,8 +24,8 @@ public class QrDeactivatedEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         QrDeactivatedEvent theEvent = (QrDeactivatedEvent) domainEvent;
-        taskRunner.run(() -> syncAttributeValuesForQrTask.run(theEvent.getQrId(), INSTANCE_ACTIVE_STATUS));
+        MryTaskRunner.run(() -> syncAttributeValuesForQrTask.run(theEvent.getQrId(), INSTANCE_ACTIVE_STATUS));
     }
 }

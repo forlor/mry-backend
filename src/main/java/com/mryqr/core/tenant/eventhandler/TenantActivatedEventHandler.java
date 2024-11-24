@@ -23,9 +23,9 @@ public class TenantActivatedEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         TenantActivatedEvent theEvent = (TenantActivatedEvent) domainEvent;
 
-        taskRunner.run(() -> syncTenantActiveStatusToMembersTask.run(theEvent.getTenantId()));
+        MryTaskRunner.run(() -> syncTenantActiveStatusToMembersTask.run(theEvent.getTenantId()));
     }
 }

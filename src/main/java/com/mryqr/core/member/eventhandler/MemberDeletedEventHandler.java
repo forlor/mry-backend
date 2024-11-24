@@ -33,15 +33,15 @@ public class MemberDeletedEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         MemberDeletedEvent event = (MemberDeletedEvent) domainEvent;
         String memberId = event.getMemberId();
-        taskRunner.run(() -> removeMemberFromAllGroupsTask.run(memberId, event.getArTenantId()));
-        taskRunner.run(() -> removeManagerFromAllAppsTask.run(memberId, event.getArTenantId()));
-        taskRunner.run(() -> removeOperatorFromAllAssignmentsTask.run(memberId, event.getArTenantId()));
-        taskRunner.run(() -> removeManagerFromAllDepartmentsTask.run(memberId, event.getArTenantId()));
-        taskRunner.run(() -> removeOperatorFromAllAssignmentPlansTask.run(memberId, event.getArTenantId()));
-        taskRunner.run(() -> countMembersForTenantTask.run(event.getArTenantId()));
+        MryTaskRunner.run(() -> removeMemberFromAllGroupsTask.run(memberId, event.getArTenantId()));
+        MryTaskRunner.run(() -> removeManagerFromAllAppsTask.run(memberId, event.getArTenantId()));
+        MryTaskRunner.run(() -> removeOperatorFromAllAssignmentsTask.run(memberId, event.getArTenantId()));
+        MryTaskRunner.run(() -> removeManagerFromAllDepartmentsTask.run(memberId, event.getArTenantId()));
+        MryTaskRunner.run(() -> removeOperatorFromAllAssignmentPlansTask.run(memberId, event.getArTenantId()));
+        MryTaskRunner.run(() -> countMembersForTenantTask.run(event.getArTenantId()));
     }
 
 }

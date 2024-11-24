@@ -1,12 +1,11 @@
 package com.mryqr.core.common.domain.event;
 
-import com.mryqr.core.common.utils.MryTaskRunner;
-
+@Deprecated
 public interface DomainEventHandler {
 
     boolean canHandle(DomainEvent domainEvent);
 
-    void handle(DomainEvent domainEvent, MryTaskRunner taskRunner);
+    void handle(DomainEvent domainEvent);
 
     default int priority() {
         return 0;//越小优先级越高

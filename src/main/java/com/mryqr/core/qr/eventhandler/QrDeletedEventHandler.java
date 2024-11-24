@@ -34,15 +34,15 @@ public class QrDeletedEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         QrDeletedEvent event = (QrDeletedEvent) domainEvent;
-        taskRunner.run(() -> unbindPlateFromQrTask.run(event.getQrId()));
-        taskRunner.run(() -> removeAllSubmissionsForQrTask.run(event.getQrId()));
-        taskRunner.run(() -> countSubmissionForAppTask.run(event.getAppId(), event.getArTenantId()));
-        taskRunner.run(() -> countQrForAppTask.run(event.getAppId(), event.getArTenantId()));
+        MryTaskRunner.run(() -> unbindPlateFromQrTask.run(event.getQrId()));
+        MryTaskRunner.run(() -> removeAllSubmissionsForQrTask.run(event.getQrId()));
+        MryTaskRunner.run(() -> countSubmissionForAppTask.run(event.getAppId(), event.getArTenantId()));
+        MryTaskRunner.run(() -> countQrForAppTask.run(event.getAppId(), event.getArTenantId()));
         plateRepository.byIdOptional(event.getPlateId())
                 .filter(Plate::isBatched)
-                .ifPresent(plate -> taskRunner.run(() -> countUsedPlatesForPlateBatchTask.run(plate.getBatchId())));
+                .ifPresent(plate -> MryTaskRunner.run(() -> countUsedPlatesForPlateBatchTask.run(plate.getBatchId())));
     }
 
 }

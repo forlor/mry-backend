@@ -30,7 +30,7 @@ public class AppAttributesCreatedEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         AppAttributesCreatedEvent event = (AppAttributesCreatedEvent) domainEvent;
         Set<String> calculatedAttributeIds = emptyIfNull(event.getAttributes()).stream()
                 .filter(it -> it.getAttributeType().isValueCalculated())
@@ -39,7 +39,7 @@ public class AppAttributesCreatedEventHandler implements DomainEventHandler {
                 .collect(toImmutableSet());
 
         if (isNotEmpty(calculatedAttributeIds)) {
-            taskRunner.run(() -> syncAttributeValuesForAllQrsUnderAppTask.run(event.getAppId(), calculatedAttributeIds));
+            MryTaskRunner.run(() -> syncAttributeValuesForAllQrsUnderAppTask.run(event.getAppId(), calculatedAttributeIds));
         }
     }
 }

@@ -12,10 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import static com.mryqr.core.app.domain.attribute.AttributeType.INSTANCE_GROUP;
-import static com.mryqr.core.app.domain.attribute.AttributeType.INSTANCE_GROUP_MANAGERS;
-import static com.mryqr.core.app.domain.attribute.AttributeType.INSTANCE_GROUP_MANAGERS_AND_EMAIL;
-import static com.mryqr.core.app.domain.attribute.AttributeType.INSTANCE_GROUP_MANAGERS_AND_MOBILE;
+import static com.mryqr.core.app.domain.attribute.AttributeType.*;
 import static com.mryqr.core.common.domain.event.DomainEventType.QR_GROUP_CHANGED;
 
 @Slf4j
@@ -33,12 +30,12 @@ public class QrGroupChangedEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         QrGroupChangedEvent event = (QrGroupChangedEvent) domainEvent;
-        taskRunner.run(() -> syncSubmissionGroupFromQrTask.run(event.getQrId()));
-        taskRunner.run(() -> syncGroupActiveStatusToQrTask.run(event.getQrId()));
-        taskRunner.run(() -> syncPlateGroupFromQrTask.run(event.getQrId()));
-        taskRunner.run(() -> syncAttributeValuesForQrTask.run(event.getQrId(),
+        MryTaskRunner.run(() -> syncSubmissionGroupFromQrTask.run(event.getQrId()));
+        MryTaskRunner.run(() -> syncGroupActiveStatusToQrTask.run(event.getQrId()));
+        MryTaskRunner.run(() -> syncPlateGroupFromQrTask.run(event.getQrId()));
+        MryTaskRunner.run(() -> syncAttributeValuesForQrTask.run(event.getQrId(),
                 INSTANCE_GROUP,
                 INSTANCE_GROUP_MANAGERS,
                 INSTANCE_GROUP_MANAGERS_AND_MOBILE,

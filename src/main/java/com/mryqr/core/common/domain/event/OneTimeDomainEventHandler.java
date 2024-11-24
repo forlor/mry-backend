@@ -1,12 +1,12 @@
 package com.mryqr.core.common.domain.event;
 
-import com.mryqr.core.common.utils.MryTaskRunner;
 import lombok.extern.slf4j.Slf4j;
 
 import static java.time.Instant.now;
 import static java.time.temporal.ChronoUnit.HOURS;
 
 
+@Deprecated
 @Slf4j
 public abstract class OneTimeDomainEventHandler implements DomainEventHandler {
     private static final int VALID_HOURS = 48;
@@ -17,7 +17,7 @@ public abstract class OneTimeDomainEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public final void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public final void handle(DomainEvent domainEvent) {
         if (domainEvent.isConsumedBefore()) {//如果事件已经被消费，无论是否消费成功，均不再进行处理
             log.warn("Domain event[{}:{}] is consumed before, skip consuming.", domainEvent.getType(), domainEvent.getId());
             return;

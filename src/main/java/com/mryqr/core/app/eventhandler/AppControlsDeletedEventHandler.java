@@ -32,7 +32,7 @@ public class AppControlsDeletedEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         AppControlsDeletedEvent theEvent = (AppControlsDeletedEvent) domainEvent;
         String appId = theEvent.getAppId();
         Set<DeletedControlInfo> fillableControls = theEvent.getControls().stream()
@@ -42,7 +42,7 @@ public class AppControlsDeletedEventHandler implements DomainEventHandler {
         Set<String> fillableControlIds = fillableControls.stream()
                 .map(DeletedControlInfo::getControlId)
                 .collect(toImmutableSet());
-        taskRunner.run(() -> removeAnswersForControlsFromAllSubmissionsTask.run(fillableControlIds, appId));
+        MryTaskRunner.run(() -> removeAnswersForControlsFromAllSubmissionsTask.run(fillableControlIds, appId));
 
         Set<DeletedControlInfo> valueIndexableControls = fillableControls.stream()
                 .filter(info -> info.getControlType().isAnswerIndexable())
@@ -51,11 +51,11 @@ public class AppControlsDeletedEventHandler implements DomainEventHandler {
         if (isNotEmpty(valueIndexableControls)) {
             appRepository.byIdOptional(appId).ifPresent(app -> valueIndexableControls.forEach(info -> {
                 if (!app.hasControlIndexField(info.getPageId(), info.getIndexedField())) {//如果字段尚未被别的属性占用，则直接删除
-                    taskRunner.run(() -> removeIndexedValueFromAllSubmissionsTask.run(info.getIndexedField(),
+                    MryTaskRunner.run(() -> removeIndexedValueFromAllSubmissionsTask.run(info.getIndexedField(),
                             info.getPageId(),
                             appId));
                 } else {//否则需要加上controlId作为筛选条件
-                    taskRunner.run(() -> removeIndexedValueFromAllSubmissionsTask.run(info.getIndexedField(),
+                    MryTaskRunner.run(() -> removeIndexedValueFromAllSubmissionsTask.run(info.getIndexedField(),
                             info.getControlId(),
                             info.getPageId(),
                             appId));

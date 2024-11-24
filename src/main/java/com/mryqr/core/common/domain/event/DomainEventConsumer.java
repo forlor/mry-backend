@@ -1,14 +1,13 @@
 package com.mryqr.core.common.domain.event;
 
-import com.mryqr.core.common.utils.MryTaskRunner;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static com.mryqr.core.common.utils.MryTaskRunner.newTaskRunner;
 import static java.util.Comparator.comparingInt;
 
+@Deprecated
 @Slf4j
 @Component
 public class DomainEventConsumer {
@@ -25,24 +24,22 @@ public class DomainEventConsumer {
         log.info("Start consume domain event[{}:{}:{}:{}].",
                 domainEvent.getType(), domainEvent.getId(), domainEvent.getArId(), domainEvent.getArTenantId());
 
-        boolean hasError = false;
-        MryTaskRunner taskRunner = newTaskRunner();
-
+//        boolean hasError = false;
         for (DomainEventHandler handler : handlers) {
             try {
                 if (handler.canHandle(domainEvent)) {
-                    handler.handle(domainEvent, taskRunner);
+                    handler.handle(domainEvent);
                 }
             } catch (Throwable t) {
-                hasError = true;
+//                hasError = true;
                 log.error("Error while handle domain event[{}:{}] by [{}].",
                         domainEvent.getType(), domainEvent.getId(), handler.getClass().getSimpleName(), t);
             }
         }
 
-        if (taskRunner.isHasError()) {
-            hasError = true;
-        }
+//        if (taskRunner.isHasError()) {
+//            hasError = true;
+//        }
 
 //        if (hasError) {
 //            domainEventDao.failConsume(domainEvent);

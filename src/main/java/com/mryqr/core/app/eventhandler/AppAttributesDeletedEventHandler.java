@@ -32,7 +32,7 @@ public class AppAttributesDeletedEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         AppAttributesDeletedEvent event = (AppAttributesDeletedEvent) domainEvent;
         String appId = event.getAppId();
         Set<DeletedAttributeInfo> deletedAttributeInfos = event.getAttributes();
@@ -41,7 +41,7 @@ public class AppAttributesDeletedEventHandler implements DomainEventHandler {
         Set<String> deletedAttributeIds = deletedAttributeInfos.stream()
                 .map(DeletedAttributeInfo::getAttributeId)
                 .collect(toImmutableSet());
-        taskRunner.run(() -> removeAttributeValuesForAllQrsUnderAppTask.run(deletedAttributeIds, appId));
+        MryTaskRunner.run(() -> removeAttributeValuesForAllQrsUnderAppTask.run(deletedAttributeIds, appId));
 
         Set<DeletedAttributeInfo> valueIndexableAttributes = deletedAttributeInfos.stream()
                 .filter(info -> info.getValueType().isIndexable())
@@ -51,9 +51,9 @@ public class AppAttributesDeletedEventHandler implements DomainEventHandler {
             //删除对应的indexedValue
             appRepository.byIdOptional(appId).ifPresent(app -> valueIndexableAttributes.forEach(info -> {
                 if (!app.hasAttributeIndexedFiled(info.getIndexedField())) {//如果字段尚未被别的属性占用，则直接删除
-                    taskRunner.run(() -> removeIndexedValueUnderAllQrsTask.run(info.getIndexedField(), appId));
+                    MryTaskRunner.run(() -> removeIndexedValueUnderAllQrsTask.run(info.getIndexedField(), appId));
                 } else {//否则需要加上attributeId作为筛选条件
-                    taskRunner.run(() -> removeIndexedValueUnderAllQrsTask.run(info.getIndexedField(), info.getAttributeId(), appId));
+                    MryTaskRunner.run(() -> removeIndexedValueUnderAllQrsTask.run(info.getIndexedField(), info.getAttributeId(), appId));
                 }
             }));
         }

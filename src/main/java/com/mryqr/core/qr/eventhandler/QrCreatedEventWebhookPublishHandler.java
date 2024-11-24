@@ -28,9 +28,9 @@ public class QrCreatedEventWebhookPublishHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         QrCreatedEvent theEvent = (QrCreatedEvent) domainEvent;
-        taskRunner.run(() -> publishWebhookEvent(theEvent));
+        MryTaskRunner.run(() -> publishWebhookEvent(theEvent));
     }
 
     private void publishWebhookEvent(QrCreatedEvent theEvent) {

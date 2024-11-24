@@ -21,8 +21,8 @@ public class AssignmentPlanDeletedEventHandler implements DomainEventHandler {
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         AssignmentPlanDeletedEvent theEvent = (AssignmentPlanDeletedEvent) domainEvent;
-        taskRunner.run(() -> removeAllAssignmentsUnderAssignmentPlanTask.run(theEvent.getAssignmentPlanId()));
+        MryTaskRunner.run(() -> removeAllAssignmentsUnderAssignmentPlanTask.run(theEvent.getAssignmentPlanId()));
     }
 }

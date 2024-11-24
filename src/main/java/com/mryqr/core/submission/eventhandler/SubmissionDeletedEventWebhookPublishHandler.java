@@ -28,9 +28,9 @@ public class SubmissionDeletedEventWebhookPublishHandler implements DomainEventH
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         SubmissionDeletedEvent theEvent = (SubmissionDeletedEvent) domainEvent;
-        taskRunner.run(() -> publishWebhookEvent(theEvent));
+        MryTaskRunner.run(() -> publishWebhookEvent(theEvent));
     }
 
     private void publishWebhookEvent(SubmissionDeletedEvent theEvent) {

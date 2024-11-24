@@ -20,13 +20,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Map;
 
-import static com.mryqr.management.crm.MryTenantManageApp.CLEAR_APP_CACHE_OPTION_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.CLEAR_CACHE_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.CLEAR_CACHE_PAGE_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.CLEAR_DEPARTMENT_CACHE_OPTION_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.CLEAR_GROUP_CACHE_OPTION_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.CLEAR_MEMBER_CACHE_OPTION_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.CLEAR_TENANT_CACHE_OPTION_ID;
+import static com.mryqr.management.crm.MryTenantManageApp.*;
 
 @Slf4j
 @Component
@@ -64,36 +58,36 @@ public class ClearTenantCacheWebhookHandler implements TenantWebhookHandler {
 
         //清空App相关缓存
         if (optionIds.contains(CLEAR_APP_CACHE_OPTION_ID)) {
-            taskRunner.run(() -> appRepository.evictTenantAppsCache(tenantId));
-            appRepository.allAppIdsOf(tenantId).forEach(appId -> taskRunner.run(() -> appRepository.evictAppCache(appId)));
+            MryTaskRunner.run(() -> appRepository.evictTenantAppsCache(tenantId));
+            appRepository.allAppIdsOf(tenantId).forEach(appId -> MryTaskRunner.run(() -> appRepository.evictAppCache(appId)));
         }
 
         //清空Group相关缓存
         if (optionIds.contains(CLEAR_GROUP_CACHE_OPTION_ID)) {
             appRepository.allAppIdsOf(tenantId).forEach(appId -> {
-                taskRunner.run(() -> groupRepository.evictAppGroupsCache(appId));
-                taskRunner.run(() -> groupHierarchyRepository.evictGroupHierarchyCache(appId));
-                groupRepository.allGroupIdsOf(appId).forEach(groupId -> taskRunner.run(() -> groupRepository.evictGroupCache(groupId)));
+                MryTaskRunner.run(() -> groupRepository.evictAppGroupsCache(appId));
+                MryTaskRunner.run(() -> groupHierarchyRepository.evictGroupHierarchyCache(appId));
+                groupRepository.allGroupIdsOf(appId).forEach(groupId -> MryTaskRunner.run(() -> groupRepository.evictGroupCache(groupId)));
             });
         }
 
         //清空Member相关缓存
         if (optionIds.contains(CLEAR_MEMBER_CACHE_OPTION_ID)) {
-            taskRunner.run(() -> memberRepository.evictTenantMembersCache(tenantId));
-            memberRepository.allMemberIdsOf(tenantId).forEach(memberId -> taskRunner.run(() -> memberRepository.evictMemberCache(memberId)));
+            MryTaskRunner.run(() -> memberRepository.evictTenantMembersCache(tenantId));
+            memberRepository.allMemberIdsOf(tenantId).forEach(memberId -> MryTaskRunner.run(() -> memberRepository.evictMemberCache(memberId)));
         }
 
         //清空Department相关缓存
         if (optionIds.contains(CLEAR_DEPARTMENT_CACHE_OPTION_ID)) {
-            taskRunner.run(() -> departmentRepository.evictTenantDepartmentsCache(tenantId));
-            taskRunner.run(() -> departmentHierarchyRepository.evictDepartmentHierarchyCache(tenantId));
+            MryTaskRunner.run(() -> departmentRepository.evictTenantDepartmentsCache(tenantId));
+            MryTaskRunner.run(() -> departmentHierarchyRepository.evictDepartmentHierarchyCache(tenantId));
         }
 
         //清空Tenant相关缓存
         if (optionIds.contains(CLEAR_TENANT_CACHE_OPTION_ID)) {
-            taskRunner.run(() -> tenantRepository.evictTenantCache(tenantId));
+            MryTaskRunner.run(() -> tenantRepository.evictTenantCache(tenantId));
             tenantRepository.byIdOptional(tenantId)
-                    .ifPresent(tenant -> taskRunner.run(() -> tenantRepository.evictTenantCacheByApiKey(tenant.getApiSetting().getApiKey())));
+                    .ifPresent(tenant -> MryTaskRunner.run(() -> tenantRepository.evictTenantCacheByApiKey(tenant.getApiSetting().getApiKey())));
         }
     }
 }

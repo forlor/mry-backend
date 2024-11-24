@@ -23,8 +23,8 @@ public class DepartmentManagersChangedEventHandler implements DomainEventHandler
     }
 
     @Override
-    public void handle(DomainEvent domainEvent, MryTaskRunner taskRunner) {
+    public void handle(DomainEvent domainEvent) {
         DepartmentManagersChangedEvent theEvent = (DepartmentManagersChangedEvent) domainEvent;
-        taskRunner.run(() -> syncDepartmentToGroupTask.run(theEvent.getDepartmentId()));
+        MryTaskRunner.run(() -> syncDepartmentToGroupTask.run(theEvent.getDepartmentId()));
     }
 }
