@@ -44,7 +44,6 @@ public class MryConstants {
     public final static int MIN_BORDER_RADIUS = 0;
     public final static int MAX_BORDER_RADIUS = 100;
 
-    public static final String EVENT_COLLECTION = "event";
     public static final String DEPARTMENT_COLLECTION = "department";
     public static final String DEPARTMENT_HIERARCHY_COLLECTION = "department_hierarchy";
     public static final String GROUP_COLLECTION = "group";

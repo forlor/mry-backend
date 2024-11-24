@@ -19,7 +19,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
@@ -87,7 +86,6 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 })
 
 @Getter
-@Document // todo: 不需要@Document了，也看看其他地方
 @SuperBuilder
 @EqualsAndHashCode
 @NoArgsConstructor(access = PROTECTED)

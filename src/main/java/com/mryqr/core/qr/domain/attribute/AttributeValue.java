@@ -13,7 +13,6 @@ import com.mryqr.core.qr.domain.QrReferenceContext;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Set;
 
@@ -61,7 +60,6 @@ import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 })
 
 @Getter
-@Document
 @EqualsAndHashCode
 @NoArgsConstructor(access = PROTECTED)
 public abstract class AttributeValue {

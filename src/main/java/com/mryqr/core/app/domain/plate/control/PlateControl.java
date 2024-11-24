@@ -18,7 +18,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Set;
 
@@ -37,7 +36,6 @@ import static lombok.AccessLevel.PROTECTED;
 })
 
 @Getter
-@Document
 @SuperBuilder
 @EqualsAndHashCode
 @NoArgsConstructor(access = PROTECTED)

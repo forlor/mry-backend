@@ -3,28 +3,15 @@ package com.mryqr.core.app.domain.report.chart;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.mryqr.core.app.domain.AppSettingContext;
-import com.mryqr.core.app.domain.report.chart.attribute.AttributeBarReport;
-import com.mryqr.core.app.domain.report.chart.attribute.AttributeDoughnutReport;
-import com.mryqr.core.app.domain.report.chart.attribute.AttributeNumberRangeSegmentReport;
-import com.mryqr.core.app.domain.report.chart.attribute.AttributePieReport;
-import com.mryqr.core.app.domain.report.chart.attribute.AttributeTimeSegmentReport;
-import com.mryqr.core.app.domain.report.chart.control.ControlBarReport;
-import com.mryqr.core.app.domain.report.chart.control.ControlDoughnutReport;
-import com.mryqr.core.app.domain.report.chart.control.ControlNumberRangeSegmentReport;
-import com.mryqr.core.app.domain.report.chart.control.ControlPieReport;
-import com.mryqr.core.app.domain.report.chart.control.ControlTimeSegmentReport;
+import com.mryqr.core.app.domain.report.chart.attribute.*;
+import com.mryqr.core.app.domain.report.chart.control.*;
 import com.mryqr.core.common.utils.Identified;
 import com.mryqr.core.common.validation.id.shoruuid.ShortUuid;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import static lombok.AccessLevel.PROTECTED;
 
@@ -46,7 +33,6 @@ import static lombok.AccessLevel.PROTECTED;
 })
 
 @Getter
-@Document
 @SuperBuilder
 @EqualsAndHashCode
 @NoArgsConstructor(access = PROTECTED)

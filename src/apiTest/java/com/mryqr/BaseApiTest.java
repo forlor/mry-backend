@@ -9,6 +9,7 @@ import com.mryqr.core.assignment.domain.AssignmentRepository;
 import com.mryqr.core.assignmentplan.domain.AssignmentPlanRepository;
 import com.mryqr.core.common.domain.event.DomainEvent;
 import com.mryqr.core.common.domain.event.DomainEventType;
+import com.mryqr.core.common.domain.event.consume.ConsumingDomainEventDao;
 import com.mryqr.core.common.domain.event.publish.PublishingDomainEvent;
 import com.mryqr.core.common.domain.event.publish.PublishingDomainEventDao;
 import com.mryqr.core.common.exception.Error;
@@ -83,6 +84,8 @@ public abstract class BaseApiTest {
 
     @Autowired
     protected PublishingDomainEventDao publishingDomainEventDao;
+    @Autowired
+    protected ConsumingDomainEventDao<DomainEvent> consumingDomainEventDao;
 
     @Autowired
     protected GroupRepository groupRepository;

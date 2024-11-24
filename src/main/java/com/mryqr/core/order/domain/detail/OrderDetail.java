@@ -10,7 +10,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import static com.mryqr.core.common.exception.ErrorCode.ORDER_REQUIRE_NON_FREE_PLAN;
 import static com.mryqr.core.common.utils.MapUtils.mapOf;
@@ -31,7 +30,6 @@ import static lombok.AccessLevel.PROTECTED;
 })
 
 @Getter
-@Document
 @SuperBuilder
 @EqualsAndHashCode
 @NoArgsConstructor(access = PROTECTED)

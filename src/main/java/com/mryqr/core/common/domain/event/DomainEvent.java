@@ -30,11 +30,9 @@ import com.mryqr.core.tenant.domain.event.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldNameConstants;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
 
-import static com.mryqr.core.common.utils.MryConstants.EVENT_COLLECTION;
 import static com.mryqr.core.common.utils.SnowflakeIdGenerator.newSnowflakeId;
 import static java.time.Instant.now;
 import static java.util.Objects.requireNonNull;
@@ -122,7 +120,6 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 //DomainEvent既要保证能支持MongoDB的序列化/反序列化，有要能够通过Jackson序列化/反序列化（因为要发送到Redis）
 @Getter
 @FieldNameConstants
-@Document(EVENT_COLLECTION)
 @NoArgsConstructor(access = PROTECTED)
 public abstract class DomainEvent {
     private String id;//事件ID，不能为空

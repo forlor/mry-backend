@@ -79,7 +79,6 @@ public class MrySystemInitializer implements ApplicationListener<ApplicationRead
         createCollection(SUBMISSION_COLLECTION);
         createCollection(TENANT_COLLECTION);
         createCollection(VERIFICATION_COLLECTION);
-        createCollection(EVENT_COLLECTION);// todo: delete this line
         createCollection(PUBLISHING_DOMAIN_EVENT_COLLECTION);
         createCollection(CONSUMING_DOMAIN_EVENT_COLLECTION);
         createCollection(SHEDLOCK_COLLECTION);

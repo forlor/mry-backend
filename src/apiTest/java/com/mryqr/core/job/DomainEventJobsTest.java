@@ -7,6 +7,7 @@ import com.mryqr.core.app.domain.App;
 import com.mryqr.core.common.domain.AggregateRoot;
 import com.mryqr.core.common.domain.event.DomainEvent;
 import com.mryqr.core.common.domain.event.DomainEventJobs;
+import com.mryqr.core.common.domain.event.consume.ConsumingDomainEvent;
 import com.mryqr.core.common.domain.event.publish.RedisDomainEventSender;
 import com.mryqr.core.common.domain.user.Role;
 import com.mryqr.core.common.domain.user.User;
@@ -22,6 +23,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.redis.connection.stream.StreamInfo;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -29,10 +31,12 @@ import org.springframework.test.util.ReflectionTestUtils;
 import java.util.List;
 
 import static com.mryqr.core.common.domain.user.User.NOUSER;
+import static com.mryqr.core.common.utils.MryConstants.CONSUMING_DOMAIN_EVENT_COLLECTION;
 import static java.time.Instant.now;
 import static java.time.temporal.ChronoUnit.DAYS;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD;
+import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 @Execution(SAME_THREAD)
 public class DomainEventJobsTest extends BaseApiTest {
@@ -55,7 +59,7 @@ public class DomainEventJobsTest extends BaseApiTest {
     private MryRedisProperties mryRedisProperties;
 
     @Test
-    public void should_remove_old_domain_events_from_mongo() {
+    public void should_remove_old_publishing_domain_events_from_mongo() {
         QrCreatedEvent event = new QrCreatedEvent(QR.newQrId(), Plate.newPlateId(), Group.newGroupId(), App.newAppId(), NOUSER);
         ReflectionTestUtils.setField(event, "raisedAt", now().minus(300, DAYS));
         publishingDomainEventDao.stage(List.of(event));
@@ -69,7 +73,18 @@ public class DomainEventJobsTest extends BaseApiTest {
         assertTrue(updatedEvents.isEmpty());
     }
 
-    //todo: 为removeOldConsumingDomainEventsFromMongo补充测试
+    @Test
+    public void should_remove_old_consuming_domain_events_from_mongo() {
+        QrCreatedEvent event = new QrCreatedEvent(QR.newQrId(), Plate.newPlateId(), Group.newGroupId(), App.newAppId(), NOUSER);
+        ConsumingDomainEvent<DomainEvent> consumingDomainEvent = new ConsumingDomainEvent<>(event.getId(), event.getType().name(), event);
+        ReflectionTestUtils.setField(consumingDomainEvent, "consumedAt", now().minus(300, DAYS));
+
+        consumingDomainEventDao.recordAsConsumed(consumingDomainEvent, "aHandlerName");
+        assertTrue(mongoTemplate.exists(Query.query(where(ConsumingDomainEvent.Fields.eventId).is(event.getId())), CONSUMING_DOMAIN_EVENT_COLLECTION));
+
+        domainEventJobs.removeOldConsumingDomainEventsFromMongo(100);
+        assertFalse(mongoTemplate.exists(Query.query(where(ConsumingDomainEvent.Fields.eventId).is(event.getId())), CONSUMING_DOMAIN_EVENT_COLLECTION));
+    }
 
     @Test
     @Disabled("not stable")

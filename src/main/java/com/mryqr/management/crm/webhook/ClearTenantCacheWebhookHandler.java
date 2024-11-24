@@ -54,8 +54,6 @@ public class ClearTenantCacheWebhookHandler implements TenantWebhookHandler {
     }
 
     private void doClearCache(String tenantId, List<String> optionIds) {
-        MryTaskRunner taskRunner = new MryTaskRunner();
-
         //清空App相关缓存
         if (optionIds.contains(CLEAR_APP_CACHE_OPTION_ID)) {
             MryTaskRunner.run(() -> appRepository.evictTenantAppsCache(tenantId));

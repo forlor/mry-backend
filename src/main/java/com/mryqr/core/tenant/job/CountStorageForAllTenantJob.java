@@ -20,8 +20,6 @@ public class CountStorageForAllTenantJob {
         log.info("Start count storages for all tenants.");
 
         List<String> allTenantIds = tenantRepository.allTenantIds();
-        MryTaskRunner taskRunner = new MryTaskRunner();
-
         allTenantIds.forEach(tenantId -> {
             MryTaskRunner.run(() -> countStorageForTenantTask.run(tenantId));
         });

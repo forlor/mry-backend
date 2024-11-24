@@ -8,8 +8,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
-
 import static com.mryqr.core.common.domain.event.consume.ConsumingDomainEvent.Fields.*;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
@@ -27,7 +25,7 @@ public class ConsumingDomainEventDao<T> {
 
         Update update = new Update()
                 .setOnInsert(type, consumingDomainEvent.getType())
-                .setOnInsert(consumedAt, Instant.now());
+                .setOnInsert(consumedAt, consumingDomainEvent.getConsumedAt());
 
         UpdateResult result = this.mongoTemplate.update(ConsumingDomainEvent.class)
                 .matching(query)
