@@ -1,9 +1,8 @@
 package com.mryqr.common.mongo;
 
-import com.mryqr.common.event.publish.interception.ThreadLocalDomainEventIdHolder;
 import com.mryqr.core.common.domain.AggregateRoot;
 import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.DomainEventDao;
+import com.mryqr.core.common.domain.event.publish.PublishingDomainEventDao;
 import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.common.exception.MryException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +19,12 @@ import static com.mryqr.core.common.utils.CommonUtils.requireNonBlank;
 import static com.mryqr.core.common.utils.CommonUtils.singleParameterizedArgumentClassOf;
 import static com.mryqr.core.common.utils.MapUtils.mapOf;
 import static java.util.Collections.emptyList;
+import static java.util.Comparator.comparing;
 import static java.util.List.copyOf;
 import static java.util.Objects.requireNonNull;
 import static java.util.Optional.empty;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
+import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
@@ -40,7 +41,7 @@ public abstract class MongoBaseRepository<AR extends AggregateRoot> {
     protected MongoTemplate mongoTemplate;
 
     @Autowired
-    private DomainEventDao domainEventDao;
+    private PublishingDomainEventDao publishingDomainEventDao;
 
     @Transactional
     public void save(AR it) {
@@ -60,7 +61,7 @@ public abstract class MongoBaseRepository<AR extends AggregateRoot> {
         checkSameTenant(ars);
         List<DomainEvent> events = new ArrayList<>();
         ars.forEach(ar -> {
-            if (!isEmpty(ar.getEvents())) {
+            if (isNotEmpty(ar.getEvents())) {
                 events.addAll(ar.getEvents());
             }
             mongoTemplate.save(ar);
@@ -88,7 +89,7 @@ public abstract class MongoBaseRepository<AR extends AggregateRoot> {
         checkSameTenant(ars);
         List<DomainEvent> events = new ArrayList<>();
         ars.forEach(ar -> {
-            if (!isEmpty(ar.getEvents())) {
+            if (isNotEmpty(ar.getEvents())) {
                 events.addAll(ar.getEvents());
             }
         });
@@ -116,7 +117,7 @@ public abstract class MongoBaseRepository<AR extends AggregateRoot> {
         List<DomainEvent> events = new ArrayList<>();
         Set<String> ids = new HashSet<>();
         ars.forEach(ar -> {
-            if (!isEmpty(ar.getEvents())) {
+            if (isNotEmpty(ar.getEvents())) {
                 events.addAll(ar.getEvents());
             }
             ids.add(ar.getId());
@@ -247,9 +248,9 @@ public abstract class MongoBaseRepository<AR extends AggregateRoot> {
     }
 
     private void saveEvents(List<DomainEvent> events) {
-        if (!isEmpty(events)) {
-            domainEventDao.insert(events);
-            ThreadLocalDomainEventIdHolder.addEvents(events);
+        if (isNotEmpty(events)) {
+            List<DomainEvent> orderedEvents = events.stream().sorted(comparing(DomainEvent::getRaisedAt)).toList();
+            publishingDomainEventDao.stage(orderedEvents);
         }
     }
 

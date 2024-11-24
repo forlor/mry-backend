@@ -3,6 +3,7 @@ package com.mryqr.common.mongo;
 import com.mryqr.core.common.domain.event.DomainEvent;
 import com.mryqr.core.common.domain.event.DomainEventDao;
 import com.mryqr.core.common.domain.event.DomainEventType;
+import com.mryqr.core.common.domain.event.publish.PublishingDomainEvent;
 import com.mryqr.core.common.exception.MryException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,11 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static com.mryqr.core.common.domain.event.DomainEventStatus.CONSUME_FAILED;
-import static com.mryqr.core.common.domain.event.DomainEventStatus.CONSUME_SUCCEED;
-import static com.mryqr.core.common.domain.event.DomainEventStatus.CREATED;
-import static com.mryqr.core.common.domain.event.DomainEventStatus.PUBLISH_FAILED;
-import static com.mryqr.core.common.domain.event.DomainEventStatus.PUBLISH_SUCCEED;
+import static com.mryqr.core.common.domain.event.DomainEventStatus.*;
 import static com.mryqr.core.common.exception.ErrorCode.DOMAIN_EVENT_NOT_FOUND;
 import static com.mryqr.core.common.utils.CommonUtils.requireNonBlank;
 import static com.mryqr.core.common.utils.MapUtils.mapOf;
@@ -28,6 +25,7 @@ import static org.springframework.data.domain.Sort.by;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
+@Deprecated
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -62,12 +60,14 @@ public class MongoDomainEventDao implements DomainEventDao {
 
     @Override
     public <T extends DomainEvent> T latestEventFor(String arId, DomainEventType type, Class<T> eventClass) {
-        requireNonBlank(arId, "AR ID must not be blank.");
-        requireNonNull(type, "Domain event type must not be null.");
-        requireNonNull(eventClass, "Domain event class must not be null.");
-
-        Query query = query(where("arId").is(arId).and("type").is(type)).with(by(DESC, "raisedAt"));
-        return mongoTemplate.findOne(query, eventClass);
+        Query query = query(where(PublishingDomainEvent.Fields.event + "." + DomainEvent.Fields.arId).is(arId)
+                .and(PublishingDomainEvent.Fields.event + "." + DomainEvent.Fields.type).is(type))
+                .with(by(DESC, PublishingDomainEvent.Fields.raisedAt));
+        PublishingDomainEvent publishingDomainEvent = mongoTemplate.findOne(query, PublishingDomainEvent.class);
+        if (publishingDomainEvent == null) {
+            return null;
+        }
+        return (T) publishingDomainEvent.getEvent();
     }
 
     @Override

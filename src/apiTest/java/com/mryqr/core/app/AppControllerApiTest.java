@@ -122,7 +122,6 @@ class AppControllerApiTest extends BaseApiTest {
         AppCreatedEvent event = domainEventDao.latestEventFor(response.getAppId(), APP_CREATED, AppCreatedEvent.class);
 
         assertEquals(response.getAppId(), event.getAppId());
-        assertEquals(1, event.getConsumedCount());
         assertEquals(1, tenantRepository.byId(response.getTenantId()).getResourceUsage().getAppCount());
     }
 

@@ -43,6 +43,14 @@ public class PublishingDomainEventDao {
         return mongoTemplate.find(query, PublishingDomainEvent.class).stream().map(PublishingDomainEvent::getEvent).toList();
     }
 
+    public List<DomainEvent> byIds(List<String> ids) {
+        requireNonNull(ids, "Domain event IDs must not be null.");
+
+        Query query = query(where("_id").in(ids)).with(by(ASC, raisedAt));
+        List<PublishingDomainEvent> events = mongoTemplate.find(query, PublishingDomainEvent.class);
+        return events.stream().map(PublishingDomainEvent::getEvent).toList();
+    }
+
 
     public void successPublish(String eventId) {
         requireNonBlank(eventId, "Domain event ID must not be blank.");

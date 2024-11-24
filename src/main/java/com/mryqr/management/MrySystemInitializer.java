@@ -24,25 +24,7 @@ import org.springframework.stereotype.Component;
 
 import static com.mryqr.core.common.utils.MongoCriteriaUtils.mongoSortableFieldOf;
 import static com.mryqr.core.common.utils.MongoCriteriaUtils.mongoTextFieldOf;
-import static com.mryqr.core.common.utils.MryConstants.APP_COLLECTION;
-import static com.mryqr.core.common.utils.MryConstants.APP_MANUAL_COLLECTION;
-import static com.mryqr.core.common.utils.MryConstants.ASSIGNMENT_COLLECTION;
-import static com.mryqr.core.common.utils.MryConstants.ASSIGNMENT_PLAN_COLLECTION;
-import static com.mryqr.core.common.utils.MryConstants.DEPARTMENT_COLLECTION;
-import static com.mryqr.core.common.utils.MryConstants.DEPARTMENT_HIERARCHY_COLLECTION;
-import static com.mryqr.core.common.utils.MryConstants.EVENT_COLLECTION;
-import static com.mryqr.core.common.utils.MryConstants.GROUP_COLLECTION;
-import static com.mryqr.core.common.utils.MryConstants.GROUP_HIERARCHY_COLLECTION;
-import static com.mryqr.core.common.utils.MryConstants.MEMBER_COLLECTION;
-import static com.mryqr.core.common.utils.MryConstants.ORDER_COLLECTION;
-import static com.mryqr.core.common.utils.MryConstants.PLATE_BATCH_COLLECTION;
-import static com.mryqr.core.common.utils.MryConstants.PLATE_COLLECTION;
-import static com.mryqr.core.common.utils.MryConstants.PLATE_TEMPLATE_COLLECTION;
-import static com.mryqr.core.common.utils.MryConstants.QR_COLLECTION;
-import static com.mryqr.core.common.utils.MryConstants.SHEDLOCK_COLLECTION;
-import static com.mryqr.core.common.utils.MryConstants.SUBMISSION_COLLECTION;
-import static com.mryqr.core.common.utils.MryConstants.TENANT_COLLECTION;
-import static com.mryqr.core.common.utils.MryConstants.VERIFICATION_COLLECTION;
+import static com.mryqr.core.common.utils.MryConstants.*;
 import static java.util.Locale.CHINESE;
 import static org.springframework.data.domain.Sort.Direction.DESC;
 import static org.springframework.data.mongodb.core.CollectionOptions.just;
@@ -97,7 +79,9 @@ public class MrySystemInitializer implements ApplicationListener<ApplicationRead
         createCollection(SUBMISSION_COLLECTION);
         createCollection(TENANT_COLLECTION);
         createCollection(VERIFICATION_COLLECTION);
-        createCollection(EVENT_COLLECTION);
+        createCollection(EVENT_COLLECTION);// todo: delete this line
+        createCollection(PUBLISHING_DOMAIN_EVENT_COLLECTION);
+        createCollection(CONSUMING_DOMAIN_EVENT_COLLECTION);
         createCollection(SHEDLOCK_COLLECTION);
     }
 
@@ -292,6 +276,7 @@ public class MrySystemInitializer implements ApplicationListener<ApplicationRead
     }
 
     private void ensureDomainEventIndex() {
+        // todo : 为PUBLISHING_DOMAIN_EVENT_COLLECTION 和CONSUMING_DOMAIN_EVENT_COLLECTION 创建index
         IndexOperations indexOperations = mongoTemplate.indexOps(EVENT_COLLECTION);
         indexOperations.ensureIndex(new Index().on("status", DESC));
         indexOperations.ensureIndex(new Index().on("publishedCount", DESC));

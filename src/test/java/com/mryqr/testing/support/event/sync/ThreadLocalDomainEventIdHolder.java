@@ -1,4 +1,4 @@
-package com.mryqr.common.event.publish.interception;
+package com.mryqr.testing.support.event.sync;
 
 import com.mryqr.core.common.domain.event.DomainEvent;
 

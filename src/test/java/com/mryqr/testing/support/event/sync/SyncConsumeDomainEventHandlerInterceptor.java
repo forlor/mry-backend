@@ -1,10 +1,11 @@
-package com.mryqr.common.event.publish.interception;
+package com.mryqr.testing.support.event.sync;
 
 import com.mryqr.common.event.publish.DomainEventPublisher;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,8 +14,9 @@ import java.util.List;
 
 @Slf4j
 @Component
+@Profile("ci")
 @RequiredArgsConstructor
-public class DomainEventHandlingInterceptor implements HandlerInterceptor {
+public class SyncConsumeDomainEventHandlerInterceptor implements HandlerInterceptor {
     private final DomainEventPublisher domainEventPublisher;
 
     @Override

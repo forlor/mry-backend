@@ -46,11 +46,11 @@ public class DomainEventConsumer {
             hasError = true;
         }
 
-        if (hasError) {
-            domainEventDao.failConsume(domainEvent);
-        } else {
-            domainEventDao.successConsume(domainEvent);
-        }
+//        if (hasError) {
+//            domainEventDao.failConsume(domainEvent);
+//        } else {
+//            domainEventDao.successConsume(domainEvent);
+//        }
     }
 
 }

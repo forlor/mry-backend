@@ -378,7 +378,7 @@ class MemberControllerApiTest extends BaseApiTest {
 
         MemberApi.updateMember(jwt, memberId, command);
 
-        MemberNameChangedEvent event = domainEventDao.latestEventFor(memberId, MEMBER_CREATED, MemberNameChangedEvent.class);
+        MemberNameChangedEvent event = domainEventDao.latestEventFor(memberId, MEMBER_NAME_CHANGED, MemberNameChangedEvent.class);
         assertEquals(memberId, event.getMemberId());
 
         Member member = memberRepository.byId(memberId);
@@ -685,7 +685,7 @@ class MemberControllerApiTest extends BaseApiTest {
         UpdateMyBaseSettingCommand command = UpdateMyBaseSettingCommand.builder().name(newName).build();
         MemberApi.updateMyBaseSetting(response.getJwt(), command);
 
-        MemberNameChangedEvent event = domainEventDao.latestEventFor(response.getMemberId(), MEMBER_CREATED, MemberNameChangedEvent.class);
+        MemberNameChangedEvent event = domainEventDao.latestEventFor(response.getMemberId(), MEMBER_NAME_CHANGED, MemberNameChangedEvent.class);
         assertEquals(response.getMemberId(), event.getMemberId());
 
         App app = appRepository.byId(response.getAppId());

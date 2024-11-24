@@ -1,8 +1,9 @@
-package com.mryqr.common.event.publish;
+package com.mryqr.testing.support.event.sync;
 
+import com.mryqr.common.event.publish.DomainEventPublisher;
 import com.mryqr.core.common.domain.event.DomainEvent;
 import com.mryqr.core.common.domain.event.DomainEventConsumer;
-import com.mryqr.core.common.domain.event.DomainEventDao;
+import com.mryqr.core.common.domain.event.publish.PublishingDomainEventDao;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
@@ -14,13 +15,13 @@ import java.util.List;
 @Component
 @Profile("ci")
 @RequiredArgsConstructor
-public class SynchronousDomainEventPublisher implements DomainEventPublisher {
-    private final DomainEventDao domainEventDao;
+public class SyncConsumeDomainEventPublisher implements DomainEventPublisher {
+    private final PublishingDomainEventDao publishingDomainEventDao;
     private final DomainEventConsumer domainEventConsumer;
 
     @Override
     public void publish(List<String> eventIds) {
-        List<DomainEvent> domainEvents = domainEventDao.byIds(eventIds);
+        List<DomainEvent> domainEvents = publishingDomainEventDao.byIds(eventIds);
         domainEvents.forEach(domainEvent -> {
             try {
                 domainEventConsumer.consume(domainEvent);

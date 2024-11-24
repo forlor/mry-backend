@@ -2,17 +2,7 @@ package com.mryqr.core.common.domain.event;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.mryqr.core.app.domain.event.AppAttributesCreatedEvent;
-import com.mryqr.core.app.domain.event.AppAttributesDeletedEvent;
-import com.mryqr.core.app.domain.event.AppControlOptionsDeletedEvent;
-import com.mryqr.core.app.domain.event.AppControlsDeletedEvent;
-import com.mryqr.core.app.domain.event.AppCreatedEvent;
-import com.mryqr.core.app.domain.event.AppCreatedFromTemplateEvent;
-import com.mryqr.core.app.domain.event.AppDeletedEvent;
-import com.mryqr.core.app.domain.event.AppPagesDeletedEvent;
-import com.mryqr.core.app.domain.event.AppGroupSyncEnabledEvent;
-import com.mryqr.core.app.domain.event.AppPageChangedToSubmitPerInstanceEvent;
-import com.mryqr.core.app.domain.event.AppPageChangedToSubmitPerMemberEvent;
+import com.mryqr.core.app.domain.event.*;
 import com.mryqr.core.assignment.event.AssignmentCreatedEvent;
 import com.mryqr.core.assignmentplan.domain.event.AssignmentPlanDeletedEvent;
 import com.mryqr.core.common.domain.AggregateRoot;
@@ -22,61 +12,23 @@ import com.mryqr.core.department.domain.event.DepartmentDeletedEvent;
 import com.mryqr.core.department.domain.event.DepartmentManagersChangedEvent;
 import com.mryqr.core.department.domain.event.DepartmentRenamedEvent;
 import com.mryqr.core.departmenthierarchy.domain.event.DepartmentHierarchyChangedEvent;
-import com.mryqr.core.group.domain.event.GroupActivatedEvent;
-import com.mryqr.core.group.domain.event.GroupCreatedEvent;
-import com.mryqr.core.group.domain.event.GroupDeactivatedEvent;
-import com.mryqr.core.group.domain.event.GroupDeletedEvent;
-import com.mryqr.core.group.domain.event.GroupManagersChangedEvent;
-import com.mryqr.core.member.domain.event.MemberAddedToDepartmentEvent;
-import com.mryqr.core.member.domain.event.MemberCreatedEvent;
-import com.mryqr.core.member.domain.event.MemberDeletedEvent;
-import com.mryqr.core.member.domain.event.MemberDepartmentsChangedEvent;
-import com.mryqr.core.member.domain.event.MemberNameChangedEvent;
-import com.mryqr.core.member.domain.event.MemberRemovedFromDepartmentEvent;
-import com.mryqr.core.order.domain.event.OrderBankTransferUpdatedEvent;
-import com.mryqr.core.order.domain.event.OrderCreatedEvent;
-import com.mryqr.core.order.domain.event.OrderDeliveryUpdatedEvent;
-import com.mryqr.core.order.domain.event.OrderInvoiceIssuedEvent;
-import com.mryqr.core.order.domain.event.OrderInvoiceRequestedEvent;
-import com.mryqr.core.order.domain.event.OrderRefundUpdatedEvent;
-import com.mryqr.core.order.domain.event.OrderWxPayUpdatedEvent;
-import com.mryqr.core.order.domain.event.OrderWxTransferUpdatedEvent;
+import com.mryqr.core.group.domain.event.*;
+import com.mryqr.core.member.domain.event.*;
+import com.mryqr.core.order.domain.event.*;
 import com.mryqr.core.plate.domain.event.PlateBoundEvent;
 import com.mryqr.core.plate.domain.event.PlateUnboundEvent;
 import com.mryqr.core.platebatch.domain.event.PlateBatchCreatedEvent;
 import com.mryqr.core.platebatch.domain.event.PlateBatchDeletedEvent;
 import com.mryqr.core.qr.domain.QrCreatedEvent;
-import com.mryqr.core.qr.domain.event.QrActivatedEvent;
-import com.mryqr.core.qr.domain.event.QrAttributesUpdatedEvent;
-import com.mryqr.core.qr.domain.event.QrBaseSettingUpdatedEvent;
-import com.mryqr.core.qr.domain.event.QrCirculationStatusChangedEvent;
-import com.mryqr.core.qr.domain.event.QrCustomIdUpdatedEvent;
-import com.mryqr.core.qr.domain.event.QrDeactivatedEvent;
-import com.mryqr.core.qr.domain.event.QrDeletedEvent;
-import com.mryqr.core.qr.domain.event.QrDescriptionUpdatedEvent;
-import com.mryqr.core.qr.domain.event.QrGeolocationUpdatedEvent;
-import com.mryqr.core.qr.domain.event.QrGroupChangedEvent;
-import com.mryqr.core.qr.domain.event.QrHeaderImageUpdatedEvent;
-import com.mryqr.core.qr.domain.event.QrMarkedAsTemplateEvent;
-import com.mryqr.core.qr.domain.event.QrPlateResetEvent;
-import com.mryqr.core.qr.domain.event.QrRenamedEvent;
-import com.mryqr.core.qr.domain.event.QrUnMarkedAsTemplateEvent;
+import com.mryqr.core.qr.domain.event.*;
 import com.mryqr.core.submission.domain.event.SubmissionApprovedEvent;
 import com.mryqr.core.submission.domain.event.SubmissionCreatedEvent;
 import com.mryqr.core.submission.domain.event.SubmissionDeletedEvent;
 import com.mryqr.core.submission.domain.event.SubmissionUpdatedEvent;
-import com.mryqr.core.tenant.domain.event.TenantActivatedEvent;
-import com.mryqr.core.tenant.domain.event.TenantBaseSettingUpdatedEvent;
-import com.mryqr.core.tenant.domain.event.TenantCreatedEvent;
-import com.mryqr.core.tenant.domain.event.TenantDeactivatedEvent;
-import com.mryqr.core.tenant.domain.event.TenantInvoiceTitleUpdatedEvent;
-import com.mryqr.core.tenant.domain.event.TenantOrderAppliedEvent;
-import com.mryqr.core.tenant.domain.event.TenantPlanUpdatedEvent;
-import com.mryqr.core.tenant.domain.event.TenantResourceUsageUpdatedEvent;
-import com.mryqr.core.tenant.domain.event.TenantSubdomainReadyStatusUpdatedEvent;
-import com.mryqr.core.tenant.domain.event.TenantSubdomainUpdatedEvent;
+import com.mryqr.core.tenant.domain.event.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldNameConstants;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
@@ -168,6 +120,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 //DomainEvent既要保证能支持MongoDB的序列化/反序列化，有要能够通过Jackson序列化/反序列化（因为要发送到Redis）
 @Getter
+@FieldNameConstants
 @Document(EVENT_COLLECTION)
 @NoArgsConstructor(access = PROTECTED)
 public abstract class DomainEvent {
@@ -175,8 +128,14 @@ public abstract class DomainEvent {
     private String arTenantId;//事件对应的租户ID，不能为空
     private String arId;//事件对应的聚合根ID，不能为空
     private DomainEventType type;//事件类型
+
+    @Deprecated
     private DomainEventStatus status;//状态
+
+    @Deprecated
     private int publishedCount;//已经发布的次数，无论成功与否
+
+    @Deprecated
     private int consumedCount;//已经被消费的次数，无论成功与否
     private String raisedBy;//引发该事件的memberId
     private Instant raisedAt;//事件产生时间
