@@ -1,11 +1,11 @@
 package com.mryqr.core.submission.domain.answer.email;
 
+import com.mryqr.common.domain.indexedfield.IndexedField;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.page.Page;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.ControlType;
 import com.mryqr.core.app.domain.page.control.FEmailControl;
-import com.mryqr.core.common.domain.indexedfield.IndexedField;
 import com.mryqr.core.qr.domain.QR;
 import com.mryqr.core.submission.domain.SubmissionRepository;
 import com.mryqr.core.submission.domain.answer.AbstractSubmissionAnswerChecker;
@@ -13,11 +13,11 @@ import com.mryqr.core.submission.domain.answer.Answer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import static com.mryqr.common.exception.ErrorCode.ANSWER_NOT_UNIQUE_PER_APP;
+import static com.mryqr.common.exception.ErrorCode.ANSWER_NOT_UNIQUE_PER_INSTANCE;
 import static com.mryqr.core.app.domain.page.control.AnswerUniqueType.UNIQUE_PER_APP;
 import static com.mryqr.core.app.domain.page.control.AnswerUniqueType.UNIQUE_PER_INSTANCE;
 import static com.mryqr.core.app.domain.page.control.ControlType.EMAIL;
-import static com.mryqr.core.common.exception.ErrorCode.ANSWER_NOT_UNIQUE_PER_APP;
-import static com.mryqr.core.common.exception.ErrorCode.ANSWER_NOT_UNIQUE_PER_INSTANCE;
 
 @Component
 @RequiredArgsConstructor

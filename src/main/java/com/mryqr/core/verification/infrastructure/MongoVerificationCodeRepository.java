@@ -13,7 +13,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Optional;
 
-import static com.mryqr.core.common.utils.CommonUtils.requireNonBlank;
+import static com.mryqr.common.utils.CommonUtils.requireNonBlank;
 import static java.time.Instant.now;
 import static java.time.ZoneId.systemDefault;
 import static java.time.temporal.ChronoUnit.MINUTES;

@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
+import static com.mryqr.common.utils.UuidGenerator.newShortUuid;
 import static lombok.AccessLevel.PRIVATE;
 
 @Getter

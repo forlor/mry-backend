@@ -1,15 +1,15 @@
 package com.mryqr.core.app.control;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.domain.TextOption;
+import com.mryqr.common.domain.indexedfield.IndexedField;
+import com.mryqr.common.domain.indexedfield.IndexedValue;
 import com.mryqr.core.app.AppApi;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppSetting;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.FPointCheckControl;
-import com.mryqr.core.common.domain.TextOption;
-import com.mryqr.core.common.domain.indexedfield.IndexedField;
-import com.mryqr.core.common.domain.indexedfield.IndexedValue;
 import com.mryqr.core.qr.domain.QR;
 import com.mryqr.core.qr.domain.attribute.PointCheckAttributeValue;
 import com.mryqr.core.submission.SubmissionApi;
@@ -23,31 +23,18 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.common.utils.UuidGenerator.newShortUuid;
 import static com.mryqr.core.app.domain.attribute.Attribute.newAttributeId;
 import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.NO_LIMIT;
 import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_FIRST;
 import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_LAST;
-import static com.mryqr.core.common.exception.ErrorCode.MANDATORY_ANSWER_REQUIRED;
-import static com.mryqr.core.common.exception.ErrorCode.NOT_ALL_POINT_CHECK_ANSWERED;
-import static com.mryqr.core.common.exception.ErrorCode.ONLY_PARTIAL_POINT_CHECK_ANSWERED;
-import static com.mryqr.core.common.exception.ErrorCode.POINT_CHECK_ANSWER_NOT_MATCH_TO_CONTROL;
-import static com.mryqr.core.common.exception.ErrorCode.TEXT_OPTION_ID_DUPLICATED;
-import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
 import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
 import static com.mryqr.core.submission.SubmissionUtils.newSubmissionCommand;
-import static com.mryqr.core.submission.domain.answer.pointcheck.PointCheckValue.NO;
-import static com.mryqr.core.submission.domain.answer.pointcheck.PointCheckValue.NONE;
-import static com.mryqr.core.submission.domain.answer.pointcheck.PointCheckValue.YES;
-import static com.mryqr.utils.RandomTestFixture.defaultFillableSettingBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultPointCheckControl;
-import static com.mryqr.utils.RandomTestFixture.defaultPointCheckControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.rAnswer;
-import static com.mryqr.utils.RandomTestFixture.rAnswerBuilder;
-import static com.mryqr.utils.RandomTestFixture.rAttributeName;
+import static com.mryqr.core.submission.domain.answer.pointcheck.PointCheckValue.*;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PointCheckControlApiTest extends BaseApiTest {
 

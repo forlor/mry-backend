@@ -18,10 +18,10 @@ import org.junit.jupiter.api.parallel.Execution;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.mryqr.common.domain.permission.Permission.*;
 import static com.mryqr.core.app.domain.page.setting.SubmitType.NEW;
 import static com.mryqr.core.app.domain.page.setting.SubmitterUpdateRange.IN_1_HOUR;
 import static com.mryqr.core.app.domain.page.setting.notification.NotificationRole.SUBMITTER;
-import static com.mryqr.core.common.domain.permission.Permission.*;
 import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
 import static com.mryqr.core.submission.SubmissionUtils.approveSubmissionCommand;
 import static com.mryqr.utils.RandomTestFixture.*;

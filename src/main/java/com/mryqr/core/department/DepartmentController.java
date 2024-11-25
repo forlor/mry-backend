@@ -1,10 +1,10 @@
 package com.mryqr.core.department;
 
 
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.utils.ReturnId;
-import com.mryqr.core.common.validation.id.department.DepartmentId;
-import com.mryqr.core.common.validation.id.member.MemberId;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.utils.ReturnId;
+import com.mryqr.common.validation.id.department.DepartmentId;
+import com.mryqr.common.validation.id.member.MemberId;
 import com.mryqr.core.department.command.CreateDepartmentCommand;
 import com.mryqr.core.department.command.DepartmentCommandService;
 import com.mryqr.core.department.command.RenameDepartmentCommand;
@@ -13,16 +13,9 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import static com.mryqr.core.common.utils.ReturnId.returnId;
+import static com.mryqr.common.utils.ReturnId.returnId;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @Validated

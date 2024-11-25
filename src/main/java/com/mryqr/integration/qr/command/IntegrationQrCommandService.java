@@ -1,20 +1,15 @@
 package com.mryqr.integration.qr.command;
 
+import com.mryqr.common.domain.UploadedFile;
+import com.mryqr.common.domain.user.User;
 import com.mryqr.common.ratelimit.MryRateLimiter;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
-import com.mryqr.core.common.domain.UploadedFile;
-import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.group.domain.Group;
 import com.mryqr.core.group.domain.GroupRepository;
 import com.mryqr.core.plate.domain.Plate;
 import com.mryqr.core.plate.domain.PlateRepository;
-import com.mryqr.core.qr.domain.AppedQr;
-import com.mryqr.core.qr.domain.PlatedQr;
-import com.mryqr.core.qr.domain.QR;
-import com.mryqr.core.qr.domain.QrDomainService;
-import com.mryqr.core.qr.domain.QrFactory;
-import com.mryqr.core.qr.domain.QrRepository;
+import com.mryqr.core.qr.domain.*;
 import com.mryqr.core.tenant.domain.PackagesStatus;
 import com.mryqr.core.tenant.domain.TenantRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.net.URL;
 import java.util.Objects;
 
-import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
+import static com.mryqr.common.utils.UuidGenerator.newShortUuid;
 import static org.apache.commons.io.FilenameUtils.getName;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 

@@ -1,6 +1,6 @@
 package com.mryqr.core.grouphierarchy.domain;
 
-import com.mryqr.core.common.domain.user.User;
+import com.mryqr.common.domain.user.User;
 
 public interface GroupHierarchyRepository {
     GroupHierarchy byAppId(String appId);

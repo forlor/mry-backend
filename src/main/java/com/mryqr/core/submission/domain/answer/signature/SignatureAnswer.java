@@ -1,12 +1,12 @@
 package com.mryqr.core.submission.domain.answer.signature;
 
 
+import com.mryqr.common.domain.UploadedFile;
+import com.mryqr.common.domain.display.DisplayValue;
+import com.mryqr.common.domain.display.FilesDisplayValue;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.FSignatureControl;
-import com.mryqr.core.common.domain.UploadedFile;
-import com.mryqr.core.common.domain.display.DisplayValue;
-import com.mryqr.core.common.domain.display.FilesDisplayValue;
 import com.mryqr.core.qr.domain.attribute.AttributeValue;
 import com.mryqr.core.qr.domain.attribute.SignatureAttributeValue;
 import com.mryqr.core.submission.domain.SubmissionReferenceContext;

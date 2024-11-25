@@ -1,7 +1,7 @@
 package com.mryqr.core.qr.domain.task;
 
-import com.mryqr.core.common.domain.indexedfield.IndexedField;
-import com.mryqr.core.common.domain.task.RepeatableTask;
+import com.mryqr.common.domain.indexedfield.IndexedField;
+import com.mryqr.common.domain.task.RepeatableTask;
 import com.mryqr.core.qr.domain.QrRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

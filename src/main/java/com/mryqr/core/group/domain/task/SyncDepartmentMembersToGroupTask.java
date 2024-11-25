@@ -1,6 +1,6 @@
 package com.mryqr.core.group.domain.task;
 
-import com.mryqr.core.common.domain.task.RepeatableTask;
+import com.mryqr.common.domain.task.RepeatableTask;
 import com.mryqr.core.department.domain.DepartmentRepository;
 import com.mryqr.core.group.domain.Group;
 import com.mryqr.core.group.domain.GroupRepository;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Set;
 
-import static com.mryqr.core.common.domain.user.User.NOUSER;
+import static com.mryqr.common.domain.user.User.NOUSER;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 
 @Slf4j

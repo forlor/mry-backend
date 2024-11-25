@@ -1,7 +1,7 @@
 package com.mryqr.core.tenant.infrastructure;
 
+import com.mryqr.common.exception.MryException;
 import com.mryqr.common.oss.mongo.MongoBaseRepository;
-import com.mryqr.core.common.exception.MryException;
 import com.mryqr.core.tenant.domain.Tenant;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,11 +11,11 @@ import org.springframework.cache.annotation.Caching;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
-import static com.mryqr.core.common.exception.ErrorCode.TENANT_NOT_FOUND;
-import static com.mryqr.core.common.utils.CommonUtils.requireNonBlank;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
-import static com.mryqr.core.common.utils.MryConstants.API_TENANT_CACHE;
-import static com.mryqr.core.common.utils.MryConstants.TENANT_CACHE;
+import static com.mryqr.common.exception.ErrorCode.TENANT_NOT_FOUND;
+import static com.mryqr.common.utils.CommonUtils.requireNonBlank;
+import static com.mryqr.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.utils.MryConstants.API_TENANT_CACHE;
+import static com.mryqr.common.utils.MryConstants.TENANT_CACHE;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 //为了绕开Spring AOP必须从外部调用才生效的限制，否则方法可以直接放到TenantRepository中

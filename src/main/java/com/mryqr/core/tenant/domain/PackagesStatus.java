@@ -1,9 +1,9 @@
 package com.mryqr.core.tenant.domain;
 
+import com.mryqr.common.exception.MryException;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.ControlType;
-import com.mryqr.core.common.exception.MryException;
 import com.mryqr.core.plan.domain.PlanType;
 import com.mryqr.core.qr.domain.QR;
 import com.mryqr.core.qr.domain.attribute.DropdownAttributeValue;
@@ -14,29 +14,8 @@ import lombok.EqualsAndHashCode;
 import java.util.Set;
 
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.common.exception.ErrorCode.APP_COUNT_LIMIT_REACHED;
-import static com.mryqr.core.common.exception.ErrorCode.ASSIGNMENT_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.BATCH_MEMBER_IMPORT_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.BATCH_QR_IMPORT_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.CONTROL_TYPES_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.CONTROL_TYPE_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.COPY_APP_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.DEPARTMENT_COUNT_LIMIT_REACHED;
-import static com.mryqr.core.common.exception.ErrorCode.GROUP_COUNT_LIMIT_REACHED;
-import static com.mryqr.core.common.exception.ErrorCode.KANBAN_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.LOW_PLAN_FOR_APP_TEMPLATE;
-import static com.mryqr.core.common.exception.ErrorCode.MAX_STORAGE_REACHED;
-import static com.mryqr.core.common.exception.ErrorCode.MEMBER_COUNT_LIMIT_REACHED;
-import static com.mryqr.core.common.exception.ErrorCode.PLATE_COUNT_LIMIT_REACHED;
-import static com.mryqr.core.common.exception.ErrorCode.QR_COUNT_LIMIT_REACHED;
-import static com.mryqr.core.common.exception.ErrorCode.REFRESH_API_SECRET_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.REPORTING_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.SUBMISSION_APPROVE_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.SUBMISSION_COUNT_LIMIT_REACHED;
-import static com.mryqr.core.common.exception.ErrorCode.UPDATE_LOGO_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.UPDATE_SUBDOMAIN_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.UPDATE_WEBHOOK_SETTING_NOT_ALLOWED;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.common.utils.MapUtils.mapOf;
 import static com.mryqr.management.MryManageTenant.MRY_MANAGE_TENANT_ID;
 import static com.mryqr.management.apptemplate.MryAppTemplateManageApp.TEMPLATE_PLAN_TYPE_ATTRIBUTE_ID;
 import static com.mryqr.management.apptemplate.MryAppTemplateTenant.MRY_APP_TEMPLATE_TENANT_ID;
@@ -235,7 +214,7 @@ public final class PackagesStatus {
             }
             throw new MryException(APP_COUNT_LIMIT_REACHED,
                     "新建应用失败，应用总数已经达到当前套餐(" +
-                            currentPlanName() + ")的上限(" + packages.effectiveMaxAppCount() + "个)，如需继续请及时升级。",
+                    currentPlanName() + ")的上限(" + packages.effectiveMaxAppCount() + "个)，如需继续请及时升级。",
                     mapOf("tenantId", tenantId()));
         }
     }

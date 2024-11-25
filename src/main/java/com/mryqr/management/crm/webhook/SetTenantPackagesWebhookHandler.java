@@ -17,13 +17,10 @@ import java.time.LocalDate;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.mryqr.core.common.domain.user.User.NOUSER;
+import static com.mryqr.common.domain.user.User.NOUSER;
 import static com.mryqr.management.MryManageTenant.MRY_MANAGE_TENANT_ID;
 import static com.mryqr.management.common.PlanTypeControl.OPTION_TO_PLAN_MAP;
-import static com.mryqr.management.crm.MryTenantManageApp.PACKAGE_SETTING_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.PACKAGE_SETTING_EXPIRE_DATE_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.PACKAGE_SETTING_NOTE_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.PACKAGE_SETTING_PAGE_ID;
+import static com.mryqr.management.crm.MryTenantManageApp.*;
 import static java.time.ZoneId.systemDefault;
 
 @Slf4j

@@ -1,9 +1,9 @@
 package com.mryqr.core.tenant.infrastructure;
 
 import com.mongodb.client.result.UpdateResult;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.common.oss.mongo.MongoBaseRepository;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
 import com.mryqr.core.tenant.domain.PackagesStatus;
 import com.mryqr.core.tenant.domain.Tenant;
 import com.mryqr.core.tenant.domain.TenantRepository;
@@ -15,11 +15,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-import static com.mryqr.core.common.exception.ErrorCode.AR_NOT_FOUND;
-import static com.mryqr.core.common.exception.ErrorCode.TENANT_NOT_FOUND;
-import static com.mryqr.core.common.utils.CommonUtils.requireNonBlank;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
-import static com.mryqr.core.common.utils.MryConstants.TENANT_COLLECTION;
+import static com.mryqr.common.exception.ErrorCode.AR_NOT_FOUND;
+import static com.mryqr.common.exception.ErrorCode.TENANT_NOT_FOUND;
+import static com.mryqr.common.utils.CommonUtils.requireNonBlank;
+import static com.mryqr.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.utils.MryConstants.TENANT_COLLECTION;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 @Repository

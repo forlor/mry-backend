@@ -1,7 +1,7 @@
 package com.mryqr.core.platetemplate.query;
 
+import com.mryqr.common.domain.UploadedFile;
 import com.mryqr.core.app.domain.plate.PlateSetting;
-import com.mryqr.core.common.domain.UploadedFile;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;

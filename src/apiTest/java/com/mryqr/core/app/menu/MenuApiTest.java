@@ -12,15 +12,12 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.mryqr.common.exception.ErrorCode.MENU_LINK_ID_DUPLICATED;
+import static com.mryqr.common.exception.ErrorCode.VALIDATION_LINK_PAGE_NOT_EXIST;
+import static com.mryqr.common.utils.UuidGenerator.newShortUuid;
 import static com.mryqr.core.app.domain.ui.pagelink.PageLinkType.EXTERNAL_URL;
 import static com.mryqr.core.app.domain.ui.pagelink.PageLinkType.PAGE;
-import static com.mryqr.core.common.exception.ErrorCode.MENU_LINK_ID_DUPLICATED;
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_LINK_PAGE_NOT_EXIST;
-import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
-import static com.mryqr.utils.RandomTestFixture.rMobile;
-import static com.mryqr.utils.RandomTestFixture.rPageLinkName;
-import static com.mryqr.utils.RandomTestFixture.rPassword;
-import static com.mryqr.utils.RandomTestFixture.rUrl;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

@@ -1,6 +1,6 @@
 package com.mryqr.core.presentation.query.pie;
 
-import com.mryqr.core.common.domain.report.CategorizedOptionSegment;
+import com.mryqr.common.domain.report.CategorizedOptionSegment;
 import com.mryqr.core.presentation.query.QControlPresentation;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

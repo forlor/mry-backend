@@ -1,7 +1,7 @@
 package com.mryqr.common.security.wehook;
 
+import com.mryqr.common.properties.CommonProperties;
 import com.mryqr.common.security.MryAuthenticationToken;
-import com.mryqr.core.common.properties.CommonProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.AuthenticationServiceException;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
-import static com.mryqr.core.common.domain.user.User.robotUser;
+import static com.mryqr.common.domain.user.User.robotUser;
 import static com.mryqr.management.MryManageTenant.MRY_MANAGE_TENANT_ID;
 import static java.lang.Long.MAX_VALUE;
 
@@ -27,7 +27,7 @@ public class WebhookAuthenticationProvider implements AuthenticationProvider {
         UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
         try {
             if (!(Objects.equals(commonProperties.getWebhookUserName(), token.getName()) &&
-                    Objects.equals(commonProperties.getWebhookPassword(), token.getCredentials()))) {
+                  Objects.equals(commonProperties.getWebhookPassword(), token.getCredentials()))) {
                 throw new BadCredentialsException("Bad credentials.");
             }
 

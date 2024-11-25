@@ -2,14 +2,14 @@ package com.mryqr.core.app.domain.report.number;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.mryqr.common.domain.report.ReportRange;
+import com.mryqr.common.utils.Identified;
+import com.mryqr.common.validation.id.shoruuid.ShortUuid;
 import com.mryqr.core.app.domain.AppSettingContext;
 import com.mryqr.core.app.domain.report.number.attribute.AttributeNumberReport;
 import com.mryqr.core.app.domain.report.number.control.ControlNumberReport;
 import com.mryqr.core.app.domain.report.number.instance.InstanceNumberReport;
 import com.mryqr.core.app.domain.report.number.page.PageNumberReport;
-import com.mryqr.core.common.domain.report.ReportRange;
-import com.mryqr.core.common.utils.Identified;
-import com.mryqr.core.common.validation.id.shoruuid.ShortUuid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

@@ -1,7 +1,7 @@
 package com.mryqr.integration.qr.command;
 
-import com.mryqr.core.common.domain.Geolocation;
-import com.mryqr.core.common.utils.Command;
+import com.mryqr.common.domain.Geolocation;
+import com.mryqr.common.utils.Command;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

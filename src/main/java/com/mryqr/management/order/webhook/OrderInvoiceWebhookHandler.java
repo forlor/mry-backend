@@ -1,7 +1,7 @@
 package com.mryqr.management.order.webhook;
 
+import com.mryqr.common.domain.UploadedFile;
 import com.mryqr.common.webhook.submission.BaseSubmissionWebhookPayload;
-import com.mryqr.core.common.domain.UploadedFile;
 import com.mryqr.core.order.command.OrderCommandService;
 import com.mryqr.core.submission.domain.answer.Answer;
 import com.mryqr.core.submission.domain.answer.fileupload.FileUploadAnswer;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Map;
 
-import static com.mryqr.core.common.domain.user.User.NOUSER;
+import static com.mryqr.common.domain.user.User.NOUSER;
 import static com.mryqr.management.order.MryOrderManageApp.ORDER_REGISTER_INVOICE_FILE_CONTROL_ID;
 import static com.mryqr.management.order.MryOrderManageApp.ORDER_REGISTER_INVOICE_PAGE_ID;
 

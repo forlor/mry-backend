@@ -1,7 +1,7 @@
 package com.mryqr.core.app.domain.event;
 
+import com.mryqr.common.domain.indexedfield.IndexedField;
 import com.mryqr.core.app.domain.page.control.ControlType;
-import com.mryqr.core.common.domain.indexedfield.IndexedField;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;

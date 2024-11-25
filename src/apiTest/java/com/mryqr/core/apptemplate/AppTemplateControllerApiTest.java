@@ -1,6 +1,8 @@
 package com.mryqr.core.apptemplate;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.domain.UploadedFile;
+import com.mryqr.common.utils.PagedList;
 import com.mryqr.core.app.AppApi;
 import com.mryqr.core.app.command.CreateAppResponse;
 import com.mryqr.core.app.domain.App;
@@ -12,8 +14,6 @@ import com.mryqr.core.appmanual.query.QAppManual;
 import com.mryqr.core.apptemplate.query.ListAppTemplateQuery;
 import com.mryqr.core.apptemplate.query.QDetailedAppTemplate;
 import com.mryqr.core.apptemplate.query.QListAppTemplate;
-import com.mryqr.core.common.domain.UploadedFile;
-import com.mryqr.core.common.utils.PagedList;
 import com.mryqr.core.login.LoginApi;
 import com.mryqr.core.member.MemberApi;
 import com.mryqr.core.qr.QrApi;
@@ -37,12 +37,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.IntStream;
 
+import static com.mryqr.common.domain.event.DomainEventType.APP_CREATED_FROM_TEMPLATE;
+import static com.mryqr.common.domain.permission.Permission.CAN_MANAGE_GROUP;
+import static com.mryqr.common.domain.user.User.NOUSER;
+import static com.mryqr.common.exception.ErrorCode.*;
 import static com.mryqr.core.app.domain.page.control.ControlType.*;
 import static com.mryqr.core.app.domain.page.setting.SubmitType.ONCE_PER_INSTANCE;
-import static com.mryqr.core.common.domain.event.DomainEventType.APP_CREATED_FROM_TEMPLATE;
-import static com.mryqr.core.common.domain.permission.Permission.CAN_MANAGE_GROUP;
-import static com.mryqr.core.common.domain.user.User.NOUSER;
-import static com.mryqr.core.common.exception.ErrorCode.*;
 import static com.mryqr.core.plan.domain.Plan.PROFESSIONAL_PLAN;
 import static com.mryqr.core.plan.domain.PlanType.BASIC;
 import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;

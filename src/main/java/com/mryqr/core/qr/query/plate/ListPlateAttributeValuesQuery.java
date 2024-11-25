@@ -1,9 +1,9 @@
 package com.mryqr.core.qr.query.plate;
 
-import com.mryqr.core.common.utils.Query;
-import com.mryqr.core.common.validation.collection.NoBlankString;
-import com.mryqr.core.common.validation.id.app.AppId;
-import com.mryqr.core.common.validation.id.qr.QrId;
+import com.mryqr.common.utils.Query;
+import com.mryqr.common.validation.collection.NoBlankString;
+import com.mryqr.common.validation.id.app.AppId;
+import com.mryqr.common.validation.id.qr.QrId;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

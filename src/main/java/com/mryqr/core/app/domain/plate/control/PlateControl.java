@@ -2,13 +2,13 @@ package com.mryqr.core.app.domain.plate.control;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.mryqr.common.exception.MryException;
+import com.mryqr.common.utils.Identified;
+import com.mryqr.common.validation.color.Color;
+import com.mryqr.common.validation.id.shoruuid.ShortUuid;
 import com.mryqr.core.app.domain.AppSettingContext;
 import com.mryqr.core.app.domain.ui.border.Border;
 import com.mryqr.core.app.domain.ui.borderradius.BorderRadius;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.utils.Identified;
-import com.mryqr.core.common.validation.color.Color;
-import com.mryqr.core.common.validation.id.shoruuid.ShortUuid;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

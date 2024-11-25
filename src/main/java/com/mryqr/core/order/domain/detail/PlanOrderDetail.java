@@ -1,6 +1,6 @@
 package com.mryqr.core.order.domain.detail;
 
-import com.mryqr.core.common.exception.MryException;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.core.order.domain.OrderPrice;
 import com.mryqr.core.plan.domain.PlanType;
 import com.mryqr.core.tenant.domain.Tenant;
@@ -16,11 +16,8 @@ import org.springframework.data.annotation.TypeAlias;
 import java.math.BigDecimal;
 import java.time.Instant;
 
-import static com.mryqr.core.common.exception.ErrorCode.DOWNGRADE_PLAN_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.PURCHASE_FREE_PLAN_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.UPGRADE_FREE_PLAN_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.UPGRADE_TO_SAME_PLAN_NOT_ALLOWED;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.common.utils.MapUtils.mapOf;
 import static com.mryqr.core.plan.domain.PlanType.FREE;
 import static java.math.BigDecimal.ZERO;
 import static java.math.BigDecimal.valueOf;

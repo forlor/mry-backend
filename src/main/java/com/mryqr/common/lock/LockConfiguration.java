@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
-import static com.mryqr.core.common.utils.MryConstants.SHEDLOCK_COLLECTION;
+import static com.mryqr.common.utils.MryConstants.SHEDLOCK_COLLECTION;
 
 @Configuration
 public class LockConfiguration {

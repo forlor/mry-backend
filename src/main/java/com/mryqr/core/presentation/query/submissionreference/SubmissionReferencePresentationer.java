@@ -1,10 +1,10 @@
 package com.mryqr.core.presentation.query.submissionreference;
 
 import com.google.common.collect.ImmutableMap;
+import com.mryqr.common.domain.display.DisplayValue;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.PSubmissionReferenceControl;
-import com.mryqr.core.common.domain.display.DisplayValue;
 import com.mryqr.core.member.domain.MemberAware;
 import com.mryqr.core.member.domain.MemberReference;
 import com.mryqr.core.member.domain.MemberRepository;

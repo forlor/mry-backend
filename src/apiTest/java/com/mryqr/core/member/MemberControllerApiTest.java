@@ -1,16 +1,16 @@
 package com.mryqr.core.member;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.domain.UploadedFile;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.utils.PagedList;
+import com.mryqr.common.utils.UuidGenerator;
 import com.mryqr.core.app.AppApi;
 import com.mryqr.core.app.command.CreateAppResponse;
 import com.mryqr.core.app.command.SetAppManagersCommand;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.TenantCachedApp;
 import com.mryqr.core.app.domain.page.control.ControlType;
-import com.mryqr.core.common.domain.UploadedFile;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.utils.PagedList;
-import com.mryqr.core.common.utils.UuidGenerator;
 import com.mryqr.core.department.DepartmentApi;
 import com.mryqr.core.department.command.CreateDepartmentCommand;
 import com.mryqr.core.group.GroupApi;
@@ -64,10 +64,10 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static com.mryqr.core.common.domain.event.DomainEventType.*;
-import static com.mryqr.core.common.domain.user.Role.TENANT_ADMIN;
-import static com.mryqr.core.common.domain.user.Role.TENANT_MEMBER;
-import static com.mryqr.core.common.exception.ErrorCode.*;
+import static com.mryqr.common.domain.event.DomainEventType.*;
+import static com.mryqr.common.domain.user.Role.TENANT_ADMIN;
+import static com.mryqr.common.domain.user.Role.TENANT_MEMBER;
+import static com.mryqr.common.exception.ErrorCode.*;
 import static com.mryqr.core.department.domain.Department.newDepartmentId;
 import static com.mryqr.core.order.domain.PaymentType.WX_NATIVE;
 import static com.mryqr.core.order.domain.detail.OrderDetailType.EXTRA_MEMBER;

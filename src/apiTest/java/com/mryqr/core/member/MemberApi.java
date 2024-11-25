@@ -1,25 +1,12 @@
 package com.mryqr.core.member;
 
 import com.mryqr.BaseApiTest;
-import com.mryqr.core.common.utils.PagedList;
-import com.mryqr.core.common.utils.ReturnId;
+import com.mryqr.common.utils.PagedList;
+import com.mryqr.common.utils.ReturnId;
 import com.mryqr.core.login.LoginApi;
-import com.mryqr.core.member.command.ChangeMyMobileCommand;
-import com.mryqr.core.member.command.ChangeMyPasswordCommand;
-import com.mryqr.core.member.command.CreateMemberCommand;
-import com.mryqr.core.member.command.FindbackPasswordCommand;
-import com.mryqr.core.member.command.IdentifyMyMobileCommand;
-import com.mryqr.core.member.command.ResetMemberPasswordCommand;
-import com.mryqr.core.member.command.UpdateMemberInfoCommand;
-import com.mryqr.core.member.command.UpdateMemberRoleCommand;
-import com.mryqr.core.member.command.UpdateMyAvatarCommand;
-import com.mryqr.core.member.command.UpdateMyBaseSettingCommand;
+import com.mryqr.core.member.command.*;
 import com.mryqr.core.member.command.importmember.MemberImportResponse;
-import com.mryqr.core.member.query.ListMyManagedMembersQuery;
-import com.mryqr.core.member.query.QListMember;
-import com.mryqr.core.member.query.QMemberBaseSetting;
-import com.mryqr.core.member.query.QMemberInfo;
-import com.mryqr.core.member.query.QMemberReference;
+import com.mryqr.core.member.query.*;
 import com.mryqr.core.member.query.profile.QClientMemberProfile;
 import com.mryqr.core.member.query.profile.QConsoleMemberProfile;
 import com.mryqr.utils.CreateMemberResponse;
@@ -29,10 +16,7 @@ import io.restassured.response.Response;
 import java.io.File;
 import java.util.List;
 
-import static com.mryqr.utils.RandomTestFixture.rEmail;
-import static com.mryqr.utils.RandomTestFixture.rMemberName;
-import static com.mryqr.utils.RandomTestFixture.rMobile;
-import static com.mryqr.utils.RandomTestFixture.rPassword;
+import static com.mryqr.utils.RandomTestFixture.*;
 
 public class MemberApi {
     public static Response createMemberRaw(String jwt, CreateMemberCommand command) {

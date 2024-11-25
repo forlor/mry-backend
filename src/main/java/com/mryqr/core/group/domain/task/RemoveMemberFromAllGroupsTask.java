@@ -1,7 +1,7 @@
 package com.mryqr.core.group.domain.task;
 
+import com.mryqr.common.domain.task.RepeatableTask;
 import com.mryqr.core.app.domain.AppRepository;
-import com.mryqr.core.common.domain.task.RepeatableTask;
 import com.mryqr.core.group.domain.AppCachedGroup;
 import com.mryqr.core.group.domain.GroupRepository;
 import lombok.RequiredArgsConstructor;

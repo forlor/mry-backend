@@ -1,12 +1,12 @@
 package com.mryqr.common.wx.pay;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.mryqr.common.properties.PayProperties;
+import com.mryqr.common.properties.PropertyService;
+import com.mryqr.common.properties.WxProperties;
+import com.mryqr.common.utils.MryObjectMapper;
 import com.mryqr.common.wx.pay.notify.WxNotifyResult;
 import com.mryqr.common.wx.pay.notify.WxPayNotifyRequest;
-import com.mryqr.core.common.properties.PayProperties;
-import com.mryqr.core.common.properties.PropertyService;
-import com.mryqr.core.common.properties.WxProperties;
-import com.mryqr.core.common.utils.MryObjectMapper;
 import com.mryqr.core.order.domain.Order;
 import com.wechat.pay.java.core.RSAAutoCertificateConfig;
 import com.wechat.pay.java.core.auth.Validator;
@@ -24,10 +24,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.time.Instant;
 import java.util.Base64;
 
-import static com.wechat.pay.java.core.http.Constant.WECHAT_PAY_NONCE;
-import static com.wechat.pay.java.core.http.Constant.WECHAT_PAY_SERIAL;
-import static com.wechat.pay.java.core.http.Constant.WECHAT_PAY_SIGNATURE;
-import static com.wechat.pay.java.core.http.Constant.WECHAT_PAY_TIMESTAMP;
+import static com.wechat.pay.java.core.http.Constant.*;
 import static java.lang.Float.parseFloat;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static javax.crypto.Cipher.DECRYPT_MODE;

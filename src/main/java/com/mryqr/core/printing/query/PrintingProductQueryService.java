@@ -1,8 +1,8 @@
 package com.mryqr.core.printing.query;
 
 import com.google.common.collect.ImmutableMap;
+import com.mryqr.common.domain.UploadedFile;
 import com.mryqr.common.ratelimit.MryRateLimiter;
-import com.mryqr.core.common.domain.UploadedFile;
 import com.mryqr.core.printing.domain.MaterialType;
 import com.mryqr.core.printing.domain.PlatePrintingType;
 import com.mryqr.core.qr.domain.QR;
@@ -24,11 +24,7 @@ import java.util.Objects;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.collect.ImmutableMap.toImmutableMap;
-import static com.mryqr.management.printingproduct.PrintingProductApp.MATERIAL_TYPE_MAP;
-import static com.mryqr.management.printingproduct.PrintingProductApp.PP_APP_ID;
-import static com.mryqr.management.printingproduct.PrintingProductApp.PP_DESCRIPTION_ATTRIBUTE_ID;
-import static com.mryqr.management.printingproduct.PrintingProductApp.PP_INTRODUCTION_ATTRIBUTE_ID;
-import static com.mryqr.management.printingproduct.PrintingProductApp.PP_MATERIAL_TYPE_ATTRIBUTE_ID;
+import static com.mryqr.management.printingproduct.PrintingProductApp.*;
 import static java.util.function.Function.identity;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
@@ -88,9 +84,9 @@ public class PrintingProductQueryService {
                             .map(value -> ((MultiLineTextAttributeValue) value).getContent()).orElse(null);
 
                     if (materialType == null ||
-                            isBlank(description) ||
-                            isBlank(introduction) ||
-                            qr.getHeaderImage() == null) {
+                        isBlank(description) ||
+                        isBlank(introduction) ||
+                        qr.getHeaderImage() == null) {
                         return null;
                     }
 

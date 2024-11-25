@@ -1,9 +1,9 @@
 package com.mryqr.core.member.command;
 
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.common.password.MryPasswordEncoder;
 import com.mryqr.common.ratelimit.MryRateLimiter;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
 import com.mryqr.core.member.command.importmember.MemberImportResponse;
 import com.mryqr.core.member.command.importmember.MemberImporter;
 import com.mryqr.core.member.domain.Member;
@@ -20,13 +20,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.InputStream;
 
-import static com.mryqr.core.common.domain.user.Role.TENANT_ADMIN;
-import static com.mryqr.core.common.domain.user.Role.TENANT_MEMBER;
-import static com.mryqr.core.common.exception.ErrorCode.MEMBER_NOT_FOUND_FOR_FINDBACK_PASSWORD;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
-import static com.mryqr.core.verification.domain.VerificationCodeType.CHANGE_MOBILE;
-import static com.mryqr.core.verification.domain.VerificationCodeType.FINDBACK_PASSWORD;
-import static com.mryqr.core.verification.domain.VerificationCodeType.IDENTIFY_MOBILE;
+import static com.mryqr.common.domain.user.Role.TENANT_ADMIN;
+import static com.mryqr.common.domain.user.Role.TENANT_MEMBER;
+import static com.mryqr.common.exception.ErrorCode.MEMBER_NOT_FOUND_FOR_FINDBACK_PASSWORD;
+import static com.mryqr.common.utils.MapUtils.mapOf;
+import static com.mryqr.core.verification.domain.VerificationCodeType.*;
 
 @Slf4j
 @Component

@@ -1,10 +1,10 @@
 package com.mryqr.core.report.query.chart.reporter.control;
 
+import com.mryqr.common.domain.report.NumberRangeSegment;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.report.chart.ChartReport;
 import com.mryqr.core.app.domain.report.chart.control.ControlNumberRangeSegmentReport;
 import com.mryqr.core.app.domain.report.chart.control.setting.ControlNumberRangeSegmentReportSetting;
-import com.mryqr.core.common.domain.report.NumberRangeSegment;
 import com.mryqr.core.report.query.chart.QChartReport;
 import com.mryqr.core.report.query.chart.QNumberRangeSegmentReport;
 import com.mryqr.core.report.query.chart.reporter.ChartReportGenerator;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Set;
 
-import static com.mryqr.core.common.utils.CommonUtils.splitAndSortNumberSegment;
+import static com.mryqr.common.utils.CommonUtils.splitAndSortNumberSegment;
 
 @Component
 @RequiredArgsConstructor

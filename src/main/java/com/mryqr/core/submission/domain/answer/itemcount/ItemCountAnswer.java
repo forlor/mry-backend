@@ -1,15 +1,15 @@
 package com.mryqr.core.submission.domain.answer.itemcount;
 
 
+import com.mryqr.common.domain.CountedItem;
+import com.mryqr.common.domain.TextOption;
+import com.mryqr.common.domain.display.DisplayValue;
+import com.mryqr.common.domain.display.ItemCountDisplayValue;
+import com.mryqr.common.exception.MryException;
+import com.mryqr.common.validation.collection.NoNullElement;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.FItemCountControl;
-import com.mryqr.core.common.domain.CountedItem;
-import com.mryqr.core.common.domain.TextOption;
-import com.mryqr.core.common.domain.display.DisplayValue;
-import com.mryqr.core.common.domain.display.ItemCountDisplayValue;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.validation.collection.NoNullElement;
 import com.mryqr.core.qr.domain.attribute.AttributeValue;
 import com.mryqr.core.qr.domain.attribute.ItemCountAttributeValue;
 import com.mryqr.core.submission.domain.SubmissionReferenceContext;
@@ -31,8 +31,8 @@ import java.util.Set;
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.collect.ImmutableMap.toImmutableMap;
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.common.exception.ErrorCode.COUNTED_ITEM_ID_DUPLICATED;
-import static com.mryqr.core.common.utils.Identified.isDuplicated;
+import static com.mryqr.common.exception.ErrorCode.COUNTED_ITEM_ID_DUPLICATED;
+import static com.mryqr.common.utils.Identified.isDuplicated;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.joining;
 import static lombok.AccessLevel.PRIVATE;

@@ -1,12 +1,12 @@
 package com.mryqr.core.appmanual.query;
 
+import com.mryqr.common.domain.permission.AppOperatePermissionChecker;
+import com.mryqr.common.domain.permission.AppOperatePermissions;
+import com.mryqr.common.domain.user.User;
 import com.mryqr.common.ratelimit.MryRateLimiter;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.appmanual.domain.AppManualRepository;
-import com.mryqr.core.common.domain.permission.AppOperatePermissionChecker;
-import com.mryqr.core.common.domain.permission.AppOperatePermissions;
-import com.mryqr.core.common.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -1,12 +1,12 @@
 package com.mryqr.core.group;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.domain.idnode.IdTreeHierarchy;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.utils.PagedList;
 import com.mryqr.core.app.AppApi;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.page.control.FSingleLineTextControl;
-import com.mryqr.core.common.domain.idnode.IdTreeHierarchy;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.utils.PagedList;
 import com.mryqr.core.group.command.AddGroupManagersCommand;
 import com.mryqr.core.group.command.AddGroupMembersCommand;
 import com.mryqr.core.group.command.CreateGroupCommand;
@@ -35,10 +35,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static com.mryqr.common.domain.event.DomainEventType.*;
+import static com.mryqr.common.exception.ErrorCode.*;
 import static com.mryqr.core.app.domain.attribute.Attribute.newAttributeId;
 import static com.mryqr.core.app.domain.attribute.AttributeType.INSTANCE_GROUP_MANAGERS;
-import static com.mryqr.core.common.domain.event.DomainEventType.*;
-import static com.mryqr.core.common.exception.ErrorCode.*;
 import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
 import static com.mryqr.utils.RandomTestFixture.*;
 import static java.lang.Boolean.TRUE;

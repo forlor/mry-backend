@@ -1,9 +1,9 @@
 package com.mryqr.core.login.command;
 
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.common.ratelimit.MryRateLimiter;
 import com.mryqr.common.security.jwt.JwtService;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
 import com.mryqr.core.login.domain.LoginDomainService;
 import com.mryqr.core.login.domain.WxJwtService;
 import com.mryqr.core.member.domain.Member;
@@ -13,8 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.mryqr.core.common.exception.MryException.authenticationException;
-import static com.mryqr.core.common.utils.CommonUtils.maskMobileOrEmail;
+import static com.mryqr.common.exception.MryException.authenticationException;
+import static com.mryqr.common.utils.CommonUtils.maskMobileOrEmail;
 
 @Slf4j
 @Component
@@ -41,7 +41,7 @@ public class LoginCommandService {
         } catch (Throwable t) {
             //401或409时直接抛出异常
             if (t instanceof MryException mryException &&
-                    (mryException.getCode().getStatus() == 401 || mryException.getCode().getStatus() == 409)) {
+                (mryException.getCode().getStatus() == 401 || mryException.getCode().getStatus() == 409)) {
                 log.warn("Password login failed for [{}].", maskMobileOrEmail(mobileOrEmail));
                 throw mryException;
             }
@@ -68,7 +68,7 @@ public class LoginCommandService {
         } catch (Throwable t) {
             //401或409时直接抛出异常
             if (t instanceof MryException mryException &&
-                    (mryException.getCode().getStatus() == 401 || mryException.getCode().getStatus() == 409)) {
+                (mryException.getCode().getStatus() == 401 || mryException.getCode().getStatus() == 409)) {
                 log.warn("Verification code login failed for [{}].", maskMobileOrEmail(mobileOrEmail));
                 throw mryException;
             }

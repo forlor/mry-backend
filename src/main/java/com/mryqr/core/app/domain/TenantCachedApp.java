@@ -1,7 +1,7 @@
 package com.mryqr.core.app.domain;
 
-import com.mryqr.core.common.domain.UploadedFile;
-import com.mryqr.core.common.domain.permission.Permission;
+import com.mryqr.common.domain.UploadedFile;
+import com.mryqr.common.domain.permission.Permission;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;

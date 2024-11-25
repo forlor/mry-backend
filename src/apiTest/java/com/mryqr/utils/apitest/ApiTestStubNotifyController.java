@@ -1,22 +1,17 @@
 package com.mryqr.utils.apitest;
 
-import com.mryqr.core.common.validation.id.order.OrderId;
+import com.mryqr.common.validation.id.order.OrderId;
 import com.mryqr.core.order.command.OrderCommandService;
 import com.mryqr.core.order.domain.delivery.Delivery;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
 import java.util.List;
 
-import static com.mryqr.core.common.domain.user.User.NOUSER;
+import static com.mryqr.common.domain.user.User.NOUSER;
 import static com.mryqr.utils.RandomTestFixture.rImageFile;
 
 @Validated

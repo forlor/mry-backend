@@ -1,8 +1,8 @@
 package com.mryqr.core.qr.command.importqr;
 
 import com.google.common.collect.Lists;
+import com.mryqr.common.domain.user.User;
 import com.mryqr.core.app.domain.App;
-import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.group.domain.Group;
 import com.mryqr.core.qr.command.importqr.QrImportResponse.QrImportErrorRecord;
 import lombok.RequiredArgsConstructor;

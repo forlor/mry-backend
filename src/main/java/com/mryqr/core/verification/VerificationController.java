@@ -1,24 +1,15 @@
 package com.mryqr.core.verification;
 
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.utils.ReturnId;
-import com.mryqr.core.verification.command.CreateChangeMobileVerificationCodeCommand;
-import com.mryqr.core.verification.command.CreateFindbackPasswordVerificationCodeCommand;
-import com.mryqr.core.verification.command.CreateLoginVerificationCodeCommand;
-import com.mryqr.core.verification.command.CreateRegisterVerificationCodeCommand;
-import com.mryqr.core.verification.command.IdentifyMobileVerificationCodeCommand;
-import com.mryqr.core.verification.command.VerificationCodeCommandService;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.utils.ReturnId;
+import com.mryqr.core.verification.command.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import static com.mryqr.core.common.utils.ReturnId.returnId;
+import static com.mryqr.common.utils.ReturnId.returnId;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @Validated

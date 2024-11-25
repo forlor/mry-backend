@@ -1,6 +1,6 @@
 package com.mryqr.core.tenant.domain.task;
 
-import com.mryqr.core.common.domain.task.RepeatableTask;
+import com.mryqr.common.domain.task.RepeatableTask;
 import com.mryqr.core.tenant.domain.TenantRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

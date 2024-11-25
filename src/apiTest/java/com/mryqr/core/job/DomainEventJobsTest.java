@@ -1,17 +1,17 @@
 package com.mryqr.core.job;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.domain.AggregateRoot;
+import com.mryqr.common.domain.event.DomainEvent;
+import com.mryqr.common.domain.event.DomainEventJobs;
+import com.mryqr.common.domain.event.consume.ConsumingDomainEvent;
+import com.mryqr.common.domain.event.publish.RedisDomainEventSender;
+import com.mryqr.common.domain.user.Role;
+import com.mryqr.common.domain.user.User;
 import com.mryqr.common.notification.publish.RedisNotificationDomainEventSender;
+import com.mryqr.common.properties.MryRedisProperties;
 import com.mryqr.common.webhook.publish.RedisWebhookEventSender;
 import com.mryqr.core.app.domain.App;
-import com.mryqr.core.common.domain.AggregateRoot;
-import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.DomainEventJobs;
-import com.mryqr.core.common.domain.event.consume.ConsumingDomainEvent;
-import com.mryqr.core.common.domain.event.publish.RedisDomainEventSender;
-import com.mryqr.core.common.domain.user.Role;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.properties.MryRedisProperties;
 import com.mryqr.core.group.domain.Group;
 import com.mryqr.core.member.domain.Member;
 import com.mryqr.core.plate.domain.Plate;
@@ -30,8 +30,8 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.List;
 
-import static com.mryqr.core.common.domain.user.User.NOUSER;
-import static com.mryqr.core.common.utils.MryConstants.CONSUMING_DOMAIN_EVENT_COLLECTION;
+import static com.mryqr.common.domain.user.User.NOUSER;
+import static com.mryqr.common.utils.MryConstants.CONSUMING_DOMAIN_EVENT_COLLECTION;
 import static java.time.Instant.now;
 import static java.time.temporal.ChronoUnit.DAYS;
 import static org.junit.jupiter.api.Assertions.*;

@@ -1,7 +1,7 @@
 package com.mryqr.core.platebatch;
 
 import com.mryqr.BaseApiTest;
-import com.mryqr.core.common.utils.PagedList;
+import com.mryqr.common.utils.PagedList;
 import com.mryqr.core.platebatch.command.CreatePlateBatchCommand;
 import com.mryqr.core.platebatch.command.RenamePlateBatchCommand;
 import com.mryqr.core.platebatch.domain.PlateBatch;
@@ -17,8 +17,8 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static com.mryqr.core.common.domain.event.DomainEventType.PLATE_BATCH_CREATED;
-import static com.mryqr.core.common.exception.ErrorCode.PLATE_BATCH_WITH_NAME_ALREADY_EXISTS;
+import static com.mryqr.common.domain.event.DomainEventType.PLATE_BATCH_CREATED;
+import static com.mryqr.common.exception.ErrorCode.PLATE_BATCH_WITH_NAME_ALREADY_EXISTS;
 import static com.mryqr.utils.RandomTestFixture.rPlateBatchName;
 import static com.mryqr.utils.RandomTestFixture.rQrName;
 import static org.junit.jupiter.api.Assertions.*;

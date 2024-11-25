@@ -1,6 +1,6 @@
 package com.mryqr.core.tenant.eventhandler;
 
-import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
+import com.mryqr.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.core.tenant.domain.event.TenantSubdomainUpdatedEvent;
 import com.mryqr.core.tenant.domain.task.SyncTenantSubdomainToAliyunTask;
 import lombok.RequiredArgsConstructor;

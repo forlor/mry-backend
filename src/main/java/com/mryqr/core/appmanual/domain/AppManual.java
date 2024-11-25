@@ -1,15 +1,15 @@
 package com.mryqr.core.appmanual.domain;
 
+import com.mryqr.common.domain.AggregateRoot;
+import com.mryqr.common.domain.user.User;
 import com.mryqr.core.app.domain.App;
-import com.mryqr.core.common.domain.AggregateRoot;
-import com.mryqr.core.common.domain.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import static com.mryqr.core.common.utils.MryConstants.APP_MANUAL_COLLECTION;
-import static com.mryqr.core.common.utils.SnowflakeIdGenerator.newSnowflakeId;
+import static com.mryqr.common.utils.MryConstants.APP_MANUAL_COLLECTION;
+import static com.mryqr.common.utils.SnowflakeIdGenerator.newSnowflakeId;
 import static lombok.AccessLevel.PRIVATE;
 
 @Getter

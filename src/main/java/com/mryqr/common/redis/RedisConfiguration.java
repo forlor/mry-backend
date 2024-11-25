@@ -1,6 +1,6 @@
 package com.mryqr.common.redis;
 
-import com.mryqr.core.common.utils.MryObjectMapper;
+import com.mryqr.common.utils.MryObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;

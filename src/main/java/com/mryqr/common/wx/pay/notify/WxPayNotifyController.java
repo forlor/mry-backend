@@ -1,8 +1,8 @@
 package com.mryqr.common.wx.pay.notify;
 
 import com.mryqr.common.ratelimit.MryRateLimiter;
+import com.mryqr.common.utils.MryObjectMapper;
 import com.mryqr.common.wx.pay.WxPayService;
-import com.mryqr.core.common.utils.MryObjectMapper;
 import com.mryqr.core.order.command.OrderCommandService;
 import com.mryqr.core.order.domain.Order;
 import com.mryqr.core.order.domain.OrderRepository;
@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
 
-import static com.mryqr.core.common.domain.user.User.NOUSER;
+import static com.mryqr.common.domain.user.User.NOUSER;
 import static org.apache.commons.codec.CharEncoding.UTF_8;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 

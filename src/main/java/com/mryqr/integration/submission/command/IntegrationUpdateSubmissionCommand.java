@@ -1,9 +1,9 @@
 package com.mryqr.integration.submission.command;
 
-import com.mryqr.core.common.utils.Command;
-import com.mryqr.core.common.validation.collection.NoNullElement;
-import com.mryqr.core.common.validation.id.custom.CustomId;
-import com.mryqr.core.common.validation.id.member.MemberId;
+import com.mryqr.common.utils.Command;
+import com.mryqr.common.validation.collection.NoNullElement;
+import com.mryqr.common.validation.id.custom.CustomId;
+import com.mryqr.common.validation.id.member.MemberId;
 import com.mryqr.core.submission.domain.answer.Answer;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -14,7 +14,7 @@ import lombok.Value;
 
 import java.util.Set;
 
-import static com.mryqr.core.common.utils.MryConstants.MAX_PER_PAGE_CONTROL_SIZE;
+import static com.mryqr.common.utils.MryConstants.MAX_PER_PAGE_CONTROL_SIZE;
 import static com.mryqr.core.submission.domain.answer.Answer.checkNoDuplicatedAnswers;
 import static lombok.AccessLevel.PRIVATE;
 

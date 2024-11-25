@@ -13,8 +13,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 
-import static com.mryqr.core.common.utils.CommonUtils.requireNonBlank;
-import static com.mryqr.core.common.utils.MryConstants.*;
+import static com.mryqr.common.utils.CommonUtils.requireNonBlank;
+import static com.mryqr.common.utils.MryConstants.*;
 import static org.springframework.data.domain.Sort.Direction.ASC;
 import static org.springframework.data.domain.Sort.by;
 import static org.springframework.data.mongodb.core.query.Criteria.where;

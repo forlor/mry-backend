@@ -1,7 +1,7 @@
 package com.mryqr.core.report.query.number.reporter.page;
 
+import com.mryqr.common.domain.report.ReportRange;
 import com.mryqr.core.app.domain.report.number.page.PageNumberReport;
-import com.mryqr.core.common.domain.report.ReportRange;
 import com.mryqr.core.submission.domain.Submission;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
+import static com.mryqr.common.domain.report.ReportRange.timeRangeOf;
 import static com.mryqr.core.app.domain.report.number.page.PageNumberReportType.PAGE_SUBMIT_COUNT;
-import static com.mryqr.core.common.domain.report.ReportRange.timeRangeOf;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 

@@ -1,15 +1,15 @@
 package com.mryqr.core.qr.query.submission.list;
 
+import com.mryqr.common.domain.display.DisplayValue;
+import com.mryqr.common.domain.permission.SubmissionPermissionChecker;
+import com.mryqr.common.domain.permission.SubmissionPermissions;
+import com.mryqr.common.domain.user.User;
 import com.mryqr.common.ratelimit.MryRateLimiter;
+import com.mryqr.common.utils.PagedList;
+import com.mryqr.common.utils.Pagination;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.operationmenu.SubmissionListType;
 import com.mryqr.core.app.domain.page.control.Control;
-import com.mryqr.core.common.domain.display.DisplayValue;
-import com.mryqr.core.common.domain.permission.SubmissionPermissionChecker;
-import com.mryqr.core.common.domain.permission.SubmissionPermissions;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.utils.PagedList;
-import com.mryqr.core.common.utils.Pagination;
 import com.mryqr.core.member.domain.MemberAware;
 import com.mryqr.core.member.domain.MemberReference;
 import com.mryqr.core.member.domain.MemberRepository;
@@ -27,21 +27,17 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.collect.ImmutableMap.toImmutableMap;
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
+import static com.mryqr.common.utils.CommonUtils.splitSearchBySpace;
+import static com.mryqr.common.utils.MongoCriteriaUtils.mongoSortableFieldOf;
+import static com.mryqr.common.utils.MongoCriteriaUtils.mongoTextFieldOf;
+import static com.mryqr.common.utils.MryConstants.SUBMISSION_COLLECTION;
+import static com.mryqr.common.utils.Pagination.pagination;
 import static com.mryqr.core.app.domain.operationmenu.SubmissionListType.SUBMITTER_SUBMISSION;
-import static com.mryqr.core.common.utils.CommonUtils.splitSearchBySpace;
-import static com.mryqr.core.common.utils.MongoCriteriaUtils.mongoSortableFieldOf;
-import static com.mryqr.core.common.utils.MongoCriteriaUtils.mongoTextFieldOf;
-import static com.mryqr.core.common.utils.MryConstants.SUBMISSION_COLLECTION;
-import static com.mryqr.core.common.utils.Pagination.pagination;
 import static com.mryqr.core.submission.domain.ApprovalStatus.statusOf;
 import static java.time.LocalDate.parse;
 import static java.time.ZoneId.systemDefault;
@@ -113,8 +109,8 @@ public class QrSubmissionQueryService {
         rawSubmissions.forEach(submission -> submission.getAnswers().entrySet().removeIf(entry -> {
             Control control = controlMap.get(entry.getKey());
             return control == null ||
-                    !control.isSubmissionSummaryEligible() ||
-                    !permissionedControlIds.contains(control.getId());
+                   !control.isSubmissionSummaryEligible() ||
+                   !permissionedControlIds.contains(control.getId());
         }));
 
         SubmissionReferenceContext referenceContext = buildReferenceContext(rawSubmissions, app);
@@ -281,7 +277,7 @@ public class QrSubmissionQueryService {
 
     private boolean isIndexedEntry(Map.Entry<String, Set<String>> entry) {
         return !APPROVAL.equals(entry.getKey()) &&
-                isNotEmpty(entry.getValue());
+               isNotEmpty(entry.getValue());
     }
 
     private Criteria appendSearchableCriteria(Criteria criteria, String search) {

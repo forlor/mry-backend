@@ -2,11 +2,11 @@ package com.mryqr.core.app.domain.report.chart;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.mryqr.common.utils.Identified;
+import com.mryqr.common.validation.id.shoruuid.ShortUuid;
 import com.mryqr.core.app.domain.AppSettingContext;
 import com.mryqr.core.app.domain.report.chart.attribute.*;
 import com.mryqr.core.app.domain.report.chart.control.*;
-import com.mryqr.core.common.utils.Identified;
-import com.mryqr.core.common.validation.id.shoruuid.ShortUuid;
 import jakarta.validation.constraints.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

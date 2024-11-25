@@ -13,8 +13,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Date;
 
-import static com.mryqr.core.common.domain.user.User.NOUSER;
-import static com.mryqr.core.common.utils.MryConstants.AUTH_COOKIE_NAME;
+import static com.mryqr.common.domain.user.User.NOUSER;
+import static com.mryqr.common.utils.MryConstants.AUTH_COOKIE_NAME;
 import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
 import static com.mryqr.utils.RandomTestFixture.rMobile;
 import static com.mryqr.utils.RandomTestFixture.rPassword;

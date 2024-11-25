@@ -1,8 +1,8 @@
 package com.mryqr.core.assignment.domain;
 
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.core.assignmentplan.domain.AssignmentPlan;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-import static com.mryqr.core.common.exception.ErrorCode.ASSIGNMENT_ALREADY_EXISTS;
+import static com.mryqr.common.exception.ErrorCode.ASSIGNMENT_ALREADY_EXISTS;
 
 @Slf4j
 @Component

@@ -1,7 +1,7 @@
 package com.mryqr.common.notification.publish;
 
+import com.mryqr.common.domain.event.DomainEvent;
 import com.mryqr.common.notification.consume.NotificationEventConsumer;
-import com.mryqr.core.common.domain.event.DomainEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;

@@ -1,10 +1,10 @@
 package com.mryqr.management.crm.webhook;
 
+import com.mryqr.common.domain.event.DomainEvent;
+import com.mryqr.common.domain.event.publish.PublishingDomainEvent;
+import com.mryqr.common.domain.event.publish.RedisDomainEventSender;
 import com.mryqr.common.webhook.submission.BaseSubmissionWebhookPayload;
 import com.mryqr.common.webhook.submission.SubmissionCreatedWebhookPayload;
-import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.publish.PublishingDomainEvent;
-import com.mryqr.core.common.domain.event.publish.RedisDomainEventSender;
 import com.mryqr.core.submission.domain.answer.Answer;
 import com.mryqr.core.submission.domain.answer.date.DateAnswer;
 import com.mryqr.core.submission.domain.answer.radio.RadioAnswer;
@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.mryqr.core.common.domain.event.publish.PublishingDomainEvent.Fields.raisedAt;
+import static com.mryqr.common.domain.event.publish.PublishingDomainEvent.Fields.raisedAt;
 import static com.mryqr.management.crm.MryTenantManageApp.*;
 import static java.time.ZoneId.systemDefault;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;

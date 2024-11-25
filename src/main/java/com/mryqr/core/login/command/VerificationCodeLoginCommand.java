@@ -1,8 +1,8 @@
 package com.mryqr.core.login.command;
 
-import com.mryqr.core.common.utils.Command;
-import com.mryqr.core.common.validation.mobileoremail.MobileOrEmail;
-import com.mryqr.core.common.validation.verficationcode.VerificationCode;
+import com.mryqr.common.utils.Command;
+import com.mryqr.common.validation.mobileoremail.MobileOrEmail;
+import com.mryqr.common.validation.verficationcode.VerificationCode;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;

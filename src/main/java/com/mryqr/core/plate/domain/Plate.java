@@ -1,8 +1,8 @@
 package com.mryqr.core.plate.domain;
 
-import com.mryqr.core.common.domain.AggregateRoot;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
+import com.mryqr.common.domain.AggregateRoot;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.core.plate.domain.event.PlateBoundEvent;
 import com.mryqr.core.plate.domain.event.PlateUnboundEvent;
 import com.mryqr.core.platebatch.domain.PlateBatch;
@@ -14,11 +14,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Objects;
 
-import static com.mryqr.core.common.exception.ErrorCode.PLATE_ALREADY_BOUND;
-import static com.mryqr.core.common.exception.ErrorCode.PLATE_QR_NOT_MATCH;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
-import static com.mryqr.core.common.utils.MryConstants.PLATE_COLLECTION;
-import static com.mryqr.core.common.utils.SnowflakeIdGenerator.newSnowflakeId;
+import static com.mryqr.common.exception.ErrorCode.PLATE_ALREADY_BOUND;
+import static com.mryqr.common.exception.ErrorCode.PLATE_QR_NOT_MATCH;
+import static com.mryqr.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.utils.MryConstants.PLATE_COLLECTION;
+import static com.mryqr.common.utils.SnowflakeIdGenerator.newSnowflakeId;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 

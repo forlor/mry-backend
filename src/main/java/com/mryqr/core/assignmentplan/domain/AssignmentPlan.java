@@ -1,9 +1,9 @@
 package com.mryqr.core.assignmentplan.domain;
 
+import com.mryqr.common.domain.AggregateRoot;
+import com.mryqr.common.domain.user.User;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.assignmentplan.domain.event.AssignmentPlanDeletedEvent;
-import com.mryqr.core.common.domain.AggregateRoot;
-import com.mryqr.core.common.domain.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.TypeAlias;
@@ -15,8 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.mryqr.core.common.utils.MryConstants.ASSIGNMENT_PLAN_COLLECTION;
-import static com.mryqr.core.common.utils.SnowflakeIdGenerator.newSnowflakeId;
+import static com.mryqr.common.utils.MryConstants.ASSIGNMENT_PLAN_COLLECTION;
+import static com.mryqr.common.utils.SnowflakeIdGenerator.newSnowflakeId;
 import static java.time.ZoneId.systemDefault;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.collections4.ListUtils.emptyIfNull;

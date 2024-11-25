@@ -1,6 +1,6 @@
 package com.mryqr.core.grouphierarchy.query;
 
-import com.mryqr.core.common.domain.idnode.IdTree;
+import com.mryqr.common.domain.idnode.IdTree;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;

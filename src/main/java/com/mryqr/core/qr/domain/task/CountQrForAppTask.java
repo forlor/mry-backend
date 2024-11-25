@@ -1,6 +1,6 @@
 package com.mryqr.core.qr.domain.task;
 
-import com.mryqr.core.common.domain.task.RepeatableTask;
+import com.mryqr.common.domain.task.RepeatableTask;
 import com.mryqr.core.qr.domain.QrRepository;
 import com.mryqr.core.tenant.domain.TenantRepository;
 import lombok.RequiredArgsConstructor;

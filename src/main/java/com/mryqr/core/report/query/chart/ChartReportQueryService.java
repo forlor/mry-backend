@@ -1,11 +1,11 @@
 package com.mryqr.core.report.query.chart;
 
+import com.mryqr.common.domain.permission.ManagePermissionChecker;
+import com.mryqr.common.domain.user.User;
 import com.mryqr.common.ratelimit.MryRateLimiter;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.app.domain.report.chart.ChartReport;
-import com.mryqr.core.common.domain.permission.ManagePermissionChecker;
-import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.group.domain.Group;
 import com.mryqr.core.group.domain.GroupRepository;
 import com.mryqr.core.report.query.chart.reporter.ChartReportGenerator;

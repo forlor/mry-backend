@@ -1,8 +1,8 @@
 package com.mryqr.core.tenant;
 
 import com.mryqr.BaseApiTest;
-import com.mryqr.core.common.domain.UploadedFile;
-import com.mryqr.core.common.domain.invoice.InvoiceTitle;
+import com.mryqr.common.domain.UploadedFile;
+import com.mryqr.common.domain.invoice.InvoiceTitle;
 import com.mryqr.core.order.domain.delivery.Consignee;
 import com.mryqr.core.tenant.command.*;
 import com.mryqr.core.tenant.domain.Tenant;
@@ -17,9 +17,9 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static com.mryqr.core.common.domain.event.DomainEventType.TENANT_SUBDOMAIN_UPDATED;
-import static com.mryqr.core.common.exception.ErrorCode.*;
-import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
+import static com.mryqr.common.domain.event.DomainEventType.TENANT_SUBDOMAIN_UPDATED;
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.common.utils.UuidGenerator.newShortUuid;
 import static com.mryqr.core.plan.domain.PlanType.*;
 import static com.mryqr.management.MryManageTenant.ADMIN_MEMBER_ID;
 import static com.mryqr.management.MryManageTenant.MRY_MANAGE_TENANT_ID;

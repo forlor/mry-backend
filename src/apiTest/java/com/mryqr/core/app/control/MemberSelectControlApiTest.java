@@ -1,14 +1,14 @@
 package com.mryqr.core.app.control;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.domain.indexedfield.IndexedField;
+import com.mryqr.common.domain.indexedfield.IndexedValue;
 import com.mryqr.core.app.AppApi;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppSetting;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.FMemberSelectControl;
-import com.mryqr.core.common.domain.indexedfield.IndexedField;
-import com.mryqr.core.common.domain.indexedfield.IndexedValue;
 import com.mryqr.core.member.MemberApi;
 import com.mryqr.core.member.domain.Member;
 import com.mryqr.core.qr.domain.QR;
@@ -25,27 +25,15 @@ import org.junit.jupiter.api.Test;
 import java.util.Set;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.mryqr.common.exception.ErrorCode.*;
 import static com.mryqr.core.app.domain.attribute.Attribute.newAttributeId;
 import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.NO_LIMIT;
 import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_FIRST;
 import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_LAST;
 import static com.mryqr.core.app.domain.ui.MinMaxSetting.minMaxOf;
-import static com.mryqr.core.common.exception.ErrorCode.MANDATORY_ANSWER_REQUIRED;
-import static com.mryqr.core.common.exception.ErrorCode.MAX_OVERFLOW;
-import static com.mryqr.core.common.exception.ErrorCode.MEMBER_MAX_SELECTION_REACHED;
-import static com.mryqr.core.common.exception.ErrorCode.MEMBER_MIN_SELECTION_NOT_REACHED;
-import static com.mryqr.core.common.exception.ErrorCode.MIN_OVERFLOW;
-import static com.mryqr.core.common.exception.ErrorCode.NOT_ALL_MEMBERS_EXIST;
-import static com.mryqr.core.common.exception.ErrorCode.SINGLE_MEMBER_ONLY_ALLOW_SINGLE_ANSWER;
 import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
 import static com.mryqr.core.submission.SubmissionUtils.newSubmissionCommand;
-import static com.mryqr.utils.RandomTestFixture.defaultFillableSettingBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultMemberSelectControl;
-import static com.mryqr.utils.RandomTestFixture.defaultMemberSelectControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.rAnswer;
-import static com.mryqr.utils.RandomTestFixture.rAnswerBuilder;
-import static com.mryqr.utils.RandomTestFixture.rAttributeName;
-import static com.mryqr.utils.RandomTestFixture.rBool;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

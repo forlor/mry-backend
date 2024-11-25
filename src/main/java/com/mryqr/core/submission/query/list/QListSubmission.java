@@ -1,6 +1,6 @@
 package com.mryqr.core.submission.query.list;
 
-import com.mryqr.core.common.domain.display.DisplayValue;
+import com.mryqr.common.domain.display.DisplayValue;
 import com.mryqr.core.submission.domain.ApprovalStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

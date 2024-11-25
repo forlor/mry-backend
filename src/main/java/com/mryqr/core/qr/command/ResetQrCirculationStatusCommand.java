@@ -1,7 +1,7 @@
 package com.mryqr.core.qr.command;
 
-import com.mryqr.core.common.utils.Command;
-import com.mryqr.core.common.validation.id.shoruuid.ShortUuid;
+import com.mryqr.common.utils.Command;
+import com.mryqr.common.validation.id.shoruuid.ShortUuid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,10 +1,10 @@
 package com.mryqr.core.assignmentplan.domain;
 
+import com.mryqr.common.exception.MryException;
+import com.mryqr.common.validation.id.app.AppId;
+import com.mryqr.common.validation.id.page.PageId;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.page.Page;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.validation.id.app.AppId;
-import com.mryqr.core.common.validation.id.page.PageId;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -20,13 +20,11 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.common.utils.MryConstants.MAX_GENERIC_NAME_LENGTH;
+import static com.mryqr.common.utils.MryConstants.MRY_DATE_TIME_FORMATTER;
 import static com.mryqr.core.assignmentplan.domain.AssignmentFrequency.EVERY_DAY;
 import static com.mryqr.core.assignmentplan.domain.AssignmentFrequency.EVERY_WEEK;
-import static com.mryqr.core.common.exception.ErrorCode.ASSIGNMENT_DURATION_EXCEED_FREQUENCY;
-import static com.mryqr.core.common.exception.ErrorCode.ASSIGNMENT_NOTIFY_TIME_OVERFLOW;
-import static com.mryqr.core.common.exception.ErrorCode.ASSIGNMENT_START_TIME_AFTER_END_TIME;
-import static com.mryqr.core.common.utils.MryConstants.MAX_GENERIC_NAME_LENGTH;
-import static com.mryqr.core.common.utils.MryConstants.MRY_DATE_TIME_FORMATTER;
 import static java.time.temporal.ChronoUnit.DAYS;
 import static java.time.temporal.ChronoUnit.MONTHS;
 import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;

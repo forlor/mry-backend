@@ -1,6 +1,6 @@
 package com.mryqr.core.platebatch.domain.task;
 
-import com.mryqr.core.common.domain.task.OnetimeTask;
+import com.mryqr.common.domain.task.OnetimeTask;
 import com.mryqr.core.platebatch.domain.PlateBatchRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

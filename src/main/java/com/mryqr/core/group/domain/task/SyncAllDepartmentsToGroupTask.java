@@ -1,7 +1,7 @@
 package com.mryqr.core.group.domain.task;
 
+import com.mryqr.common.domain.task.RepeatableTask;
 import com.mryqr.core.app.domain.AppRepository;
-import com.mryqr.core.common.domain.task.RepeatableTask;
 import com.mryqr.core.department.domain.Department;
 import com.mryqr.core.department.domain.DepartmentRepository;
 import com.mryqr.core.departmenthierarchy.domain.DepartmentHierarchy;
@@ -18,14 +18,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
-import static com.mryqr.core.common.domain.user.User.NOUSER;
+import static com.mryqr.common.domain.user.User.NOUSER;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 

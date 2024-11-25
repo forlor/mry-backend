@@ -1,6 +1,8 @@
 package com.mryqr.core.app.control;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.domain.indexedfield.IndexedField;
+import com.mryqr.common.domain.indexedfield.IndexedValue;
 import com.mryqr.core.app.AppApi;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.attribute.Attribute;
@@ -8,8 +10,6 @@ import com.mryqr.core.app.domain.page.control.AutoCalculateAliasContext;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.FNumberInputControl;
 import com.mryqr.core.app.domain.page.control.FNumberRankingControl;
-import com.mryqr.core.common.domain.indexedfield.IndexedField;
-import com.mryqr.core.common.domain.indexedfield.IndexedValue;
 import com.mryqr.core.qr.domain.QR;
 import com.mryqr.core.qr.domain.attribute.IntegerAttributeValue;
 import com.mryqr.core.submission.SubmissionApi;
@@ -23,26 +23,14 @@ import com.mryqr.utils.RandomTestFixture;
 import org.junit.jupiter.api.Test;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.mryqr.common.exception.ErrorCode.MANDATORY_ANSWER_REQUIRED;
+import static com.mryqr.common.exception.ErrorCode.MAX_RANK_REACHED;
+import static com.mryqr.common.utils.UuidGenerator.newShortUuid;
 import static com.mryqr.core.app.domain.attribute.Attribute.newAttributeId;
 import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.NO_LIMIT;
-import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_AVERAGE;
-import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_FIRST;
-import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_LAST;
-import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_MAX;
-import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_MIN;
-import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_SUM;
-import static com.mryqr.core.common.exception.ErrorCode.MANDATORY_ANSWER_REQUIRED;
-import static com.mryqr.core.common.exception.ErrorCode.MAX_RANK_REACHED;
-import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
+import static com.mryqr.core.app.domain.attribute.AttributeType.*;
 import static com.mryqr.core.submission.SubmissionUtils.newSubmissionCommand;
-import static com.mryqr.utils.RandomTestFixture.defaultFillableSettingBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultNumberInputControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultNumberRankingControl;
-import static com.mryqr.utils.RandomTestFixture.defaultNumberRankingControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.rAnswerBuilder;
-import static com.mryqr.utils.RandomTestFixture.rAttributeName;
-import static com.mryqr.utils.RandomTestFixture.rEmail;
-import static com.mryqr.utils.RandomTestFixture.rPassword;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class NumberRankControlApiTest extends BaseApiTest {

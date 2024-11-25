@@ -21,24 +21,12 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
-import static com.mryqr.common.oss.domain.OssTokenRequestType.APP_EDIT;
-import static com.mryqr.common.oss.domain.OssTokenRequestType.MEMBER_INFO;
-import static com.mryqr.common.oss.domain.OssTokenRequestType.QR_MANAGE;
-import static com.mryqr.common.oss.domain.OssTokenRequestType.SUBMISSION;
-import static com.mryqr.common.oss.domain.OssTokenRequestType.TENANT_EDIT;
-import static com.mryqr.common.oss.domain.OssTokenRequestType.TENANT_ORDER;
-import static com.mryqr.core.common.domain.permission.Permission.AS_TENANT_MEMBER;
-import static com.mryqr.core.common.domain.permission.Permission.PUBLIC;
-import static com.mryqr.core.common.domain.user.User.NOUSER;
-import static com.mryqr.core.common.exception.ErrorCode.ACCESS_DENIED;
-import static com.mryqr.core.common.exception.ErrorCode.AUTHENTICATION_FAILED;
-import static com.mryqr.core.common.exception.ErrorCode.MAX_STORAGE_REACHED;
-import static com.mryqr.core.common.exception.ErrorCode.QR_NOT_BELONG_TO_APP;
-import static com.mryqr.core.common.exception.ErrorCode.USER_NOT_CURRENT_MEMBER;
-import static com.mryqr.utils.RandomTestFixture.rMemberName;
-import static com.mryqr.utils.RandomTestFixture.rMobile;
-import static com.mryqr.utils.RandomTestFixture.rPassword;
-import static com.mryqr.utils.RandomTestFixture.rQrName;
+import static com.mryqr.common.domain.permission.Permission.AS_TENANT_MEMBER;
+import static com.mryqr.common.domain.permission.Permission.PUBLIC;
+import static com.mryqr.common.domain.user.User.NOUSER;
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.common.oss.domain.OssTokenRequestType.*;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 

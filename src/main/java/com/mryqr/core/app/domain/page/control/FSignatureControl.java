@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.TypeAlias;
 
-import static com.mryqr.core.common.utils.MryConstants.MAX_SHORT_NAME_LENGTH;
+import static com.mryqr.common.utils.MryConstants.MAX_SHORT_NAME_LENGTH;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 

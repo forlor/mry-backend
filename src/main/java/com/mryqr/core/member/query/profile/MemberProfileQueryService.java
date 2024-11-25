@@ -1,9 +1,9 @@
 package com.mryqr.core.member.query.profile;
 
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.properties.CommonProperties;
 import com.mryqr.common.ratelimit.MryRateLimiter;
 import com.mryqr.core.app.domain.App;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.properties.CommonProperties;
 import com.mryqr.core.member.domain.Member;
 import com.mryqr.core.member.domain.MemberRepository;
 import com.mryqr.core.tenant.domain.Packages;

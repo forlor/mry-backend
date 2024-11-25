@@ -1,6 +1,7 @@
 package com.mryqr.core.app.control;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.domain.display.TextDisplayValue;
 import com.mryqr.core.app.AppApi;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppSetting;
@@ -8,7 +9,6 @@ import com.mryqr.core.app.domain.page.Page;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.FSingleLineTextControl;
 import com.mryqr.core.app.domain.page.control.PSubmissionReferenceControl;
-import com.mryqr.core.common.domain.display.TextDisplayValue;
 import com.mryqr.core.presentation.PresentationApi;
 import com.mryqr.core.presentation.query.submissionreference.QSubmissionReferencePresentation;
 import com.mryqr.core.submission.SubmissionApi;
@@ -17,14 +17,10 @@ import com.mryqr.utils.PreparedAppResponse;
 import com.mryqr.utils.PreparedQrResponse;
 import org.junit.jupiter.api.Test;
 
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_PAGE_NOT_EXIST;
+import static com.mryqr.common.exception.ErrorCode.VALIDATION_PAGE_NOT_EXIST;
 import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
-import static com.mryqr.utils.RandomTestFixture.defaultSingleLineTextControl;
-import static com.mryqr.utils.RandomTestFixture.defaultSubmissionReferenceControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.rAnswer;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static com.mryqr.utils.RandomTestFixture.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SubmissionReferenceControlApiTest extends BaseApiTest {
 

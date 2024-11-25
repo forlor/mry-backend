@@ -1,7 +1,7 @@
 package com.mryqr.core.report.query.chart;
 
-import com.mryqr.core.common.domain.report.TimeSegment;
-import com.mryqr.core.common.domain.report.TimeSegmentInterval;
+import com.mryqr.common.domain.report.TimeSegment;
+import com.mryqr.common.domain.report.TimeSegmentInterval;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

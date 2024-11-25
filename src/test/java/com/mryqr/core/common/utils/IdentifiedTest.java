@@ -1,11 +1,11 @@
 package com.mryqr.core.common.utils;
 
-import com.mryqr.core.common.utils.Identified;
+import com.mryqr.common.utils.Identified;
 import org.junit.jupiter.api.Test;
 
 import static com.google.common.collect.Sets.newHashSet;
-import static com.mryqr.core.common.utils.Identified.isDuplicated;
-import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
+import static com.mryqr.common.utils.Identified.isDuplicated;
+import static com.mryqr.common.utils.UuidGenerator.newShortUuid;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

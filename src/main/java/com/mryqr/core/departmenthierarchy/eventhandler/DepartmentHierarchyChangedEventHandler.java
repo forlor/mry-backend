@@ -1,10 +1,10 @@
 package com.mryqr.core.departmenthierarchy.eventhandler;
 
 
+import com.mryqr.common.domain.event.consume.AbstractDomainEventHandler;
+import com.mryqr.common.utils.MryTaskRunner;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.app.domain.TenantCachedApp;
-import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
-import com.mryqr.core.common.utils.MryTaskRunner;
 import com.mryqr.core.departmenthierarchy.domain.event.DepartmentHierarchyChangedEvent;
 import com.mryqr.core.group.domain.task.SyncAllDepartmentsToGroupTask;
 import lombok.RequiredArgsConstructor;

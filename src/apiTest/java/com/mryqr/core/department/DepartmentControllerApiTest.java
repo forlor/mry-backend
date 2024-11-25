@@ -27,8 +27,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-import static com.mryqr.core.common.domain.event.DomainEventType.*;
-import static com.mryqr.core.common.exception.ErrorCode.*;
+import static com.mryqr.common.domain.event.DomainEventType.*;
+import static com.mryqr.common.exception.ErrorCode.*;
 import static com.mryqr.core.plan.domain.Plan.FREE_PLAN;
 import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
 import static com.mryqr.utils.RandomTestFixture.*;

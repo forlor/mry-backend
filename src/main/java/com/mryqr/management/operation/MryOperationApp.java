@@ -1,11 +1,6 @@
 package com.mryqr.management.operation;
 
-import com.mryqr.core.app.domain.App;
-import com.mryqr.core.app.domain.AppFactory;
-import com.mryqr.core.app.domain.AppHeaderImageProvider;
-import com.mryqr.core.app.domain.AppRepository;
-import com.mryqr.core.app.domain.AppSetting;
-import com.mryqr.core.app.domain.CreateAppResult;
+import com.mryqr.core.app.domain.*;
 import com.mryqr.core.app.domain.circulation.CirculationStatusSetting;
 import com.mryqr.core.app.domain.config.AppConfig;
 import com.mryqr.core.app.domain.page.Page;
@@ -25,14 +20,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.mryqr.common.domain.permission.Permission.CAN_MANAGE_APP;
 import static com.mryqr.core.app.domain.AppTopBar.defaultAppTopBar;
 import static com.mryqr.core.app.domain.config.AppLandingPageType.DEFAULT;
 import static com.mryqr.core.app.domain.page.control.ControlFillableSetting.defaultControlFillableSetting;
 import static com.mryqr.core.app.domain.page.control.ControlNameSetting.defaultControlNameSetting;
 import static com.mryqr.core.app.domain.page.control.ControlStyleSetting.defaultControlStyleSetting;
-import static com.mryqr.core.app.domain.page.control.ControlType.DATE;
-import static com.mryqr.core.app.domain.page.control.ControlType.NUMBER_INPUT;
-import static com.mryqr.core.app.domain.page.control.ControlType.SUBMISSION_REFERENCE;
+import static com.mryqr.core.app.domain.page.control.ControlType.*;
 import static com.mryqr.core.app.domain.page.control.FNumberInputControl.MAX_NUMBER;
 import static com.mryqr.core.app.domain.page.control.PSubmissionReferenceControl.StyleType.HORIZONTAL_TABLE;
 import static com.mryqr.core.app.domain.page.header.PageHeader.defaultPageHeaderBuilder;
@@ -47,7 +41,6 @@ import static com.mryqr.core.app.domain.ui.BoxedTextStyle.defaultControlDescript
 import static com.mryqr.core.app.domain.ui.FontStyle.defaultFontStyle;
 import static com.mryqr.core.app.domain.ui.ImageCropType.FOUR_TO_THREE;
 import static com.mryqr.core.app.domain.ui.MinMaxSetting.minMaxOf;
-import static com.mryqr.core.common.domain.permission.Permission.CAN_MANAGE_APP;
 import static com.mryqr.management.MryManageTenant.MRY_MANAGE_ROBOT_USER;
 
 @Slf4j

@@ -17,13 +17,8 @@ import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 
-import static com.mryqr.core.common.domain.user.User.NOUSER;
-import static com.mryqr.utils.RandomTestFixture.rAppName;
-import static com.mryqr.utils.RandomTestFixture.rMemberName;
-import static com.mryqr.utils.RandomTestFixture.rMobile;
-import static com.mryqr.utils.RandomTestFixture.rPassword;
-import static com.mryqr.utils.RandomTestFixture.rQrName;
-import static com.mryqr.utils.RandomTestFixture.rTenantName;
+import static com.mryqr.common.domain.user.User.NOUSER;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static java.time.Instant.now;
 import static java.time.temporal.ChronoUnit.DAYS;
 

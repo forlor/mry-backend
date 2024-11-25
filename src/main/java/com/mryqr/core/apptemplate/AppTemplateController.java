@@ -1,22 +1,17 @@
 package com.mryqr.core.apptemplate;
 
+import com.mryqr.common.utils.PagedList;
+import com.mryqr.common.validation.id.qr.QrId;
 import com.mryqr.core.apptemplate.query.AppTemplateQueryService;
 import com.mryqr.core.apptemplate.query.ListAppTemplateQuery;
 import com.mryqr.core.apptemplate.query.QDetailedAppTemplate;
 import com.mryqr.core.apptemplate.query.QListAppTemplate;
-import com.mryqr.core.common.utils.PagedList;
-import com.mryqr.core.common.validation.id.qr.QrId;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Validated

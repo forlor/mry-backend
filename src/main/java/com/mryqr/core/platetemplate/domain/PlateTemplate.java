@@ -1,19 +1,19 @@
 package com.mryqr.core.platetemplate.domain;
 
+import com.mryqr.common.domain.AggregateRoot;
+import com.mryqr.common.domain.UploadedFile;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.core.app.domain.plate.PlateSetting;
-import com.mryqr.core.common.domain.AggregateRoot;
-import com.mryqr.core.common.domain.UploadedFile;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import static com.mryqr.core.common.exception.ErrorCode.PLATE_SETTING_HAS_ATTRIBUTES;
-import static com.mryqr.core.common.exception.ErrorCode.PLATE_SETTING_NOT_COMPLETE;
-import static com.mryqr.core.common.utils.MryConstants.PLATE_TEMPLATE_COLLECTION;
-import static com.mryqr.core.common.utils.SnowflakeIdGenerator.newSnowflakeId;
+import static com.mryqr.common.exception.ErrorCode.PLATE_SETTING_HAS_ATTRIBUTES;
+import static com.mryqr.common.exception.ErrorCode.PLATE_SETTING_NOT_COMPLETE;
+import static com.mryqr.common.utils.MryConstants.PLATE_TEMPLATE_COLLECTION;
+import static com.mryqr.common.utils.SnowflakeIdGenerator.newSnowflakeId;
 import static lombok.AccessLevel.PRIVATE;
 
 @Getter

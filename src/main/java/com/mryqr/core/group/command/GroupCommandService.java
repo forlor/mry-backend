@@ -1,11 +1,11 @@
 package com.mryqr.core.group.command;
 
+import com.mryqr.common.domain.permission.ManagePermissionChecker;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.common.ratelimit.MryRateLimiter;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
-import com.mryqr.core.common.domain.permission.ManagePermissionChecker;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
 import com.mryqr.core.group.domain.Group;
 import com.mryqr.core.group.domain.GroupDomainService;
 import com.mryqr.core.group.domain.GroupFactory;
@@ -26,7 +26,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.common.exception.ErrorCode.NOT_ALL_MEMBERS_EXIST;
+import static com.mryqr.common.exception.ErrorCode.NOT_ALL_MEMBERS_EXIST;
 import static java.util.stream.Stream.concat;
 import static java.util.stream.Stream.of;
 

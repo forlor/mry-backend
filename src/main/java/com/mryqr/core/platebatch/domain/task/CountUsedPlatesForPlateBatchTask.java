@@ -1,6 +1,6 @@
 package com.mryqr.core.platebatch.domain.task;
 
-import com.mryqr.core.common.domain.task.RepeatableTask;
+import com.mryqr.common.domain.task.RepeatableTask;
 import com.mryqr.core.plate.domain.PlateRepository;
 import com.mryqr.core.platebatch.domain.PlateBatchRepository;
 import lombok.RequiredArgsConstructor;

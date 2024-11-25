@@ -1,11 +1,11 @@
 package com.mryqr.core.kanban.query;
 
+import com.mryqr.common.domain.permission.AppOperatePermissionChecker;
+import com.mryqr.common.domain.permission.AppOperatePermissions;
+import com.mryqr.common.domain.user.User;
 import com.mryqr.common.ratelimit.MryRateLimiter;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
-import com.mryqr.core.common.domain.permission.AppOperatePermissionChecker;
-import com.mryqr.core.common.domain.permission.AppOperatePermissions;
-import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.grouphierarchy.domain.GroupHierarchy;
 import com.mryqr.core.grouphierarchy.domain.GroupHierarchyRepository;
 import com.mryqr.core.qr.domain.QR;
@@ -22,13 +22,9 @@ import java.util.List;
 import java.util.Set;
 
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.common.utils.MongoCriteriaUtils.mongoTextFieldOf;
+import static com.mryqr.common.utils.MongoCriteriaUtils.mongoTextFieldOf;
 import static org.apache.commons.lang3.StringUtils.isBlank;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.unwind;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 @Component

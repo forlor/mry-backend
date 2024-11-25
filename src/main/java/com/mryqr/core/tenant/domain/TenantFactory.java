@@ -1,7 +1,7 @@
 package com.mryqr.core.tenant.domain;
 
+import com.mryqr.common.domain.user.User;
 import com.mryqr.common.password.MryPasswordEncoder;
-import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.departmenthierarchy.domain.DepartmentHierarchy;
 import com.mryqr.core.member.domain.Member;
 import lombok.RequiredArgsConstructor;

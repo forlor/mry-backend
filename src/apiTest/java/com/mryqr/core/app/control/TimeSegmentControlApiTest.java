@@ -1,16 +1,12 @@
 package com.mryqr.core.app.control;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.domain.report.TimeSegment;
 import com.mryqr.core.app.AppApi;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppSetting;
 import com.mryqr.core.app.domain.page.Page;
-import com.mryqr.core.app.domain.page.control.Control;
-import com.mryqr.core.app.domain.page.control.FDateControl;
-import com.mryqr.core.app.domain.page.control.FNumberInputControl;
-import com.mryqr.core.app.domain.page.control.FSingleLineTextControl;
-import com.mryqr.core.app.domain.page.control.PTimeSegmentControl;
-import com.mryqr.core.common.domain.report.TimeSegment;
+import com.mryqr.core.app.domain.page.control.*;
 import com.mryqr.core.presentation.PresentationApi;
 import com.mryqr.core.presentation.query.timesegment.QTimeSegmentPresentation;
 import com.mryqr.core.qr.QrApi;
@@ -25,33 +21,18 @@ import org.springframework.test.util.ReflectionTestUtils;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.mryqr.core.common.domain.report.SubmissionReportTimeBasedType.CREATED_AT;
-import static com.mryqr.core.common.domain.report.SubmissionReportTimeBasedType.DATE_CONTROL;
-import static com.mryqr.core.common.domain.report.SubmissionSegmentType.CONTROL_VALUE_AVG;
-import static com.mryqr.core.common.domain.report.SubmissionSegmentType.CONTROL_VALUE_MAX;
-import static com.mryqr.core.common.domain.report.SubmissionSegmentType.CONTROL_VALUE_MIN;
-import static com.mryqr.core.common.domain.report.SubmissionSegmentType.CONTROL_VALUE_SUM;
-import static com.mryqr.core.common.domain.report.SubmissionSegmentType.SUBMIT_COUNT_SUM;
-import static com.mryqr.core.common.domain.report.TimeSegmentInterval.PER_MONTH;
-import static com.mryqr.core.common.domain.report.TimeSegmentInterval.PER_SEASON;
-import static com.mryqr.core.common.domain.report.TimeSegmentInterval.PER_YEAR;
-import static com.mryqr.core.common.exception.ErrorCode.NOT_SUPPORTED_BASED_CONTROL_FOR_TIME_SEGMENT;
-import static com.mryqr.core.common.exception.ErrorCode.NOT_SUPPORTED_TARGET_CONTROL_FOR_TIME_SEGMENT;
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_CONTROL_NOT_EXIST;
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_PAGE_NOT_EXIST;
-import static com.mryqr.core.common.utils.CommonUtils.currentSeason;
-import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
+import static com.mryqr.common.domain.report.SubmissionReportTimeBasedType.CREATED_AT;
+import static com.mryqr.common.domain.report.SubmissionReportTimeBasedType.DATE_CONTROL;
+import static com.mryqr.common.domain.report.SubmissionSegmentType.*;
+import static com.mryqr.common.domain.report.TimeSegmentInterval.*;
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.common.utils.CommonUtils.currentSeason;
+import static com.mryqr.common.utils.UuidGenerator.newShortUuid;
 import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
-import static com.mryqr.utils.RandomTestFixture.defaultDateControl;
-import static com.mryqr.utils.RandomTestFixture.defaultNumberInputControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultSingleLineTextControl;
-import static com.mryqr.utils.RandomTestFixture.defaultTimeSegmentControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.rAnswerBuilder;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static java.time.LocalDate.now;
 import static java.time.ZoneId.systemDefault;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TimeSegmentControlApiTest extends BaseApiTest {
 

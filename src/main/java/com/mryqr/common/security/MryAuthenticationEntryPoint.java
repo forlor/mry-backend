@@ -1,8 +1,8 @@
 package com.mryqr.common.security;
 
+import com.mryqr.common.exception.Error;
 import com.mryqr.common.tracing.MryTracingService;
-import com.mryqr.core.common.exception.Error;
-import com.mryqr.core.common.utils.MryObjectMapper;
+import com.mryqr.common.utils.MryObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import static com.mryqr.core.common.exception.ErrorCode.AUTHENTICATION_FAILED;
+import static com.mryqr.common.exception.ErrorCode.AUTHENTICATION_FAILED;
 import static org.apache.commons.codec.CharEncoding.UTF_8;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 

@@ -1,10 +1,10 @@
 package com.mryqr.core.qr.domain.attribute;
 
+import com.mryqr.common.domain.display.DisplayValue;
+import com.mryqr.common.domain.display.TextDisplayValue;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.page.control.Control;
-import com.mryqr.core.common.domain.display.DisplayValue;
-import com.mryqr.core.common.domain.display.TextDisplayValue;
 import com.mryqr.core.member.domain.MemberAware;
 import com.mryqr.core.member.domain.MemberReference;
 import com.mryqr.core.qr.domain.QrReferenceContext;

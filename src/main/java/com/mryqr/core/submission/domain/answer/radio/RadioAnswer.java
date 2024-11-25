@@ -1,12 +1,12 @@
 package com.mryqr.core.submission.domain.answer.radio;
 
 
+import com.mryqr.common.domain.display.DisplayValue;
+import com.mryqr.common.domain.display.TextOptionDisplayValue;
+import com.mryqr.common.validation.id.shoruuid.ShortUuid;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.FRadioControl;
-import com.mryqr.core.common.domain.display.DisplayValue;
-import com.mryqr.core.common.domain.display.TextOptionDisplayValue;
-import com.mryqr.core.common.validation.id.shoruuid.ShortUuid;
 import com.mryqr.core.qr.domain.attribute.AttributeValue;
 import com.mryqr.core.qr.domain.attribute.RadioAttributeValue;
 import com.mryqr.core.submission.domain.SubmissionReferenceContext;

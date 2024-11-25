@@ -1,13 +1,13 @@
 package com.mryqr.core.assignment.command;
 
+import com.mryqr.common.domain.permission.ManagePermissionChecker;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.common.ratelimit.MryRateLimiter;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.assignment.domain.Assignment;
 import com.mryqr.core.assignment.domain.AssignmentRepository;
-import com.mryqr.core.common.domain.permission.ManagePermissionChecker;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
 import com.mryqr.core.group.domain.Group;
 import com.mryqr.core.group.domain.GroupRepository;
 import com.mryqr.core.member.domain.MemberRepository;
@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.mryqr.core.common.exception.ErrorCode.NOT_ALL_MEMBERS_EXIST;
+import static com.mryqr.common.exception.ErrorCode.NOT_ALL_MEMBERS_EXIST;
 
 @Slf4j
 @Component

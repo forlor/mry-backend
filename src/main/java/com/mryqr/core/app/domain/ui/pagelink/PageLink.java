@@ -1,11 +1,11 @@
 package com.mryqr.core.app.domain.ui.pagelink;
 
+import com.mryqr.common.domain.UploadedFile;
+import com.mryqr.common.exception.MryException;
+import com.mryqr.common.utils.Identified;
+import com.mryqr.common.validation.id.page.PageId;
+import com.mryqr.common.validation.id.shoruuid.ShortUuid;
 import com.mryqr.core.app.domain.AppSettingContext;
-import com.mryqr.core.common.domain.UploadedFile;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.utils.Identified;
-import com.mryqr.core.common.validation.id.page.PageId;
-import com.mryqr.core.common.validation.id.shoruuid.ShortUuid;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -14,11 +14,11 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_LINK_PAGE_NOT_EXIST;
-import static com.mryqr.core.common.utils.CommonUtils.isValidUrl;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
-import static com.mryqr.core.common.utils.MryConstants.MAX_GENERIC_NAME_LENGTH;
-import static com.mryqr.core.common.utils.MryConstants.MAX_URL_LENGTH;
+import static com.mryqr.common.exception.ErrorCode.VALIDATION_LINK_PAGE_NOT_EXIST;
+import static com.mryqr.common.utils.CommonUtils.isValidUrl;
+import static com.mryqr.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.utils.MryConstants.MAX_GENERIC_NAME_LENGTH;
+import static com.mryqr.common.utils.MryConstants.MAX_URL_LENGTH;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;

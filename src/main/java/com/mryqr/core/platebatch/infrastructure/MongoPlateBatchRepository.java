@@ -2,8 +2,8 @@ package com.mryqr.core.platebatch.infrastructure;
 
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
+import com.mryqr.common.domain.user.User;
 import com.mryqr.common.oss.mongo.MongoBaseRepository;
-import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.platebatch.domain.PlateBatch;
 import com.mryqr.core.platebatch.domain.PlateBatchRepository;
 import org.springframework.data.mongodb.core.query.Query;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-import static com.mryqr.core.common.utils.CommonUtils.requireNonBlank;
+import static com.mryqr.common.utils.CommonUtils.requireNonBlank;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 

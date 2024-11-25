@@ -1,7 +1,7 @@
 package com.mryqr.core.app.domain.page.setting;
 
+import com.mryqr.common.validation.id.page.PageId;
 import com.mryqr.core.app.domain.AppSettingContext;
-import com.mryqr.core.common.validation.id.page.PageId;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -9,9 +9,9 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
+import static com.mryqr.common.utils.CommonUtils.isValidUrl;
+import static com.mryqr.common.utils.MryConstants.MAX_URL_LENGTH;
 import static com.mryqr.core.app.domain.page.setting.AfterSubmitNavigationType.DEFAULT;
-import static com.mryqr.core.common.utils.CommonUtils.isValidUrl;
-import static com.mryqr.core.common.utils.MryConstants.MAX_URL_LENGTH;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;

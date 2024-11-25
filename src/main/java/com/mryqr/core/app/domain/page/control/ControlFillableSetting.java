@@ -1,14 +1,14 @@
 package com.mryqr.core.app.domain.page.control;
 
+import com.mryqr.common.validation.nospace.NoSpace;
 import com.mryqr.core.app.domain.page.Page;
-import com.mryqr.core.common.validation.nospace.NoSpace;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-import static com.mryqr.core.common.utils.MryConstants.MAX_SHORT_NAME_LENGTH;
+import static com.mryqr.common.utils.MryConstants.MAX_SHORT_NAME_LENGTH;
 import static lombok.AccessLevel.PRIVATE;
 
 @Getter

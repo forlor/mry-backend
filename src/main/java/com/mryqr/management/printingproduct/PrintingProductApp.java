@@ -1,11 +1,8 @@
 package com.mryqr.management.printingproduct;
 
 import com.google.common.collect.ImmutableMap;
-import com.mryqr.core.app.domain.AppFactory;
-import com.mryqr.core.app.domain.AppHeaderImageProvider;
-import com.mryqr.core.app.domain.AppRepository;
-import com.mryqr.core.app.domain.AppSetting;
-import com.mryqr.core.app.domain.CreateAppResult;
+import com.mryqr.common.domain.TextOption;
+import com.mryqr.core.app.domain.*;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.circulation.CirculationStatusSetting;
 import com.mryqr.core.app.domain.config.AppConfig;
@@ -15,7 +12,6 @@ import com.mryqr.core.app.domain.page.control.FMultiLineTextControl;
 import com.mryqr.core.app.domain.page.control.FSingleLineTextControl;
 import com.mryqr.core.app.domain.page.menu.Menu;
 import com.mryqr.core.app.domain.plate.PlateSetting;
-import com.mryqr.core.common.domain.TextOption;
 import com.mryqr.core.group.domain.GroupRepository;
 import com.mryqr.core.grouphierarchy.domain.GroupHierarchyRepository;
 import com.mryqr.core.printing.domain.MaterialType;
@@ -27,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Map;
 
+import static com.mryqr.common.domain.permission.Permission.CAN_MANAGE_APP;
 import static com.mryqr.core.app.domain.AppTopBar.defaultAppTopBar;
 import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.NO_LIMIT;
 import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_LAST;
@@ -34,9 +31,7 @@ import static com.mryqr.core.app.domain.config.AppLandingPageType.DEFAULT;
 import static com.mryqr.core.app.domain.page.control.ControlFillableSetting.defaultControlFillableSettingBuilder;
 import static com.mryqr.core.app.domain.page.control.ControlNameSetting.defaultControlNameSetting;
 import static com.mryqr.core.app.domain.page.control.ControlStyleSetting.defaultControlStyleSetting;
-import static com.mryqr.core.app.domain.page.control.ControlType.DROPDOWN;
-import static com.mryqr.core.app.domain.page.control.ControlType.MULTI_LINE_TEXT;
-import static com.mryqr.core.app.domain.page.control.ControlType.SINGLE_LINE_TEXT;
+import static com.mryqr.core.app.domain.page.control.ControlType.*;
 import static com.mryqr.core.app.domain.page.header.PageHeader.defaultPageHeaderBuilder;
 import static com.mryqr.core.app.domain.page.setting.PageSetting.defaultPageSettingBuilder;
 import static com.mryqr.core.app.domain.page.setting.SubmitType.ONCE_PER_INSTANCE;
@@ -45,12 +40,7 @@ import static com.mryqr.core.app.domain.page.title.PageTitle.defaultPageTitleBui
 import static com.mryqr.core.app.domain.ui.BoxedTextStyle.defaultControlDescriptionStyle;
 import static com.mryqr.core.app.domain.ui.ImageCropType.FOUR_TO_THREE;
 import static com.mryqr.core.app.domain.ui.MinMaxSetting.minMaxOf;
-import static com.mryqr.core.common.domain.permission.Permission.CAN_MANAGE_APP;
-import static com.mryqr.core.printing.domain.MaterialType.ARGENTOUS_ADHESIVE;
-import static com.mryqr.core.printing.domain.MaterialType.PORCELAIN_ACRYLIC;
-import static com.mryqr.core.printing.domain.MaterialType.PVC_CARD;
-import static com.mryqr.core.printing.domain.MaterialType.SYNTHETIC_ADHESIVE;
-import static com.mryqr.core.printing.domain.MaterialType.TRANSPARENT_ACRYLIC;
+import static com.mryqr.core.printing.domain.MaterialType.*;
 import static com.mryqr.management.MryManageTenant.MRY_MANAGE_ROBOT_USER;
 
 @Slf4j

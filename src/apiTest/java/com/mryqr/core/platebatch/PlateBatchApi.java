@@ -1,8 +1,8 @@
 package com.mryqr.core.platebatch;
 
 import com.mryqr.BaseApiTest;
-import com.mryqr.core.common.utils.PagedList;
-import com.mryqr.core.common.utils.ReturnId;
+import com.mryqr.common.utils.PagedList;
+import com.mryqr.common.utils.ReturnId;
 import com.mryqr.core.platebatch.command.CreatePlateBatchCommand;
 import com.mryqr.core.platebatch.command.RenamePlateBatchCommand;
 import com.mryqr.core.platebatch.query.ListMyManagedPlateBatchesQuery;

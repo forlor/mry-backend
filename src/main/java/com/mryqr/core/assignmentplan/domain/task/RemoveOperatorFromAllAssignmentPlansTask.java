@@ -1,15 +1,15 @@
 package com.mryqr.core.assignmentplan.domain.task;
 
+import com.mryqr.common.domain.task.RepeatableTask;
 import com.mryqr.core.assignmentplan.domain.AssignmentPlan;
 import com.mryqr.core.assignmentplan.domain.AssignmentPlanRepository;
-import com.mryqr.core.common.domain.task.RepeatableTask;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static com.mryqr.core.common.domain.user.User.NOUSER;
+import static com.mryqr.common.domain.user.User.NOUSER;
 
 @Slf4j
 @Component

@@ -1,11 +1,11 @@
 package com.mryqr.core.submission.domain.answer.pointcheck;
 
 
+import com.mryqr.common.domain.display.DisplayValue;
+import com.mryqr.common.domain.display.PointCheckDisplayValue;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.FPointCheckControl;
-import com.mryqr.core.common.domain.display.DisplayValue;
-import com.mryqr.core.common.domain.display.PointCheckDisplayValue;
 import com.mryqr.core.qr.domain.attribute.AttributeValue;
 import com.mryqr.core.qr.domain.attribute.PointCheckAttributeValue;
 import com.mryqr.core.submission.domain.SubmissionReferenceContext;
@@ -24,9 +24,7 @@ import java.util.Set;
 
 import static com.google.common.collect.ImmutableMap.toImmutableMap;
 import static com.mryqr.core.app.domain.page.control.FPointCheckControl.MAX_OPTION_SIZE;
-import static com.mryqr.core.submission.domain.answer.pointcheck.PointCheckValue.NO;
-import static com.mryqr.core.submission.domain.answer.pointcheck.PointCheckValue.NONE;
-import static com.mryqr.core.submission.domain.answer.pointcheck.PointCheckValue.YES;
+import static com.mryqr.core.submission.domain.answer.pointcheck.PointCheckValue.*;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.collections4.MapUtils.isNotEmpty;
 

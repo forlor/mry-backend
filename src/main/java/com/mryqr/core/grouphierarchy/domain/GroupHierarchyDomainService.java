@@ -1,8 +1,8 @@
 package com.mryqr.core.grouphierarchy.domain;
 
-import com.mryqr.core.common.domain.idnode.IdTree;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
+import com.mryqr.common.domain.idnode.IdTree;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.core.group.domain.AppCachedGroup;
 import com.mryqr.core.group.domain.GroupRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +15,8 @@ import java.util.Set;
 
 import static com.google.common.collect.ImmutableMap.toImmutableMap;
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.common.exception.ErrorCode.GROUP_HIERARCHY_NOT_MATCH;
-import static com.mryqr.core.common.exception.ErrorCode.GROUP_NAME_DUPLICATES;
+import static com.mryqr.common.exception.ErrorCode.GROUP_HIERARCHY_NOT_MATCH;
+import static com.mryqr.common.exception.ErrorCode.GROUP_NAME_DUPLICATES;
 import static java.util.Set.copyOf;
 
 @Component

@@ -1,9 +1,9 @@
 package com.mryqr.common.wx.jssdk;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.mryqr.common.properties.WxProperties;
+import com.mryqr.common.utils.MryObjectMapper;
 import com.mryqr.common.wx.accesstoken.WxAccessTokenService;
-import com.mryqr.core.common.properties.WxProperties;
-import com.mryqr.core.common.utils.MryObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -16,7 +16,7 @@ import java.time.Instant;
 import java.util.Map;
 import java.util.UUID;
 
-import static com.mryqr.core.common.utils.CommonUtils.requireNonBlank;
+import static com.mryqr.common.utils.CommonUtils.requireNonBlank;
 import static org.apache.commons.codec.digest.DigestUtils.sha1Hex;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
@@ -71,9 +71,9 @@ public class WxJsSdkService {
         String nonce = UUID.randomUUID().toString();
         long timestamp = Instant.now().getEpochSecond();
         String originalString = "jsapi_ticket=" + jsapiTicket +
-                "&noncestr=" + nonce +
-                "&timestamp=" + timestamp +
-                "&url=" + url;
+                                "&noncestr=" + nonce +
+                                "&timestamp=" + timestamp +
+                                "&url=" + url;
         String signature = sha1Hex(originalString);
 
         return QJsSdkConfig.builder()

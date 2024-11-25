@@ -1,11 +1,11 @@
 package com.mryqr.core.member.command;
 
-import com.mryqr.core.common.utils.Command;
-import com.mryqr.core.common.validation.collection.NoBlankString;
-import com.mryqr.core.common.validation.collection.NoDuplicatedString;
-import com.mryqr.core.common.validation.email.Email;
-import com.mryqr.core.common.validation.id.department.DepartmentId;
-import com.mryqr.core.common.validation.mobile.Mobile;
+import com.mryqr.common.utils.Command;
+import com.mryqr.common.validation.collection.NoBlankString;
+import com.mryqr.common.validation.collection.NoDuplicatedString;
+import com.mryqr.common.validation.email.Email;
+import com.mryqr.common.validation.id.department.DepartmentId;
+import com.mryqr.common.validation.mobile.Mobile;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -16,7 +16,7 @@ import lombok.Value;
 
 import java.util.List;
 
-import static com.mryqr.core.common.utils.MryConstants.MAX_GENERIC_NAME_LENGTH;
+import static com.mryqr.common.utils.MryConstants.MAX_GENERIC_NAME_LENGTH;
 import static lombok.AccessLevel.PRIVATE;
 
 @Value

@@ -1,8 +1,8 @@
 package com.mryqr.core.submission.eventhandler;
 
+import com.mryqr.common.domain.event.consume.AbstractDomainEventHandler;
+import com.mryqr.common.utils.MryTaskRunner;
 import com.mryqr.core.assignment.domain.task.FinishQrForAssignmentsTask;
-import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
-import com.mryqr.core.common.utils.MryTaskRunner;
 import com.mryqr.core.qr.domain.task.SyncSubmissionAwareAttributeValuesForQrTask;
 import com.mryqr.core.submission.domain.event.SubmissionCreatedEvent;
 import com.mryqr.core.submission.domain.task.CountSubmissionForAppTask;

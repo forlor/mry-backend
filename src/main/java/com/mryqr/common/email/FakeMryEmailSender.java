@@ -1,6 +1,6 @@
 package com.mryqr.common.email;
 
-import com.mryqr.core.common.domain.UploadedFile;
+import com.mryqr.common.domain.UploadedFile;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;

@@ -1,8 +1,8 @@
 package com.mryqr.core.submission.eventhandler;
 
+import com.mryqr.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
-import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.core.qr.domain.QR;
 import com.mryqr.core.qr.domain.QrRepository;
 import com.mryqr.core.submission.domain.event.SubmissionCreatedEvent;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-import static com.mryqr.core.common.domain.user.User.NOUSER;
+import static com.mryqr.common.domain.user.User.NOUSER;
 
 @Slf4j
 @Component

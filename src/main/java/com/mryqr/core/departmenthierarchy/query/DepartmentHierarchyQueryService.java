@@ -1,7 +1,7 @@
 package com.mryqr.core.departmenthierarchy.query;
 
+import com.mryqr.common.domain.user.User;
 import com.mryqr.common.ratelimit.MryRateLimiter;
-import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.department.domain.DepartmentRepository;
 import com.mryqr.core.departmenthierarchy.domain.DepartmentHierarchy;
 import com.mryqr.core.departmenthierarchy.domain.DepartmentHierarchyRepository;

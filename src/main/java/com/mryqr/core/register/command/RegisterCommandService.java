@@ -1,7 +1,7 @@
 package com.mryqr.core.register.command;
 
+import com.mryqr.common.domain.user.User;
 import com.mryqr.common.ratelimit.MryRateLimiter;
-import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.departmenthierarchy.domain.DepartmentHierarchy;
 import com.mryqr.core.departmenthierarchy.domain.DepartmentHierarchyRepository;
 import com.mryqr.core.member.domain.Member;
@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.mryqr.core.common.domain.user.Role.TENANT_ADMIN;
+import static com.mryqr.common.domain.user.Role.TENANT_ADMIN;
 import static com.mryqr.core.member.domain.Member.newMemberId;
 import static com.mryqr.core.tenant.domain.Tenant.newTenantId;
 import static com.mryqr.core.verification.domain.VerificationCodeType.REGISTER;

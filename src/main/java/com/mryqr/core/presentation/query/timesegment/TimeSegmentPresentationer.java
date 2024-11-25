@@ -1,10 +1,10 @@
 package com.mryqr.core.presentation.query.timesegment;
 
+import com.mryqr.common.domain.report.TimeSegment;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.PTimeSegmentControl;
 import com.mryqr.core.app.domain.page.control.PTimeSegmentControl.TimeSegmentSetting;
-import com.mryqr.core.common.domain.report.TimeSegment;
 import com.mryqr.core.presentation.query.ControlPresentationer;
 import com.mryqr.core.presentation.query.QControlPresentation;
 import com.mryqr.core.qr.domain.QR;

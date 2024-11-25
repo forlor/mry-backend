@@ -1,7 +1,7 @@
 package com.mryqr.core.app.domain;
 
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.core.member.domain.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Objects;
 
-import static com.mryqr.core.common.exception.ErrorCode.APP_WITH_NAME_ALREADY_EXISTS;
-import static com.mryqr.core.common.exception.ErrorCode.NOT_ALL_MEMBERS_EXIST;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.exception.ErrorCode.APP_WITH_NAME_ALREADY_EXISTS;
+import static com.mryqr.common.exception.ErrorCode.NOT_ALL_MEMBERS_EXIST;
+import static com.mryqr.common.utils.MapUtils.mapOf;
 
 @Component
 @RequiredArgsConstructor

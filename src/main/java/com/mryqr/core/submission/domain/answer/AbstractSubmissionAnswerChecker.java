@@ -1,17 +1,17 @@
 package com.mryqr.core.submission.domain.answer;
 
+import com.mryqr.common.domain.permission.Permission;
+import com.mryqr.common.exception.ErrorCode;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.page.Page;
 import com.mryqr.core.app.domain.page.control.Control;
-import com.mryqr.core.common.domain.permission.Permission;
-import com.mryqr.core.common.exception.ErrorCode;
 import com.mryqr.core.qr.domain.QR;
 
 import java.util.Map;
 import java.util.Set;
 
-import static com.mryqr.core.common.exception.ErrorCode.MANDATORY_ANSWER_REQUIRED;
-import static com.mryqr.core.common.exception.MryException.accessDeniedException;
+import static com.mryqr.common.exception.ErrorCode.MANDATORY_ANSWER_REQUIRED;
+import static com.mryqr.common.exception.MryException.accessDeniedException;
 
 public abstract class AbstractSubmissionAnswerChecker implements SubmissionAnswerChecker {
 

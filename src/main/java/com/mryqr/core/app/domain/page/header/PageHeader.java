@@ -1,10 +1,10 @@
 package com.mryqr.core.app.domain.page.header;
 
+import com.mryqr.common.domain.UploadedFile;
 import com.mryqr.core.app.domain.ui.BoxedTextStyle;
 import com.mryqr.core.app.domain.ui.FontStyle;
 import com.mryqr.core.app.domain.ui.ImageCropType;
 import com.mryqr.core.app.domain.ui.align.VerticalAlignType;
-import com.mryqr.core.common.domain.UploadedFile;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -15,13 +15,13 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
+import static com.mryqr.common.utils.MryConstants.MAX_GENERIC_NAME_LENGTH;
 import static com.mryqr.core.app.domain.page.header.PageHeaderType.CUSTOM;
 import static com.mryqr.core.app.domain.ui.ImageCropType.FOUR_TO_THREE;
 import static com.mryqr.core.app.domain.ui.align.HorizontalAlignType.JUSTIFY;
 import static com.mryqr.core.app.domain.ui.align.VerticalAlignType.MIDDLE;
 import static com.mryqr.core.app.domain.ui.border.Border.noBorder;
 import static com.mryqr.core.app.domain.ui.shadow.Shadow.noShadow;
-import static com.mryqr.core.common.utils.MryConstants.MAX_GENERIC_NAME_LENGTH;
 import static lombok.AccessLevel.PRIVATE;
 
 @Getter

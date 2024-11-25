@@ -2,9 +2,9 @@ package com.mryqr.common.wx.auth.pc;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.properties.WxProperties;
-import com.mryqr.core.common.utils.MryObjectMapper;
+import com.mryqr.common.exception.MryException;
+import com.mryqr.common.properties.WxProperties;
+import com.mryqr.common.utils.MryObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -14,8 +14,8 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.mryqr.core.common.exception.ErrorCode.SYSTEM_ERROR;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.exception.ErrorCode.SYSTEM_ERROR;
+import static com.mryqr.common.utils.MapUtils.mapOf;
 import static java.time.Duration.ofHours;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 

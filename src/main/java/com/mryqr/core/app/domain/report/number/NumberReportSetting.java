@@ -1,11 +1,11 @@
 package com.mryqr.core.app.domain.report.number;
 
+import com.mryqr.common.exception.MryException;
+import com.mryqr.common.validation.collection.NoNullElement;
 import com.mryqr.core.app.domain.AppSettingContext;
 import com.mryqr.core.app.domain.attribute.AttributeAware;
 import com.mryqr.core.app.domain.page.PageAware;
 import com.mryqr.core.app.domain.page.control.ControlAware;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.validation.collection.NoNullElement;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -17,9 +17,9 @@ import lombok.Getter;
 import java.util.List;
 import java.util.Set;
 
-import static com.mryqr.core.common.exception.ErrorCode.NUMBER_REPORT_ID_DUPLICATED;
-import static com.mryqr.core.common.utils.Identified.isDuplicated;
-import static com.mryqr.core.common.utils.MryConstants.MAX_PER_APP_NUMBER_REPORT_SIZE;
+import static com.mryqr.common.exception.ErrorCode.NUMBER_REPORT_ID_DUPLICATED;
+import static com.mryqr.common.utils.Identified.isDuplicated;
+import static com.mryqr.common.utils.MryConstants.MAX_PER_APP_NUMBER_REPORT_SIZE;
 import static lombok.AccessLevel.PRIVATE;
 
 @Getter

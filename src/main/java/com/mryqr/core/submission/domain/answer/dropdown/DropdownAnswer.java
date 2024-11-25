@@ -1,14 +1,14 @@
 package com.mryqr.core.submission.domain.answer.dropdown;
 
 
+import com.mryqr.common.domain.display.DisplayValue;
+import com.mryqr.common.domain.display.TextOptionsDisplayValue;
+import com.mryqr.common.validation.collection.NoBlankString;
+import com.mryqr.common.validation.collection.NoDuplicatedString;
+import com.mryqr.common.validation.id.shoruuid.ShortUuid;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.FDropdownControl;
-import com.mryqr.core.common.domain.display.DisplayValue;
-import com.mryqr.core.common.domain.display.TextOptionsDisplayValue;
-import com.mryqr.core.common.validation.collection.NoBlankString;
-import com.mryqr.core.common.validation.collection.NoDuplicatedString;
-import com.mryqr.core.common.validation.id.shoruuid.ShortUuid;
 import com.mryqr.core.qr.domain.attribute.AttributeValue;
 import com.mryqr.core.qr.domain.attribute.DropdownAttributeValue;
 import com.mryqr.core.submission.domain.SubmissionReferenceContext;

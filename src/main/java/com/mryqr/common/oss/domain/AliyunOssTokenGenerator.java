@@ -6,9 +6,9 @@ import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 import com.aliyuncs.sts.model.v20150401.AssumeRoleRequest;
 import com.aliyuncs.sts.model.v20150401.AssumeRoleResponse.Credentials;
-import com.mryqr.core.common.properties.AliyunProperties;
-import com.mryqr.core.common.properties.CommonProperties;
-import com.mryqr.core.common.utils.MryObjectMapper;
+import com.mryqr.common.properties.AliyunProperties;
+import com.mryqr.common.properties.CommonProperties;
+import com.mryqr.common.utils.MryObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

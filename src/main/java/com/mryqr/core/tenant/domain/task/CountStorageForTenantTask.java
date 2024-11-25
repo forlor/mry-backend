@@ -1,7 +1,7 @@
 package com.mryqr.core.tenant.domain.task;
 
-import com.mryqr.core.common.domain.task.RepeatableTask;
-import com.mryqr.core.common.properties.AliyunProperties;
+import com.mryqr.common.domain.task.RepeatableTask;
+import com.mryqr.common.properties.AliyunProperties;
 import com.mryqr.core.tenant.domain.Tenant;
 import com.mryqr.core.tenant.domain.TenantRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.Arrays;
 
-import static com.mryqr.core.common.domain.user.User.NOUSER;
-import static com.mryqr.core.common.utils.CommonUtils.requireNonBlank;
+import static com.mryqr.common.domain.user.User.NOUSER;
+import static com.mryqr.common.utils.CommonUtils.requireNonBlank;
 import static java.lang.Float.parseFloat;
 import static java.nio.charset.StandardCharsets.UTF_8;
 

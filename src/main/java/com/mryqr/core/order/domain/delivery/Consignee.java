@@ -1,9 +1,9 @@
 package com.mryqr.core.order.domain.delivery;
 
-import com.mryqr.core.common.domain.Address;
-import com.mryqr.core.common.utils.Identified;
-import com.mryqr.core.common.validation.id.shoruuid.ShortUuid;
-import com.mryqr.core.common.validation.mobile.Mobile;
+import com.mryqr.common.domain.Address;
+import com.mryqr.common.utils.Identified;
+import com.mryqr.common.validation.id.shoruuid.ShortUuid;
+import com.mryqr.common.validation.mobile.Mobile;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
-import static com.mryqr.core.common.utils.MryConstants.MAX_GENERIC_NAME_LENGTH;
+import static com.mryqr.common.utils.MryConstants.MAX_GENERIC_NAME_LENGTH;
 import static lombok.AccessLevel.PRIVATE;
 
 @Value

@@ -1,7 +1,7 @@
 package com.mryqr.core.report.query.number.reporter.page;
 
+import com.mryqr.common.domain.report.ReportRange;
 import com.mryqr.core.app.domain.report.number.page.PageNumberReport;
-import com.mryqr.core.common.domain.report.ReportRange;
 
 import java.util.Set;
 

@@ -1,8 +1,8 @@
 package com.mryqr.core.group;
 
 import com.mryqr.BaseApiTest;
-import com.mryqr.core.common.utils.PagedList;
-import com.mryqr.core.common.utils.ReturnId;
+import com.mryqr.common.utils.PagedList;
+import com.mryqr.common.utils.ReturnId;
 import com.mryqr.core.group.command.AddGroupManagersCommand;
 import com.mryqr.core.group.command.AddGroupMembersCommand;
 import com.mryqr.core.group.command.CreateGroupCommand;

@@ -1,8 +1,8 @@
 package com.mryqr.core.member.command;
 
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.utils.Command;
-import com.mryqr.core.common.validation.password.Password;
+import com.mryqr.common.exception.MryException;
+import com.mryqr.common.utils.Command;
+import com.mryqr.common.validation.password.Password;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +10,7 @@ import lombok.Value;
 
 import java.util.Objects;
 
-import static com.mryqr.core.common.exception.ErrorCode.PASSWORD_CONFIRM_NOT_MATCH;
+import static com.mryqr.common.exception.ErrorCode.PASSWORD_CONFIRM_NOT_MATCH;
 import static lombok.AccessLevel.PRIVATE;
 
 @Value

@@ -1,8 +1,8 @@
 package com.mryqr.core.platetemplate.command;
 
+import com.mryqr.common.utils.Command;
+import com.mryqr.common.validation.id.app.AppId;
 import com.mryqr.core.app.domain.plate.PlateSetting;
-import com.mryqr.core.common.utils.Command;
-import com.mryqr.core.common.validation.id.app.AppId;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

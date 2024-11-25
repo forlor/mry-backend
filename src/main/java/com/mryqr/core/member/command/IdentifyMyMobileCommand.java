@@ -1,8 +1,8 @@
 package com.mryqr.core.member.command;
 
-import com.mryqr.core.common.utils.Command;
-import com.mryqr.core.common.validation.mobile.Mobile;
-import com.mryqr.core.common.validation.verficationcode.VerificationCode;
+import com.mryqr.common.utils.Command;
+import com.mryqr.common.validation.mobile.Mobile;
+import com.mryqr.common.validation.verficationcode.VerificationCode;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

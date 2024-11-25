@@ -1,7 +1,7 @@
 package com.mryqr.core.departmenthierarchy.infrastructure;
 
+import com.mryqr.common.exception.MryException;
 import com.mryqr.common.oss.mongo.MongoBaseRepository;
-import com.mryqr.core.common.exception.MryException;
 import com.mryqr.core.departmenthierarchy.domain.DepartmentHierarchy;
 import com.mryqr.core.departmenthierarchy.domain.DepartmentHierarchyRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,9 +9,9 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
-import static com.mryqr.core.common.exception.ErrorCode.DEPARTMENT_HIERARCHY_NOT_FOUND;
-import static com.mryqr.core.common.utils.CommonUtils.requireNonBlank;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.exception.ErrorCode.DEPARTMENT_HIERARCHY_NOT_FOUND;
+import static com.mryqr.common.utils.CommonUtils.requireNonBlank;
+import static com.mryqr.common.utils.MapUtils.mapOf;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 @Repository

@@ -1,12 +1,12 @@
 package com.mryqr.core.submission.domain;
 
+import com.mryqr.common.domain.AggregateRoot;
+import com.mryqr.common.domain.indexedfield.IndexedValues;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.page.Page;
 import com.mryqr.core.app.domain.page.control.Control;
-import com.mryqr.core.common.domain.AggregateRoot;
-import com.mryqr.core.common.domain.indexedfield.IndexedValues;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
 import com.mryqr.core.qr.domain.QR;
 import com.mryqr.core.submission.domain.answer.Answer;
 import com.mryqr.core.submission.domain.event.SubmissionApprovedEvent;
@@ -19,23 +19,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.collect.ImmutableMap.toImmutableMap;
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.common.exception.ErrorCode.SUBMISSION_ALREADY_APPROVED;
-import static com.mryqr.core.common.exception.ErrorCode.SUBMISSION_NOT_ALLOWED_BY_CIRCULATION;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
-import static com.mryqr.core.common.utils.MryConstants.SUBMISSION_COLLECTION;
-import static com.mryqr.core.common.utils.SnowflakeIdGenerator.newSnowflakeId;
+import static com.mryqr.common.exception.ErrorCode.SUBMISSION_ALREADY_APPROVED;
+import static com.mryqr.common.exception.ErrorCode.SUBMISSION_NOT_ALLOWED_BY_CIRCULATION;
+import static com.mryqr.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.utils.MryConstants.SUBMISSION_COLLECTION;
+import static com.mryqr.common.utils.SnowflakeIdGenerator.newSnowflakeId;
 import static java.time.Instant.now;
 import static java.util.Optional.ofNullable;
 import static java.util.function.Function.identity;

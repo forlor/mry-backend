@@ -1,8 +1,8 @@
 package com.mryqr.common.email;
 
-import com.mryqr.core.common.domain.UploadedFile;
-import com.mryqr.core.common.properties.PropertyService;
-import com.mryqr.core.common.utils.CommonUtils;
+import com.mryqr.common.domain.UploadedFile;
+import com.mryqr.common.properties.PropertyService;
+import com.mryqr.common.utils.CommonUtils;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.mail.util.ByteArrayDataSource;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ import java.net.http.HttpResponse;
 import java.util.List;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
-import static com.mryqr.core.common.utils.CommonUtils.maskMobileOrEmail;
+import static com.mryqr.common.utils.CommonUtils.maskMobileOrEmail;
 import static java.net.http.HttpClient.newHttpClient;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isBlank;

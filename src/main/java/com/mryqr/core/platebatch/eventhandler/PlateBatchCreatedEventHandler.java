@@ -1,7 +1,7 @@
 package com.mryqr.core.platebatch.eventhandler;
 
-import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
-import com.mryqr.core.common.utils.MryTaskRunner;
+import com.mryqr.common.domain.event.consume.AbstractDomainEventHandler;
+import com.mryqr.common.utils.MryTaskRunner;
 import com.mryqr.core.plate.domain.task.CountPlateForTenantTask;
 import com.mryqr.core.platebatch.domain.event.PlateBatchCreatedEvent;
 import lombok.RequiredArgsConstructor;

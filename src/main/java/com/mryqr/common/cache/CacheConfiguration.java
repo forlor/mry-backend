@@ -1,7 +1,7 @@
 package com.mryqr.common.cache;
 
+import com.mryqr.common.utils.MryObjectMapper;
 import com.mryqr.core.app.domain.App;
-import com.mryqr.core.common.utils.MryObjectMapper;
 import com.mryqr.core.departmenthierarchy.domain.DepartmentHierarchy;
 import com.mryqr.core.group.domain.Group;
 import com.mryqr.core.grouphierarchy.domain.GroupHierarchy;
@@ -15,7 +15,7 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 
 import static com.fasterxml.jackson.annotation.JsonTypeInfo.As.PROPERTY;
 import static com.fasterxml.jackson.databind.ObjectMapper.DefaultTyping.NON_FINAL;
-import static com.mryqr.core.common.utils.MryConstants.*;
+import static com.mryqr.common.utils.MryConstants.*;
 import static java.time.Duration.ofDays;
 import static java.time.Duration.ofHours;
 import static org.springframework.data.redis.cache.RedisCacheConfiguration.defaultCacheConfig;

@@ -1,10 +1,10 @@
 package com.mryqr.core.app.domain.plate.control;
 
+import com.mryqr.common.domain.UploadedFile;
 import com.mryqr.core.app.domain.AppSettingContext;
 import com.mryqr.core.app.domain.plate.PlateTextValue;
 import com.mryqr.core.app.domain.ui.FontStyle;
 import com.mryqr.core.app.domain.ui.align.HorizontalAlignType;
-import com.mryqr.core.common.domain.UploadedFile;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

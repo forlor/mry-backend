@@ -1,13 +1,13 @@
 package com.mryqr.core.app.control;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.domain.indexedfield.IndexedField;
+import com.mryqr.common.domain.indexedfield.IndexedValue;
 import com.mryqr.core.app.AppApi;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.FDateControl;
-import com.mryqr.core.common.domain.indexedfield.IndexedField;
-import com.mryqr.core.common.domain.indexedfield.IndexedValue;
 import com.mryqr.core.qr.domain.QR;
 import com.mryqr.core.qr.domain.attribute.LocalDateAttributeValue;
 import com.mryqr.core.submission.SubmissionApi;
@@ -18,18 +18,13 @@ import com.mryqr.utils.PreparedAppResponse;
 import com.mryqr.utils.PreparedQrResponse;
 import org.junit.jupiter.api.Test;
 
+import static com.mryqr.common.exception.ErrorCode.MANDATORY_ANSWER_REQUIRED;
 import static com.mryqr.core.app.domain.attribute.Attribute.newAttributeId;
 import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.NO_LIMIT;
 import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_FIRST;
 import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_LAST;
-import static com.mryqr.core.common.exception.ErrorCode.MANDATORY_ANSWER_REQUIRED;
 import static com.mryqr.core.submission.SubmissionUtils.newSubmissionCommand;
-import static com.mryqr.utils.RandomTestFixture.defaultDateControl;
-import static com.mryqr.utils.RandomTestFixture.defaultDateControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultFillableSettingBuilder;
-import static com.mryqr.utils.RandomTestFixture.rAnswer;
-import static com.mryqr.utils.RandomTestFixture.rAnswerBuilder;
-import static com.mryqr.utils.RandomTestFixture.rAttributeName;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static java.time.LocalDate.parse;
 import static java.time.ZoneId.systemDefault;
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,6 +1,6 @@
 package com.mryqr.core.group.query;
 
-import com.mryqr.core.common.utils.Query;
+import com.mryqr.common.utils.Query;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;

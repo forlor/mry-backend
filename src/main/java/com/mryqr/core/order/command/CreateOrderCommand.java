@@ -1,6 +1,6 @@
 package com.mryqr.core.order.command;
 
-import com.mryqr.core.common.utils.Command;
+import com.mryqr.common.utils.Command;
 import com.mryqr.core.order.domain.PaymentType;
 import com.mryqr.core.order.domain.detail.OrderDetail;
 import jakarta.validation.Valid;

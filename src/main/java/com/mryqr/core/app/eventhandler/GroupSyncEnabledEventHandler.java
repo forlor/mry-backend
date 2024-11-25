@@ -1,8 +1,8 @@
 package com.mryqr.core.app.eventhandler;
 
+import com.mryqr.common.domain.event.consume.AbstractDomainEventHandler;
+import com.mryqr.common.utils.MryTaskRunner;
 import com.mryqr.core.app.domain.event.AppGroupSyncEnabledEvent;
-import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
-import com.mryqr.core.common.utils.MryTaskRunner;
 import com.mryqr.core.group.domain.task.SyncAllDepartmentsToGroupTask;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

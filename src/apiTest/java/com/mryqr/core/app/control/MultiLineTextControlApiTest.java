@@ -17,24 +17,14 @@ import com.mryqr.utils.PreparedAppResponse;
 import com.mryqr.utils.PreparedQrResponse;
 import org.junit.jupiter.api.Test;
 
+import static com.mryqr.common.exception.ErrorCode.*;
 import static com.mryqr.core.app.domain.attribute.Attribute.newAttributeId;
 import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.NO_LIMIT;
 import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_FIRST;
 import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_LAST;
 import static com.mryqr.core.app.domain.ui.MinMaxSetting.minMaxOf;
-import static com.mryqr.core.common.exception.ErrorCode.MANDATORY_ANSWER_REQUIRED;
-import static com.mryqr.core.common.exception.ErrorCode.MAX_OVERFLOW;
-import static com.mryqr.core.common.exception.ErrorCode.MIN_OVERFLOW;
-import static com.mryqr.core.common.exception.ErrorCode.MULTI_LINE_MAX_CONTENT_REACHED;
-import static com.mryqr.core.common.exception.ErrorCode.MULTI_LINE_MIN_CONTENT_NOT_REACHED;
 import static com.mryqr.core.submission.SubmissionUtils.newSubmissionCommand;
-import static com.mryqr.utils.RandomTestFixture.defaultFillableSettingBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultMultiLineTextControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultMultipleLineTextControl;
-import static com.mryqr.utils.RandomTestFixture.rAnswer;
-import static com.mryqr.utils.RandomTestFixture.rAnswerBuilder;
-import static com.mryqr.utils.RandomTestFixture.rAttributeName;
-import static com.mryqr.utils.RandomTestFixture.rSentence;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 

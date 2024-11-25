@@ -1,8 +1,8 @@
 package com.mryqr.core.app.domain.task;
 
+import com.mryqr.common.domain.task.RepeatableTask;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.app.domain.TenantCachedApp;
-import com.mryqr.core.common.domain.task.RepeatableTask;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

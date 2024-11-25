@@ -1,12 +1,12 @@
 package com.mryqr.core.verification.domain;
 
-import com.mryqr.core.common.exception.MryException;
+import com.mryqr.common.exception.MryException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.mryqr.core.common.exception.ErrorCode.VERIFICATION_CODE_CHECK_FAILED;
-import static com.mryqr.core.common.utils.CommonUtils.maskMobileOrEmail;
+import static com.mryqr.common.exception.ErrorCode.VERIFICATION_CODE_CHECK_FAILED;
+import static com.mryqr.common.utils.CommonUtils.maskMobileOrEmail;
 import static org.springframework.transaction.annotation.Propagation.REQUIRES_NEW;
 
 @Component

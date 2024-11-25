@@ -1,7 +1,7 @@
 package com.mryqr.core.submission.domain;
 
+import com.mryqr.common.domain.indexedfield.IndexedValues;
 import com.mryqr.core.app.domain.App;
-import com.mryqr.core.common.domain.indexedfield.IndexedValues;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

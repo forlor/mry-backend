@@ -1,10 +1,10 @@
 package com.mryqr.core.qr.domain.attribute;
 
+import com.mryqr.common.domain.display.DisplayValue;
+import com.mryqr.common.domain.display.TextDisplayValue;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.page.control.Control;
-import com.mryqr.core.common.domain.display.DisplayValue;
-import com.mryqr.core.common.domain.display.TextDisplayValue;
 import com.mryqr.core.qr.domain.QrReferenceContext;
 import com.mryqr.core.submission.domain.answer.multilevelselection.MultiLevelSelection;
 import lombok.EqualsAndHashCode;

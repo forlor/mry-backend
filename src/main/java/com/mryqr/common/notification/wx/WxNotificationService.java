@@ -1,13 +1,13 @@
 package com.mryqr.common.notification.wx;
 
 import com.mryqr.common.notification.NotificationService;
+import com.mryqr.common.properties.PropertyService;
+import com.mryqr.common.properties.WxProperties;
 import com.mryqr.common.wx.accesstoken.WxAccessTokenService;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.page.Page;
 import com.mryqr.core.app.domain.page.setting.notification.NotificationRole;
 import com.mryqr.core.assignment.domain.Assignment;
-import com.mryqr.core.common.properties.PropertyService;
-import com.mryqr.core.common.properties.WxProperties;
 import com.mryqr.core.group.domain.Group;
 import com.mryqr.core.group.domain.GroupRepository;
 import com.mryqr.core.member.domain.Member;
@@ -26,8 +26,8 @@ import java.util.Map;
 import java.util.Set;
 
 import static com.mryqr.common.notification.wx.WxTemplateMessage.valueItemOf;
+import static com.mryqr.common.utils.MryConstants.MRY_DATE_TIME_FORMATTER;
 import static com.mryqr.core.app.domain.page.setting.notification.NotificationRole.*;
-import static com.mryqr.core.common.utils.MryConstants.MRY_DATE_TIME_FORMATTER;
 import static java.util.Collections.singleton;
 import static java.util.Set.copyOf;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;

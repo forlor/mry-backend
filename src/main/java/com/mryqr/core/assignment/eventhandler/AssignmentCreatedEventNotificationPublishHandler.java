@@ -1,8 +1,8 @@
 package com.mryqr.core.assignment.eventhandler;
 
+import com.mryqr.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.common.notification.publish.NotificationEventPublisher;
 import com.mryqr.core.assignment.event.AssignmentCreatedEvent;
-import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

@@ -1,10 +1,10 @@
 package com.mryqr.core.app.domain;
 
-import com.mryqr.core.common.domain.UploadedFile;
+import com.mryqr.common.domain.UploadedFile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
+import static com.mryqr.common.utils.UuidGenerator.newShortUuid;
 
 @Component
 @RequiredArgsConstructor

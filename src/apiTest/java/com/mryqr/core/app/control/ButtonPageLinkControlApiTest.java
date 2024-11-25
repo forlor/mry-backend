@@ -12,16 +12,13 @@ import com.mryqr.utils.PreparedAppResponse;
 import org.junit.jupiter.api.Test;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.mryqr.common.exception.ErrorCode.PAGE_LINK_ID_DUPLICATED;
+import static com.mryqr.common.exception.ErrorCode.VALIDATION_LINK_PAGE_NOT_EXIST;
+import static com.mryqr.common.utils.UuidGenerator.newShortUuid;
 import static com.mryqr.core.app.domain.ui.pagelink.PageLinkType.EXTERNAL_URL;
 import static com.mryqr.core.app.domain.ui.pagelink.PageLinkType.PAGE;
-import static com.mryqr.core.common.exception.ErrorCode.PAGE_LINK_ID_DUPLICATED;
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_LINK_PAGE_NOT_EXIST;
-import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
 import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
-import static com.mryqr.utils.RandomTestFixture.defaultButtonPageLinkControl;
-import static com.mryqr.utils.RandomTestFixture.defaultButtonPageLinkControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.rPageLinkName;
-import static com.mryqr.utils.RandomTestFixture.rUrl;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 

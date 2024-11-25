@@ -1,7 +1,7 @@
 package com.mryqr.core.department.domain;
 
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.core.departmenthierarchy.domain.DepartmentHierarchy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 import java.util.Set;
 
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.common.exception.ErrorCode.DEPARTMENT_WITH_NAME_ALREADY_EXISTS;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.exception.ErrorCode.DEPARTMENT_WITH_NAME_ALREADY_EXISTS;
+import static com.mryqr.common.utils.MapUtils.mapOf;
 
 @Slf4j
 @Component

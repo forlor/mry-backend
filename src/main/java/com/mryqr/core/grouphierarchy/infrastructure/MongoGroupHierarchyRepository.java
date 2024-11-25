@@ -1,9 +1,9 @@
 package com.mryqr.core.grouphierarchy.infrastructure;
 
 import com.mongodb.client.result.DeleteResult;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.common.oss.mongo.MongoBaseRepository;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
 import com.mryqr.core.grouphierarchy.domain.GroupHierarchy;
 import com.mryqr.core.grouphierarchy.domain.GroupHierarchyRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,9 +11,9 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
-import static com.mryqr.core.common.exception.ErrorCode.GROUP_HIERARCHY_NOT_FOUND;
-import static com.mryqr.core.common.utils.CommonUtils.requireNonBlank;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.exception.ErrorCode.GROUP_HIERARCHY_NOT_FOUND;
+import static com.mryqr.common.utils.CommonUtils.requireNonBlank;
+import static com.mryqr.common.utils.MapUtils.mapOf;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 

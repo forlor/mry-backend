@@ -1,10 +1,10 @@
 package com.mryqr.core.qr.domain.attribute;
 
+import com.mryqr.common.domain.display.DisplayValue;
+import com.mryqr.common.domain.display.TimestampDisplayValue;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.page.control.Control;
-import com.mryqr.core.common.domain.display.DisplayValue;
-import com.mryqr.core.common.domain.display.TimestampDisplayValue;
 import com.mryqr.core.qr.domain.QrReferenceContext;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import org.springframework.data.annotation.TypeAlias;
 import java.time.Instant;
 import java.util.Set;
 
-import static com.mryqr.core.common.utils.MryConstants.MRY_DATE_TIME_FORMATTER;
+import static com.mryqr.common.utils.MryConstants.MRY_DATE_TIME_FORMATTER;
 import static lombok.AccessLevel.PRIVATE;
 
 @Getter

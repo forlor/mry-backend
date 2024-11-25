@@ -6,14 +6,14 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
-import com.mryqr.core.common.properties.AliyunProperties;
+import com.mryqr.common.properties.AliyunProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import static com.aliyuncs.http.MethodType.POST;
-import static com.mryqr.core.common.utils.CommonUtils.maskMobileOrEmail;
+import static com.mryqr.common.utils.CommonUtils.maskMobileOrEmail;
 
 @Slf4j
 @Component

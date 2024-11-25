@@ -1,7 +1,7 @@
 package com.mryqr.core.member.command.importmember;
 
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

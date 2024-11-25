@@ -1,13 +1,13 @@
 package com.mryqr.core.submission.command;
 
+import com.mryqr.common.domain.permission.ManagePermissionChecker;
+import com.mryqr.common.domain.permission.SubmissionPermissionChecker;
+import com.mryqr.common.domain.permission.SubmissionPermissions;
+import com.mryqr.common.domain.user.User;
 import com.mryqr.common.ratelimit.MryRateLimiter;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.app.domain.page.Page;
-import com.mryqr.core.common.domain.permission.ManagePermissionChecker;
-import com.mryqr.core.common.domain.permission.SubmissionPermissionChecker;
-import com.mryqr.core.common.domain.permission.SubmissionPermissions;
-import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.group.domain.Group;
 import com.mryqr.core.group.domain.GroupRepository;
 import com.mryqr.core.plate.domain.PlateRepository;
@@ -29,7 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
-import static com.mryqr.core.common.domain.permission.Permission.maxPermission;
+import static com.mryqr.common.domain.permission.Permission.maxPermission;
 
 @Slf4j
 @Component

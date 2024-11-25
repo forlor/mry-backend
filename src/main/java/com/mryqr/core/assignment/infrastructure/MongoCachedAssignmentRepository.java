@@ -12,10 +12,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 
+import static com.mryqr.common.utils.CommonUtils.requireNonBlank;
+import static com.mryqr.common.utils.MryConstants.OPEN_ASSIGNMENT_PAGES_CACHE;
 import static com.mryqr.core.assignment.domain.AssignmentStatus.IN_PROGRESS;
 import static com.mryqr.core.assignment.domain.AssignmentStatus.NEAR_EXPIRE;
-import static com.mryqr.core.common.utils.CommonUtils.requireNonBlank;
-import static com.mryqr.core.common.utils.MryConstants.OPEN_ASSIGNMENT_PAGES_CACHE;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 @Slf4j

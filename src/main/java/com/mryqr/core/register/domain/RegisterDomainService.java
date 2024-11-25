@@ -1,16 +1,16 @@
 package com.mryqr.core.register.domain;
 
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.core.member.domain.MemberRepository;
 import com.mryqr.core.tenant.domain.CreateTenantResult;
 import com.mryqr.core.tenant.domain.TenantFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import static com.mryqr.core.common.exception.ErrorCode.MEMBER_WITH_MOBILE_OR_EMAIL_ALREADY_EXISTS;
-import static com.mryqr.core.common.utils.CommonUtils.isMobileNumber;
-import static com.mryqr.core.common.utils.CommonUtils.maskMobileOrEmail;
+import static com.mryqr.common.exception.ErrorCode.MEMBER_WITH_MOBILE_OR_EMAIL_ALREADY_EXISTS;
+import static com.mryqr.common.utils.CommonUtils.isMobileNumber;
+import static com.mryqr.common.utils.CommonUtils.maskMobileOrEmail;
 
 @Component
 @RequiredArgsConstructor

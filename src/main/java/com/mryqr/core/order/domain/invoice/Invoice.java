@@ -1,7 +1,7 @@
 package com.mryqr.core.order.domain.invoice;
 
-import com.mryqr.core.common.domain.UploadedFile;
-import com.mryqr.core.common.domain.invoice.InvoiceTitle;
+import com.mryqr.common.domain.UploadedFile;
+import com.mryqr.common.domain.invoice.InvoiceTitle;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

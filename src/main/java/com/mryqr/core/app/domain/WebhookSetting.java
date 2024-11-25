@@ -1,15 +1,15 @@
 package com.mryqr.core.app.domain;
 
-import com.mryqr.core.common.validation.url.http.HttpUrl;
-import com.mryqr.core.common.validation.url.webhook.WebhookUrl;
+import com.mryqr.common.validation.url.http.HttpUrl;
+import com.mryqr.common.validation.url.webhook.WebhookUrl;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-import static com.mryqr.core.common.exception.MryException.requestValidationException;
-import static com.mryqr.core.common.utils.MryConstants.MAX_URL_LENGTH;
+import static com.mryqr.common.exception.MryException.requestValidationException;
+import static com.mryqr.common.utils.MryConstants.MAX_URL_LENGTH;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 

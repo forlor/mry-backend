@@ -1,27 +1,17 @@
 package com.mryqr.core.common.user;
 
 import com.mryqr.BaseUnitTest;
-import com.mryqr.core.common.domain.user.Role;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
+import com.mryqr.common.domain.user.Role;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import org.junit.jupiter.api.Test;
 
-import static com.mryqr.core.common.domain.user.Role.ROBOT;
-import static com.mryqr.core.common.domain.user.Role.TENANT_ADMIN;
-import static com.mryqr.core.common.domain.user.Role.TENANT_MEMBER;
-import static com.mryqr.core.common.domain.user.User.ANONYMOUS_USER;
-import static com.mryqr.core.common.domain.user.User.humanUser;
-import static com.mryqr.core.common.domain.user.User.robotUser;
-import static com.mryqr.core.common.exception.ErrorCode.ACCESS_DENIED;
-import static com.mryqr.core.common.exception.ErrorCode.AUTHENTICATION_FAILED;
-import static com.mryqr.core.common.exception.ErrorCode.WRONG_TENANT;
+import static com.mryqr.common.domain.user.Role.*;
+import static com.mryqr.common.domain.user.User.*;
+import static com.mryqr.common.exception.ErrorCode.*;
 import static com.mryqr.core.member.domain.Member.newMemberId;
 import static com.mryqr.core.tenant.domain.Tenant.newTenantId;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class UserTest extends BaseUnitTest {
 

@@ -1,7 +1,7 @@
 package com.mryqr.core.tenant.command;
 
-import com.mryqr.core.common.domain.invoice.InvoiceTitle;
-import com.mryqr.core.common.utils.Command;
+import com.mryqr.common.domain.invoice.InvoiceTitle;
+import com.mryqr.common.utils.Command;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

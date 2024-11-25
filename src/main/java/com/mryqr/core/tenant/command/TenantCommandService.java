@@ -1,7 +1,7 @@
 package com.mryqr.core.tenant.command;
 
+import com.mryqr.common.domain.user.User;
 import com.mryqr.common.ratelimit.MryRateLimiter;
-import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.plan.domain.Plan;
 import com.mryqr.core.plan.domain.PlanType;
 import com.mryqr.core.tenant.domain.Tenant;

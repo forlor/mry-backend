@@ -1,7 +1,7 @@
 package com.mryqr.common.security.jwt;
 
+import com.mryqr.common.properties.JwtProperties;
 import com.mryqr.common.security.MryAuthenticationToken;
-import com.mryqr.core.common.properties.JwtProperties;
 import com.mryqr.core.member.domain.Member;
 import com.mryqr.core.member.domain.MemberRepository;
 import io.jsonwebtoken.Claims;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-import static com.mryqr.core.common.domain.user.User.humanUser;
+import static com.mryqr.common.domain.user.User.humanUser;
 import static io.jsonwebtoken.SignatureAlgorithm.HS512;
 
 @Component

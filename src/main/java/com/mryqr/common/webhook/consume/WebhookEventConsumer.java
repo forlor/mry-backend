@@ -1,5 +1,6 @@
 package com.mryqr.common.webhook.consume;
 
+import com.mryqr.common.domain.event.DomainEvent;
 import com.mryqr.common.webhook.qr.QrCreatedWebhookPayload;
 import com.mryqr.common.webhook.qr.QrDeletedWebhookPayload;
 import com.mryqr.common.webhook.qr.QrUpdatedWebhookPayload;
@@ -9,7 +10,6 @@ import com.mryqr.common.webhook.submission.SubmissionDeletedWebhookPayload;
 import com.mryqr.common.webhook.submission.SubmissionUpdatedWebhookPayload;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
-import com.mryqr.core.common.domain.event.DomainEvent;
 import com.mryqr.core.qr.domain.QR;
 import com.mryqr.core.qr.domain.QrCreatedEvent;
 import com.mryqr.core.qr.domain.QrRepository;

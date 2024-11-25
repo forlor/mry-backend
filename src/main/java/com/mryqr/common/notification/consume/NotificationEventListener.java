@@ -1,7 +1,7 @@
 package com.mryqr.common.notification.consume;
 
-import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.utils.MryObjectMapper;
+import com.mryqr.common.domain.event.DomainEvent;
+import com.mryqr.common.utils.MryObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.connection.stream.ObjectRecord;

@@ -1,8 +1,8 @@
 package com.mryqr.common.wx.accesstoken;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.mryqr.core.common.properties.WxProperties;
-import com.mryqr.core.common.utils.MryObjectMapper;
+import com.mryqr.common.properties.WxProperties;
+import com.mryqr.common.utils.MryObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;

@@ -1,8 +1,8 @@
 package com.mryqr.core.department.domain;
 
-import com.mryqr.core.common.domain.AggregateRoot;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
+import com.mryqr.common.domain.AggregateRoot;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.core.department.domain.event.DepartmentCreatedEvent;
 import com.mryqr.core.department.domain.event.DepartmentDeletedEvent;
 import com.mryqr.core.department.domain.event.DepartmentManagersChangedEvent;
@@ -18,11 +18,11 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
-import static com.mryqr.core.common.exception.ErrorCode.MAX_DEPARTMENT_MANAGER_REACHED;
-import static com.mryqr.core.common.exception.ErrorCode.NOT_DEPARTMENT_MEMBER;
-import static com.mryqr.core.common.utils.MryConstants.DEPARTMENT_COLLECTION;
-import static com.mryqr.core.common.utils.MryConstants.MAX_GROUP_MANAGER_SIZE;
-import static com.mryqr.core.common.utils.SnowflakeIdGenerator.newSnowflakeId;
+import static com.mryqr.common.exception.ErrorCode.MAX_DEPARTMENT_MANAGER_REACHED;
+import static com.mryqr.common.exception.ErrorCode.NOT_DEPARTMENT_MEMBER;
+import static com.mryqr.common.utils.MryConstants.DEPARTMENT_COLLECTION;
+import static com.mryqr.common.utils.MryConstants.MAX_GROUP_MANAGER_SIZE;
+import static com.mryqr.common.utils.SnowflakeIdGenerator.newSnowflakeId;
 import static java.util.stream.Stream.concat;
 import static lombok.AccessLevel.PRIVATE;
 

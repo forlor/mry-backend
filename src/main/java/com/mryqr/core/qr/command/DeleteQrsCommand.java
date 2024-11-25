@@ -1,9 +1,9 @@
 package com.mryqr.core.qr.command;
 
-import com.mryqr.core.common.utils.Command;
-import com.mryqr.core.common.validation.collection.NoBlankString;
-import com.mryqr.core.common.validation.collection.NoDuplicatedString;
-import com.mryqr.core.common.validation.id.qr.QrId;
+import com.mryqr.common.utils.Command;
+import com.mryqr.common.validation.collection.NoBlankString;
+import com.mryqr.common.validation.collection.NoDuplicatedString;
+import com.mryqr.common.validation.id.qr.QrId;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;

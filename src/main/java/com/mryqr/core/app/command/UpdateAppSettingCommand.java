@@ -1,7 +1,7 @@
 package com.mryqr.core.app.command;
 
+import com.mryqr.common.utils.Command;
 import com.mryqr.core.app.domain.AppSetting;
-import com.mryqr.core.common.utils.Command;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

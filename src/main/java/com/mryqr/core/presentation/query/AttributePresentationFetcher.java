@@ -1,7 +1,7 @@
 package com.mryqr.core.presentation.query;
 
+import com.mryqr.common.domain.display.DisplayValue;
 import com.mryqr.core.app.domain.App;
-import com.mryqr.core.common.domain.display.DisplayValue;
 import com.mryqr.core.group.domain.GroupAware;
 import com.mryqr.core.group.domain.GroupRepository;
 import com.mryqr.core.member.domain.MemberAware;
@@ -13,11 +13,7 @@ import com.mryqr.core.qr.domain.attribute.AttributeValue;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;

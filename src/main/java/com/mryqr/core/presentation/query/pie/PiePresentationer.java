@@ -1,9 +1,9 @@
 package com.mryqr.core.presentation.query.pie;
 
+import com.mryqr.common.domain.report.CategorizedOptionSegment;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.PPieControl;
-import com.mryqr.core.common.domain.report.CategorizedOptionSegment;
 import com.mryqr.core.presentation.query.ControlPresentationer;
 import com.mryqr.core.presentation.query.QControlPresentation;
 import com.mryqr.core.qr.domain.QR;

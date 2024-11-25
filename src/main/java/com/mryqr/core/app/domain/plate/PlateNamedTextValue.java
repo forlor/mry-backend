@@ -1,7 +1,7 @@
 package com.mryqr.core.app.domain.plate;
 
+import com.mryqr.common.validation.id.shoruuid.ShortUuid;
 import com.mryqr.core.app.domain.AppSettingContext;
-import com.mryqr.core.common.validation.id.shoruuid.ShortUuid;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -13,7 +13,7 @@ import lombok.Getter;
 
 import java.util.Set;
 
-import static com.mryqr.core.common.utils.MryConstants.MAX_SHORT_NAME_LENGTH;
+import static com.mryqr.common.utils.MryConstants.MAX_SHORT_NAME_LENGTH;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 

@@ -1,10 +1,10 @@
 package com.mryqr.common.oss.mongo;
 
-import com.mryqr.core.common.domain.AggregateRoot;
-import com.mryqr.core.common.domain.event.DomainEvent;
-import com.mryqr.core.common.domain.event.publish.PublishingDomainEventDao;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
+import com.mryqr.common.domain.AggregateRoot;
+import com.mryqr.common.domain.event.DomainEvent;
+import com.mryqr.common.domain.event.publish.PublishingDomainEventDao;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
@@ -14,10 +14,10 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.common.exception.ErrorCode.*;
-import static com.mryqr.core.common.utils.CommonUtils.requireNonBlank;
-import static com.mryqr.core.common.utils.CommonUtils.singleParameterizedArgumentClassOf;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.common.utils.CommonUtils.requireNonBlank;
+import static com.mryqr.common.utils.CommonUtils.singleParameterizedArgumentClassOf;
+import static com.mryqr.common.utils.MapUtils.mapOf;
 import static java.util.Collections.emptyList;
 import static java.util.Comparator.comparing;
 import static java.util.List.copyOf;

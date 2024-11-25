@@ -1,15 +1,15 @@
 package com.mryqr.core.app.domain.page.setting;
 
+import com.mryqr.common.domain.UploadedFile;
+import com.mryqr.common.domain.permission.Permission;
+import com.mryqr.common.exception.MryException;
+import com.mryqr.common.validation.collection.NoNullElement;
+import com.mryqr.common.validation.color.Color;
+import com.mryqr.common.validation.nospace.NoSpace;
 import com.mryqr.core.app.domain.AppSettingContext;
 import com.mryqr.core.app.domain.page.setting.notification.NotificationSetting;
 import com.mryqr.core.app.domain.ui.border.Border;
 import com.mryqr.core.app.domain.ui.shadow.Shadow;
-import com.mryqr.core.common.domain.UploadedFile;
-import com.mryqr.core.common.domain.permission.Permission;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.validation.collection.NoNullElement;
-import com.mryqr.core.common.validation.color.Color;
-import com.mryqr.core.common.validation.nospace.NoSpace;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -22,17 +22,15 @@ import lombok.Getter;
 
 import java.util.List;
 
+import static com.mryqr.common.domain.permission.Permission.*;
+import static com.mryqr.common.exception.ErrorCode.MODIFY_PERMISSION_NOT_ALLOWED;
+import static com.mryqr.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.utils.MryConstants.MAX_SHORT_NAME_LENGTH;
 import static com.mryqr.core.app.domain.page.setting.AfterSubmitNavigationType.DEFAULT;
 import static com.mryqr.core.app.domain.page.setting.SubmitType.NEW;
 import static com.mryqr.core.app.domain.page.setting.SubmitType.ONCE_PER_MEMBER;
 import static com.mryqr.core.app.domain.page.setting.SubmitterUpdateRange.IN_1_DAY;
 import static com.mryqr.core.app.domain.ui.border.Border.noBorder;
-import static com.mryqr.core.common.domain.permission.Permission.AS_TENANT_MEMBER;
-import static com.mryqr.core.common.domain.permission.Permission.CAN_MANAGE_APP;
-import static com.mryqr.core.common.domain.permission.Permission.CAN_MANAGE_GROUP;
-import static com.mryqr.core.common.exception.ErrorCode.MODIFY_PERMISSION_NOT_ALLOWED;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
-import static com.mryqr.core.common.utils.MryConstants.MAX_SHORT_NAME_LENGTH;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 

@@ -1,11 +1,11 @@
 package com.mryqr.core.order.query;
 
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.properties.AliyunProperties;
 import com.mryqr.common.ratelimit.MryRateLimiter;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.properties.AliyunProperties;
-import com.mryqr.core.common.utils.MryObjectMapper;
-import com.mryqr.core.common.utils.PagedList;
-import com.mryqr.core.common.utils.Pagination;
+import com.mryqr.common.utils.MryObjectMapper;
+import com.mryqr.common.utils.PagedList;
+import com.mryqr.common.utils.Pagination;
 import com.mryqr.core.order.domain.Order;
 import com.mryqr.core.order.domain.OrderPrice;
 import com.mryqr.core.order.domain.OrderRepository;
@@ -32,8 +32,8 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
-import static com.mryqr.core.common.utils.Pagination.pagination;
-import static com.mryqr.core.common.validation.id.order.OrderIdValidator.isOrderId;
+import static com.mryqr.common.utils.Pagination.pagination;
+import static com.mryqr.common.validation.id.order.OrderIdValidator.isOrderId;
 import static com.mryqr.core.order.domain.OrderStatus.PAID;
 import static com.mryqr.core.order.domain.OrderStatus.REFUNDED;
 import static java.time.Instant.now;
@@ -173,8 +173,8 @@ public class OrderQueryService {
 
         Order order = orderRepository.byIdAndCheckTenantShip(orderId, user);
         if (order.getDelivery() == null ||
-                !order.atPaid() ||
-                order.getCreatedAt().isBefore(now().minus(90, DAYS))) {
+            !order.atPaid() ||
+            order.getCreatedAt().isBefore(now().minus(90, DAYS))) {
             return QOrderShipment.builder()
                     .orderId(order.getId())
                     .nodes(List.of())

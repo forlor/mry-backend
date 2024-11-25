@@ -1,15 +1,11 @@
 package com.mryqr.core.group.domain;
 
+import com.mryqr.common.domain.AggregateRoot;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.core.app.domain.App;
-import com.mryqr.core.common.domain.AggregateRoot;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
 import com.mryqr.core.department.domain.Department;
-import com.mryqr.core.group.domain.event.GroupActivatedEvent;
-import com.mryqr.core.group.domain.event.GroupCreatedEvent;
-import com.mryqr.core.group.domain.event.GroupDeactivatedEvent;
-import com.mryqr.core.group.domain.event.GroupDeletedEvent;
-import com.mryqr.core.group.domain.event.GroupManagersChangedEvent;
+import com.mryqr.core.group.domain.event.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.TypeAlias;
@@ -21,11 +17,11 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
-import static com.mryqr.core.common.exception.ErrorCode.GROUP_SYNCED;
-import static com.mryqr.core.common.exception.ErrorCode.MAX_GROUP_MANAGER_REACHED;
-import static com.mryqr.core.common.utils.MryConstants.GROUP_COLLECTION;
-import static com.mryqr.core.common.utils.MryConstants.MAX_GROUP_MANAGER_SIZE;
-import static com.mryqr.core.common.utils.SnowflakeIdGenerator.newSnowflakeId;
+import static com.mryqr.common.exception.ErrorCode.GROUP_SYNCED;
+import static com.mryqr.common.exception.ErrorCode.MAX_GROUP_MANAGER_REACHED;
+import static com.mryqr.common.utils.MryConstants.GROUP_COLLECTION;
+import static com.mryqr.common.utils.MryConstants.MAX_GROUP_MANAGER_SIZE;
+import static com.mryqr.common.utils.SnowflakeIdGenerator.newSnowflakeId;
 import static java.util.Set.copyOf;
 import static java.util.Set.of;
 import static java.util.stream.Stream.concat;

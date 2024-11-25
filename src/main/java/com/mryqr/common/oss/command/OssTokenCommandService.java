@@ -1,15 +1,15 @@
 package com.mryqr.common.oss.command;
 
+import com.mryqr.common.domain.permission.ManagePermissionChecker;
+import com.mryqr.common.domain.permission.SubmissionPermissionChecker;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.common.oss.domain.AliyunOssTokenGenerator;
 import com.mryqr.common.oss.domain.QOssToken;
 import com.mryqr.common.ratelimit.MryRateLimiter;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.app.domain.page.Page;
-import com.mryqr.core.common.domain.permission.ManagePermissionChecker;
-import com.mryqr.core.common.domain.permission.SubmissionPermissionChecker;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
 import com.mryqr.core.qr.domain.AppedQr;
 import com.mryqr.core.qr.domain.QR;
 import com.mryqr.core.qr.domain.QrRepository;
@@ -20,9 +20,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
-import static com.mryqr.core.common.domain.permission.Permission.maxPermission;
-import static com.mryqr.core.common.exception.ErrorCode.QR_NOT_BELONG_TO_APP;
-import static com.mryqr.core.common.exception.ErrorCode.USER_NOT_CURRENT_MEMBER;
+import static com.mryqr.common.domain.permission.Permission.maxPermission;
+import static com.mryqr.common.exception.ErrorCode.QR_NOT_BELONG_TO_APP;
+import static com.mryqr.common.exception.ErrorCode.USER_NOT_CURRENT_MEMBER;
 
 @Component
 @RequiredArgsConstructor

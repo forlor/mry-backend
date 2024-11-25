@@ -1,5 +1,10 @@
 package com.mryqr.core.app.domain.page;
 
+import com.mryqr.common.domain.permission.Permission;
+import com.mryqr.common.exception.MryException;
+import com.mryqr.common.utils.Identified;
+import com.mryqr.common.validation.collection.NoNullElement;
+import com.mryqr.common.validation.id.page.PageId;
 import com.mryqr.core.app.domain.AppSettingContext;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.ControlInfo;
@@ -11,11 +16,6 @@ import com.mryqr.core.app.domain.page.setting.SubmitterUpdateRange;
 import com.mryqr.core.app.domain.page.setting.notification.NotificationRole;
 import com.mryqr.core.app.domain.page.submitbutton.SubmitButton;
 import com.mryqr.core.app.domain.page.title.PageTitle;
-import com.mryqr.core.common.domain.permission.Permission;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.utils.Identified;
-import com.mryqr.core.common.validation.collection.NoNullElement;
-import com.mryqr.core.common.validation.id.page.PageId;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -31,13 +31,11 @@ import java.util.Set;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.app.domain.page.setting.SubmitType.NEW;
-import static com.mryqr.core.app.domain.page.setting.SubmitType.ONCE_PER_INSTANCE;
-import static com.mryqr.core.app.domain.page.setting.SubmitType.ONCE_PER_MEMBER;
-import static com.mryqr.core.common.exception.ErrorCode.CONTROL_NOT_FOUND;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
-import static com.mryqr.core.common.utils.MryConstants.MAX_PER_PAGE_CONTROL_SIZE;
-import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
+import static com.mryqr.common.exception.ErrorCode.CONTROL_NOT_FOUND;
+import static com.mryqr.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.utils.MryConstants.MAX_PER_PAGE_CONTROL_SIZE;
+import static com.mryqr.common.utils.UuidGenerator.newShortUuid;
+import static com.mryqr.core.app.domain.page.setting.SubmitType.*;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 

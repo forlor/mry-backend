@@ -6,10 +6,8 @@ import com.mryqr.core.login.command.VerificationCodeLoginCommand;
 import io.restassured.http.Cookie;
 import io.restassured.response.Response;
 
-import static com.mryqr.core.common.utils.MryConstants.AUTH_COOKIE_NAME;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static com.mryqr.common.utils.MryConstants.AUTH_COOKIE_NAME;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class LoginApi {
     public static Response loginWithMobileOrEmailRaw(MobileOrEmailLoginCommand command) {

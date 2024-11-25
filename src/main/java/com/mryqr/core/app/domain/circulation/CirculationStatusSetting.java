@@ -1,10 +1,10 @@
 package com.mryqr.core.app.domain.circulation;
 
+import com.mryqr.common.domain.TextOption;
+import com.mryqr.common.exception.MryException;
+import com.mryqr.common.validation.collection.NoNullElement;
+import com.mryqr.common.validation.id.shoruuid.ShortUuid;
 import com.mryqr.core.app.domain.AppSettingContext;
-import com.mryqr.core.common.domain.TextOption;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.validation.collection.NoNullElement;
-import com.mryqr.core.common.validation.id.shoruuid.ShortUuid;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -20,12 +20,8 @@ import java.util.Set;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.common.exception.ErrorCode.CIRCULATION_AFTER_SUBMISSION_ID_DUPLICATED;
-import static com.mryqr.core.common.exception.ErrorCode.CIRCULATION_OPTION_NOT_EXISTS;
-import static com.mryqr.core.common.exception.ErrorCode.CIRCULATION_PERMISSION_ID_DUPLICATED;
-import static com.mryqr.core.common.exception.ErrorCode.TEXT_OPTION_ID_DUPLICATED;
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_PAGE_NOT_EXIST;
-import static com.mryqr.core.common.utils.Identified.isDuplicated;
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.common.utils.Identified.isDuplicated;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.apache.commons.lang3.StringUtils.isBlank;

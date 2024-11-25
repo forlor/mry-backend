@@ -2,13 +2,13 @@ package com.mryqr.core.qr.domain.attribute;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.mryqr.common.domain.ValueType;
+import com.mryqr.common.domain.display.DisplayValue;
+import com.mryqr.common.domain.indexedfield.IndexedValue;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.attribute.AttributeType;
 import com.mryqr.core.app.domain.page.control.Control;
-import com.mryqr.core.common.domain.ValueType;
-import com.mryqr.core.common.domain.display.DisplayValue;
-import com.mryqr.core.common.domain.indexedfield.IndexedValue;
 import com.mryqr.core.qr.domain.QrReferenceContext;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

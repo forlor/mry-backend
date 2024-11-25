@@ -1,8 +1,8 @@
 package com.mryqr.core.group.domain;
 
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.core.app.domain.App;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
 import com.mryqr.core.department.domain.Department;
 import com.mryqr.core.grouphierarchy.domain.GroupHierarchy;
 import lombok.RequiredArgsConstructor;
@@ -11,11 +11,8 @@ import org.springframework.stereotype.Component;
 import java.util.Set;
 
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.common.exception.ErrorCode.GROUP_NOT_VISIBLE;
-import static com.mryqr.core.common.exception.ErrorCode.GROUP_SYNCED;
-import static com.mryqr.core.common.exception.ErrorCode.GROUP_WITH_CUSTOM_ID_ALREADY_EXISTS;
-import static com.mryqr.core.common.exception.ErrorCode.GROUP_WITH_NAME_ALREADY_EXISTS;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.common.utils.MapUtils.mapOf;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @Component

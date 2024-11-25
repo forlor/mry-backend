@@ -1,7 +1,7 @@
 package com.mryqr.core.order.command;
 
-import com.mryqr.core.common.utils.Command;
-import com.mryqr.core.common.validation.email.Email;
+import com.mryqr.common.utils.Command;
+import com.mryqr.common.validation.email.Email;
 import com.mryqr.core.order.domain.invoice.InvoiceType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

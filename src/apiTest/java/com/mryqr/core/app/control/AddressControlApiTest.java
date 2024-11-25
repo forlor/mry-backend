@@ -1,14 +1,14 @@
 package com.mryqr.core.app.control;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.domain.Address;
+import com.mryqr.common.domain.indexedfield.IndexedField;
+import com.mryqr.common.domain.indexedfield.IndexedValue;
 import com.mryqr.core.app.AppApi;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.FAddressControl;
-import com.mryqr.core.common.domain.Address;
-import com.mryqr.core.common.domain.indexedfield.IndexedField;
-import com.mryqr.core.common.domain.indexedfield.IndexedValue;
 import com.mryqr.core.qr.domain.QR;
 import com.mryqr.core.qr.domain.attribute.AddressAttributeValue;
 import com.mryqr.core.submission.SubmissionApi;
@@ -21,28 +21,15 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
+import static com.mryqr.common.domain.Address.joinAddress;
+import static com.mryqr.common.exception.ErrorCode.*;
 import static com.mryqr.core.app.domain.attribute.Attribute.newAttributeId;
 import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.NO_LIMIT;
 import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_FIRST;
 import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_LAST;
-import static com.mryqr.core.common.domain.Address.joinAddress;
-import static com.mryqr.core.common.exception.ErrorCode.CITY_NOT_PROVIDED;
-import static com.mryqr.core.common.exception.ErrorCode.DETAIL_ADDRESS_NOT_PROVIDED;
-import static com.mryqr.core.common.exception.ErrorCode.DISTRICT_NOT_PROVIDED;
-import static com.mryqr.core.common.exception.ErrorCode.MANDATORY_ANSWER_REQUIRED;
-import static com.mryqr.core.common.exception.ErrorCode.PROVINCE_NOT_PROVIDED;
 import static com.mryqr.core.submission.SubmissionUtils.newSubmissionCommand;
-import static com.mryqr.utils.RandomTestFixture.defaultAddressControl;
-import static com.mryqr.utils.RandomTestFixture.defaultAddressControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultFillableSettingBuilder;
-import static com.mryqr.utils.RandomTestFixture.rAddress;
-import static com.mryqr.utils.RandomTestFixture.rAnswer;
-import static com.mryqr.utils.RandomTestFixture.rAnswerBuilder;
-import static com.mryqr.utils.RandomTestFixture.rAttributeName;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static com.mryqr.utils.RandomTestFixture.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AddressControlApiTest extends BaseApiTest {
 

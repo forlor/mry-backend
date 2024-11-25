@@ -1,8 +1,8 @@
 package com.mryqr.core.qr.domain.task;
 
+import com.mryqr.common.domain.task.RepeatableTask;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.app.domain.attribute.Attribute;
-import com.mryqr.core.common.domain.task.RepeatableTask;
 import com.mryqr.core.qr.domain.QrRepository;
 import com.mryqr.core.qr.domain.attribute.sync.QrAttributeValueSyncer;
 import lombok.RequiredArgsConstructor;
@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static com.mryqr.core.common.domain.user.User.NOUSER;
-import static com.mryqr.core.common.utils.CommonUtils.requireNonBlank;
+import static com.mryqr.common.domain.user.User.NOUSER;
+import static com.mryqr.common.utils.CommonUtils.requireNonBlank;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 
 @Slf4j

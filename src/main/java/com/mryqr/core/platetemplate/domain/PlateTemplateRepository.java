@@ -1,6 +1,6 @@
 package com.mryqr.core.platetemplate.domain;
 
-import com.mryqr.core.common.domain.user.User;
+import com.mryqr.common.domain.user.User;
 
 import java.util.Optional;
 

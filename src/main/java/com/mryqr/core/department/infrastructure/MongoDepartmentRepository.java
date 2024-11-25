@@ -1,9 +1,9 @@
 package com.mryqr.core.department.infrastructure;
 
 import com.mongodb.client.result.UpdateResult;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.common.oss.mongo.MongoBaseRepository;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
 import com.mryqr.core.department.domain.Department;
 import com.mryqr.core.department.domain.DepartmentRepository;
 import com.mryqr.core.department.domain.TenantCachedDepartment;
@@ -17,9 +17,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
-import static com.mryqr.core.common.exception.ErrorCode.DEPARTMENT_NOT_FOUND;
-import static com.mryqr.core.common.utils.CommonUtils.requireNonBlank;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.exception.ErrorCode.DEPARTMENT_NOT_FOUND;
+import static com.mryqr.common.utils.CommonUtils.requireNonBlank;
+import static com.mryqr.common.utils.MapUtils.mapOf;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;

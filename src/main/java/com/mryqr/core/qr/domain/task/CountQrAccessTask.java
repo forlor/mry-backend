@@ -1,8 +1,8 @@
 package com.mryqr.core.qr.domain.task;
 
+import com.mryqr.common.domain.task.OnetimeTask;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.attribute.Attribute;
-import com.mryqr.core.common.domain.task.OnetimeTask;
 import com.mryqr.core.qr.domain.QR;
 import com.mryqr.core.qr.domain.QrRepository;
 import com.mryqr.core.qr.domain.attribute.sync.QrAttributeValueSyncer;
@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+import static com.mryqr.common.domain.user.User.NOUSER;
 import static com.mryqr.core.app.domain.attribute.AttributeType.INSTANCE_ACCESS_COUNT;
-import static com.mryqr.core.common.domain.user.User.NOUSER;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 
 @Slf4j

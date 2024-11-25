@@ -1,8 +1,8 @@
 package com.mryqr.core.departmenthierarchy;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.domain.idnode.IdTree;
 import com.mryqr.core.app.AppApi;
-import com.mryqr.core.common.domain.idnode.IdTree;
 import com.mryqr.core.department.DepartmentApi;
 import com.mryqr.core.department.command.RenameDepartmentCommand;
 import com.mryqr.core.department.domain.Department;
@@ -20,8 +20,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mryqr.core.common.domain.event.DomainEventType.DEPARTMENT_HIERARCHY_CHANGED;
-import static com.mryqr.core.common.exception.ErrorCode.*;
+import static com.mryqr.common.domain.event.DomainEventType.DEPARTMENT_HIERARCHY_CHANGED;
+import static com.mryqr.common.exception.ErrorCode.*;
 import static com.mryqr.utils.RandomTestFixture.rDepartmentName;
 import static java.lang.Boolean.TRUE;
 import static org.junit.jupiter.api.Assertions.*;

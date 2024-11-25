@@ -1,9 +1,9 @@
 package com.mryqr.core.app.domain.circulation;
 
-import com.mryqr.core.common.utils.Identified;
-import com.mryqr.core.common.validation.collection.NoNullElement;
-import com.mryqr.core.common.validation.id.page.PageId;
-import com.mryqr.core.common.validation.id.shoruuid.ShortUuid;
+import com.mryqr.common.utils.Identified;
+import com.mryqr.common.validation.collection.NoNullElement;
+import com.mryqr.common.validation.id.page.PageId;
+import com.mryqr.common.validation.id.shoruuid.ShortUuid;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -14,7 +14,7 @@ import lombok.Value;
 
 import java.util.List;
 
-import static com.mryqr.core.common.utils.MryConstants.MAX_PER_APP_PAGE_SIZE;
+import static com.mryqr.common.utils.MryConstants.MAX_PER_APP_PAGE_SIZE;
 import static lombok.AccessLevel.PRIVATE;
 
 @Value

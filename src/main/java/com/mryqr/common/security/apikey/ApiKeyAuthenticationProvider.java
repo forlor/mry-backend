@@ -12,7 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
-import static com.mryqr.core.common.domain.user.User.robotUser;
+import static com.mryqr.common.domain.user.User.robotUser;
 import static java.lang.Long.MAX_VALUE;
 
 @Component

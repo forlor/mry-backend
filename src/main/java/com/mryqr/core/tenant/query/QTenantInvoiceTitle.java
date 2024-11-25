@@ -1,6 +1,6 @@
 package com.mryqr.core.tenant.query;
 
-import com.mryqr.core.common.domain.invoice.InvoiceTitle;
+import com.mryqr.common.domain.invoice.InvoiceTitle;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;

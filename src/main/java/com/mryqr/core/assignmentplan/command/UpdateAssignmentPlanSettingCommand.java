@@ -1,7 +1,7 @@
 package com.mryqr.core.assignmentplan.command;
 
+import com.mryqr.common.utils.Command;
 import com.mryqr.core.assignmentplan.domain.AssignmentSetting;
-import com.mryqr.core.common.utils.Command;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

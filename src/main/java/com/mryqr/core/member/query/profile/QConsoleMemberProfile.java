@@ -1,7 +1,7 @@
 package com.mryqr.core.member.query.profile;
 
-import com.mryqr.core.common.domain.UploadedFile;
-import com.mryqr.core.common.domain.user.Role;
+import com.mryqr.common.domain.UploadedFile;
+import com.mryqr.common.domain.user.Role;
 import com.mryqr.core.tenant.query.QConsoleTenantProfile;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

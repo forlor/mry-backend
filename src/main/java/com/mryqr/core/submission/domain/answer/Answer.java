@@ -3,13 +3,13 @@ package com.mryqr.core.submission.domain.answer;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.mryqr.common.domain.display.DisplayValue;
+import com.mryqr.common.domain.indexedfield.IndexedValue;
+import com.mryqr.common.exception.MryException;
+import com.mryqr.common.validation.id.control.ControlId;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.ControlType;
-import com.mryqr.core.common.domain.display.DisplayValue;
-import com.mryqr.core.common.domain.indexedfield.IndexedValue;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.validation.id.control.ControlId;
 import com.mryqr.core.qr.domain.attribute.AttributeValue;
 import com.mryqr.core.submission.domain.SubmissionReferenceContext;
 import com.mryqr.core.submission.domain.answer.address.AddressAnswer;
@@ -45,7 +45,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.util.Set;
 
-import static com.mryqr.core.common.exception.ErrorCode.ANSWERS_DUPLICATED;
+import static com.mryqr.common.exception.ErrorCode.ANSWERS_DUPLICATED;
 import static lombok.AccessLevel.PROTECTED;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;

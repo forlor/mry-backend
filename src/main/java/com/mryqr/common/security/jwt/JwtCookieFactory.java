@@ -1,13 +1,13 @@
 package com.mryqr.common.security.jwt;
 
-import com.mryqr.core.common.properties.CommonProperties;
-import com.mryqr.core.common.properties.JwtProperties;
+import com.mryqr.common.properties.CommonProperties;
+import com.mryqr.common.properties.JwtProperties;
 import jakarta.servlet.http.Cookie;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-import static com.mryqr.core.common.utils.MryConstants.AUTH_COOKIE_NAME;
+import static com.mryqr.common.utils.MryConstants.AUTH_COOKIE_NAME;
 import static java.util.Arrays.asList;
 
 @Component

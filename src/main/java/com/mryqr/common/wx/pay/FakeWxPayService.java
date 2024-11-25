@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 
-import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
+import static com.mryqr.common.utils.UuidGenerator.newShortUuid;
 
 @Component
 @AllArgsConstructor

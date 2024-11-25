@@ -1,9 +1,9 @@
 package com.mryqr.common.security.jwt;
 
+import com.mryqr.common.exception.Error;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.common.tracing.MryTracingService;
-import com.mryqr.core.common.exception.Error;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.utils.MryObjectMapper;
+import com.mryqr.common.utils.MryObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -18,9 +18,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import static com.mryqr.core.common.utils.MryConstants.AUTHORIZATION;
-import static com.mryqr.core.common.utils.MryConstants.AUTH_COOKIE_NAME;
-import static com.mryqr.core.common.utils.MryConstants.BEARER;
+import static com.mryqr.common.utils.MryConstants.*;
 import static org.apache.commons.codec.CharEncoding.UTF_8;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;

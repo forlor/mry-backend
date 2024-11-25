@@ -1,16 +1,12 @@
 package com.mryqr.core.mangement;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.properties.CommonProperties;
 import com.mryqr.core.app.AppApi;
 import com.mryqr.core.app.command.UpdateAppWebhookSettingCommand;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.WebhookSetting;
-import com.mryqr.core.app.domain.page.control.FImageUploadControl;
-import com.mryqr.core.app.domain.page.control.FMobileNumberControl;
-import com.mryqr.core.app.domain.page.control.FMultiLineTextControl;
-import com.mryqr.core.app.domain.page.control.FRadioControl;
-import com.mryqr.core.app.domain.page.control.FSingleLineTextControl;
-import com.mryqr.core.common.properties.CommonProperties;
+import com.mryqr.core.app.domain.page.control.*;
 import com.mryqr.core.login.LoginApi;
 import com.mryqr.core.qr.domain.QR;
 import com.mryqr.core.submission.SubmissionApi;
@@ -26,23 +22,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Set;
 
-import static com.mryqr.core.common.domain.permission.Permission.PUBLIC;
+import static com.mryqr.common.domain.permission.Permission.PUBLIC;
 import static com.mryqr.management.MryManageTenant.ADMIN_INIT_MOBILE;
 import static com.mryqr.management.MryManageTenant.ADMIN_INIT_PASSWORD;
-import static com.mryqr.management.offencereport.MryOffenceReportApp.MRY_OFFENCE_APP_ID;
-import static com.mryqr.management.offencereport.MryOffenceReportApp.OFFENCE_DETAIL_CONTROL_ID;
-import static com.mryqr.management.offencereport.MryOffenceReportApp.OFFENCE_FILES_CONTROL_ID;
-import static com.mryqr.management.offencereport.MryOffenceReportApp.OFFENCE_FORM_PAGE_ID;
-import static com.mryqr.management.offencereport.MryOffenceReportApp.OFFENCE_MOBILE_CONTROL_ID;
-import static com.mryqr.management.offencereport.MryOffenceReportApp.OFFENCE_REASON_CONTROL_ID;
-import static com.mryqr.management.offencereport.MryOffenceReportApp.OFFENCE_SYNC_APP_ID_CONTROL_ID;
-import static com.mryqr.management.offencereport.MryOffenceReportApp.OFFENCE_SYNC_APP_NAME_CONTROL_ID;
-import static com.mryqr.management.offencereport.MryOffenceReportApp.OFFENCE_SYNC_PAGE_ID;
-import static com.mryqr.management.offencereport.MryOffenceReportApp.OFFENCE_SYNC_QR_ID_CONTROL_ID;
-import static com.mryqr.management.offencereport.MryOffenceReportApp.OFFENCE_SYNC_QR_NAME_CONTROL_ID;
-import static com.mryqr.management.offencereport.MryOffenceReportApp.OFFENCE_SYNC_TENANT_ID_CONTROL_ID;
-import static com.mryqr.management.offencereport.MryOffenceReportApp.OFFENCE_SYNC_TENANT_NAME_CONTROL_ID;
-import static com.mryqr.management.offencereport.MryOffenceReportApp.OFFENCE_TEMPLATE_PLATE_ID;
+import static com.mryqr.management.offencereport.MryOffenceReportApp.*;
 import static com.mryqr.utils.RandomTestFixture.defaultSingleLineTextControl;
 import static com.mryqr.utils.RandomTestFixture.rAnswer;
 import static org.junit.jupiter.api.Assertions.assertEquals;

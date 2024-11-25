@@ -1,16 +1,8 @@
 package com.mryqr.core.qr;
 
 import com.mryqr.BaseApiTest;
-import com.mryqr.core.common.utils.PagedList;
-import com.mryqr.core.qr.command.ChangeQrsGroupCommand;
-import com.mryqr.core.qr.command.CreateQrCommand;
-import com.mryqr.core.qr.command.CreateQrFromPlateCommand;
-import com.mryqr.core.qr.command.CreateQrResponse;
-import com.mryqr.core.qr.command.DeleteQrsCommand;
-import com.mryqr.core.qr.command.RenameQrCommand;
-import com.mryqr.core.qr.command.ResetQrCirculationStatusCommand;
-import com.mryqr.core.qr.command.ResetQrPlateCommand;
-import com.mryqr.core.qr.command.UpdateQrBaseSettingCommand;
+import com.mryqr.common.utils.PagedList;
+import com.mryqr.core.qr.command.*;
 import com.mryqr.core.qr.command.importqr.QrImportResponse;
 import com.mryqr.core.qr.query.QQrBaseSetting;
 import com.mryqr.core.qr.query.QQrSummary;

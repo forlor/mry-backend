@@ -2,10 +2,10 @@ package com.mryqr.core.assignment.infrastructure;
 
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
+import com.mryqr.common.domain.user.User;
 import com.mryqr.common.oss.mongo.MongoBaseRepository;
 import com.mryqr.core.assignment.domain.Assignment;
 import com.mryqr.core.assignment.domain.AssignmentRepository;
-import com.mryqr.core.common.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -16,9 +16,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import static com.mryqr.common.utils.CommonUtils.requireNonBlank;
 import static com.mryqr.core.assignment.domain.AssignmentStatus.IN_PROGRESS;
 import static com.mryqr.core.assignment.domain.AssignmentStatus.NEAR_EXPIRE;
-import static com.mryqr.core.common.utils.CommonUtils.requireNonBlank;
 import static java.time.ZoneId.systemDefault;
 import static java.util.Objects.requireNonNull;
 import static java.util.Optional.ofNullable;

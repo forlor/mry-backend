@@ -1,9 +1,9 @@
 package com.mryqr.core.app.domain.page.control;
 
+import com.mryqr.common.validation.color.Color;
 import com.mryqr.core.app.domain.ui.border.Border;
 import com.mryqr.core.app.domain.ui.borderradius.BorderRadius;
 import com.mryqr.core.app.domain.ui.shadow.Shadow;
-import com.mryqr.core.common.validation.color.Color;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -12,13 +12,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
+import static com.mryqr.common.utils.MryConstants.*;
 import static com.mryqr.core.app.domain.ui.border.Border.noBorder;
 import static com.mryqr.core.app.domain.ui.borderradius.BorderRadius.noBorderRadius;
 import static com.mryqr.core.app.domain.ui.shadow.Shadow.noShadow;
-import static com.mryqr.core.common.utils.MryConstants.MAX_MARGIN;
-import static com.mryqr.core.common.utils.MryConstants.MAX_PADDING;
-import static com.mryqr.core.common.utils.MryConstants.MIN_MARGIN;
-import static com.mryqr.core.common.utils.MryConstants.MIN_PADDING;
 import static lombok.AccessLevel.PRIVATE;
 
 @Value

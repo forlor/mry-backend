@@ -1,32 +1,18 @@
 package com.mryqr.core.assignment;
 
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.utils.PagedList;
+import com.mryqr.common.validation.id.assignment.AssignmentId;
+import com.mryqr.common.validation.id.qr.QrId;
 import com.mryqr.core.assignment.command.AssignmentCommandService;
 import com.mryqr.core.assignment.command.SetAssignmentOperatorsCommand;
-import com.mryqr.core.assignment.query.AssignmentQueryService;
-import com.mryqr.core.assignment.query.ListAssignmentQrsQuery;
-import com.mryqr.core.assignment.query.ListMyAssignmentsQuery;
-import com.mryqr.core.assignment.query.ListMyManagedAssignmentsQuery;
-import com.mryqr.core.assignment.query.QAssignmentDetail;
-import com.mryqr.core.assignment.query.QAssignmentListQr;
-import com.mryqr.core.assignment.query.QAssignmentQrDetail;
-import com.mryqr.core.assignment.query.QListAssignment;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.utils.PagedList;
-import com.mryqr.core.common.validation.id.assignment.AssignmentId;
-import com.mryqr.core.common.validation.id.qr.QrId;
+import com.mryqr.core.assignment.query.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Validated
 @RestController

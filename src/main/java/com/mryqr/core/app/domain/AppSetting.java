@@ -1,5 +1,8 @@
 package com.mryqr.core.app.domain;
 
+import com.mryqr.common.domain.permission.Permission;
+import com.mryqr.common.exception.MryException;
+import com.mryqr.common.validation.collection.NoNullElement;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.circulation.CirculationStatusSetting;
 import com.mryqr.core.app.domain.config.AppConfig;
@@ -8,9 +11,6 @@ import com.mryqr.core.app.domain.page.Page;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.menu.Menu;
 import com.mryqr.core.app.domain.plate.PlateSetting;
-import com.mryqr.core.common.domain.permission.Permission;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.validation.collection.NoNullElement;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -23,13 +23,11 @@ import lombok.Getter;
 import java.util.List;
 import java.util.Optional;
 
-import static com.mryqr.core.common.domain.permission.Permission.minPermission;
-import static com.mryqr.core.common.exception.ErrorCode.CONTROL_NOT_FOUND;
-import static com.mryqr.core.common.exception.ErrorCode.PAGE_NOT_FOUND;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
-import static com.mryqr.core.common.utils.MryConstants.MAX_PER_APP_ATTRIBUTE_SIZE;
-import static com.mryqr.core.common.utils.MryConstants.MAX_PER_APP_OPERATION_MENU_SIZE;
-import static com.mryqr.core.common.utils.MryConstants.MAX_PER_APP_PAGE_SIZE;
+import static com.mryqr.common.domain.permission.Permission.minPermission;
+import static com.mryqr.common.exception.ErrorCode.CONTROL_NOT_FOUND;
+import static com.mryqr.common.exception.ErrorCode.PAGE_NOT_FOUND;
+import static com.mryqr.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.utils.MryConstants.*;
 import static java.util.Optional.empty;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.StringUtils.isBlank;

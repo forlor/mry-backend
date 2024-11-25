@@ -1,10 +1,10 @@
 package com.mryqr.core.app.eventhandler;
 
+import com.mryqr.common.domain.event.consume.AbstractDomainEventHandler;
+import com.mryqr.common.utils.MryTaskRunner;
 import com.mryqr.core.app.domain.event.AppPagesDeletedEvent;
 import com.mryqr.core.assignment.domain.task.RemoveAllAssignmentsForPageTask;
 import com.mryqr.core.assignmentplan.domain.task.RemoveAllAssignmentPlansForPageTask;
-import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
-import com.mryqr.core.common.utils.MryTaskRunner;
 import com.mryqr.core.submission.domain.task.CountSubmissionForAppTask;
 import com.mryqr.core.submission.domain.task.RemoveAllSubmissionsForPageTask;
 import lombok.RequiredArgsConstructor;

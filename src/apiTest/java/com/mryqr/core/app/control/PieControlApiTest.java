@@ -1,17 +1,12 @@
 package com.mryqr.core.app.control;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.domain.report.ReportRange;
 import com.mryqr.core.app.AppApi;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppSetting;
 import com.mryqr.core.app.domain.page.Page;
-import com.mryqr.core.app.domain.page.control.Control;
-import com.mryqr.core.app.domain.page.control.FCheckboxControl;
-import com.mryqr.core.app.domain.page.control.FNumberInputControl;
-import com.mryqr.core.app.domain.page.control.FRadioControl;
-import com.mryqr.core.app.domain.page.control.FSingleLineTextControl;
-import com.mryqr.core.app.domain.page.control.PPieControl;
-import com.mryqr.core.common.domain.report.ReportRange;
+import com.mryqr.core.app.domain.page.control.*;
 import com.mryqr.core.presentation.PresentationApi;
 import com.mryqr.core.presentation.query.pie.QPiePresentation;
 import com.mryqr.core.qr.QrApi;
@@ -22,22 +17,11 @@ import com.mryqr.utils.PreparedAppResponse;
 import com.mryqr.utils.PreparedQrResponse;
 import org.junit.jupiter.api.Test;
 
-import static com.mryqr.core.common.domain.report.SubmissionSegmentType.CONTROL_VALUE_SUM;
-import static com.mryqr.core.common.exception.ErrorCode.NOT_SUPPORTED_BASED_CONTROL_FOR_PIE;
-import static com.mryqr.core.common.exception.ErrorCode.NOT_SUPPORTED_TARGET_CONTROL_FOR_PIE;
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_CONTROL_NOT_EXIST;
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_PAGE_NOT_EXIST;
+import static com.mryqr.common.domain.report.SubmissionSegmentType.CONTROL_VALUE_SUM;
+import static com.mryqr.common.exception.ErrorCode.*;
 import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
-import static com.mryqr.utils.RandomTestFixture.defaultCheckboxControl;
-import static com.mryqr.utils.RandomTestFixture.defaultNumberInputControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultPieControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultRadioControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultSingleLineTextControl;
-import static com.mryqr.utils.RandomTestFixture.rAnswerBuilder;
-import static com.mryqr.utils.RandomTestFixture.rTextOptions;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static com.mryqr.utils.RandomTestFixture.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PieControlApiTest extends BaseApiTest {
 

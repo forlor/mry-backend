@@ -1,10 +1,10 @@
 package com.mryqr.core.app.eventhandler;
 
+import com.mryqr.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.event.AppPageChangedToSubmitPerMemberEvent;
 import com.mryqr.core.app.domain.page.Page;
-import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.core.qr.domain.task.RemoveAttributeValuesForAllQrsUnderAppTask;
 import com.mryqr.core.qr.domain.task.RemoveIndexedValueUnderAllQrsTask;
 import com.mryqr.core.submission.domain.task.CountSubmissionForAppTask;

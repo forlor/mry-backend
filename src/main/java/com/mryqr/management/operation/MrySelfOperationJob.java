@@ -1,12 +1,12 @@
 package com.mryqr.management.operation;
 
+import com.mryqr.common.domain.permission.Permission;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.app.domain.page.Page;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.FDateControl;
 import com.mryqr.core.app.domain.page.control.FNumberInputControl;
-import com.mryqr.core.common.domain.permission.Permission;
 import com.mryqr.core.group.domain.Group;
 import com.mryqr.core.group.domain.GroupRepository;
 import com.mryqr.core.member.domain.Member;
@@ -37,7 +37,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static com.google.common.collect.ImmutableMap.toImmutableMap;
-import static com.mryqr.core.common.domain.user.User.NOUSER;
+import static com.mryqr.common.domain.user.User.NOUSER;
 import static com.mryqr.management.operation.MryOperationApp.*;
 import static java.time.ZoneId.systemDefault;
 import static java.util.Objects.requireNonNull;

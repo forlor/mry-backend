@@ -1,6 +1,6 @@
 package com.mryqr.core.order.query;
 
-import com.mryqr.core.common.utils.Query;
+import com.mryqr.common.utils.Query;
 import com.mryqr.core.order.domain.detail.OrderDetail;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;

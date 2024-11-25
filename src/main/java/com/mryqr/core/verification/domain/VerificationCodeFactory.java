@@ -1,7 +1,7 @@
 package com.mryqr.core.verification.domain;
 
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.core.tenant.domain.PackagesStatus;
 import com.mryqr.core.tenant.domain.TenantRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-import static com.mryqr.core.common.exception.ErrorCode.TOO_MANY_VERIFICATION_CODE_FOR_TODAY;
-import static com.mryqr.core.common.exception.ErrorCode.VERIFICATION_CODE_ALREADY_SENT;
-import static com.mryqr.core.common.utils.CommonUtils.isMobileNumber;
-import static com.mryqr.core.common.utils.CommonUtils.maskMobileOrEmail;
+import static com.mryqr.common.exception.ErrorCode.TOO_MANY_VERIFICATION_CODE_FOR_TODAY;
+import static com.mryqr.common.exception.ErrorCode.VERIFICATION_CODE_ALREADY_SENT;
+import static com.mryqr.common.utils.CommonUtils.isMobileNumber;
+import static com.mryqr.common.utils.CommonUtils.maskMobileOrEmail;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @Slf4j

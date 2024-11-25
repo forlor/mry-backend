@@ -1,7 +1,7 @@
 package com.mryqr.core.app.domain.page.setting;
 
-import com.mryqr.core.common.domain.permission.Permission;
-import com.mryqr.core.common.exception.MryException;
+import com.mryqr.common.domain.permission.Permission;
+import com.mryqr.common.exception.MryException;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -11,11 +11,11 @@ import lombok.Getter;
 
 import java.util.List;
 
-import static com.mryqr.core.common.domain.permission.Permission.CAN_MANAGE_APP;
-import static com.mryqr.core.common.domain.permission.Permission.CAN_MANAGE_GROUP;
-import static com.mryqr.core.common.exception.ErrorCode.APPROVAL_PERMISSION_NOT_ALLOWED;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
-import static com.mryqr.core.common.utils.MryConstants.MAX_SHORT_NAME_LENGTH;
+import static com.mryqr.common.domain.permission.Permission.CAN_MANAGE_APP;
+import static com.mryqr.common.domain.permission.Permission.CAN_MANAGE_GROUP;
+import static com.mryqr.common.exception.ErrorCode.APPROVAL_PERMISSION_NOT_ALLOWED;
+import static com.mryqr.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.utils.MryConstants.MAX_SHORT_NAME_LENGTH;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 

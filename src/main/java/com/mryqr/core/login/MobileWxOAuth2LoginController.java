@@ -1,11 +1,11 @@
 package com.mryqr.core.login;
 
+import com.mryqr.common.properties.PropertyService;
 import com.mryqr.common.ratelimit.MryRateLimiter;
 import com.mryqr.common.security.jwt.JwtCookieFactory;
 import com.mryqr.common.wx.auth.mobile.MobileWxAuthAccessTokenInfo;
 import com.mryqr.common.wx.auth.mobile.MobileWxAuthService;
 import com.mryqr.common.wx.auth.mobile.MobileWxAuthUserInfo;
-import com.mryqr.core.common.properties.PropertyService;
 import com.mryqr.core.login.command.LoginCommandService;
 import com.mryqr.core.login.domain.WxJwtService;
 import com.mryqr.core.member.domain.Member;
@@ -52,7 +52,7 @@ public class MobileWxOAuth2LoginController {
         if (optionalMember.isEmpty()) {
             log.info("Mobile wx openId[{}] with unionId[{}] not bound to a member, redirect to login page.", mobileWxOpenId, wxUnionId);
             return "redirect:" + propertyService.clientLoginUrl() + "?wx="
-                    + wxJwtService.generateMobileWxIdInfoJwt(wxUnionId, mobileWxOpenId) + "&from=" + fromUrl;
+                   + wxJwtService.generateMobileWxIdInfoJwt(wxUnionId, mobileWxOpenId) + "&from=" + fromUrl;
         }
 
         Member member = optionalMember.get();

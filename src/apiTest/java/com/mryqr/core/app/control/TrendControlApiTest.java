@@ -5,12 +5,7 @@ import com.mryqr.core.app.AppApi;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppSetting;
 import com.mryqr.core.app.domain.page.Page;
-import com.mryqr.core.app.domain.page.control.Control;
-import com.mryqr.core.app.domain.page.control.FDateControl;
-import com.mryqr.core.app.domain.page.control.FNumberInputControl;
-import com.mryqr.core.app.domain.page.control.FSingleLineTextControl;
-import com.mryqr.core.app.domain.page.control.PTrendControl;
-import com.mryqr.core.app.domain.page.control.TrendItem;
+import com.mryqr.core.app.domain.page.control.*;
 import com.mryqr.core.presentation.PresentationApi;
 import com.mryqr.core.presentation.query.trend.QTrendDataSet;
 import com.mryqr.core.presentation.query.trend.QTrendPresentation;
@@ -26,25 +21,14 @@ import org.springframework.test.util.ReflectionTestUtils;
 import java.time.LocalDate;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static com.mryqr.core.common.domain.report.SubmissionReportTimeBasedType.CREATED_AT;
-import static com.mryqr.core.common.domain.report.SubmissionReportTimeBasedType.DATE_CONTROL;
-import static com.mryqr.core.common.exception.ErrorCode.CONTROL_NOT_DATE;
-import static com.mryqr.core.common.exception.ErrorCode.NOT_SUPPORTED_TARGET_CONTROL_FOR_TREND;
-import static com.mryqr.core.common.exception.ErrorCode.TREND_ITEM_ID_DUPLICATED;
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_CONTROL_NOT_EXIST;
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_PAGE_NOT_EXIST;
-import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
+import static com.mryqr.common.domain.report.SubmissionReportTimeBasedType.CREATED_AT;
+import static com.mryqr.common.domain.report.SubmissionReportTimeBasedType.DATE_CONTROL;
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.common.utils.UuidGenerator.newShortUuid;
 import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
-import static com.mryqr.utils.RandomTestFixture.defaultDateControl;
-import static com.mryqr.utils.RandomTestFixture.defaultNumberInputControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultSingleLineTextControl;
-import static com.mryqr.utils.RandomTestFixture.defaultTrendControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.rAnswerBuilder;
-import static com.mryqr.utils.RandomTestFixture.rTrendItemName;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static java.time.temporal.ChronoUnit.DAYS;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TrendControlApiTest extends BaseApiTest {
 

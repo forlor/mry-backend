@@ -1,10 +1,10 @@
 package com.mryqr.core.app.domain.report.number.page;
 
+import com.mryqr.common.exception.MryException;
+import com.mryqr.common.validation.id.page.PageId;
 import com.mryqr.core.app.domain.AppSettingContext;
 import com.mryqr.core.app.domain.page.PageAware;
 import com.mryqr.core.app.domain.report.number.NumberReport;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.validation.id.page.PageId;
 import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -14,8 +14,8 @@ import org.springframework.data.annotation.TypeAlias;
 
 import java.util.Set;
 
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_PAGE_NOT_EXIST;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.exception.ErrorCode.VALIDATION_PAGE_NOT_EXIST;
+import static com.mryqr.common.utils.MapUtils.mapOf;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 

@@ -1,12 +1,12 @@
 package com.mryqr.core.login.domain;
 
+import com.mryqr.common.exception.MryException;
 import com.mryqr.common.password.MryPasswordEncoder;
 import com.mryqr.common.security.jwt.JwtService;
 import com.mryqr.common.wx.auth.mobile.MobileWxAuthService;
 import com.mryqr.common.wx.auth.mobile.MobileWxAuthUserInfo;
 import com.mryqr.common.wx.auth.pc.PcWxAuthService;
 import com.mryqr.common.wx.auth.pc.PcWxAuthUserInfo;
-import com.mryqr.core.common.exception.MryException;
 import com.mryqr.core.member.domain.Member;
 import com.mryqr.core.member.domain.MemberDomainService;
 import com.mryqr.core.member.domain.MemberRepository;
@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import static com.mryqr.core.common.exception.MryException.authenticationException;
+import static com.mryqr.common.exception.MryException.authenticationException;
 import static com.mryqr.core.verification.domain.VerificationCodeType.LOGIN;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 

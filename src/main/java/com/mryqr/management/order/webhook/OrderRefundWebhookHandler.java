@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
-import static com.mryqr.core.common.domain.user.User.NOUSER;
+import static com.mryqr.common.domain.user.User.NOUSER;
 import static com.mryqr.management.order.MryOrderManageApp.ORDER_REFUND_PAGE_ID;
 import static com.mryqr.management.order.MryOrderManageApp.ORDER_REFUND_REASON_CONTROL_ID;
 

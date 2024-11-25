@@ -1,6 +1,6 @@
 package com.mryqr.core.tenant.command;
 
-import com.mryqr.core.common.utils.Command;
+import com.mryqr.common.utils.Command;
 import com.mryqr.core.order.domain.delivery.Consignee;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;

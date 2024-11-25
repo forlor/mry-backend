@@ -1,7 +1,7 @@
 package com.mryqr.management.webhook;
 
+import com.mryqr.common.utils.MryObjectMapper;
 import com.mryqr.common.webhook.WebhookPayload;
-import com.mryqr.core.common.utils.MryObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;

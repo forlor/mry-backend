@@ -1,10 +1,10 @@
 package com.mryqr.core.assignment.domain.task;
 
 
+import com.mryqr.common.domain.task.RepeatableTask;
 import com.mryqr.core.assignment.domain.Assignment;
 import com.mryqr.core.assignment.domain.AssignmentFinishedQr;
 import com.mryqr.core.assignment.domain.AssignmentRepository;
-import com.mryqr.core.common.domain.task.RepeatableTask;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.time.Instant;
 import java.util.List;
 
-import static com.mryqr.core.common.domain.user.User.NOUSER;
+import static com.mryqr.common.domain.user.User.NOUSER;
 
 @Slf4j
 @Component

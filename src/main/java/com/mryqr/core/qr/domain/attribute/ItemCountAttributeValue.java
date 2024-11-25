@@ -1,13 +1,13 @@
 package com.mryqr.core.qr.domain.attribute;
 
+import com.mryqr.common.domain.CountedItem;
+import com.mryqr.common.domain.TextOption;
+import com.mryqr.common.domain.display.DisplayValue;
+import com.mryqr.common.domain.display.ItemCountDisplayValue;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.FItemCountControl;
-import com.mryqr.core.common.domain.CountedItem;
-import com.mryqr.core.common.domain.TextOption;
-import com.mryqr.core.common.domain.display.DisplayValue;
-import com.mryqr.core.common.domain.display.ItemCountDisplayValue;
 import com.mryqr.core.qr.domain.QrReferenceContext;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

@@ -1,11 +1,11 @@
 package com.mryqr.core.qr.domain.attribute;
 
+import com.mryqr.common.domain.display.DisplayValue;
+import com.mryqr.common.domain.display.TextOptionsDisplayValue;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.FCheckboxControl;
-import com.mryqr.core.common.domain.display.DisplayValue;
-import com.mryqr.core.common.domain.display.TextOptionsDisplayValue;
 import com.mryqr.core.qr.domain.QrReferenceContext;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

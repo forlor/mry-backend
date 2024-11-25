@@ -1,8 +1,8 @@
 package com.mryqr.core.submission.eventhandler;
 
+import com.mryqr.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.common.notification.publish.NotificationEventPublisher;
 import com.mryqr.core.app.domain.AppRepository;
-import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
 import com.mryqr.core.submission.domain.event.SubmissionApprovedEvent;
 import com.mryqr.core.tenant.domain.TenantRepository;
 import lombok.RequiredArgsConstructor;

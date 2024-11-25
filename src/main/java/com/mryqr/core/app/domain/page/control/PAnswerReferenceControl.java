@@ -1,36 +1,26 @@
 package com.mryqr.core.app.domain.page.control;
 
+import com.mryqr.common.exception.MryException;
+import com.mryqr.common.validation.id.control.ControlId;
+import com.mryqr.common.validation.id.page.PageId;
 import com.mryqr.core.app.domain.AppSettingContext;
 import com.mryqr.core.app.domain.ui.AppearanceStyle;
 import com.mryqr.core.app.domain.ui.BoxedTextStyle;
 import com.mryqr.core.app.domain.ui.MarkdownStyle;
 import com.mryqr.core.app.domain.ui.border.Border;
 import com.mryqr.core.app.domain.ui.shadow.Shadow;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.validation.id.control.ControlId;
-import com.mryqr.core.common.validation.id.page.PageId;
 import com.mryqr.core.submission.domain.answer.Answer;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Value;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.TypeAlias;
 
-import static com.mryqr.core.common.exception.ErrorCode.CONTROL_NOT_SUPPORT_REFERENCE;
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_CONTROL_NOT_EXIST;
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_PAGE_NOT_EXIST;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
-import static com.mryqr.core.common.utils.MryConstants.MAX_BORDER_RADIUS;
-import static com.mryqr.core.common.utils.MryConstants.MAX_MARGIN;
-import static com.mryqr.core.common.utils.MryConstants.MIN_BORDER_RADIUS;
-import static com.mryqr.core.common.utils.MryConstants.MIN_MARGIN;
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.utils.MryConstants.*;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 

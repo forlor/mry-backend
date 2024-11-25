@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+import static com.mryqr.common.utils.MryConstants.QR_COLLECTION;
 import static com.mryqr.core.app.domain.page.control.ControlType.INSTANCE_LIST;
-import static com.mryqr.core.common.utils.MryConstants.QR_COLLECTION;
 import static org.springframework.data.domain.Sort.Direction.DESC;
 import static org.springframework.data.domain.Sort.by;
 import static org.springframework.data.mongodb.core.query.Criteria.where;

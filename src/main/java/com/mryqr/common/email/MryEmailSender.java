@@ -1,6 +1,6 @@
 package com.mryqr.common.email;
 
-import com.mryqr.core.common.domain.UploadedFile;
+import com.mryqr.common.domain.UploadedFile;
 
 import java.util.List;
 

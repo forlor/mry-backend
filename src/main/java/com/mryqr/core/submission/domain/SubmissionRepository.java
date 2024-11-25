@@ -1,10 +1,10 @@
 package com.mryqr.core.submission.domain;
 
+import com.mryqr.common.domain.indexedfield.IndexedField;
+import com.mryqr.common.domain.user.User;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.attribute.AttributeStatisticRange;
-import com.mryqr.core.common.domain.indexedfield.IndexedField;
-import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.qr.domain.QR;
 
 import java.util.List;

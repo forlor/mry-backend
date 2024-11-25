@@ -1,6 +1,6 @@
 package com.mryqr.common.security;
 
-import com.mryqr.core.common.domain.user.User;
+import com.mryqr.common.domain.user.User;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

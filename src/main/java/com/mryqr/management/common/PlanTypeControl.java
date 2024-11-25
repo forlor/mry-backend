@@ -1,24 +1,20 @@
 package com.mryqr.management.common;
 
 import com.google.common.collect.ImmutableMap;
+import com.mryqr.common.domain.TextOption;
 import com.mryqr.core.app.domain.page.control.FDropdownControl;
-import com.mryqr.core.common.domain.TextOption;
 import com.mryqr.core.plan.domain.PlanType;
 
 import java.util.List;
 import java.util.Map;
 
+import static com.mryqr.common.domain.permission.Permission.CAN_MANAGE_GROUP;
 import static com.mryqr.core.app.domain.page.control.ControlFillableSetting.defaultControlFillableSettingBuilder;
 import static com.mryqr.core.app.domain.page.control.ControlNameSetting.defaultControlNameSetting;
 import static com.mryqr.core.app.domain.page.control.ControlStyleSetting.defaultControlStyleSetting;
 import static com.mryqr.core.app.domain.page.control.ControlType.DROPDOWN;
 import static com.mryqr.core.app.domain.ui.BoxedTextStyle.defaultControlDescriptionStyle;
-import static com.mryqr.core.common.domain.permission.Permission.CAN_MANAGE_GROUP;
-import static com.mryqr.core.plan.domain.PlanType.ADVANCED;
-import static com.mryqr.core.plan.domain.PlanType.BASIC;
-import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
-import static com.mryqr.core.plan.domain.PlanType.FREE;
-import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
+import static com.mryqr.core.plan.domain.PlanType.*;
 
 public class PlanTypeControl {
     public static final String FREE_PLAN_OPTION_ID = "zl5YZv3lR6q1F0s86qqgNg";

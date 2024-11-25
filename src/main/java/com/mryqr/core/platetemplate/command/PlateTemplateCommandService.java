@@ -1,9 +1,9 @@
 package com.mryqr.core.platetemplate.command;
 
+import com.mryqr.common.domain.user.User;
 import com.mryqr.common.ratelimit.MryRateLimiter;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
-import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.platetemplate.domain.PlateTemplate;
 import com.mryqr.core.platetemplate.domain.PlateTemplateFactory;
 import com.mryqr.core.platetemplate.domain.PlateTemplateRepository;
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 
-import static com.mryqr.core.common.exception.MryException.accessDeniedException;
+import static com.mryqr.common.exception.MryException.accessDeniedException;
 import static com.mryqr.management.apptemplate.MryAppTemplateTenant.MRY_APP_TEMPLATE_TENANT_ID;
 
 @Slf4j

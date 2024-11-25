@@ -1,6 +1,6 @@
 package com.mryqr.integration.app.query;
 
-import com.mryqr.core.common.domain.permission.Permission;
+import com.mryqr.common.domain.permission.Permission;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;

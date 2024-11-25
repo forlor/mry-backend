@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mryqr.core.common.exception.ErrorCode.TOO_MANY_REQUEST;
+import static com.mryqr.common.exception.ErrorCode.TOO_MANY_REQUEST;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Disabled("随机挂")

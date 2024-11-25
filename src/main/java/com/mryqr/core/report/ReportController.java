@@ -1,6 +1,6 @@
 package com.mryqr.core.report;
 
-import com.mryqr.core.common.domain.user.User;
+import com.mryqr.common.domain.user.User;
 import com.mryqr.core.report.query.chart.ChartReportQuery;
 import com.mryqr.core.report.query.chart.ChartReportQueryService;
 import com.mryqr.core.report.query.chart.QChartReport;

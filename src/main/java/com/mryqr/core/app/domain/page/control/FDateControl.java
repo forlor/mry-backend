@@ -13,7 +13,7 @@ import org.springframework.data.annotation.TypeAlias;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static com.mryqr.core.common.utils.MryConstants.MAX_PLACEHOLDER_LENGTH;
+import static com.mryqr.common.utils.MryConstants.MAX_PLACEHOLDER_LENGTH;
 import static java.time.format.DateTimeFormatter.ofPattern;
 import static lombok.AccessLevel.PRIVATE;
 

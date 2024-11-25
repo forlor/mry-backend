@@ -1,7 +1,7 @@
 package com.mryqr.core.assignment.domain.task;
 
+import com.mryqr.common.domain.task.RepeatableTask;
 import com.mryqr.core.assignment.domain.AssignmentRepository;
-import com.mryqr.core.common.domain.task.RepeatableTask;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

@@ -1,8 +1,8 @@
 package com.mryqr.core.group.domain;
 
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.core.app.domain.App;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
 import com.mryqr.core.grouphierarchy.domain.GroupHierarchy;
 import com.mryqr.core.grouphierarchy.domain.GroupHierarchyRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,10 +12,8 @@ import java.util.Objects;
 import java.util.Set;
 
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.common.exception.ErrorCode.GROUP_WITH_CUSTOM_ID_ALREADY_EXISTS;
-import static com.mryqr.core.common.exception.ErrorCode.GROUP_WITH_NAME_ALREADY_EXISTS;
-import static com.mryqr.core.common.exception.ErrorCode.NO_MORE_THAN_ONE_VISIBLE_GROUP_LEFT;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.common.utils.MapUtils.mapOf;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
@@ -78,8 +76,8 @@ public class GroupDomainService {
 
     private void checkCustomIdDuplication(Group group, String customId) {
         if (isNotBlank(customId)
-                && !Objects.equals(group.getCustomId(), customId)
-                && groupRepository.cachedExistsByCustomId(customId, group.getAppId())) {
+            && !Objects.equals(group.getCustomId(), customId)
+            && groupRepository.cachedExistsByCustomId(customId, group.getAppId())) {
             throw new MryException(GROUP_WITH_CUSTOM_ID_ALREADY_EXISTS,
                     "自定义编号已被占用。",
                     mapOf("qrId", group.getId(), "customId", customId));

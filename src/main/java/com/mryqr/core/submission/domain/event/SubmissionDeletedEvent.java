@@ -1,12 +1,12 @@
 package com.mryqr.core.submission.domain.event;
 
+import com.mryqr.common.domain.user.User;
 import com.mryqr.core.app.domain.event.AppAwareDomainEvent;
-import com.mryqr.core.common.domain.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.TypeAlias;
 
-import static com.mryqr.core.common.domain.event.DomainEventType.SUBMISSION_DELETED;
+import static com.mryqr.common.domain.event.DomainEventType.SUBMISSION_DELETED;
 import static lombok.AccessLevel.PRIVATE;
 
 @Getter

@@ -1,10 +1,10 @@
 package com.mryqr.core.qr.query.report;
 
+import com.mryqr.common.domain.report.NumberRangeSegment;
+import com.mryqr.common.domain.report.QrSegmentType;
+import com.mryqr.common.domain.report.ReportRange;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.attribute.Attribute;
-import com.mryqr.core.common.domain.report.NumberRangeSegment;
-import com.mryqr.core.common.domain.report.QrSegmentType;
-import com.mryqr.core.common.domain.report.ReportRange;
 import com.mryqr.core.qr.domain.QR;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -14,25 +14,18 @@ import org.springframework.data.mongodb.core.aggregation.BucketOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.collect.ImmutableMap.toImmutableMap;
-import static com.mryqr.core.common.domain.report.QrSegmentType.QR_COUNT_SUM;
-import static com.mryqr.core.common.domain.report.ReportRange.timeRangeOf;
-import static com.mryqr.core.common.utils.CommonUtils.requireNonBlank;
-import static com.mryqr.core.common.utils.MongoCriteriaUtils.mongoSortableFieldOf;
+import static com.mryqr.common.domain.report.QrSegmentType.QR_COUNT_SUM;
+import static com.mryqr.common.domain.report.ReportRange.timeRangeOf;
+import static com.mryqr.common.utils.CommonUtils.requireNonBlank;
+import static com.mryqr.common.utils.MongoCriteriaUtils.mongoSortableFieldOf;
 import static java.util.Comparator.comparing;
 import static java.util.Comparator.naturalOrder;
 import static java.util.Objects.requireNonNull;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.bucket;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 @Component
@@ -145,7 +138,8 @@ public class QrNumberRangeSegmentReporter {
                         .withDefaultBucket(DEFAULT)
                         .andOutput(TARGET_FIELD).min().as(VALUE);
             }
-            default -> throw new IllegalStateException("Statistics segment type[" + segmentType.name() + "] not supported.");
+            default ->
+                    throw new IllegalStateException("Statistics segment type[" + segmentType.name() + "] not supported.");
         }
     }
 

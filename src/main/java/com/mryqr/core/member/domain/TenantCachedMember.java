@@ -1,13 +1,13 @@
 package com.mryqr.core.member.domain;
 
-import com.mryqr.core.common.domain.user.Role;
+import com.mryqr.common.domain.user.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
 import java.util.List;
 
-import static com.mryqr.core.common.domain.user.Role.TENANT_ADMIN;
+import static com.mryqr.common.domain.user.Role.TENANT_ADMIN;
 import static lombok.AccessLevel.PRIVATE;
 
 @Value

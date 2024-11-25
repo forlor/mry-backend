@@ -1,19 +1,15 @@
 package com.mryqr.core.member.domain;
 
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.core.department.domain.DepartmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static com.mryqr.core.common.exception.ErrorCode.MEMBER_WITH_CUSTOM_ID_ALREADY_EXISTS;
-import static com.mryqr.core.common.exception.ErrorCode.MEMBER_WITH_EMAIL_ALREADY_EXISTS;
-import static com.mryqr.core.common.exception.ErrorCode.MEMBER_WITH_MOBILE_ALREADY_EXISTS;
-import static com.mryqr.core.common.exception.ErrorCode.MOBILE_EMAIL_CANNOT_BOTH_EMPTY;
-import static com.mryqr.core.common.exception.ErrorCode.NOT_ALL_DEPARTMENTS_EXITS;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.common.utils.MapUtils.mapOf;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 

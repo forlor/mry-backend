@@ -1,11 +1,11 @@
 package com.mryqr.core.login;
 
+import com.mryqr.common.properties.PropertyService;
 import com.mryqr.common.ratelimit.MryRateLimiter;
 import com.mryqr.common.security.jwt.JwtCookieFactory;
 import com.mryqr.common.wx.auth.pc.PcWxAuthAccessTokenInfo;
 import com.mryqr.common.wx.auth.pc.PcWxAuthService;
 import com.mryqr.common.wx.auth.pc.PcWxAuthUserInfo;
-import com.mryqr.core.common.properties.PropertyService;
 import com.mryqr.core.login.command.LoginCommandService;
 import com.mryqr.core.login.domain.WxJwtService;
 import com.mryqr.core.member.domain.Member;
@@ -52,7 +52,7 @@ public class PcWxOAuth2LoginController {
         if (optionalMember.isEmpty()) {
             log.info("PC wx openId[{}] with unionId[{}] not bound to a member, redirect to login page.", pcWxOpenId, wxUnionId);
             return "redirect:" + propertyService.consoleLoginUrl() + "?wx="
-                    + wxJwtService.generatePcWxIdInfoJwt(wxUnionId, pcWxOpenId) + "&from=" + fromUrl;
+                   + wxJwtService.generatePcWxIdInfoJwt(wxUnionId, pcWxOpenId) + "&from=" + fromUrl;
         }
 
         Member member = optionalMember.get();

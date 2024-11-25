@@ -1,12 +1,12 @@
 package com.mryqr.core.submission.domain.answer.email;
 
 
+import com.mryqr.common.domain.display.DisplayValue;
+import com.mryqr.common.domain.display.TextDisplayValue;
+import com.mryqr.common.validation.email.Email;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.FEmailControl;
-import com.mryqr.core.common.domain.display.DisplayValue;
-import com.mryqr.core.common.domain.display.TextDisplayValue;
-import com.mryqr.core.common.validation.email.Email;
 import com.mryqr.core.qr.domain.attribute.AttributeValue;
 import com.mryqr.core.qr.domain.attribute.EmailAttributeValue;
 import com.mryqr.core.submission.domain.SubmissionReferenceContext;

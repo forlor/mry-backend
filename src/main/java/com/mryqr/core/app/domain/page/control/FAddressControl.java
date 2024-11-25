@@ -1,8 +1,8 @@
 package com.mryqr.core.app.domain.page.control;
 
+import com.mryqr.common.domain.Address;
+import com.mryqr.common.domain.administrative.Administrative;
 import com.mryqr.core.app.domain.AppSettingContext;
-import com.mryqr.core.common.domain.Address;
-import com.mryqr.core.common.domain.administrative.Administrative;
 import com.mryqr.core.submission.domain.answer.Answer;
 import com.mryqr.core.submission.domain.answer.address.AddressAnswer;
 import jakarta.validation.constraints.Max;
@@ -15,11 +15,8 @@ import org.springframework.data.annotation.TypeAlias;
 
 import java.util.Optional;
 
-import static com.mryqr.core.common.domain.administrative.AdministrativeProvider.CHINA;
-import static com.mryqr.core.common.exception.ErrorCode.CITY_NOT_PROVIDED;
-import static com.mryqr.core.common.exception.ErrorCode.DETAIL_ADDRESS_NOT_PROVIDED;
-import static com.mryqr.core.common.exception.ErrorCode.DISTRICT_NOT_PROVIDED;
-import static com.mryqr.core.common.exception.ErrorCode.PROVINCE_NOT_PROVIDED;
+import static com.mryqr.common.domain.administrative.AdministrativeProvider.CHINA;
+import static com.mryqr.common.exception.ErrorCode.*;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isBlank;

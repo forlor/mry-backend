@@ -1,11 +1,11 @@
 package com.mryqr.core.qr.job;
 
 
+import com.mryqr.common.domain.indexedfield.IndexedField;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.attribute.AttributeStatisticRange;
-import com.mryqr.core.common.domain.indexedfield.IndexedField;
 import com.mryqr.core.qr.domain.task.RemoveAttributeValuesForAllQrsUnderAppTask;
 import com.mryqr.core.qr.domain.task.RemoveIndexedValueUnderAllQrsTask;
 import lombok.RequiredArgsConstructor;

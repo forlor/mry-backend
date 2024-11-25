@@ -1,6 +1,6 @@
 package com.mryqr.core.tenant.job;
 
-import com.mryqr.core.common.utils.MryTaskRunner;
+import com.mryqr.common.utils.MryTaskRunner;
 import com.mryqr.core.tenant.domain.TenantRepository;
 import com.mryqr.core.tenant.domain.task.CountStorageForTenantTask;
 import lombok.RequiredArgsConstructor;

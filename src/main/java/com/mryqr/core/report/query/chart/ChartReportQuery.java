@@ -1,9 +1,9 @@
 package com.mryqr.core.report.query.chart;
 
+import com.mryqr.common.utils.Query;
+import com.mryqr.common.validation.id.app.AppId;
+import com.mryqr.common.validation.id.group.GroupId;
 import com.mryqr.core.app.domain.report.chart.ChartReport;
-import com.mryqr.core.common.utils.Query;
-import com.mryqr.core.common.validation.id.app.AppId;
-import com.mryqr.core.common.validation.id.group.GroupId;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

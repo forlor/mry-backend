@@ -1,11 +1,11 @@
 package com.mryqr.core.assignment.domain;
 
+import com.mryqr.common.domain.AggregateRoot;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.core.assignment.event.AssignmentCreatedEvent;
 import com.mryqr.core.assignmentplan.domain.AssignmentFrequency;
 import com.mryqr.core.assignmentplan.domain.AssignmentPlan;
-import com.mryqr.core.common.domain.AggregateRoot;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,13 +18,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static com.mryqr.core.assignment.domain.AssignmentStatus.FAILED;
-import static com.mryqr.core.assignment.domain.AssignmentStatus.IN_PROGRESS;
-import static com.mryqr.core.assignment.domain.AssignmentStatus.NEAR_EXPIRE;
-import static com.mryqr.core.assignment.domain.AssignmentStatus.SUCCEED;
-import static com.mryqr.core.common.exception.ErrorCode.ASSIGNMENT_CLOSED;
-import static com.mryqr.core.common.utils.MryConstants.ASSIGNMENT_COLLECTION;
-import static com.mryqr.core.common.utils.SnowflakeIdGenerator.newSnowflakeId;
+import static com.mryqr.common.exception.ErrorCode.ASSIGNMENT_CLOSED;
+import static com.mryqr.common.utils.MryConstants.ASSIGNMENT_COLLECTION;
+import static com.mryqr.common.utils.SnowflakeIdGenerator.newSnowflakeId;
+import static com.mryqr.core.assignment.domain.AssignmentStatus.*;
 import static java.time.ZoneId.systemDefault;
 import static lombok.AccessLevel.PRIVATE;
 

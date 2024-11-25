@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import static com.mryqr.core.common.domain.user.User.robotUser;
+import static com.mryqr.common.domain.user.User.robotUser;
 import static com.mryqr.management.order.MryOrderManageApp.ORDER_DELETE_PAGE_ID;
 
 @Slf4j

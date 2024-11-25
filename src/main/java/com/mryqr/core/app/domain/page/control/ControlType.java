@@ -1,30 +1,8 @@
 package com.mryqr.core.app.domain.page.control;
 
-import com.mryqr.core.common.domain.ValueType;
+import com.mryqr.common.domain.ValueType;
 
-import static com.mryqr.core.common.domain.ValueType.ADDRESS_VALUE;
-import static com.mryqr.core.common.domain.ValueType.CHECKBOX_VALUE;
-import static com.mryqr.core.common.domain.ValueType.DOUBLE_VALUE;
-import static com.mryqr.core.common.domain.ValueType.DROPDOWN_VALUE;
-import static com.mryqr.core.common.domain.ValueType.EMAIL_VALUE;
-import static com.mryqr.core.common.domain.ValueType.FILES_VALUE;
-import static com.mryqr.core.common.domain.ValueType.GEOLOCATION_VALUE;
-import static com.mryqr.core.common.domain.ValueType.IDENTIFIER_VALUE;
-import static com.mryqr.core.common.domain.ValueType.IMAGES_VALUE;
-import static com.mryqr.core.common.domain.ValueType.INTEGER_VALUE;
-import static com.mryqr.core.common.domain.ValueType.ITEM_COUNT_VALUE;
-import static com.mryqr.core.common.domain.ValueType.ITEM_STATUS_VALUE;
-import static com.mryqr.core.common.domain.ValueType.LOCAL_DATE_VALUE;
-import static com.mryqr.core.common.domain.ValueType.LOCAL_TIME_VALUE;
-import static com.mryqr.core.common.domain.ValueType.MEMBERS_VALUE;
-import static com.mryqr.core.common.domain.ValueType.MOBILE_VALUE;
-import static com.mryqr.core.common.domain.ValueType.MULTI_LEVEL_SELECTION_VALUE;
-import static com.mryqr.core.common.domain.ValueType.MULTI_LINE_TEXT_VALUE;
-import static com.mryqr.core.common.domain.ValueType.POINT_CHECK_VALUE;
-import static com.mryqr.core.common.domain.ValueType.RADIO_VALUE;
-import static com.mryqr.core.common.domain.ValueType.RICH_TEXT_VALUE;
-import static com.mryqr.core.common.domain.ValueType.SIGNATURE_VALUE;
-import static com.mryqr.core.common.domain.ValueType.TEXT_VALUE;
+import static com.mryqr.common.domain.ValueType.*;
 
 public enum ControlType {
     SECTION_TITLE(false, false, null, false),

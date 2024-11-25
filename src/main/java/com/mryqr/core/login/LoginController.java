@@ -1,8 +1,8 @@
 package com.mryqr.core.login;
 
+import com.mryqr.common.domain.user.User;
 import com.mryqr.common.security.IpJwtCookieUpdater;
 import com.mryqr.common.security.jwt.JwtCookieFactory;
-import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.login.command.JwtTokenResponse;
 import com.mryqr.core.login.command.LoginCommandService;
 import com.mryqr.core.login.command.MobileOrEmailLoginCommand;
@@ -14,11 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Validated

@@ -1,10 +1,10 @@
 package com.mryqr.core.app.domain.page.menu;
 
 
+import com.mryqr.common.exception.MryException;
+import com.mryqr.common.validation.collection.NoNullElement;
 import com.mryqr.core.app.domain.AppSettingContext;
 import com.mryqr.core.app.domain.ui.pagelink.PageLink;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.validation.collection.NoNullElement;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -15,8 +15,8 @@ import lombok.Getter;
 
 import java.util.List;
 
-import static com.mryqr.core.common.exception.ErrorCode.MENU_LINK_ID_DUPLICATED;
-import static com.mryqr.core.common.utils.Identified.isDuplicated;
+import static com.mryqr.common.exception.ErrorCode.MENU_LINK_ID_DUPLICATED;
+import static com.mryqr.common.utils.Identified.isDuplicated;
 import static lombok.AccessLevel.PRIVATE;
 
 @Getter

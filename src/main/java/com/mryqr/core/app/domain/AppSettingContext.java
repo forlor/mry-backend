@@ -1,44 +1,22 @@
 package com.mryqr.core.app.domain;
 
+import com.mryqr.common.exception.MryException;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.attribute.AttributeCheckChangeResult;
 import com.mryqr.core.app.domain.attribute.AttributeInfo;
 import com.mryqr.core.app.domain.operationmenu.OperationMenuItem;
 import com.mryqr.core.app.domain.page.Page;
 import com.mryqr.core.app.domain.page.PageInfo;
-import com.mryqr.core.app.domain.page.control.AbstractTextOptionControl;
-import com.mryqr.core.app.domain.page.control.Control;
-import com.mryqr.core.app.domain.page.control.ControlInfo;
-import com.mryqr.core.app.domain.page.control.ControlType;
-import com.mryqr.core.app.domain.page.control.TextOptionInfo;
+import com.mryqr.core.app.domain.page.control.*;
 import com.mryqr.core.app.domain.page.setting.SubmitType;
-import com.mryqr.core.common.exception.MryException;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.common.exception.ErrorCode.ATTRIBUTE_ID_DUPLICATED;
-import static com.mryqr.core.common.exception.ErrorCode.ATTRIBUTE_NAME_DUPLICATED;
-import static com.mryqr.core.common.exception.ErrorCode.ATTRIBUTE_NOT_FOUND;
-import static com.mryqr.core.common.exception.ErrorCode.ATTRIBUTE_SCHEMA_CANNOT_MODIFIED;
-import static com.mryqr.core.common.exception.ErrorCode.CONTROL_ID_DUPLICATED;
-import static com.mryqr.core.common.exception.ErrorCode.CONTROL_NOT_FOUND;
-import static com.mryqr.core.common.exception.ErrorCode.CONTROL_TYPE_NOT_MATCH;
-import static com.mryqr.core.common.exception.ErrorCode.NO_APP_HOME_PAGE;
-import static com.mryqr.core.common.exception.ErrorCode.OPERATION_MENU_ITEM_DUPLICATED;
-import static com.mryqr.core.common.exception.ErrorCode.OPERATION_MENU_ITEM_ID_DUPLICATED;
-import static com.mryqr.core.common.exception.ErrorCode.OPERATION_MENU_ITEM_NAME_DUPLICATED;
-import static com.mryqr.core.common.exception.ErrorCode.PAGE_ID_DUPLICATED;
-import static com.mryqr.core.common.utils.Identified.isDuplicated;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.common.utils.Identified.isDuplicated;
+import static com.mryqr.common.utils.MapUtils.mapOf;
 
 public class AppSettingContext {
     private final AppSetting appSetting;
@@ -263,8 +241,8 @@ public class AppSettingContext {
         for (Map.Entry<String, Page> entry : newContext.allPages.entrySet()) {
             Page oldPage = this.allPages.get(entry.getKey());
             if (oldPage != null
-                    && oldPage.getSetting().getSubmitType() != submitType
-                    && entry.getValue().getSetting().getSubmitType() == submitType) {
+                && oldPage.getSetting().getSubmitType() != submitType
+                && entry.getValue().getSetting().getSubmitType() == submitType) {
                 changedPageIds.add(oldPage.getId());
             }
         }

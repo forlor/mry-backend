@@ -1,5 +1,6 @@
 package com.mryqr.common.notification.consume;
 
+import com.mryqr.common.domain.event.DomainEvent;
 import com.mryqr.common.notification.NotificationService;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
@@ -7,7 +8,6 @@ import com.mryqr.core.app.domain.page.Page;
 import com.mryqr.core.assignment.domain.Assignment;
 import com.mryqr.core.assignment.domain.AssignmentRepository;
 import com.mryqr.core.assignment.event.AssignmentCreatedEvent;
-import com.mryqr.core.common.domain.event.DomainEvent;
 import com.mryqr.core.submission.domain.Submission;
 import com.mryqr.core.submission.domain.SubmissionRepository;
 import com.mryqr.core.submission.domain.event.SubmissionApprovedEvent;

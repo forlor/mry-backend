@@ -1,8 +1,8 @@
 package com.mryqr.core.platebatch.domain;
 
+import com.mryqr.common.domain.AggregateRoot;
+import com.mryqr.common.domain.user.User;
 import com.mryqr.core.app.domain.App;
-import com.mryqr.core.common.domain.AggregateRoot;
-import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.plate.domain.Plate;
 import com.mryqr.core.platebatch.domain.event.PlateBatchCreatedEvent;
 import com.mryqr.core.platebatch.domain.event.PlateBatchDeletedEvent;
@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
-import static com.mryqr.core.common.utils.MryConstants.PLATE_BATCH_COLLECTION;
-import static com.mryqr.core.common.utils.SnowflakeIdGenerator.newSnowflakeId;
+import static com.mryqr.common.utils.MryConstants.PLATE_BATCH_COLLECTION;
+import static com.mryqr.common.utils.SnowflakeIdGenerator.newSnowflakeId;
 import static java.util.stream.IntStream.range;
 import static lombok.AccessLevel.PRIVATE;
 

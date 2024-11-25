@@ -1,6 +1,6 @@
 package com.mryqr.core.common.utils;
 
-import com.mryqr.core.common.utils.UuidGenerator;
+import com.mryqr.common.utils.UuidGenerator;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;

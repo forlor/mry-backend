@@ -1,8 +1,8 @@
 package com.mryqr.core.member.domain;
 
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.common.password.MryPasswordEncoder;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
 import com.mryqr.core.department.domain.DepartmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -11,16 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 
-import static com.mryqr.core.common.exception.ErrorCode.MAX_TENANT_ADMIN_REACHED;
-import static com.mryqr.core.common.exception.ErrorCode.MEMBER_WITH_CUSTOM_ID_ALREADY_EXISTS;
-import static com.mryqr.core.common.exception.ErrorCode.MEMBER_WITH_EMAIL_ALREADY_EXISTS;
-import static com.mryqr.core.common.exception.ErrorCode.MEMBER_WITH_MOBILE_ALREADY_EXISTS;
-import static com.mryqr.core.common.exception.ErrorCode.MOBILE_EMAIL_CANNOT_BOTH_EMPTY;
-import static com.mryqr.core.common.exception.ErrorCode.NEW_PASSWORD_SAME_WITH_OLD;
-import static com.mryqr.core.common.exception.ErrorCode.NOT_ALL_DEPARTMENTS_EXITS;
-import static com.mryqr.core.common.exception.ErrorCode.NO_ACTIVE_TENANT_ADMIN_LEFT;
-import static com.mryqr.core.common.exception.ErrorCode.PASSWORD_NOT_MATCH;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.common.utils.MapUtils.mapOf;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static org.springframework.transaction.annotation.Propagation.REQUIRES_NEW;
@@ -116,8 +108,8 @@ public class MemberDomainService {
 
     private void checkCustomIdDuplication(Member member, String customId) {
         if (isNotBlank(customId)
-                && !Objects.equals(member.getCustomId(), customId)
-                && memberRepository.cachedExistsByCustomId(customId, member.getTenantId())) {
+            && !Objects.equals(member.getCustomId(), customId)
+            && memberRepository.cachedExistsByCustomId(customId, member.getTenantId())) {
             throw new MryException(MEMBER_WITH_CUSTOM_ID_ALREADY_EXISTS,
                     "自定义编号已被占用。",
                     mapOf("qrId", member.getId(), "tenantId", member.getTenantId()));

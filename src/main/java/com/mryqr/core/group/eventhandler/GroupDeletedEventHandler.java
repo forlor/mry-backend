@@ -1,9 +1,9 @@
 package com.mryqr.core.group.eventhandler;
 
+import com.mryqr.common.domain.event.consume.AbstractDomainEventHandler;
+import com.mryqr.common.utils.MryTaskRunner;
 import com.mryqr.core.assignment.domain.task.RemoveAllAssignmentsUnderGroupTask;
 import com.mryqr.core.assignmentplan.domain.task.RemoveGroupFromAllAssignmentPlansTask;
-import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
-import com.mryqr.core.common.utils.MryTaskRunner;
 import com.mryqr.core.group.domain.event.GroupDeletedEvent;
 import com.mryqr.core.group.domain.task.CountGroupForAppTask;
 import com.mryqr.core.plate.domain.PlateRepository;

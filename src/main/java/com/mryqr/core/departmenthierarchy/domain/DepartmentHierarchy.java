@@ -1,11 +1,11 @@
 package com.mryqr.core.departmenthierarchy.domain;
 
-import com.mryqr.core.common.domain.AggregateRoot;
-import com.mryqr.core.common.domain.idnode.IdTree;
-import com.mryqr.core.common.domain.idnode.IdTreeHierarchy;
-import com.mryqr.core.common.domain.idnode.exception.IdNodeLevelOverflowException;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
+import com.mryqr.common.domain.AggregateRoot;
+import com.mryqr.common.domain.idnode.IdTree;
+import com.mryqr.common.domain.idnode.IdTreeHierarchy;
+import com.mryqr.common.domain.idnode.exception.IdNodeLevelOverflowException;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.core.departmenthierarchy.domain.event.DepartmentHierarchyChangedEvent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,11 +16,11 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
-import static com.mryqr.core.common.exception.ErrorCode.DEPARTMENT_HIERARCHY_TOO_DEEP;
-import static com.mryqr.core.common.exception.ErrorCode.DEPARTMENT_NOT_FOUND;
-import static com.mryqr.core.common.utils.MryConstants.DEPARTMENT_HIERARCHY_COLLECTION;
-import static com.mryqr.core.common.utils.MryConstants.MAX_GROUP_HIERARCHY_LEVEL;
-import static com.mryqr.core.common.utils.SnowflakeIdGenerator.newSnowflakeId;
+import static com.mryqr.common.exception.ErrorCode.DEPARTMENT_HIERARCHY_TOO_DEEP;
+import static com.mryqr.common.exception.ErrorCode.DEPARTMENT_NOT_FOUND;
+import static com.mryqr.common.utils.MryConstants.DEPARTMENT_HIERARCHY_COLLECTION;
+import static com.mryqr.common.utils.MryConstants.MAX_GROUP_HIERARCHY_LEVEL;
+import static com.mryqr.common.utils.SnowflakeIdGenerator.newSnowflakeId;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 

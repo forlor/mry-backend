@@ -1,7 +1,7 @@
 package com.mryqr.core.verification.command;
 
-import com.mryqr.core.common.utils.Command;
-import com.mryqr.core.common.validation.mobile.Mobile;
+import com.mryqr.common.utils.Command;
+import com.mryqr.common.validation.mobile.Mobile;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;

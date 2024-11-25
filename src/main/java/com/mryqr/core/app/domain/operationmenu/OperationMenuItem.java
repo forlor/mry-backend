@@ -1,10 +1,10 @@
 package com.mryqr.core.app.domain.operationmenu;
 
+import com.mryqr.common.exception.MryException;
+import com.mryqr.common.utils.Identified;
+import com.mryqr.common.validation.id.page.AllablePageId;
+import com.mryqr.common.validation.id.shoruuid.ShortUuid;
 import com.mryqr.core.app.domain.AppSettingContext;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.utils.Identified;
-import com.mryqr.core.common.validation.id.page.AllablePageId;
-import com.mryqr.core.common.validation.id.shoruuid.ShortUuid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -14,14 +14,12 @@ import lombok.Value;
 
 import java.util.List;
 
-import static com.mryqr.core.app.domain.operationmenu.SubmissionListType.ALL_SUBMIT_HISTORY;
-import static com.mryqr.core.app.domain.operationmenu.SubmissionListType.SUBMITTER_SUBMISSION;
-import static com.mryqr.core.app.domain.operationmenu.SubmissionListType.TO_BE_APPROVED;
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_OPERATION_MENU_REF_PAGE_NOT_EXIST;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
-import static com.mryqr.core.common.utils.MryConstants.ALL;
-import static com.mryqr.core.common.utils.MryConstants.MAX_SHORT_NAME_LENGTH;
-import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
+import static com.mryqr.common.exception.ErrorCode.VALIDATION_OPERATION_MENU_REF_PAGE_NOT_EXIST;
+import static com.mryqr.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.utils.MryConstants.ALL;
+import static com.mryqr.common.utils.MryConstants.MAX_SHORT_NAME_LENGTH;
+import static com.mryqr.common.utils.UuidGenerator.newShortUuid;
+import static com.mryqr.core.app.domain.operationmenu.SubmissionListType.*;
 import static lombok.AccessLevel.PRIVATE;
 
 @Value

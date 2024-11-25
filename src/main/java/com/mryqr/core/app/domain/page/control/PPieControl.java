@@ -1,13 +1,13 @@
 package com.mryqr.core.app.domain.page.control;
 
+import com.mryqr.common.domain.AddressPrecisionType;
+import com.mryqr.common.domain.report.ReportRange;
+import com.mryqr.common.domain.report.SubmissionSegmentType;
+import com.mryqr.common.exception.MryException;
+import com.mryqr.common.validation.color.Color;
+import com.mryqr.common.validation.id.control.ControlId;
+import com.mryqr.common.validation.id.page.PageId;
 import com.mryqr.core.app.domain.AppSettingContext;
-import com.mryqr.core.common.domain.AddressPrecisionType;
-import com.mryqr.core.common.domain.report.ReportRange;
-import com.mryqr.core.common.domain.report.SubmissionSegmentType;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.validation.color.Color;
-import com.mryqr.core.common.validation.id.control.ControlId;
-import com.mryqr.core.common.validation.id.page.PageId;
 import com.mryqr.core.submission.domain.answer.Answer;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
@@ -22,12 +22,9 @@ import org.springframework.data.annotation.TypeAlias;
 
 import java.util.List;
 
-import static com.mryqr.core.common.domain.report.SubmissionSegmentType.SUBMIT_COUNT_SUM;
-import static com.mryqr.core.common.exception.ErrorCode.NOT_SUPPORTED_BASED_CONTROL_FOR_PIE;
-import static com.mryqr.core.common.exception.ErrorCode.NOT_SUPPORTED_TARGET_CONTROL_FOR_PIE;
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_CONTROL_NOT_EXIST;
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_PAGE_NOT_EXIST;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.domain.report.SubmissionSegmentType.SUBMIT_COUNT_SUM;
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.common.utils.MapUtils.mapOf;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 

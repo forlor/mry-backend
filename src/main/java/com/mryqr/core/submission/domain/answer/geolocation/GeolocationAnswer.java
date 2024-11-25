@@ -1,12 +1,12 @@
 package com.mryqr.core.submission.domain.answer.geolocation;
 
 
+import com.mryqr.common.domain.Geolocation;
+import com.mryqr.common.domain.display.DisplayValue;
+import com.mryqr.common.domain.display.GeolocationDisplayValue;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.FGeolocationControl;
-import com.mryqr.core.common.domain.Geolocation;
-import com.mryqr.core.common.domain.display.DisplayValue;
-import com.mryqr.core.common.domain.display.GeolocationDisplayValue;
 import com.mryqr.core.qr.domain.attribute.AttributeValue;
 import com.mryqr.core.qr.domain.attribute.GeolocationAttributeValue;
 import com.mryqr.core.submission.domain.SubmissionReferenceContext;

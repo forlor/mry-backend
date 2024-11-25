@@ -7,11 +7,7 @@ import com.mryqr.core.member.MemberApi;
 import com.mryqr.core.plan.domain.Plan;
 import com.mryqr.core.register.command.RegisterResponse;
 import com.mryqr.core.tenant.domain.Tenant;
-import com.mryqr.core.verification.command.CreateChangeMobileVerificationCodeCommand;
-import com.mryqr.core.verification.command.CreateFindbackPasswordVerificationCodeCommand;
-import com.mryqr.core.verification.command.CreateLoginVerificationCodeCommand;
-import com.mryqr.core.verification.command.CreateRegisterVerificationCodeCommand;
-import com.mryqr.core.verification.command.IdentifyMobileVerificationCodeCommand;
+import com.mryqr.core.verification.command.*;
 import com.mryqr.core.verification.domain.VerificationCode;
 import com.mryqr.utils.LoginResponse;
 import org.junit.jupiter.api.Test;
@@ -20,25 +16,15 @@ import org.springframework.test.util.ReflectionTestUtils;
 import java.time.Instant;
 import java.util.stream.IntStream;
 
-import static com.mryqr.core.common.domain.user.User.NOUSER;
-import static com.mryqr.core.common.exception.ErrorCode.VERIFICATION_CODE_CHECK_FAILED;
-import static com.mryqr.core.common.utils.MryConstants.NO_TENANT_ID;
+import static com.mryqr.common.domain.user.User.NOUSER;
+import static com.mryqr.common.exception.ErrorCode.VERIFICATION_CODE_CHECK_FAILED;
+import static com.mryqr.common.utils.MryConstants.NO_TENANT_ID;
 import static com.mryqr.core.plan.domain.PlanType.BASIC;
-import static com.mryqr.core.verification.VerificationCodeApi.createVerificationCodeForChangeMobile;
-import static com.mryqr.core.verification.VerificationCodeApi.createVerificationCodeForFindbackPassword;
-import static com.mryqr.core.verification.VerificationCodeApi.createVerificationCodeForIdentifyMobile;
-import static com.mryqr.core.verification.VerificationCodeApi.createVerificationCodeForLogin;
-import static com.mryqr.core.verification.VerificationCodeApi.createVerificationCodeForRegister;
+import static com.mryqr.core.verification.VerificationCodeApi.*;
 import static com.mryqr.core.verification.domain.VerificationCodeType.LOGIN;
-import static com.mryqr.utils.RandomTestFixture.rEmail;
-import static com.mryqr.utils.RandomTestFixture.rMemberName;
-import static com.mryqr.utils.RandomTestFixture.rMobile;
-import static com.mryqr.utils.RandomTestFixture.rPassword;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static java.time.temporal.ChronoUnit.MINUTES;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class VerificationControllerApiTest extends BaseApiTest {
 

@@ -1,6 +1,6 @@
 package com.mryqr.core.printing.query;
 
-import com.mryqr.core.common.domain.UploadedFile;
+import com.mryqr.common.domain.UploadedFile;
 import com.mryqr.core.printing.domain.MaterialType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

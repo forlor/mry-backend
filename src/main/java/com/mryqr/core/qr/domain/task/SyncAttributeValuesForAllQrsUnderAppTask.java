@@ -1,9 +1,9 @@
 package com.mryqr.core.qr.domain.task;
 
+import com.mryqr.common.domain.task.RepeatableTask;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.app.domain.attribute.Attribute;
-import com.mryqr.core.common.domain.task.RepeatableTask;
 import com.mryqr.core.qr.domain.QR;
 import com.mryqr.core.qr.domain.QrRepository;
 import com.mryqr.core.qr.domain.attribute.sync.QrAttributeValueSyncer;
@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ForkJoinPool;
 
-import static com.mryqr.core.common.domain.user.User.NOUSER;
+import static com.mryqr.common.domain.user.User.NOUSER;
 import static com.mryqr.core.qr.domain.QR.newQrId;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 

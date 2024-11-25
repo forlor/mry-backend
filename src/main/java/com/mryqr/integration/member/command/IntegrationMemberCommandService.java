@@ -1,8 +1,8 @@
 package com.mryqr.integration.member.command;
 
+import com.mryqr.common.domain.user.User;
 import com.mryqr.common.password.MryPasswordEncoder;
 import com.mryqr.common.ratelimit.MryRateLimiter;
-import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.member.domain.Member;
 import com.mryqr.core.member.domain.MemberDomainService;
 import com.mryqr.core.member.domain.MemberFactory;

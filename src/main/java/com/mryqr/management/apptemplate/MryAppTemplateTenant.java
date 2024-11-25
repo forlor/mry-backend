@@ -1,6 +1,6 @@
 package com.mryqr.management.apptemplate;
 
-import com.mryqr.core.common.domain.user.User;
+import com.mryqr.common.domain.user.User;
 import com.mryqr.core.departmenthierarchy.domain.DepartmentHierarchyRepository;
 import com.mryqr.core.member.domain.MemberRepository;
 import com.mryqr.core.tenant.domain.CreateTenantResult;
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
-import static com.mryqr.core.common.domain.user.Role.TENANT_ADMIN;
+import static com.mryqr.common.domain.user.Role.TENANT_ADMIN;
 import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
 import static java.time.ZoneId.systemDefault;
 

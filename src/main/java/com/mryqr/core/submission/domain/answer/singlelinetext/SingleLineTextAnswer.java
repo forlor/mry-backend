@@ -1,11 +1,11 @@
 package com.mryqr.core.submission.domain.answer.singlelinetext;
 
 
+import com.mryqr.common.domain.display.DisplayValue;
+import com.mryqr.common.domain.display.TextDisplayValue;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.FSingleLineTextControl;
-import com.mryqr.core.common.domain.display.DisplayValue;
-import com.mryqr.core.common.domain.display.TextDisplayValue;
 import com.mryqr.core.qr.domain.attribute.AttributeValue;
 import com.mryqr.core.qr.domain.attribute.TextAttributeValue;
 import com.mryqr.core.submission.domain.SubmissionReferenceContext;

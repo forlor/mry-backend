@@ -1,17 +1,13 @@
 package com.mryqr.core.order.domain.detail;
 
-import com.mryqr.core.common.domain.UploadedFile;
-import com.mryqr.core.common.validation.collection.NoNullElement;
+import com.mryqr.common.domain.UploadedFile;
+import com.mryqr.common.validation.collection.NoNullElement;
 import com.mryqr.core.order.domain.OrderPrice;
 import com.mryqr.core.order.domain.delivery.Consignee;
 import com.mryqr.core.printing.domain.PlatePrintingType;
 import com.mryqr.core.tenant.domain.Tenant;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

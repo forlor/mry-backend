@@ -1,11 +1,11 @@
 package com.mryqr.core.app.domain.ui;
 
-import com.mryqr.core.common.exception.MryException;
+import com.mryqr.common.exception.MryException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
-import static com.mryqr.core.common.exception.ErrorCode.MIN_GREATER_THAN_MAX;
+import static com.mryqr.common.exception.ErrorCode.MIN_GREATER_THAN_MAX;
 import static lombok.AccessLevel.PRIVATE;
 
 @Value

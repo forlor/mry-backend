@@ -16,12 +16,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Map;
 
-import static com.mryqr.core.common.domain.user.User.NOUSER;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_REGISTER_BANK_ACCOUNT_CONTROL_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_REGISTER_BANK_DATE_CONTROL_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_REGISTER_BANK_NAME_CONTROL_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_REGISTER_BANK_PAGE_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_REGISTER_BANK_TIME_CONTROL_ID;
+import static com.mryqr.common.domain.user.User.NOUSER;
+import static com.mryqr.management.order.MryOrderManageApp.*;
 import static java.time.ZoneId.systemDefault;
 
 @Slf4j

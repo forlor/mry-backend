@@ -1,16 +1,16 @@
 package com.mryqr.core.app.control;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.domain.Address;
+import com.mryqr.common.domain.Geolocation;
+import com.mryqr.common.domain.Geopoint;
+import com.mryqr.common.domain.indexedfield.IndexedField;
+import com.mryqr.common.domain.indexedfield.IndexedValue;
 import com.mryqr.core.app.AppApi;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.FGeolocationControl;
-import com.mryqr.core.common.domain.Address;
-import com.mryqr.core.common.domain.Geolocation;
-import com.mryqr.core.common.domain.Geopoint;
-import com.mryqr.core.common.domain.indexedfield.IndexedField;
-import com.mryqr.core.common.domain.indexedfield.IndexedValue;
 import com.mryqr.core.qr.QrApi;
 import com.mryqr.core.qr.command.UpdateQrBaseSettingCommand;
 import com.mryqr.core.qr.domain.QR;
@@ -25,24 +25,16 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
+import static com.mryqr.common.domain.Address.joinAddress;
+import static com.mryqr.common.exception.ErrorCode.MANDATORY_ANSWER_REQUIRED;
+import static com.mryqr.common.exception.ErrorCode.OUT_OF_OFF_SET_RADIUS;
 import static com.mryqr.core.app.domain.attribute.Attribute.newAttributeId;
 import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.NO_LIMIT;
 import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_FIRST;
 import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_LAST;
-import static com.mryqr.core.common.domain.Address.joinAddress;
-import static com.mryqr.core.common.exception.ErrorCode.MANDATORY_ANSWER_REQUIRED;
-import static com.mryqr.core.common.exception.ErrorCode.OUT_OF_OFF_SET_RADIUS;
 import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
 import static com.mryqr.core.submission.SubmissionUtils.newSubmissionCommand;
-import static com.mryqr.utils.RandomTestFixture.defaultFillableSettingBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultGeolocationControl;
-import static com.mryqr.utils.RandomTestFixture.defaultGeolocationControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.rAddress;
-import static com.mryqr.utils.RandomTestFixture.rAnswer;
-import static com.mryqr.utils.RandomTestFixture.rAnswerBuilder;
-import static com.mryqr.utils.RandomTestFixture.rAttributeName;
-import static com.mryqr.utils.RandomTestFixture.rGeolocation;
-import static com.mryqr.utils.RandomTestFixture.rQrName;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

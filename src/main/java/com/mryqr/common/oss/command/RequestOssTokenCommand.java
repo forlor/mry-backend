@@ -1,14 +1,14 @@
 package com.mryqr.common.oss.command;
 
 
+import com.mryqr.common.exception.MryException;
 import com.mryqr.common.oss.domain.OssTokenRequestType;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.utils.Command;
-import com.mryqr.core.common.validation.id.app.AppId;
-import com.mryqr.core.common.validation.id.member.MemberId;
-import com.mryqr.core.common.validation.id.page.PageId;
-import com.mryqr.core.common.validation.id.qr.QrId;
-import com.mryqr.core.common.validation.id.tenant.TenantId;
+import com.mryqr.common.utils.Command;
+import com.mryqr.common.validation.id.app.AppId;
+import com.mryqr.common.validation.id.member.MemberId;
+import com.mryqr.common.validation.id.page.PageId;
+import com.mryqr.common.validation.id.qr.QrId;
+import com.mryqr.common.validation.id.tenant.TenantId;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +16,7 @@ import lombok.Getter;
 
 import java.util.NoSuchElementException;
 
-import static com.mryqr.core.common.exception.MryException.requestValidationException;
+import static com.mryqr.common.exception.MryException.requestValidationException;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 

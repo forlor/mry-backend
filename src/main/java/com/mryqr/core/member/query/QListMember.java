@@ -1,7 +1,7 @@
 package com.mryqr.core.member.query;
 
-import com.mryqr.core.common.domain.UploadedFile;
-import com.mryqr.core.common.domain.user.Role;
+import com.mryqr.common.domain.UploadedFile;
+import com.mryqr.common.domain.user.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;

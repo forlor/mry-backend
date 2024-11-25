@@ -1,21 +1,11 @@
 package com.mryqr.core.order.domain.task;
 
+import com.mryqr.common.domain.permission.Permission;
+import com.mryqr.common.domain.task.RepeatableTask;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.app.domain.page.Page;
-import com.mryqr.core.app.domain.page.control.Control;
-import com.mryqr.core.app.domain.page.control.FDropdownControl;
-import com.mryqr.core.app.domain.page.control.FEmailControl;
-import com.mryqr.core.app.domain.page.control.FFileUploadControl;
-import com.mryqr.core.app.domain.page.control.FIdentifierControl;
-import com.mryqr.core.app.domain.page.control.FItemStatusControl;
-import com.mryqr.core.app.domain.page.control.FMobileNumberControl;
-import com.mryqr.core.app.domain.page.control.FMultiLineTextControl;
-import com.mryqr.core.app.domain.page.control.FNumberInputControl;
-import com.mryqr.core.app.domain.page.control.FPersonNameControl;
-import com.mryqr.core.app.domain.page.control.FSingleLineTextControl;
-import com.mryqr.core.common.domain.permission.Permission;
-import com.mryqr.core.common.domain.task.RepeatableTask;
+import com.mryqr.core.app.domain.page.control.*;
 import com.mryqr.core.group.domain.Group;
 import com.mryqr.core.group.domain.GroupRepository;
 import com.mryqr.core.member.domain.Member;
@@ -56,59 +46,12 @@ import java.util.Objects;
 import java.util.Set;
 
 import static com.google.common.collect.ImmutableMap.toImmutableMap;
-import static com.mryqr.core.common.domain.user.User.NOUSER;
-import static com.mryqr.core.common.utils.MryConstants.MRY_DATE_TIME_FORMATTER;
+import static com.mryqr.common.domain.user.User.NOUSER;
+import static com.mryqr.common.utils.MryConstants.MRY_DATE_TIME_FORMATTER;
 import static com.mryqr.core.order.domain.PaymentType.BANK_TRANSFER;
 import static com.mryqr.core.order.domain.PaymentType.WX_NATIVE;
 import static com.mryqr.core.order.domain.detail.OrderDetailType.PLATE_PRINTING;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_APP_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_BANK_ACCOUNT_CONTROL_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_CHANNEL_BANK_TRANSFER_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_CHANNEL_CONTROL_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_CHANNEL_WX_PAY_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_CHANNEL_WX_TRANSFER_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_DELIVERY_ALREADY_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_DELIVERY_ID_CONTROL_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_DELIVERY_NONE_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_DELIVERY_NOT_YET_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_DELIVERY_STATUS_CONTROL_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_DELIVER_CONTROL_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_DELIVER_EMS_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_DELIVER_SHENTONG_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_DELIVER_SHUNFENG_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_DELIVER_YUANTONG_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_DELIVER_YUNDA_EXPRESS_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_DELIVER_YUNDA_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_DELIVER_ZHONGTONG_EXPRESS_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_DELIVER_ZHONGTONG_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_DESCRIPTION_CONTROL_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_GROUP_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_ID_CONTROL_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_INVOICE_FILE_CONTROL_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_INVOICE_INFO_CONTROL_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_INVOICE_STATUS_CONTROL_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_INVOICE_STATUS_DONE_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_INVOICE_STATUS_NONE_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_INVOICE_STATUS_WAITING_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_PRICE_CONTROL_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_SCREENSHOTS_CONTROL_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_STATUS_CONTROL_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_STATUS_CREATED_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_STATUS_PAID_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_STATUS_REFUND_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_SUBMITTER_CONTROL_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_SUBMITTER_EMAIL_CONTROL_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_SUBMITTER_MOBILE_CONTROL_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_SYNC_PAGE_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_TENANT_CONTROL_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_TYPE_CONTROL_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_TYPE_EXTRA_MEMBER_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_TYPE_EXTRA_SMS_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_TYPE_EXTRA_STORAGE_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_TYPE_EXTRA_VIDEO_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_TYPE_PACKAGE_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_TYPE_PLATE_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_WX_TXN_CONTROL_ID;
+import static com.mryqr.management.order.MryOrderManageApp.*;
 import static java.util.Objects.requireNonNull;
 import static java.util.function.Function.identity;
 import static org.apache.commons.collections4.ListUtils.emptyIfNull;
@@ -305,7 +248,7 @@ public class SyncOrderToManagedQrTask implements RepeatableTask {
                 .build();
 
         FMultiLineTextControl invoiceInfoControl = (FMultiLineTextControl) allControls.get(ORDER_INVOICE_INFO_CONTROL_ID);
-        String invoiceInfoContent = null;
+        String content = null;
         Invoice invoice = order.getInvoice();
         if (invoice != null) {
             String invoiceType = switch (invoice.getType()) {
@@ -314,20 +257,20 @@ public class SyncOrderToManagedQrTask implements RepeatableTask {
                 case VAT_SPECIAL -> "增值税专用发票";
             };
 
-            invoiceInfoContent = "发票类型：" + invoiceType + "\n" +
-                    "接收邮箱：" + invoice.getEmail() + "\n" +
-                    "申请时间：" + ((invoice.getRequestedAt() != null) ? MRY_DATE_TIME_FORMATTER.format(invoice.getRequestedAt()) : "") + "\n" +
-                    "开具时间：" + ((invoice.getIssuedAt() != null) ? MRY_DATE_TIME_FORMATTER.format(invoice.getIssuedAt()) : "") + "\n" +
-                    "发票抬头：" + invoice.getTitle().getTitle() + "\n" +
-                    "信用代码：" + invoice.getTitle().getUnifiedCode() + "\n" +
-                    "开户银行：" + invoice.getTitle().getBankName() + "\n" +
-                    "银行账号：" + invoice.getTitle().getBankAccount() + "\n" +
-                    "发票地址：" + invoice.getTitle().getAddress() + "\n" +
-                    "对方电话：" + invoice.getTitle().getPhone() + "\n";
+            content = "发票类型：" + invoiceType + "\n" +
+                      "接收邮箱：" + invoice.getEmail() + "\n" +
+                      "申请时间：" + ((invoice.getRequestedAt() != null) ? MRY_DATE_TIME_FORMATTER.format(invoice.getRequestedAt()) : "") + "\n" +
+                      "开具时间：" + ((invoice.getIssuedAt() != null) ? MRY_DATE_TIME_FORMATTER.format(invoice.getIssuedAt()) : "") + "\n" +
+                      "发票抬头：" + invoice.getTitle().getTitle() + "\n" +
+                      "信用代码：" + invoice.getTitle().getUnifiedCode() + "\n" +
+                      "开户银行：" + invoice.getTitle().getBankName() + "\n" +
+                      "银行账号：" + invoice.getTitle().getBankAccount() + "\n" +
+                      "发票地址：" + invoice.getTitle().getAddress() + "\n" +
+                      "对方电话：" + invoice.getTitle().getPhone() + "\n";
         }
 
         MultiLineTextAnswer invoiceInfoAnswer = MultiLineTextAnswer.answerBuilder(requireNonNull(invoiceInfoControl))
-                .content(invoiceInfoContent)
+                .content(content)
                 .build();
 
         FFileUploadControl invoiceFileControl = (FFileUploadControl) allControls.get(ORDER_INVOICE_FILE_CONTROL_ID);

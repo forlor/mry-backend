@@ -1,10 +1,10 @@
 package com.mryqr.core.job;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.domain.indexedfield.IndexedField;
 import com.mryqr.core.app.AppApi;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.attribute.Attribute;
-import com.mryqr.core.common.domain.indexedfield.IndexedField;
 import com.mryqr.core.qr.domain.QR;
 import com.mryqr.core.qr.domain.attribute.IntegerAttributeValue;
 import com.mryqr.core.qr.job.RemoveQrRangedAttributeValuesForAllTenantsJob;
@@ -16,9 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import static com.mryqr.core.app.domain.attribute.Attribute.newAttributeId;
 import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.THIS_WEEK;
 import static com.mryqr.core.app.domain.attribute.AttributeType.INSTANCE_SUBMIT_COUNT;
-import static com.mryqr.utils.RandomTestFixture.rAttributeName;
-import static com.mryqr.utils.RandomTestFixture.rEmail;
-import static com.mryqr.utils.RandomTestFixture.rPassword;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 

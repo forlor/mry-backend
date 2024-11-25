@@ -1,5 +1,6 @@
 package com.mryqr.core.submission.query.autocalculate;
 
+import com.mryqr.common.domain.user.User;
 import com.mryqr.common.ratelimit.MryRateLimiter;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
@@ -7,7 +8,6 @@ import com.mryqr.core.app.domain.page.Page;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.FItemStatusControl;
 import com.mryqr.core.app.domain.page.control.FNumberInputControl;
-import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.submission.domain.answer.Answer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

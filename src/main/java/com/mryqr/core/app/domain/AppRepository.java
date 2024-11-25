@@ -1,7 +1,7 @@
 package com.mryqr.core.app.domain;
 
+import com.mryqr.common.domain.user.User;
 import com.mryqr.core.app.domain.attribute.AttributeStatisticRange;
-import com.mryqr.core.common.domain.user.User;
 
 import java.util.List;
 import java.util.Optional;

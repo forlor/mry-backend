@@ -1,12 +1,8 @@
 package com.mryqr.core.verification;
 
 import com.mryqr.BaseApiTest;
-import com.mryqr.core.common.utils.ReturnId;
-import com.mryqr.core.verification.command.CreateChangeMobileVerificationCodeCommand;
-import com.mryqr.core.verification.command.CreateFindbackPasswordVerificationCodeCommand;
-import com.mryqr.core.verification.command.CreateLoginVerificationCodeCommand;
-import com.mryqr.core.verification.command.CreateRegisterVerificationCodeCommand;
-import com.mryqr.core.verification.command.IdentifyMobileVerificationCodeCommand;
+import com.mryqr.common.utils.ReturnId;
+import com.mryqr.core.verification.command.*;
 import io.restassured.response.Response;
 
 public class VerificationCodeApi {

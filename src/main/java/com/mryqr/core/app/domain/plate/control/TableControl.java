@@ -1,13 +1,13 @@
 package com.mryqr.core.app.domain.plate.control;
 
+import com.mryqr.common.validation.collection.NoNullElement;
+import com.mryqr.common.validation.color.Color;
 import com.mryqr.core.app.domain.AppSettingContext;
 import com.mryqr.core.app.domain.plate.PlateNamedTextValue;
 import com.mryqr.core.app.domain.plate.PlateQrImageSetting;
 import com.mryqr.core.app.domain.plate.PlateTextValue;
 import com.mryqr.core.app.domain.ui.FontStyle;
 import com.mryqr.core.app.domain.ui.align.HorizontalAlignType;
-import com.mryqr.core.common.validation.collection.NoNullElement;
-import com.mryqr.core.common.validation.color.Color;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -113,7 +113,7 @@ public class TableControl extends PlateControl {
 
         contentTextValues.forEach(PlateNamedTextValue::correct);
         this.complete = headerTextValue.isComplete() &&
-                contentTextValues.stream().allMatch(PlateNamedTextValue::isComplete);
+                        contentTextValues.stream().allMatch(PlateNamedTextValue::isComplete);
     }
 
     @Override

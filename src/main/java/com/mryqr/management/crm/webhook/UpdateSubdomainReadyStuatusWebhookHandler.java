@@ -12,10 +12,8 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.mryqr.core.common.domain.user.User.NOUSER;
-import static com.mryqr.management.crm.MryTenantManageApp.SUBDOMAIN_READY_OPTION_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.UPDATE_SUBDOMAIN_READY_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.UPDATE_SUBDOMAIN_READY_PAGE_ID;
+import static com.mryqr.common.domain.user.User.NOUSER;
+import static com.mryqr.management.crm.MryTenantManageApp.*;
 
 @Slf4j
 @Component

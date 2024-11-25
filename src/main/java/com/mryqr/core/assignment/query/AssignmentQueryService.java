@@ -1,22 +1,22 @@
 package com.mryqr.core.assignment.query;
 
+import com.mryqr.common.domain.Geolocation;
+import com.mryqr.common.domain.Geopoint;
+import com.mryqr.common.domain.UploadedFile;
+import com.mryqr.common.domain.permission.AppOperatePermissionChecker;
+import com.mryqr.common.domain.permission.AppOperatePermissions;
+import com.mryqr.common.domain.permission.ManagePermissionChecker;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.common.ratelimit.MryRateLimiter;
+import com.mryqr.common.utils.PagedList;
+import com.mryqr.common.utils.Pagination;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.assignment.domain.Assignment;
 import com.mryqr.core.assignment.domain.AssignmentFinishedQr;
 import com.mryqr.core.assignment.domain.AssignmentRepository;
 import com.mryqr.core.assignment.domain.AssignmentStatus;
-import com.mryqr.core.common.domain.Geolocation;
-import com.mryqr.core.common.domain.Geopoint;
-import com.mryqr.core.common.domain.UploadedFile;
-import com.mryqr.core.common.domain.permission.AppOperatePermissionChecker;
-import com.mryqr.core.common.domain.permission.AppOperatePermissions;
-import com.mryqr.core.common.domain.permission.ManagePermissionChecker;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.utils.PagedList;
-import com.mryqr.core.common.utils.Pagination;
 import com.mryqr.core.group.domain.Group;
 import com.mryqr.core.group.domain.GroupRepository;
 import com.mryqr.core.grouphierarchy.domain.GroupHierarchy;
@@ -43,13 +43,13 @@ import java.util.Set;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.common.exception.ErrorCode.ACCESS_DENIED;
-import static com.mryqr.core.common.exception.ErrorCode.REQUEST_VALIDATION_FAILED;
-import static com.mryqr.core.common.utils.MongoCriteriaUtils.regexSearch;
-import static com.mryqr.core.common.utils.MryConstants.ASSIGNMENT_COLLECTION;
-import static com.mryqr.core.common.utils.MryConstants.QR_COLLECTION;
-import static com.mryqr.core.common.utils.Pagination.pagination;
-import static com.mryqr.core.common.validation.id.plate.PlateIdValidator.isPlateId;
+import static com.mryqr.common.exception.ErrorCode.ACCESS_DENIED;
+import static com.mryqr.common.exception.ErrorCode.REQUEST_VALIDATION_FAILED;
+import static com.mryqr.common.utils.MongoCriteriaUtils.regexSearch;
+import static com.mryqr.common.utils.MryConstants.ASSIGNMENT_COLLECTION;
+import static com.mryqr.common.utils.MryConstants.QR_COLLECTION;
+import static com.mryqr.common.utils.Pagination.pagination;
+import static com.mryqr.common.validation.id.plate.PlateIdValidator.isPlateId;
 import static java.util.Set.copyOf;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.StringUtils.isBlank;
@@ -322,9 +322,9 @@ public class AssignmentQueryService {
     private boolean shouldGeoSearch(ListAssignmentQrsQuery queryCommand) {//sort和geo最近查询是互斥的，sortBy具有优先级
         Geopoint currentPoint = queryCommand.getCurrentPoint();
         return queryCommand.isNearestPointEnabled() &&
-                currentPoint != null &&
-                currentPoint.isPositioned() &&
-                isBlank(queryCommand.getSortedBy());
+               currentPoint != null &&
+               currentPoint.isPositioned() &&
+               isBlank(queryCommand.getSortedBy());
     }
 
     private Sort sortAssignmentQr(ListAssignmentQrsQuery queryCommand) {

@@ -1,7 +1,7 @@
 package com.mryqr.common.notification.consume;
 
 
-import com.mryqr.core.common.properties.MryRedisProperties;
+import com.mryqr.common.properties.MryRedisProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,7 +20,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.stream.IntStream;
 
-import static com.mryqr.core.common.utils.MryConstants.REDIS_NOTIFICATION_CONSUMER_GROUP;
+import static com.mryqr.common.utils.MryConstants.REDIS_NOTIFICATION_CONSUMER_GROUP;
 import static org.springframework.data.redis.connection.stream.Consumer.from;
 import static org.springframework.data.redis.connection.stream.ReadOffset.lastConsumed;
 import static org.springframework.data.redis.connection.stream.StreamOffset.create;

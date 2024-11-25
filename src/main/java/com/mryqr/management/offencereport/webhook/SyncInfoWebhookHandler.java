@@ -1,5 +1,6 @@
 package com.mryqr.management.offencereport.webhook;
 
+import com.mryqr.common.domain.permission.Permission;
 import com.mryqr.common.webhook.submission.BaseSubmissionWebhookPayload;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
@@ -8,7 +9,6 @@ import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.FIdentifierControl;
 import com.mryqr.core.app.domain.page.control.FMultiLineTextControl;
 import com.mryqr.core.app.domain.page.control.FSingleLineTextControl;
-import com.mryqr.core.common.domain.permission.Permission;
 import com.mryqr.core.qr.domain.QR;
 import com.mryqr.core.qr.domain.QrRepository;
 import com.mryqr.core.submission.domain.Submission;
@@ -28,17 +28,8 @@ import java.util.Map;
 import java.util.Set;
 
 import static com.google.common.collect.ImmutableMap.toImmutableMap;
-import static com.mryqr.core.common.domain.user.User.NOUSER;
-import static com.mryqr.management.offencereport.MryOffenceReportApp.MRY_OFFENCE_APP_ID;
-import static com.mryqr.management.offencereport.MryOffenceReportApp.OFFENCE_FORM_PAGE_ID;
-import static com.mryqr.management.offencereport.MryOffenceReportApp.OFFENCE_SYNC_APP_ID_CONTROL_ID;
-import static com.mryqr.management.offencereport.MryOffenceReportApp.OFFENCE_SYNC_APP_NAME_CONTROL_ID;
-import static com.mryqr.management.offencereport.MryOffenceReportApp.OFFENCE_SYNC_PAGE_ID;
-import static com.mryqr.management.offencereport.MryOffenceReportApp.OFFENCE_SYNC_QR_ID_CONTROL_ID;
-import static com.mryqr.management.offencereport.MryOffenceReportApp.OFFENCE_SYNC_QR_NAME_CONTROL_ID;
-import static com.mryqr.management.offencereport.MryOffenceReportApp.OFFENCE_SYNC_TENANT_ID_CONTROL_ID;
-import static com.mryqr.management.offencereport.MryOffenceReportApp.OFFENCE_SYNC_TENANT_NAME_CONTROL_ID;
-import static com.mryqr.management.offencereport.MryOffenceReportApp.OFFENCE_SYNC_URL_CONTROL_ID;
+import static com.mryqr.common.domain.user.User.NOUSER;
+import static com.mryqr.management.offencereport.MryOffenceReportApp.*;
 import static java.util.Objects.requireNonNull;
 import static java.util.function.Function.identity;
 import static org.apache.commons.lang3.StringUtils.isBlank;

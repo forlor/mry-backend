@@ -1,6 +1,6 @@
 package com.mryqr.core.presentation.query.attributetable;
 
-import com.mryqr.core.common.domain.display.DisplayValue;
+import com.mryqr.common.domain.display.DisplayValue;
 import com.mryqr.core.presentation.query.QControlPresentation;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

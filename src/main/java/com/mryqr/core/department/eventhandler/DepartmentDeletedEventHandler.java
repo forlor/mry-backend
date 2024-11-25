@@ -1,7 +1,7 @@
 package com.mryqr.core.department.eventhandler;
 
-import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
-import com.mryqr.core.common.utils.MryTaskRunner;
+import com.mryqr.common.domain.event.consume.AbstractDomainEventHandler;
+import com.mryqr.common.utils.MryTaskRunner;
 import com.mryqr.core.department.domain.event.DepartmentDeletedEvent;
 import com.mryqr.core.department.domain.task.CountDepartmentForTenantTask;
 import com.mryqr.core.member.domain.task.RemoveDepartmentFromAllMembersTask;

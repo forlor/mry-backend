@@ -2,14 +2,14 @@ package com.mryqr.core.app.domain.page.control;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.mryqr.common.domain.permission.Permission;
+import com.mryqr.common.exception.ErrorCode;
+import com.mryqr.common.exception.MryException;
+import com.mryqr.common.utils.Identified;
+import com.mryqr.common.validation.id.control.ControlId;
 import com.mryqr.core.app.domain.AppSettingContext;
 import com.mryqr.core.app.domain.page.Page;
 import com.mryqr.core.app.domain.ui.BoxedTextStyle;
-import com.mryqr.core.common.domain.permission.Permission;
-import com.mryqr.core.common.exception.ErrorCode;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.utils.Identified;
-import com.mryqr.core.common.validation.id.control.ControlId;
 import com.mryqr.core.submission.domain.answer.Answer;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -22,11 +22,11 @@ import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
-import static com.mryqr.core.common.domain.permission.Permission.*;
-import static com.mryqr.core.common.exception.ErrorCode.CONTROL_PERMISSION_NOT_ALLOWED;
-import static com.mryqr.core.common.exception.ErrorCode.EMPTY_FILLABLE_SETTING;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
-import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
+import static com.mryqr.common.domain.permission.Permission.*;
+import static com.mryqr.common.exception.ErrorCode.CONTROL_PERMISSION_NOT_ALLOWED;
+import static com.mryqr.common.exception.ErrorCode.EMPTY_FILLABLE_SETTING;
+import static com.mryqr.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.utils.UuidGenerator.newShortUuid;
 import static lombok.AccessLevel.PROTECTED;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;

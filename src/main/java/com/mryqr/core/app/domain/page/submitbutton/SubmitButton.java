@@ -10,9 +10,9 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
+import static com.mryqr.common.utils.MryConstants.MAX_GENERIC_NAME_LENGTH;
 import static com.mryqr.core.app.domain.ui.border.Border.noBorder;
 import static com.mryqr.core.app.domain.ui.shadow.Shadow.noShadow;
-import static com.mryqr.core.common.utils.MryConstants.MAX_GENERIC_NAME_LENGTH;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 

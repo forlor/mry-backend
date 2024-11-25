@@ -1,9 +1,9 @@
 package com.mryqr.core.grouphierarchy;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.domain.idnode.IdTree;
 import com.mryqr.core.app.AppApi;
 import com.mryqr.core.app.command.CreateAppResponse;
-import com.mryqr.core.common.domain.idnode.IdTree;
 import com.mryqr.core.group.GroupApi;
 import com.mryqr.core.group.command.CreateGroupCommand;
 import com.mryqr.core.group.domain.Group;
@@ -13,18 +13,11 @@ import com.mryqr.core.grouphierarchy.query.QGroupHierarchy;
 import com.mryqr.utils.PreparedAppResponse;
 import org.junit.jupiter.api.Test;
 
-import static com.mryqr.core.common.exception.ErrorCode.GROUP_HIERARCHY_NOT_MATCH;
-import static com.mryqr.core.common.exception.ErrorCode.GROUP_HIERARCHY_TOO_DEEP;
-import static com.mryqr.core.common.exception.ErrorCode.GROUP_NAME_DUPLICATES;
+import static com.mryqr.common.exception.ErrorCode.*;
 import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
-import static com.mryqr.utils.RandomTestFixture.rAppName;
-import static com.mryqr.utils.RandomTestFixture.rGroupName;
-import static com.mryqr.utils.RandomTestFixture.rMobile;
-import static com.mryqr.utils.RandomTestFixture.rPassword;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static java.lang.Boolean.TRUE;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GroupHierarchyControllerApiTest extends BaseApiTest {
 

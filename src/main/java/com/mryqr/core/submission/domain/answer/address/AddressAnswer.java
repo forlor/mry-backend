@@ -1,12 +1,12 @@
 package com.mryqr.core.submission.domain.answer.address;
 
 
+import com.mryqr.common.domain.Address;
+import com.mryqr.common.domain.display.AddressDisplayValue;
+import com.mryqr.common.domain.display.DisplayValue;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.FAddressControl;
-import com.mryqr.core.common.domain.Address;
-import com.mryqr.core.common.domain.display.AddressDisplayValue;
-import com.mryqr.core.common.domain.display.DisplayValue;
 import com.mryqr.core.qr.domain.attribute.AddressAttributeValue;
 import com.mryqr.core.qr.domain.attribute.AttributeValue;
 import com.mryqr.core.submission.domain.SubmissionReferenceContext;

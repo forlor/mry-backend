@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
-import static com.mryqr.core.common.domain.user.User.NOUSER;
+import static com.mryqr.common.domain.user.User.NOUSER;
 import static com.mryqr.management.crm.MryTenantManageApp.CLEAR_SUBDOMAIN_NOTE_CONTROL_ID;
 import static com.mryqr.management.crm.MryTenantManageApp.CLEAR_SUBDOMAIN_PAGE_ID;
 

@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import static com.mryqr.core.common.utils.CommonUtils.isMobileNumber;
+import static com.mryqr.common.utils.CommonUtils.isMobileNumber;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @Slf4j

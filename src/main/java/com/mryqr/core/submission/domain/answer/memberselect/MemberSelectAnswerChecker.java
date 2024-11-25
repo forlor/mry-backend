@@ -12,8 +12,8 @@ import com.mryqr.core.submission.domain.answer.Answer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import static com.mryqr.common.exception.ErrorCode.NOT_ALL_MEMBERS_EXIST;
 import static com.mryqr.core.app.domain.page.control.ControlType.MEMBER_SELECT;
-import static com.mryqr.core.common.exception.ErrorCode.NOT_ALL_MEMBERS_EXIST;
 
 @Component
 @RequiredArgsConstructor

@@ -1,15 +1,13 @@
 package com.mryqr.core.common.domain.idnode;
 
-import com.mryqr.core.common.domain.idnode.exception.IdNodeNotFoundException;
+import com.mryqr.common.domain.idnode.IdTreeHierarchy;
+import com.mryqr.common.domain.idnode.exception.IdNodeNotFoundException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class IdTreeHierarchyTest {
 

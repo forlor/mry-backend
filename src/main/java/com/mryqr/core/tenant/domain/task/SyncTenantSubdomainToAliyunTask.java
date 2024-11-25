@@ -1,8 +1,8 @@
 package com.mryqr.core.tenant.domain.task;
 
 import com.mryqr.common.dns.MryDnsService;
-import com.mryqr.core.common.domain.task.OnetimeTask;
-import com.mryqr.core.common.properties.AliyunProperties;
+import com.mryqr.common.domain.task.OnetimeTask;
+import com.mryqr.common.properties.AliyunProperties;
 import com.mryqr.core.tenant.domain.TenantRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

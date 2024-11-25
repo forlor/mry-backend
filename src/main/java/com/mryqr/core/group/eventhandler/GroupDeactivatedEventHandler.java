@@ -1,7 +1,7 @@
 package com.mryqr.core.group.eventhandler;
 
-import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
-import com.mryqr.core.common.utils.MryTaskRunner;
+import com.mryqr.common.domain.event.consume.AbstractDomainEventHandler;
+import com.mryqr.common.utils.MryTaskRunner;
 import com.mryqr.core.group.domain.event.GroupDeactivatedEvent;
 import com.mryqr.core.qr.domain.task.SyncGroupActiveStatusToQrsTask;
 import lombok.RequiredArgsConstructor;

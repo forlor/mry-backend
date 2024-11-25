@@ -1,13 +1,13 @@
 package com.mryqr.core.app.domain.page.control;
 
 import com.google.common.collect.ImmutableMap;
+import com.mryqr.common.exception.MryException;
+import com.mryqr.common.utils.Identified;
+import com.mryqr.common.validation.collection.NoNullElement;
+import com.mryqr.common.validation.id.control.ControlId;
+import com.mryqr.common.validation.id.shoruuid.ShortUuid;
 import com.mryqr.core.app.domain.AppSettingContext;
 import com.mryqr.core.app.domain.page.Page;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.utils.Identified;
-import com.mryqr.core.common.validation.collection.NoNullElement;
-import com.mryqr.core.common.validation.id.control.ControlId;
-import com.mryqr.core.common.validation.id.shoruuid.ShortUuid;
 import com.mryqr.core.submission.domain.answer.Answer;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -25,13 +25,10 @@ import java.util.function.Function;
 
 import static com.google.common.collect.ImmutableMap.toImmutableMap;
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.common.exception.ErrorCode.ALIAS_ID_DUPLICATED;
-import static com.mryqr.core.common.exception.ErrorCode.CONTROL_NOT_NUMERICAL_VALUED;
-import static com.mryqr.core.common.exception.ErrorCode.CONTROL_SHOULD_NOT_SELF;
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_CONTROL_NOT_EXIST;
-import static com.mryqr.core.common.utils.Identified.isDuplicated;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
-import static com.mryqr.core.common.utils.MryRegexConstants.CONTROL_ALIAS_PATTERN;
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.common.utils.Identified.isDuplicated;
+import static com.mryqr.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.utils.MryRegexConstants.CONTROL_ALIAS_PATTERN;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;

@@ -1,10 +1,10 @@
 package com.mryqr.common.security.jwt;
 
+import com.mryqr.common.properties.JwtProperties;
 import com.mryqr.common.security.IpJwtCookieUpdater;
 import com.mryqr.common.security.MdcFilter;
 import com.mryqr.common.tracing.MryTracingService;
-import com.mryqr.core.common.properties.JwtProperties;
-import com.mryqr.core.common.utils.MryObjectMapper;
+import com.mryqr.common.utils.MryObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,9 +18,7 @@ import org.springframework.security.web.access.ExceptionTranslationFilter;
 import org.springframework.security.web.access.intercept.AuthorizationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-import static org.springframework.http.HttpMethod.DELETE;
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.*;
 
 @Configuration
 @RequiredArgsConstructor

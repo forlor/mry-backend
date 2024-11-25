@@ -1,7 +1,7 @@
 package com.mryqr.core.member.command.importmember;
 
+import com.mryqr.common.domain.user.User;
 import com.mryqr.common.password.MryPasswordEncoder;
-import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.member.domain.Member;
 import com.mryqr.core.member.domain.MemberFactory;
 import com.mryqr.core.member.domain.MemberRepository;

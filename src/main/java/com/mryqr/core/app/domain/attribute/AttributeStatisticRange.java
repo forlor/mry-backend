@@ -3,10 +3,7 @@ package com.mryqr.core.app.domain.attribute;
 import java.time.Instant;
 import java.util.Optional;
 
-import static com.mryqr.core.common.utils.CommonUtils.startOfCurrentMonth;
-import static com.mryqr.core.common.utils.CommonUtils.startOfCurrentSeason;
-import static com.mryqr.core.common.utils.CommonUtils.startOfCurrentWeek;
-import static com.mryqr.core.common.utils.CommonUtils.startOfCurrentYear;
+import static com.mryqr.common.utils.CommonUtils.*;
 import static java.util.Optional.empty;
 import static java.util.Optional.ofNullable;
 

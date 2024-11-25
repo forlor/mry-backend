@@ -1,7 +1,7 @@
 package com.mryqr.integration.submission.query;
 
+import com.mryqr.common.domain.user.User;
 import com.mryqr.common.ratelimit.MryRateLimiter;
-import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.submission.domain.Submission;
 import com.mryqr.core.submission.domain.SubmissionRepository;
 import lombok.RequiredArgsConstructor;

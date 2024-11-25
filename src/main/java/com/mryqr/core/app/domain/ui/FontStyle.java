@@ -1,7 +1,7 @@
 package com.mryqr.core.app.domain.ui;
 
 
-import com.mryqr.core.common.validation.color.Color;
+import com.mryqr.common.validation.color.Color;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

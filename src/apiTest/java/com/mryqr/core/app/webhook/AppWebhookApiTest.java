@@ -33,32 +33,20 @@ import org.junit.jupiter.api.parallel.Execution;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static com.mryqr.common.webhook.WebhookPayloadType.QR_CREATED;
-import static com.mryqr.common.webhook.WebhookPayloadType.QR_DELETED;
-import static com.mryqr.common.webhook.WebhookPayloadType.QR_UPDATED;
-import static com.mryqr.common.webhook.WebhookPayloadType.SUBMISSION_APPROVED;
-import static com.mryqr.common.webhook.WebhookPayloadType.SUBMISSION_CREATED;
-import static com.mryqr.common.webhook.WebhookPayloadType.SUBMISSION_DELETED;
-import static com.mryqr.common.webhook.WebhookPayloadType.SUBMISSION_UPDATED;
+import static com.mryqr.common.domain.event.DomainEventType.QR_RENAMED;
+import static com.mryqr.common.domain.permission.Permission.AS_TENANT_MEMBER;
+import static com.mryqr.common.domain.permission.Permission.CAN_MANAGE_APP;
+import static com.mryqr.common.webhook.WebhookPayloadType.*;
 import static com.mryqr.core.app.domain.config.AppLandingPageType.DEFAULT;
 import static com.mryqr.core.app.domain.page.setting.SubmissionWebhookType.ON_APPROVAL;
 import static com.mryqr.core.app.domain.page.setting.SubmissionWebhookType.ON_UPDATE;
-import static com.mryqr.core.common.domain.event.DomainEventType.QR_RENAMED;
-import static com.mryqr.core.common.domain.permission.Permission.AS_TENANT_MEMBER;
-import static com.mryqr.core.common.domain.permission.Permission.CAN_MANAGE_APP;
 import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
 import static com.mryqr.core.plan.domain.PlanType.FREE;
-import static com.mryqr.utils.RandomTestFixture.defaultPageSettingBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultSingleLineTextControl;
-import static com.mryqr.utils.RandomTestFixture.rAnswer;
-import static com.mryqr.utils.RandomTestFixture.rImageFile;
-import static com.mryqr.utils.RandomTestFixture.rQrName;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static java.util.Base64.getEncoder;
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD;
 
 @Execution(SAME_THREAD)

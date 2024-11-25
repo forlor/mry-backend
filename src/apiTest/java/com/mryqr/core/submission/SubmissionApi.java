@@ -1,8 +1,8 @@
 package com.mryqr.core.submission;
 
 import com.mryqr.BaseApiTest;
-import com.mryqr.core.common.utils.PagedList;
-import com.mryqr.core.common.utils.ReturnId;
+import com.mryqr.common.utils.PagedList;
+import com.mryqr.common.utils.ReturnId;
 import com.mryqr.core.submission.command.ApproveSubmissionCommand;
 import com.mryqr.core.submission.command.NewSubmissionCommand;
 import com.mryqr.core.submission.command.UpdateSubmissionCommand;

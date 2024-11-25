@@ -1,9 +1,9 @@
 package com.mryqr.core.qr.domain.task;
 
+import com.mryqr.common.domain.indexedfield.IndexedValue;
+import com.mryqr.common.domain.task.RepeatableTask;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.app.domain.attribute.Attribute;
-import com.mryqr.core.common.domain.indexedfield.IndexedValue;
-import com.mryqr.core.common.domain.task.RepeatableTask;
 import com.mryqr.core.group.domain.GroupRepository;
 import com.mryqr.core.qr.domain.QrRepository;
 import com.mryqr.core.qr.domain.attribute.AttributeValue;
@@ -18,9 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
-import static com.mryqr.core.app.domain.attribute.AttributeType.INSTANCE_GROUP_MANAGERS;
-import static com.mryqr.core.app.domain.attribute.AttributeType.INSTANCE_GROUP_MANAGERS_AND_EMAIL;
-import static com.mryqr.core.app.domain.attribute.AttributeType.INSTANCE_GROUP_MANAGERS_AND_MOBILE;
+import static com.mryqr.core.app.domain.attribute.AttributeType.*;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 
 @Slf4j

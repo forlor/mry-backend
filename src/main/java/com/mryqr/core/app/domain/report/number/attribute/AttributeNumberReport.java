@@ -1,12 +1,12 @@
 package com.mryqr.core.app.domain.report.number.attribute;
 
+import com.mryqr.common.domain.report.NumberAggregationType;
+import com.mryqr.common.exception.MryException;
+import com.mryqr.common.validation.id.attribute.AttributeId;
 import com.mryqr.core.app.domain.AppSettingContext;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.attribute.AttributeAware;
 import com.mryqr.core.app.domain.report.number.NumberReport;
-import com.mryqr.core.common.domain.report.NumberAggregationType;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.validation.id.attribute.AttributeId;
 import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -16,9 +16,9 @@ import org.springframework.data.annotation.TypeAlias;
 
 import java.util.Set;
 
-import static com.mryqr.core.common.exception.ErrorCode.ATTRIBUTE_NOT_NUMBER_VALUED;
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_ATTRIBUTE_NOT_EXIST;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.exception.ErrorCode.ATTRIBUTE_NOT_NUMBER_VALUED;
+import static com.mryqr.common.exception.ErrorCode.VALIDATION_ATTRIBUTE_NOT_EXIST;
+import static com.mryqr.common.utils.MapUtils.mapOf;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 

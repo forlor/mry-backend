@@ -14,11 +14,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
-import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_AVERAGE;
-import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_MAX;
-import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_MIN;
-import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_SUM;
-import static com.mryqr.core.common.domain.ValueType.INTEGER_VALUE;
+import static com.mryqr.common.domain.ValueType.INTEGER_VALUE;
+import static com.mryqr.core.app.domain.attribute.AttributeType.*;
 
 @Slf4j
 @Component

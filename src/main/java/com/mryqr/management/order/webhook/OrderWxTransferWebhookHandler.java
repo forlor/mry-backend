@@ -1,7 +1,7 @@
 package com.mryqr.management.order.webhook;
 
+import com.mryqr.common.domain.UploadedFile;
 import com.mryqr.common.webhook.submission.BaseSubmissionWebhookPayload;
-import com.mryqr.core.common.domain.UploadedFile;
 import com.mryqr.core.order.command.OrderCommandService;
 import com.mryqr.core.submission.domain.answer.Answer;
 import com.mryqr.core.submission.domain.answer.date.DateAnswer;
@@ -18,11 +18,8 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 
-import static com.mryqr.core.common.domain.user.User.NOUSER;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_REGISTER_WX_TRANSFER_DATE_CONTROL_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_REGISTER_WX_TRANSFER_PAGE_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_REGISTER_WX_TRANSFER_SCREENSHOTS_CONTROL_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_REGISTER_WX_TRANSFER_TIME_CONTROL_ID;
+import static com.mryqr.common.domain.user.User.NOUSER;
+import static com.mryqr.management.order.MryOrderManageApp.*;
 import static java.time.ZoneId.systemDefault;
 
 @Slf4j

@@ -1,6 +1,6 @@
 package com.mryqr.core.presentation.query.numberrangesegment;
 
-import com.mryqr.core.common.domain.report.NumberRangeSegment;
+import com.mryqr.common.domain.report.NumberRangeSegment;
 import com.mryqr.core.presentation.query.QControlPresentation;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

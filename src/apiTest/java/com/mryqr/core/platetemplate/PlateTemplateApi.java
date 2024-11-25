@@ -1,7 +1,7 @@
 package com.mryqr.core.platetemplate;
 
 import com.mryqr.BaseApiTest;
-import com.mryqr.core.common.utils.ReturnId;
+import com.mryqr.common.utils.ReturnId;
 import com.mryqr.core.platetemplate.command.CreatePlateTemplateCommand;
 import com.mryqr.core.platetemplate.command.UpdatePlateTemplateCommand;
 import com.mryqr.core.platetemplate.query.QListPlateTemplate;

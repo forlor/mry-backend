@@ -1,11 +1,11 @@
 package com.mryqr.core.printing;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.domain.UploadedFile;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.page.control.FDropdownControl;
 import com.mryqr.core.app.domain.page.control.FMultiLineTextControl;
 import com.mryqr.core.app.domain.page.control.FSingleLineTextControl;
-import com.mryqr.core.common.domain.UploadedFile;
 import com.mryqr.core.login.LoginApi;
 import com.mryqr.core.printing.query.QPlatePrintingType;
 import com.mryqr.core.printing.query.QPrintingProduct;
@@ -20,17 +20,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.mryqr.core.common.domain.user.User.NOUSER;
+import static com.mryqr.common.domain.user.User.NOUSER;
 import static com.mryqr.core.printing.domain.MaterialType.TRANSPARENT_ACRYLIC;
 import static com.mryqr.management.MryManageTenant.ADMIN_INIT_MOBILE;
 import static com.mryqr.management.MryManageTenant.ADMIN_INIT_PASSWORD;
-import static com.mryqr.management.printingproduct.PrintingProductApp.PP_APP_ID;
-import static com.mryqr.management.printingproduct.PrintingProductApp.PP_DESCRIPTION_CONTROL_ID;
-import static com.mryqr.management.printingproduct.PrintingProductApp.PP_GROUP_ID;
-import static com.mryqr.management.printingproduct.PrintingProductApp.PP_HOME_PAGE_ID;
-import static com.mryqr.management.printingproduct.PrintingProductApp.PP_INTRODUCTION_CONTROL_ID;
-import static com.mryqr.management.printingproduct.PrintingProductApp.PP_MATERIAL_TYPE_CONTROL_ID;
-import static com.mryqr.management.printingproduct.PrintingProductApp.PP_TRANSPARENT_ACRYLIC_OPTION_ID;
+import static com.mryqr.management.printingproduct.PrintingProductApp.*;
 import static com.mryqr.utils.RandomTestFixture.rAnswerBuilder;
 import static com.mryqr.utils.RandomTestFixture.rImageFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;

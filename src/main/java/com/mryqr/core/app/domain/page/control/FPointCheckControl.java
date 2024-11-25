@@ -11,9 +11,7 @@ import org.springframework.data.annotation.TypeAlias;
 
 import java.util.Set;
 
-import static com.mryqr.core.common.exception.ErrorCode.NOT_ALL_POINT_CHECK_ANSWERED;
-import static com.mryqr.core.common.exception.ErrorCode.ONLY_PARTIAL_POINT_CHECK_ANSWERED;
-import static com.mryqr.core.common.exception.ErrorCode.POINT_CHECK_ANSWER_NOT_MATCH_TO_CONTROL;
+import static com.mryqr.common.exception.ErrorCode.*;
 import static com.mryqr.core.submission.domain.answer.pointcheck.PointCheckValue.NONE;
 import static lombok.AccessLevel.PRIVATE;
 
@@ -55,7 +53,7 @@ public class FPointCheckControl extends AbstractTextOptionControl {
         } else {
             //要么全部填，要么全部不填，否则部分填的情况不允许
             if (!(answer.getChecks().values().stream().allMatch(v -> v == NONE) ||
-                    answer.getChecks().values().stream().allMatch(v -> v != NONE))) {
+                  answer.getChecks().values().stream().allMatch(v -> v != NONE))) {
                 failAnswerValidation(ONLY_PARTIAL_POINT_CHECK_ANSWERED, "点检项不完整。");
             }
         }

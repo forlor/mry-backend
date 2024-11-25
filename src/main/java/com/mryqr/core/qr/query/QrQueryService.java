@@ -1,23 +1,19 @@
 package com.mryqr.core.qr.query;
 
 import com.google.common.collect.ImmutableMap;
+import com.mryqr.common.domain.Geopoint;
+import com.mryqr.common.domain.display.DisplayValue;
+import com.mryqr.common.domain.permission.*;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.common.ratelimit.MryRateLimiter;
+import com.mryqr.common.utils.EasyExcelResult;
+import com.mryqr.common.utils.PagedList;
+import com.mryqr.common.utils.Pagination;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.page.control.Control;
-import com.mryqr.core.common.domain.Geopoint;
-import com.mryqr.core.common.domain.display.DisplayValue;
-import com.mryqr.core.common.domain.permission.AppOperatePermissionChecker;
-import com.mryqr.core.common.domain.permission.AppOperatePermissions;
-import com.mryqr.core.common.domain.permission.ManagePermissionChecker;
-import com.mryqr.core.common.domain.permission.SubmissionPermissionChecker;
-import com.mryqr.core.common.domain.permission.SubmissionPermissions;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.utils.EasyExcelResult;
-import com.mryqr.core.common.utils.PagedList;
-import com.mryqr.core.common.utils.Pagination;
 import com.mryqr.core.group.domain.GroupAware;
 import com.mryqr.core.group.domain.GroupRepository;
 import com.mryqr.core.grouphierarchy.domain.GroupHierarchy;
@@ -56,29 +52,23 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.collect.ImmutableMap.toImmutableMap;
 import static com.google.common.collect.ImmutableSet.copyOf;
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.common.exception.ErrorCode.PLATE_NOT_BOUND;
-import static com.mryqr.core.common.exception.ErrorCode.QR_NOT_FOUND;
-import static com.mryqr.core.common.utils.CommonUtils.splitSearchBySpace;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
-import static com.mryqr.core.common.utils.MongoCriteriaUtils.mongoSortableFieldOf;
-import static com.mryqr.core.common.utils.MongoCriteriaUtils.mongoTextFieldOf;
-import static com.mryqr.core.common.utils.MryConstants.QR_COLLECTION;
-import static com.mryqr.core.common.utils.Pagination.pagination;
-import static com.mryqr.core.common.validation.id.plate.PlateIdValidator.isPlateId;
-import static com.mryqr.core.common.validation.id.qr.QrIdValidator.isQrId;
+import static com.mryqr.common.exception.ErrorCode.PLATE_NOT_BOUND;
+import static com.mryqr.common.exception.ErrorCode.QR_NOT_FOUND;
+import static com.mryqr.common.utils.CommonUtils.splitSearchBySpace;
+import static com.mryqr.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.utils.MongoCriteriaUtils.mongoSortableFieldOf;
+import static com.mryqr.common.utils.MongoCriteriaUtils.mongoTextFieldOf;
+import static com.mryqr.common.utils.MryConstants.QR_COLLECTION;
+import static com.mryqr.common.utils.Pagination.pagination;
+import static com.mryqr.common.validation.id.plate.PlateIdValidator.isPlateId;
+import static com.mryqr.common.validation.id.qr.QrIdValidator.isQrId;
 import static com.mryqr.core.qr.domain.QR.newQrId;
 import static java.time.LocalDate.parse;
 import static java.time.LocalDateTime.now;
@@ -518,10 +508,10 @@ public class QrQueryService {
     private boolean shouldGeoSearch(App app, ListViewableQrsQuery queryCommand) {//sort和geo最近查询是互斥的，sortBy具有优先级
         Geopoint currentPoint = queryCommand.getCurrentPoint();
         return app.isGeolocationEnabled() &&
-                queryCommand.isNearestPointEnabled() &&
-                currentPoint != null &&
-                currentPoint.isPositioned() &&
-                isBlank(queryCommand.getSortedBy());
+               queryCommand.isNearestPointEnabled() &&
+               currentPoint != null &&
+               currentPoint.isPositioned() &&
+               isBlank(queryCommand.getSortedBy());
     }
 
     private Criteria appendQrListFilterableCriteria(Criteria criteria, ListViewableQrsQuery queryCommand, App app) {

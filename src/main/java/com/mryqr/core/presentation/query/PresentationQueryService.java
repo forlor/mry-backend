@@ -1,14 +1,14 @@
 package com.mryqr.core.presentation.query;
 
+import com.mryqr.common.domain.permission.SubmissionPermissionChecker;
+import com.mryqr.common.domain.permission.SubmissionPermissions;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.common.ratelimit.MryRateLimiter;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.page.Page;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.ControlType;
-import com.mryqr.core.common.domain.permission.SubmissionPermissionChecker;
-import com.mryqr.core.common.domain.permission.SubmissionPermissions;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
 import com.mryqr.core.qr.domain.AppedQr;
 import com.mryqr.core.qr.domain.QR;
 import com.mryqr.core.qr.domain.QrRepository;
@@ -21,17 +21,12 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
-import static com.mryqr.core.app.domain.page.control.ControlType.BAR;
-import static com.mryqr.core.app.domain.page.control.ControlType.DOUGHNUT;
-import static com.mryqr.core.app.domain.page.control.ControlType.NUMBER_RANGE_SEGMENT;
-import static com.mryqr.core.app.domain.page.control.ControlType.PIE;
-import static com.mryqr.core.app.domain.page.control.ControlType.TIME_SEGMENT;
-import static com.mryqr.core.app.domain.page.control.ControlType.TREND;
-import static com.mryqr.core.common.domain.permission.Permission.maxPermission;
-import static com.mryqr.core.common.exception.ErrorCode.CONTROL_NOT_COMPLETE;
-import static com.mryqr.core.common.exception.MryException.accessDeniedException;
-import static com.mryqr.core.common.exception.MryException.authenticationException;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.domain.permission.Permission.maxPermission;
+import static com.mryqr.common.exception.ErrorCode.CONTROL_NOT_COMPLETE;
+import static com.mryqr.common.exception.MryException.accessDeniedException;
+import static com.mryqr.common.exception.MryException.authenticationException;
+import static com.mryqr.common.utils.MapUtils.mapOf;
+import static com.mryqr.core.app.domain.page.control.ControlType.*;
 
 @Component
 @RequiredArgsConstructor

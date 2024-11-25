@@ -1,25 +1,16 @@
 package com.mryqr.core.app.domain;
 
 import com.google.common.collect.Streams;
-import com.mryqr.core.app.domain.attribute.Attribute;
-import com.mryqr.core.app.domain.attribute.AttributeCheckChangeResult;
-import com.mryqr.core.app.domain.attribute.AttributeInfo;
-import com.mryqr.core.app.domain.attribute.AttributeStatisticRange;
-import com.mryqr.core.app.domain.attribute.AttributeType;
-import com.mryqr.core.app.domain.event.AppAttributesCreatedEvent;
-import com.mryqr.core.app.domain.event.AppAttributesDeletedEvent;
-import com.mryqr.core.app.domain.event.AppControlOptionsDeletedEvent;
-import com.mryqr.core.app.domain.event.AppControlsDeletedEvent;
-import com.mryqr.core.app.domain.event.AppCreatedEvent;
-import com.mryqr.core.app.domain.event.AppCreatedFromTemplateEvent;
-import com.mryqr.core.app.domain.event.AppDeletedEvent;
-import com.mryqr.core.app.domain.event.AppPagesDeletedEvent;
-import com.mryqr.core.app.domain.event.DeletedAttributeInfo;
-import com.mryqr.core.app.domain.event.DeletedControlInfo;
-import com.mryqr.core.app.domain.event.DeletedTextOptionInfo;
-import com.mryqr.core.app.domain.event.AppGroupSyncEnabledEvent;
-import com.mryqr.core.app.domain.event.AppPageChangedToSubmitPerInstanceEvent;
-import com.mryqr.core.app.domain.event.AppPageChangedToSubmitPerMemberEvent;
+import com.mryqr.common.domain.AggregateRoot;
+import com.mryqr.common.domain.TextOption;
+import com.mryqr.common.domain.UploadedFile;
+import com.mryqr.common.domain.indexedfield.IndexedField;
+import com.mryqr.common.domain.indexedfield.IndexedFieldRegistry;
+import com.mryqr.common.domain.permission.Permission;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
+import com.mryqr.core.app.domain.attribute.*;
+import com.mryqr.core.app.domain.event.*;
 import com.mryqr.core.app.domain.operationmenu.OperationMenuItem;
 import com.mryqr.core.app.domain.page.Page;
 import com.mryqr.core.app.domain.page.PageInfo;
@@ -32,14 +23,6 @@ import com.mryqr.core.app.domain.plate.PlateSetting;
 import com.mryqr.core.app.domain.report.ReportSetting;
 import com.mryqr.core.app.domain.report.chart.ChartReport;
 import com.mryqr.core.app.domain.report.number.NumberReport;
-import com.mryqr.core.common.domain.AggregateRoot;
-import com.mryqr.core.common.domain.TextOption;
-import com.mryqr.core.common.domain.UploadedFile;
-import com.mryqr.core.common.domain.indexedfield.IndexedField;
-import com.mryqr.core.common.domain.indexedfield.IndexedFieldRegistry;
-import com.mryqr.core.common.domain.permission.Permission;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
 import com.mryqr.core.qr.domain.QR;
 import com.mryqr.core.qr.domain.attribute.AttributeValue;
 import com.mryqr.core.qr.domain.attribute.TextAttributeValue;
@@ -49,32 +32,19 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.collect.ImmutableMap.toImmutableMap;
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_FIRST;
-import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_LAST;
-import static com.mryqr.core.app.domain.attribute.AttributeType.DIRECT_INPUT;
-import static com.mryqr.core.app.domain.attribute.AttributeType.INSTANCE_CIRCULATION_STATUS;
-import static com.mryqr.core.app.domain.attribute.AttributeType.INSTANCE_SUBMIT_COUNT;
+import static com.mryqr.common.domain.permission.Permission.maxPermission;
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.utils.MryConstants.APP_COLLECTION;
+import static com.mryqr.common.utils.SnowflakeIdGenerator.newSnowflakeId;
+import static com.mryqr.core.app.domain.attribute.AttributeType.*;
 import static com.mryqr.core.app.domain.page.setting.SubmitType.ONCE_PER_INSTANCE;
 import static com.mryqr.core.app.domain.page.setting.SubmitType.ONCE_PER_MEMBER;
-import static com.mryqr.core.common.domain.permission.Permission.maxPermission;
-import static com.mryqr.core.common.exception.ErrorCode.APP_ALREADY_LOCKED;
-import static com.mryqr.core.common.exception.ErrorCode.APP_ALREADY_UPDATED;
-import static com.mryqr.core.common.exception.ErrorCode.APP_NOT_ACTIVE;
-import static com.mryqr.core.common.exception.ErrorCode.ATTRIBUTE_NOT_FOUND;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
-import static com.mryqr.core.common.utils.MryConstants.APP_COLLECTION;
-import static com.mryqr.core.common.utils.SnowflakeIdGenerator.newSnowflakeId;
 import static java.util.Arrays.asList;
 import static java.util.Optional.ofNullable;
 import static java.util.function.Function.identity;
@@ -535,10 +505,11 @@ public class App extends AggregateRoot {
     }
 
     public List<Attribute> allPageSubmissionAwareAttributes(String pageId) {
-        return allAttributes().stream()
-                .filter(attribute -> attribute.getType() == INSTANCE_SUBMIT_COUNT ||//针对页面的提交增减也将影响整个instance的提交计数
-                        attribute.getType() == INSTANCE_CIRCULATION_STATUS && this.circulationStatusAfterSubmission(pageId).isPresent() ||
-                        attribute.isSubmissionAware() && Objects.equals(pageId, attribute.getPageId()))
+        return allAttributes()
+                .stream()
+                .filter(it -> it.getType() == INSTANCE_SUBMIT_COUNT ||//针对页面的提交增减也将影响整个instance的提交计数
+                              it.getType() == INSTANCE_CIRCULATION_STATUS && this.circulationStatusAfterSubmission(pageId).isPresent() ||
+                              it.isSubmissionAware() && Objects.equals(pageId, it.getPageId()))
                 .collect(toImmutableList());
     }
 
@@ -678,8 +649,8 @@ public class App extends AggregateRoot {
             }
 
             if (attribute.isPageAware() &&
-                    attribute.isControlAware() &&
-                    (attribute.getType() == CONTROL_LAST || attribute.getType() == CONTROL_FIRST)) {
+                attribute.isControlAware() &&
+                (attribute.getType() == CONTROL_LAST || attribute.getType() == CONTROL_FIRST)) {
                 Page page = pageById(attribute.getPageId());
                 if (page.isOncePerInstanceSubmitType()) {
                     Control control = controlById(attribute.getControlId());

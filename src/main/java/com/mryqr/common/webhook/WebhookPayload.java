@@ -12,7 +12,7 @@ import com.mryqr.common.webhook.submission.SubmissionUpdatedWebhookPayload;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
+import static com.mryqr.common.utils.UuidGenerator.newShortUuid;
 import static lombok.AccessLevel.PROTECTED;
 
 

@@ -1,11 +1,11 @@
 package com.mryqr.core.qr.domain.event;
 
-import com.mryqr.core.common.domain.user.User;
+import com.mryqr.common.domain.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.TypeAlias;
 
-import static com.mryqr.core.common.domain.event.DomainEventType.QR_MARKED_AS_TEMPLATE;
+import static com.mryqr.common.domain.event.DomainEventType.QR_MARKED_AS_TEMPLATE;
 import static lombok.AccessLevel.PRIVATE;
 
 @Getter

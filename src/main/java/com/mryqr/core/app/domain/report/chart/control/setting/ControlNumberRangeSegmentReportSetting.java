@@ -1,14 +1,14 @@
 package com.mryqr.core.app.domain.report.chart.control.setting;
 
+import com.mryqr.common.domain.report.ReportRange;
+import com.mryqr.common.domain.report.SubmissionSegmentType;
+import com.mryqr.common.exception.MryException;
+import com.mryqr.common.validation.id.control.ControlId;
+import com.mryqr.common.validation.id.page.PageId;
 import com.mryqr.core.app.domain.AppSettingContext;
 import com.mryqr.core.app.domain.page.PageAware;
 import com.mryqr.core.app.domain.page.control.ControlAware;
 import com.mryqr.core.app.domain.page.control.ControlType;
-import com.mryqr.core.common.domain.report.ReportRange;
-import com.mryqr.core.common.domain.report.SubmissionSegmentType;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.validation.id.control.ControlId;
-import com.mryqr.core.common.validation.id.page.PageId;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -22,12 +22,9 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
-import static com.mryqr.core.common.domain.report.SubmissionSegmentType.SUBMIT_COUNT_SUM;
-import static com.mryqr.core.common.exception.ErrorCode.CONTROL_NOT_NUMBERED;
-import static com.mryqr.core.common.exception.ErrorCode.REQUEST_VALIDATION_FAILED;
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_CONTROL_NOT_EXIST;
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_PAGE_NOT_EXIST;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.domain.report.SubmissionSegmentType.SUBMIT_COUNT_SUM;
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.common.utils.MapUtils.mapOf;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;

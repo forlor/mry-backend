@@ -1,6 +1,6 @@
 package com.mryqr.core.report.query.chart;
 
-import com.mryqr.core.common.domain.report.NumberRangeSegment;
+import com.mryqr.common.domain.report.NumberRangeSegment;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

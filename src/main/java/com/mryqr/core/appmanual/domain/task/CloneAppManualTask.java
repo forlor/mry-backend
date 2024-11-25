@@ -1,17 +1,17 @@
 package com.mryqr.core.appmanual.domain.task;
 
+import com.mryqr.common.domain.task.RepeatableTask;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.appmanual.domain.AppManual;
 import com.mryqr.core.appmanual.domain.AppManualFactory;
 import com.mryqr.core.appmanual.domain.AppManualRepository;
-import com.mryqr.core.common.domain.task.RepeatableTask;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-import static com.mryqr.core.common.domain.user.User.NOUSER;
+import static com.mryqr.common.domain.user.User.NOUSER;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @Slf4j

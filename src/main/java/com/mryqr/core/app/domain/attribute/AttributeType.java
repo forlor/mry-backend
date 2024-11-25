@@ -1,22 +1,8 @@
 package com.mryqr.core.app.domain.attribute;
 
-import com.mryqr.core.common.domain.ValueType;
+import com.mryqr.common.domain.ValueType;
 
-import static com.mryqr.core.common.domain.ValueType.BOOLEAN_VALUE;
-import static com.mryqr.core.common.domain.ValueType.CIRCULATION_STATUS_VALUE;
-import static com.mryqr.core.common.domain.ValueType.GEOLOCATION_VALUE;
-import static com.mryqr.core.common.domain.ValueType.GROUP_VALUE;
-import static com.mryqr.core.common.domain.ValueType.IDENTIFIER_VALUE;
-import static com.mryqr.core.common.domain.ValueType.INTEGER_VALUE;
-import static com.mryqr.core.common.domain.ValueType.LOCAL_DATE_VALUE;
-import static com.mryqr.core.common.domain.ValueType.MEMBERS_EMAIL_VALUE;
-import static com.mryqr.core.common.domain.ValueType.MEMBERS_MOBILE_VALUE;
-import static com.mryqr.core.common.domain.ValueType.MEMBERS_VALUE;
-import static com.mryqr.core.common.domain.ValueType.MEMBER_EMAIL_VALUE;
-import static com.mryqr.core.common.domain.ValueType.MEMBER_MOBILE_VALUE;
-import static com.mryqr.core.common.domain.ValueType.MEMBER_VALUE;
-import static com.mryqr.core.common.domain.ValueType.TEXT_VALUE;
-import static com.mryqr.core.common.domain.ValueType.TIMESTAMP_VALUE;
+import static com.mryqr.common.domain.ValueType.*;
 
 public enum AttributeType {
     FIXED(TEXT_VALUE, false, false, false, false),

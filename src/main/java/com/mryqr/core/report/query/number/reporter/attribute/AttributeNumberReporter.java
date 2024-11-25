@@ -1,10 +1,10 @@
 package com.mryqr.core.report.query.number.reporter.attribute;
 
+import com.mryqr.common.domain.indexedfield.IndexedField;
+import com.mryqr.common.domain.report.NumberAggregationType;
+import com.mryqr.common.domain.report.ReportRange;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.attribute.Attribute;
-import com.mryqr.core.common.domain.indexedfield.IndexedField;
-import com.mryqr.core.common.domain.report.NumberAggregationType;
-import com.mryqr.core.common.domain.report.ReportRange;
 import com.mryqr.core.qr.domain.QR;
 import com.mryqr.core.report.query.number.NumberResult;
 import lombok.RequiredArgsConstructor;
@@ -18,12 +18,10 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Set;
 
-import static com.mryqr.core.common.domain.report.ReportRange.timeRangeOf;
-import static com.mryqr.core.common.utils.MongoCriteriaUtils.mongoSortableFieldOf;
+import static com.mryqr.common.domain.report.ReportRange.timeRangeOf;
+import static com.mryqr.common.utils.MongoCriteriaUtils.mongoSortableFieldOf;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 @Component

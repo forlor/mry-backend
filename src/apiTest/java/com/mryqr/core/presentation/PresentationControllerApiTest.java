@@ -1,12 +1,12 @@
 package com.mryqr.core.presentation;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.domain.display.TextDisplayValue;
 import com.mryqr.core.app.AppApi;
 import com.mryqr.core.app.domain.page.control.FNumberInputControl;
 import com.mryqr.core.app.domain.page.control.FSingleLineTextControl;
 import com.mryqr.core.app.domain.page.control.PSubmissionReferenceControl;
 import com.mryqr.core.app.domain.page.control.PTimeSegmentControl;
-import com.mryqr.core.common.domain.display.TextDisplayValue;
 import com.mryqr.core.member.MemberApi;
 import com.mryqr.core.presentation.query.submissionreference.QSubmissionReferencePresentation;
 import com.mryqr.core.submission.SubmissionApi;
@@ -20,13 +20,13 @@ import org.junit.jupiter.api.Test;
 import java.time.Instant;
 import java.util.List;
 
-import static com.mryqr.core.common.domain.permission.Permission.AS_GROUP_MEMBER;
-import static com.mryqr.core.common.domain.permission.Permission.PUBLIC;
-import static com.mryqr.core.common.domain.report.SubmissionReportTimeBasedType.CREATED_AT;
-import static com.mryqr.core.common.domain.report.SubmissionSegmentType.CONTROL_VALUE_SUM;
-import static com.mryqr.core.common.domain.report.TimeSegmentInterval.PER_MONTH;
-import static com.mryqr.core.common.exception.ErrorCode.*;
-import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
+import static com.mryqr.common.domain.permission.Permission.AS_GROUP_MEMBER;
+import static com.mryqr.common.domain.permission.Permission.PUBLIC;
+import static com.mryqr.common.domain.report.SubmissionReportTimeBasedType.CREATED_AT;
+import static com.mryqr.common.domain.report.SubmissionSegmentType.CONTROL_VALUE_SUM;
+import static com.mryqr.common.domain.report.TimeSegmentInterval.PER_MONTH;
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.common.utils.UuidGenerator.newShortUuid;
 import static com.mryqr.core.plan.domain.PlanType.*;
 import static com.mryqr.utils.RandomTestFixture.*;
 import static java.time.temporal.ChronoUnit.DAYS;

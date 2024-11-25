@@ -1,10 +1,10 @@
 package com.mryqr.core.app.domain.plate;
 
+import com.mryqr.common.exception.MryException;
+import com.mryqr.common.validation.collection.NoNullElement;
 import com.mryqr.core.app.domain.AppSettingContext;
 import com.mryqr.core.app.domain.plate.control.PlateControl;
 import com.mryqr.core.app.domain.plate.control.QrImageControl;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.validation.collection.NoNullElement;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -15,14 +15,14 @@ import lombok.Getter;
 
 import java.util.List;
 
+import static com.mryqr.common.exception.ErrorCode.PLATE_CONTROL_ID_DUPLICATED;
+import static com.mryqr.common.utils.Identified.isDuplicated;
+import static com.mryqr.common.utils.UuidGenerator.newShortUuid;
 import static com.mryqr.core.app.domain.plate.PlateConfig.defaultPlateConfig;
 import static com.mryqr.core.app.domain.plate.control.PlateControlType.QR_IMAGE;
 import static com.mryqr.core.app.domain.ui.align.HorizontalAlignType.CENTER;
 import static com.mryqr.core.app.domain.ui.border.Border.noBorder;
 import static com.mryqr.core.app.domain.ui.borderradius.BorderRadius.noBorderRadius;
-import static com.mryqr.core.common.exception.ErrorCode.PLATE_CONTROL_ID_DUPLICATED;
-import static com.mryqr.core.common.utils.Identified.isDuplicated;
-import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 

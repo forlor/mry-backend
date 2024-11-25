@@ -1,6 +1,7 @@
 package com.mryqr.core.platetemplate;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.domain.UploadedFile;
 import com.mryqr.core.app.AppApi;
 import com.mryqr.core.app.command.CreateAppResponse;
 import com.mryqr.core.app.domain.App;
@@ -9,7 +10,6 @@ import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.plate.PlateSetting;
 import com.mryqr.core.app.domain.plate.PlateTextValue;
 import com.mryqr.core.app.domain.plate.control.SingleRowTextControl;
-import com.mryqr.core.common.domain.UploadedFile;
 import com.mryqr.core.login.LoginApi;
 import com.mryqr.core.member.MemberApi;
 import com.mryqr.core.platetemplate.command.CreatePlateTemplateCommand;
@@ -22,6 +22,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.common.utils.UuidGenerator.newShortUuid;
 import static com.mryqr.core.app.domain.attribute.Attribute.newAttributeId;
 import static com.mryqr.core.app.domain.attribute.AttributeType.DIRECT_INPUT;
 import static com.mryqr.core.app.domain.plate.PlateTextValueType.QR_ATTRIBUTE;
@@ -29,20 +31,11 @@ import static com.mryqr.core.app.domain.plate.PlateTextValueType.QR_PROPERTY;
 import static com.mryqr.core.app.domain.plate.control.PlateControlType.SINGLE_ROW_TEXT;
 import static com.mryqr.core.app.domain.ui.align.HorizontalAlignType.CENTER;
 import static com.mryqr.core.app.domain.ui.borderradius.BorderRadius.noBorderRadius;
-import static com.mryqr.core.common.exception.ErrorCode.ACCESS_DENIED;
-import static com.mryqr.core.common.exception.ErrorCode.PLATE_SETTING_HAS_ATTRIBUTES;
-import static com.mryqr.core.common.exception.ErrorCode.PLATE_SETTING_NOT_COMPLETE;
-import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
 import static com.mryqr.management.apptemplate.MryAppTemplateManageApp.MRY_APP_TEMPLATE_MANAGE_APP_ID;
 import static com.mryqr.management.apptemplate.MryAppTemplateTenant.ADMIN_INIT_MOBILE;
 import static com.mryqr.management.apptemplate.MryAppTemplateTenant.ADMIN_INIT_PASSWORD;
-import static com.mryqr.utils.RandomTestFixture.rAttributeName;
-import static com.mryqr.utils.RandomTestFixture.rBorder;
-import static com.mryqr.utils.RandomTestFixture.rFontStyle;
-import static com.mryqr.utils.RandomTestFixture.rImageFile;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static com.mryqr.utils.RandomTestFixture.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 class PlateTemplateControllerApiTest extends BaseApiTest {
 

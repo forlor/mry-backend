@@ -1,7 +1,7 @@
 package com.mryqr.common.security.apikey;
 
+import com.mryqr.common.domain.user.Role;
 import com.mryqr.common.security.MdcFilter;
-import com.mryqr.core.common.domain.user.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

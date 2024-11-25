@@ -1,6 +1,6 @@
 package com.mryqr.core.app.domain.attribute;
 
-import com.mryqr.core.common.domain.ValueType;
+import com.mryqr.common.domain.ValueType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;

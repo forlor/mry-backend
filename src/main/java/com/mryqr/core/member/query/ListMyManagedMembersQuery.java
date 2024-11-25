@@ -1,7 +1,7 @@
 package com.mryqr.core.member.query;
 
-import com.mryqr.core.common.utils.Query;
-import com.mryqr.core.common.validation.id.department.DepartmentId;
+import com.mryqr.common.utils.Query;
+import com.mryqr.common.validation.id.department.DepartmentId;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
-import static com.mryqr.core.common.utils.MryConstants.MAX_GENERIC_NAME_LENGTH;
+import static com.mryqr.common.utils.MryConstants.MAX_GENERIC_NAME_LENGTH;
 import static lombok.AccessLevel.PRIVATE;
 
 @Value

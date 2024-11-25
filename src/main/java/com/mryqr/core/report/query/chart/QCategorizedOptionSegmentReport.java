@@ -1,6 +1,6 @@
 package com.mryqr.core.report.query.chart;
 
-import com.mryqr.core.common.domain.report.CategorizedOptionSegment;
+import com.mryqr.common.domain.report.CategorizedOptionSegment;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,7 +1,7 @@
 package com.mryqr.common.validation;
 
-import com.mryqr.core.common.utils.Command;
-import com.mryqr.core.common.utils.Query;
+import com.mryqr.common.utils.Command;
+import com.mryqr.common.utils.Query;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -17,7 +17,7 @@ public class ControllerPayloadValidationAspect {
     }
 
     @Pointcut("@annotation(org.springframework.web.bind.annotation.PostMapping) || " +
-            "@annotation(org.springframework.web.bind.annotation.PutMapping)")
+              "@annotation(org.springframework.web.bind.annotation.PutMapping)")
     public void methodPointcut() {
     }
 

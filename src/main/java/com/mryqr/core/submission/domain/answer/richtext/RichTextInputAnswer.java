@@ -1,11 +1,11 @@
 package com.mryqr.core.submission.domain.answer.richtext;
 
 
+import com.mryqr.common.domain.display.DisplayValue;
+import com.mryqr.common.domain.display.TextDisplayValue;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.FRichTextInputControl;
-import com.mryqr.core.common.domain.display.DisplayValue;
-import com.mryqr.core.common.domain.display.TextDisplayValue;
 import com.mryqr.core.qr.domain.attribute.AttributeValue;
 import com.mryqr.core.qr.domain.attribute.RichTextAttributeValue;
 import com.mryqr.core.submission.domain.SubmissionReferenceContext;
@@ -19,7 +19,7 @@ import org.springframework.data.annotation.TypeAlias;
 
 import java.util.Set;
 
-import static com.mryqr.core.common.utils.MryConstants.MAX_PARAGRAPH_LENGTH;
+import static com.mryqr.common.utils.MryConstants.MAX_PARAGRAPH_LENGTH;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 

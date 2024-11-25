@@ -1,15 +1,9 @@
 package com.mryqr.core.assignment;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.utils.PagedList;
 import com.mryqr.core.assignment.command.SetAssignmentOperatorsCommand;
-import com.mryqr.core.assignment.query.ListAssignmentQrsQuery;
-import com.mryqr.core.assignment.query.ListMyAssignmentsQuery;
-import com.mryqr.core.assignment.query.ListMyManagedAssignmentsQuery;
-import com.mryqr.core.assignment.query.QAssignmentDetail;
-import com.mryqr.core.assignment.query.QAssignmentListQr;
-import com.mryqr.core.assignment.query.QAssignmentQrDetail;
-import com.mryqr.core.assignment.query.QListAssignment;
-import com.mryqr.core.common.utils.PagedList;
+import com.mryqr.core.assignment.query.*;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.response.Response;
 

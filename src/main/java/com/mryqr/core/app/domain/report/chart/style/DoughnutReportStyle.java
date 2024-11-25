@@ -1,6 +1,6 @@
 package com.mryqr.core.app.domain.report.chart.style;
 
-import com.mryqr.core.common.validation.color.Color;
+import com.mryqr.common.validation.color.Color;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

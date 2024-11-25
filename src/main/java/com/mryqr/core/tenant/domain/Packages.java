@@ -1,7 +1,7 @@
 package com.mryqr.core.tenant.domain;
 
+import com.mryqr.common.exception.MryException;
 import com.mryqr.core.app.domain.page.control.ControlType;
-import com.mryqr.core.common.exception.MryException;
 import com.mryqr.core.plan.domain.Plan;
 import com.mryqr.core.plan.domain.PlanType;
 import lombok.AllArgsConstructor;
@@ -12,11 +12,8 @@ import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.Set;
 
-import static com.mryqr.core.common.exception.ErrorCode.MAX_EXTRA_STORAGE_REACHED;
-import static com.mryqr.core.common.exception.ErrorCode.MAX_TENANT_MEMBER_SIZE_REACHED;
-import static com.mryqr.core.common.exception.ErrorCode.MAX_VIDEO_TRAFFIC_REACHED;
-import static com.mryqr.core.common.exception.ErrorCode.PACKAGE_DURATION_TOO_LONG;
-import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.common.utils.UuidGenerator.newShortUuid;
 import static com.mryqr.core.plan.domain.Plan.FREE_PLAN;
 import static com.mryqr.core.plan.domain.Plan.planFor;
 import static com.mryqr.core.plan.domain.PlanType.FREE;

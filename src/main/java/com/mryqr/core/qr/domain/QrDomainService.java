@@ -1,11 +1,11 @@
 package com.mryqr.core.qr.domain;
 
+import com.mryqr.common.domain.Geolocation;
+import com.mryqr.common.domain.UploadedFile;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.attribute.Attribute;
-import com.mryqr.core.common.domain.Geolocation;
-import com.mryqr.core.common.domain.UploadedFile;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
 import com.mryqr.core.qr.domain.attribute.AttributeValue;
 import com.mryqr.core.qr.domain.attribute.DoubleAttributeValue;
 import com.mryqr.core.qr.domain.attribute.TextAttributeValue;
@@ -18,11 +18,11 @@ import java.util.Objects;
 import java.util.Set;
 
 import static com.google.common.collect.ImmutableMap.toImmutableMap;
-import static com.mryqr.core.common.domain.ValueType.DOUBLE_VALUE;
-import static com.mryqr.core.common.domain.ValueType.TEXT_VALUE;
-import static com.mryqr.core.common.exception.ErrorCode.QR_WITH_CUSTOM_ID_ALREADY_EXISTS;
-import static com.mryqr.core.common.exception.ErrorCode.QR_WITH_NAME_ALREADY_EXISTS;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.domain.ValueType.DOUBLE_VALUE;
+import static com.mryqr.common.domain.ValueType.TEXT_VALUE;
+import static com.mryqr.common.exception.ErrorCode.QR_WITH_CUSTOM_ID_ALREADY_EXISTS;
+import static com.mryqr.common.exception.ErrorCode.QR_WITH_NAME_ALREADY_EXISTS;
+import static com.mryqr.common.utils.MapUtils.mapOf;
 import static java.lang.Double.parseDouble;
 import static java.util.function.Function.identity;
 import static org.apache.commons.collections4.MapUtils.emptyIfNull;
@@ -67,8 +67,8 @@ public class QrDomainService {
 
     private void checkNameDuplication(QR qr, String name, App app) {
         if (!Objects.equals(qr.getName(), name)
-                && app.notAllowDuplicateInstanceName()
-                && qrRepository.existsByName(name, qr.getAppId())) {
+            && app.notAllowDuplicateInstanceName()
+            && qrRepository.existsByName(name, qr.getAppId())) {
             throw new MryException(QR_WITH_NAME_ALREADY_EXISTS,
                     "名称已被占用。",
                     mapOf("qrId", qr.getId(), "name", name));
@@ -77,8 +77,8 @@ public class QrDomainService {
 
     private void checkCustomIdDuplication(QR qr, String customId, App app) {
         if (isNotBlank(customId)
-                && !Objects.equals(qr.getCustomId(), customId)
-                && qrRepository.existsByCustomId(customId, qr.getAppId())) {
+            && !Objects.equals(qr.getCustomId(), customId)
+            && qrRepository.existsByCustomId(customId, qr.getAppId())) {
             throw new MryException(QR_WITH_CUSTOM_ID_ALREADY_EXISTS,
                     app.customIdDesignation() + "已被占用。", mapOf("qrId", qr.getId(), "customId", customId));
         }

@@ -1,6 +1,6 @@
 package com.mryqr.core.member.domain;
 
-import com.mryqr.core.common.domain.user.User;
+import com.mryqr.common.domain.user.User;
 import com.mryqr.core.tenant.domain.Tenant;
 
 import java.util.List;

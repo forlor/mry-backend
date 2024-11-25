@@ -1,11 +1,11 @@
 package com.mryqr.core.app.eventhandler;
 
+import com.mryqr.common.domain.event.consume.AbstractDomainEventHandler;
+import com.mryqr.common.utils.MryTaskRunner;
 import com.mryqr.core.app.domain.event.AppDeletedEvent;
 import com.mryqr.core.appmanual.domain.task.RemoveManualForAppTask;
 import com.mryqr.core.assignment.domain.task.RemoveAllAssignmentsUnderAppTask;
 import com.mryqr.core.assignmentplan.domain.task.RemoveAllAssignmentPlansUnderAppTask;
-import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
-import com.mryqr.core.common.utils.MryTaskRunner;
 import com.mryqr.core.group.domain.task.RemoveAllGroupsForAppTask;
 import com.mryqr.core.grouphierarchy.domain.task.RemoveGroupHierarchyForAppTask;
 import com.mryqr.core.plate.domain.task.RemoveAllPlatesUnderAppTask;

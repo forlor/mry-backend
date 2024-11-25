@@ -1,7 +1,7 @@
 package com.mryqr.core.assignment.query;
 
-import com.mryqr.core.common.domain.Geopoint;
-import com.mryqr.core.common.utils.Query;
+import com.mryqr.common.domain.Geopoint;
+import com.mryqr.common.utils.Query;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

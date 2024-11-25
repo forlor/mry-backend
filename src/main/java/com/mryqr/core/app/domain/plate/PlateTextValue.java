@@ -1,8 +1,8 @@
 package com.mryqr.core.app.domain.plate;
 
+import com.mryqr.common.exception.MryException;
+import com.mryqr.common.validation.id.attribute.AttributeId;
 import com.mryqr.core.app.domain.AppSettingContext;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.validation.id.attribute.AttributeId;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -12,8 +12,8 @@ import lombok.Getter;
 
 import java.util.Set;
 
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_ATTRIBUTE_NOT_EXIST;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.exception.ErrorCode.VALIDATION_ATTRIBUTE_NOT_EXIST;
+import static com.mryqr.common.utils.MapUtils.mapOf;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 

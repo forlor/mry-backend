@@ -1,7 +1,7 @@
 package com.mryqr.core.member.command;
 
-import com.mryqr.core.common.domain.UploadedFile;
-import com.mryqr.core.common.utils.Command;
+import com.mryqr.common.domain.UploadedFile;
+import com.mryqr.common.utils.Command;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

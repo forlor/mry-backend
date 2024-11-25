@@ -13,26 +13,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
-import static com.mryqr.core.common.domain.user.User.NOUSER;
-import static com.mryqr.core.order.domain.delivery.Carrier.EMS;
-import static com.mryqr.core.order.domain.delivery.Carrier.SHEN_TONG;
-import static com.mryqr.core.order.domain.delivery.Carrier.SHUN_FENG;
-import static com.mryqr.core.order.domain.delivery.Carrier.YUAN_TONG;
-import static com.mryqr.core.order.domain.delivery.Carrier.YUN_DA;
-import static com.mryqr.core.order.domain.delivery.Carrier.YUN_DA_56;
-import static com.mryqr.core.order.domain.delivery.Carrier.ZHONG_TONG;
-import static com.mryqr.core.order.domain.delivery.Carrier.ZHONG_TONG_56;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_DELIVER_EMS_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_DELIVER_SHENTONG_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_DELIVER_SHUNFENG_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_DELIVER_YUANTONG_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_DELIVER_YUNDA_EXPRESS_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_DELIVER_YUNDA_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_DELIVER_ZHONGTONG_EXPRESS_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_DELIVER_ZHONGTONG_OPTION_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_REGISTER_DELIVERY_DELIVERY_ID_CONTROL_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_REGISTER_DELIVERY_DELIVER_CONTROL_ID;
-import static com.mryqr.management.order.MryOrderManageApp.ORDER_REGISTER_DELIVERY_PAGE_ID;
+import static com.mryqr.common.domain.user.User.NOUSER;
+import static com.mryqr.core.order.domain.delivery.Carrier.*;
+import static com.mryqr.management.order.MryOrderManageApp.*;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @Slf4j

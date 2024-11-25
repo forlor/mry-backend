@@ -1,13 +1,9 @@
 package com.mryqr.core.verification.command;
 
+import com.mryqr.common.domain.user.User;
 import com.mryqr.common.ratelimit.MryRateLimiter;
-import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.member.domain.MemberRepository;
-import com.mryqr.core.verification.domain.VerificationCode;
-import com.mryqr.core.verification.domain.VerificationCodeFactory;
-import com.mryqr.core.verification.domain.VerificationCodeRepository;
-import com.mryqr.core.verification.domain.VerificationCodeSender;
-import com.mryqr.core.verification.domain.VerificationCodeType;
+import com.mryqr.core.verification.domain.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -15,14 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-import static com.mryqr.core.common.domain.user.User.NOUSER;
-import static com.mryqr.core.common.utils.CommonUtils.maskMobileOrEmail;
+import static com.mryqr.common.domain.user.User.NOUSER;
+import static com.mryqr.common.utils.CommonUtils.maskMobileOrEmail;
 import static com.mryqr.core.verification.domain.VerificationCode.newVerificationCodeId;
-import static com.mryqr.core.verification.domain.VerificationCodeType.CHANGE_MOBILE;
-import static com.mryqr.core.verification.domain.VerificationCodeType.FINDBACK_PASSWORD;
-import static com.mryqr.core.verification.domain.VerificationCodeType.IDENTIFY_MOBILE;
-import static com.mryqr.core.verification.domain.VerificationCodeType.LOGIN;
-import static com.mryqr.core.verification.domain.VerificationCodeType.REGISTER;
+import static com.mryqr.core.verification.domain.VerificationCodeType.*;
 
 @Slf4j
 @Component

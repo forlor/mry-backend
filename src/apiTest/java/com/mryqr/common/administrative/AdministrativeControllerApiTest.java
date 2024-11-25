@@ -2,7 +2,7 @@ package com.mryqr.common.administrative;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mryqr.BaseApiTest;
-import com.mryqr.core.common.domain.administrative.Administrative;
+import com.mryqr.common.domain.administrative.Administrative;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
 
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import static com.mryqr.core.common.utils.MryConstants.CHINESE_COLLATOR;
+import static com.mryqr.common.utils.MryConstants.CHINESE_COLLATOR;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AdministrativeControllerApiTest extends BaseApiTest {

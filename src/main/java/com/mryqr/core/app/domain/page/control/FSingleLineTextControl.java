@@ -1,8 +1,8 @@
 package com.mryqr.core.app.domain.page.control;
 
+import com.mryqr.common.exception.MryException;
 import com.mryqr.core.app.domain.AppSettingContext;
 import com.mryqr.core.app.domain.ui.MinMaxSetting;
-import com.mryqr.core.common.exception.MryException;
 import com.mryqr.core.submission.domain.answer.Answer;
 import com.mryqr.core.submission.domain.answer.singlelinetext.SingleLineTextAnswer;
 import jakarta.validation.Valid;
@@ -14,11 +14,8 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.TypeAlias;
 
-import static com.mryqr.core.common.exception.ErrorCode.MAX_OVERFLOW;
-import static com.mryqr.core.common.exception.ErrorCode.MIN_OVERFLOW;
-import static com.mryqr.core.common.exception.ErrorCode.SINGLE_LINE_MAX_CONTENT_REACHED;
-import static com.mryqr.core.common.exception.ErrorCode.SINGLE_LINE_MIN_CONTENT_NOT_REACHED;
-import static com.mryqr.core.common.utils.MryConstants.MAX_PLACEHOLDER_LENGTH;
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.common.utils.MryConstants.MAX_PLACEHOLDER_LENGTH;
 import static lombok.AccessLevel.PRIVATE;
 
 

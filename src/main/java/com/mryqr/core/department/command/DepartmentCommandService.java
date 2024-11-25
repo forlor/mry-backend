@@ -1,7 +1,7 @@
 package com.mryqr.core.department.command;
 
+import com.mryqr.common.domain.user.User;
 import com.mryqr.common.ratelimit.MryRateLimiter;
-import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.department.domain.Department;
 import com.mryqr.core.department.domain.DepartmentDomainService;
 import com.mryqr.core.department.domain.DepartmentFactory;

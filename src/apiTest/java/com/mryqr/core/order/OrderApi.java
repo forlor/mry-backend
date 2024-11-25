@@ -1,16 +1,12 @@
 package com.mryqr.core.order;
 
 import com.mryqr.BaseApiTest;
-import com.mryqr.core.common.utils.PagedList;
+import com.mryqr.common.utils.PagedList;
 import com.mryqr.core.order.command.CreateOrderCommand;
 import com.mryqr.core.order.command.CreateOrderResponse;
 import com.mryqr.core.order.command.RequestInvoiceCommand;
 import com.mryqr.core.order.domain.OrderStatus;
-import com.mryqr.core.order.query.ListOrdersQuery;
-import com.mryqr.core.order.query.QDetailedOrder;
-import com.mryqr.core.order.query.QListOrder;
-import com.mryqr.core.order.query.QPriceQuotation;
-import com.mryqr.core.order.query.QuotePriceQuery;
+import com.mryqr.core.order.query.*;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.response.Response;
 

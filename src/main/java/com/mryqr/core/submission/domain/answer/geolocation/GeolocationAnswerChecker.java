@@ -11,8 +11,8 @@ import com.mryqr.core.submission.domain.answer.Answer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import static com.mryqr.common.exception.ErrorCode.OUT_OF_OFF_SET_RADIUS;
 import static com.mryqr.core.app.domain.page.control.ControlType.GEOLOCATION;
-import static com.mryqr.core.common.exception.ErrorCode.OUT_OF_OFF_SET_RADIUS;
 
 @Component
 @RequiredArgsConstructor

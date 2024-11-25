@@ -9,9 +9,9 @@ checkstyle {
 
 //配置需要忽略的文件
 tasks.withType(Checkstyle) {
-    exclude 'com/mryqr/core/common/utils/MryRegexConstants.java'
     exclude 'com/mryqr/common/spike/**'
-    exclude 'com/mryqr/core/common/utils/SnowFlakeIdGenerator.java'
+    exclude 'com/mryqr/common/utils/MryRegexConstants.java'
+    exclude 'com/mryqr/common/utils/SnowFlakeIdGenerator.java'
     exclude 'com/mryqr/common/wx/auth/mobile/DefaultMobileWxAuthService.java'
     exclude 'com/mryqr/core/app/domain/page/control/ControlType.java'
 }

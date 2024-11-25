@@ -1,11 +1,11 @@
 package com.mryqr.common.notification.email;
 
 import com.mryqr.common.notification.NotificationService;
+import com.mryqr.common.properties.PropertyService;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.page.Page;
 import com.mryqr.core.app.domain.page.setting.notification.NotificationRole;
 import com.mryqr.core.assignment.domain.Assignment;
-import com.mryqr.core.common.properties.PropertyService;
 import com.mryqr.core.group.domain.Group;
 import com.mryqr.core.group.domain.GroupRepository;
 import com.mryqr.core.member.domain.MemberRepository;
@@ -24,8 +24,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static com.mryqr.common.utils.MryConstants.MRY_DATE_TIME_FORMATTER;
 import static com.mryqr.core.app.domain.page.setting.notification.NotificationRole.*;
-import static com.mryqr.core.common.utils.MryConstants.MRY_DATE_TIME_FORMATTER;
 import static com.mryqr.management.crm.MryTenantManageApp.MRY_TENANT_MANAGE_APP_ID;
 import static java.util.Collections.singleton;
 import static java.util.Set.copyOf;

@@ -3,7 +3,7 @@ package com.mryqr.common.security.jwt;
 import lombok.Getter;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 
-import static com.mryqr.core.common.utils.CommonUtils.requireNonBlank;
+import static com.mryqr.common.utils.CommonUtils.requireNonBlank;
 
 @Getter
 public final class JwtAuthenticationToken extends AbstractAuthenticationToken {

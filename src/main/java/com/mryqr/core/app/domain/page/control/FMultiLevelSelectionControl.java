@@ -6,30 +6,18 @@ import com.mryqr.core.submission.domain.answer.Answer;
 import com.mryqr.core.submission.domain.answer.multilevelselection.MultiLevelSelection;
 import com.mryqr.core.submission.domain.answer.multilevelselection.MultiLevelSelectionAnswer;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Value;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.data.annotation.TypeAlias;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
-import static com.mryqr.core.common.exception.ErrorCode.MULTI_SELECTION_LEVEL1_NOT_PROVIDED;
-import static com.mryqr.core.common.exception.ErrorCode.MULTI_SELECTION_LEVEL2_NOT_PROVIDED;
-import static com.mryqr.core.common.exception.ErrorCode.MULTI_SELECTION_LEVEL3_NOT_PROVIDED;
+import static com.mryqr.common.exception.ErrorCode.*;
 import static java.lang.Double.parseDouble;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.groupingBy;
@@ -37,11 +25,7 @@ import static java.util.stream.Collectors.toMap;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
-import static org.apache.commons.lang3.StringUtils.isBlank;
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static org.apache.commons.lang3.StringUtils.split;
-import static org.apache.commons.lang3.StringUtils.substring;
-import static org.apache.commons.lang3.StringUtils.trim;
+import static org.apache.commons.lang3.StringUtils.*;
 import static org.apache.commons.lang3.tuple.Pair.of;
 
 @Slf4j

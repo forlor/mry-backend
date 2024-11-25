@@ -1,9 +1,9 @@
 package com.mryqr.common.webhook.qr;
 
+import com.mryqr.common.domain.Geolocation;
+import com.mryqr.common.domain.UploadedFile;
 import com.mryqr.common.webhook.WebhookPayload;
 import com.mryqr.common.webhook.WebhookPayloadType;
-import com.mryqr.core.common.domain.Geolocation;
-import com.mryqr.core.common.domain.UploadedFile;
 import com.mryqr.core.qr.domain.QR;
 import com.mryqr.core.qr.domain.attribute.AttributeValue;
 import lombok.Getter;

@@ -2,11 +2,11 @@ package com.mryqr.core.assignmentplan.infrastructure;
 
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
+import com.mryqr.common.domain.user.User;
 import com.mryqr.common.oss.mongo.MongoBaseRepository;
 import com.mryqr.core.assignment.infrastructure.MongoCachedAssignmentRepository;
 import com.mryqr.core.assignmentplan.domain.AssignmentPlan;
 import com.mryqr.core.assignmentplan.domain.AssignmentPlanRepository;
-import com.mryqr.core.common.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.mryqr.core.common.utils.CommonUtils.requireNonBlank;
+import static com.mryqr.common.utils.CommonUtils.requireNonBlank;
 import static java.time.format.DateTimeFormatter.ofPattern;
 import static java.util.Objects.requireNonNull;
 import static org.springframework.data.domain.Sort.Direction.DESC;

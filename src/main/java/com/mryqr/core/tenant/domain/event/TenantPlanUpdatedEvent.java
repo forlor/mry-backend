@@ -1,12 +1,12 @@
 package com.mryqr.core.tenant.domain.event;
 
-import com.mryqr.core.common.domain.user.User;
+import com.mryqr.common.domain.user.User;
 import com.mryqr.core.plan.domain.PlanType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.TypeAlias;
 
-import static com.mryqr.core.common.domain.event.DomainEventType.TENANT_PLAN_UPDATED;
+import static com.mryqr.common.domain.event.DomainEventType.TENANT_PLAN_UPDATED;
 import static lombok.AccessLevel.PRIVATE;
 
 @Getter

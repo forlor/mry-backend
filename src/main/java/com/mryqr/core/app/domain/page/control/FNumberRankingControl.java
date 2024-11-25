@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.TypeAlias;
 
-import static com.mryqr.core.common.exception.ErrorCode.MAX_RANK_REACHED;
+import static com.mryqr.common.exception.ErrorCode.MAX_RANK_REACHED;
 import static java.lang.Double.valueOf;
 import static java.lang.Integer.parseInt;
 import static lombok.AccessLevel.PRIVATE;

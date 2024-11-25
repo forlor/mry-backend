@@ -1,21 +1,19 @@
 package com.mryqr.core.app.control;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.domain.UploadedFile;
 import com.mryqr.core.app.AppApi;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppSetting;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.PImageViewControl;
-import com.mryqr.core.common.domain.UploadedFile;
 import com.mryqr.utils.PreparedAppResponse;
 import org.junit.jupiter.api.Test;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static com.mryqr.core.common.exception.ErrorCode.IMAGE_ID_DUPLICATED;
+import static com.mryqr.common.exception.ErrorCode.IMAGE_ID_DUPLICATED;
 import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
-import static com.mryqr.utils.RandomTestFixture.defaultImageViewControl;
-import static com.mryqr.utils.RandomTestFixture.defaultImageViewControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.rImageFile;
+import static com.mryqr.utils.RandomTestFixture.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ImageViewControlApiTest extends BaseApiTest {

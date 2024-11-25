@@ -1,6 +1,6 @@
 package com.mryqr.core.apptemplate.query;
 
-import com.mryqr.core.common.domain.UploadedFile;
+import com.mryqr.common.domain.UploadedFile;
 import com.mryqr.core.plan.domain.PlanType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

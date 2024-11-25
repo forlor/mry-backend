@@ -1,18 +1,15 @@
 package com.mryqr.core.qr.domain;
 
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.core.app.domain.App;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
 import com.mryqr.core.group.domain.Group;
 import com.mryqr.core.plate.domain.Plate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import static com.mryqr.core.common.exception.ErrorCode.GROUP_NOT_ACTIVE;
-import static com.mryqr.core.common.exception.ErrorCode.PLATE_ALREADY_BOUND;
-import static com.mryqr.core.common.exception.ErrorCode.QR_WITH_CUSTOM_ID_ALREADY_EXISTS;
-import static com.mryqr.core.common.exception.ErrorCode.QR_WITH_NAME_ALREADY_EXISTS;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.common.utils.MapUtils.mapOf;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @Component

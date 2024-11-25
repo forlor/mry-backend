@@ -1,6 +1,6 @@
 package com.mryqr.core.kanban;
 
-import com.mryqr.core.common.domain.user.User;
+import com.mryqr.common.domain.user.User;
 import com.mryqr.core.kanban.query.FetchKanbanQuery;
 import com.mryqr.core.kanban.query.KanbanQueryService;
 import com.mryqr.core.kanban.query.QAttributeKanban;

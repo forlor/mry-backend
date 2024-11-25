@@ -1,7 +1,7 @@
 package com.mryqr.core.order.domain;
 
+import com.mryqr.common.domain.user.User;
 import com.mryqr.common.wx.pay.WxPayService;
-import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.order.domain.detail.OrderDetail;
 import com.mryqr.core.tenant.domain.Tenant;
 import lombok.RequiredArgsConstructor;

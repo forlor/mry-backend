@@ -1,22 +1,17 @@
 package com.mryqr.core.appmanual;
 
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.validation.id.app.AppId;
 import com.mryqr.core.appmanual.command.AppManualCommandService;
 import com.mryqr.core.appmanual.command.UpdateAppManualCommand;
 import com.mryqr.core.appmanual.query.AppManualQueryService;
 import com.mryqr.core.appmanual.query.QAppManual;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.validation.id.app.AppId;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Validated
 @RestController

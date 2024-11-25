@@ -1,9 +1,9 @@
 package com.mryqr.core.assignmentplan.eventhandler;
 
+import com.mryqr.common.domain.event.consume.AbstractDomainEventHandler;
+import com.mryqr.common.utils.MryTaskRunner;
 import com.mryqr.core.assignment.domain.task.RemoveAllAssignmentsUnderAssignmentPlanTask;
 import com.mryqr.core.assignmentplan.domain.event.AssignmentPlanDeletedEvent;
-import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
-import com.mryqr.core.common.utils.MryTaskRunner;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

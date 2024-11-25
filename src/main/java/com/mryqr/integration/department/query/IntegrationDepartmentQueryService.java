@@ -1,7 +1,7 @@
 package com.mryqr.integration.department.query;
 
+import com.mryqr.common.domain.user.User;
 import com.mryqr.common.ratelimit.MryRateLimiter;
-import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.department.domain.Department;
 import com.mryqr.core.department.domain.DepartmentRepository;
 import com.mryqr.core.member.domain.MemberRepository;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Set;
 
-import static com.mryqr.core.common.utils.MryConstants.DEPARTMENT_COLLECTION;
+import static com.mryqr.common.utils.MryConstants.DEPARTMENT_COLLECTION;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 @Component

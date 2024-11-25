@@ -1,6 +1,7 @@
 package com.mryqr.core.app.control;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.domain.report.NumberRangeSegment;
 import com.mryqr.core.app.AppApi;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppSetting;
@@ -9,7 +10,6 @@ import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.FNumberInputControl;
 import com.mryqr.core.app.domain.page.control.FSingleLineTextControl;
 import com.mryqr.core.app.domain.page.control.PNumberRangeSegmentControl;
-import com.mryqr.core.common.domain.report.NumberRangeSegment;
 import com.mryqr.core.presentation.PresentationApi;
 import com.mryqr.core.presentation.query.numberrangesegment.QNumberRangeSegmentPresentation;
 import com.mryqr.core.submission.SubmissionApi;
@@ -20,18 +20,11 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static com.mryqr.core.common.domain.report.SubmissionSegmentType.CONTROL_VALUE_MAX;
-import static com.mryqr.core.common.exception.ErrorCode.CONTROL_NOT_SUPPORT_NUMBER_RANGE_SEGMENT;
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_CONTROL_NOT_EXIST;
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_PAGE_NOT_EXIST;
+import static com.mryqr.common.domain.report.SubmissionSegmentType.CONTROL_VALUE_MAX;
+import static com.mryqr.common.exception.ErrorCode.*;
 import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
-import static com.mryqr.utils.RandomTestFixture.defaultNumberInputControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultSingleLineTextControl;
-import static com.mryqr.utils.RandomTestFixture.defaultValueSegmentControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.rAnswerBuilder;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static com.mryqr.utils.RandomTestFixture.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class NumberRangeSegmentControlApiTest extends BaseApiTest {
     @Test

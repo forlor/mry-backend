@@ -1,6 +1,7 @@
 package com.mryqr.core.mangement;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.properties.CommonProperties;
 import com.mryqr.core.app.AppApi;
 import com.mryqr.core.app.command.UpdateAppWebhookSettingCommand;
 import com.mryqr.core.app.domain.App;
@@ -9,7 +10,6 @@ import com.mryqr.core.app.domain.page.control.FDateControl;
 import com.mryqr.core.app.domain.page.control.FDropdownControl;
 import com.mryqr.core.app.domain.page.control.FRadioControl;
 import com.mryqr.core.app.domain.page.control.FSingleLineTextControl;
-import com.mryqr.core.common.properties.CommonProperties;
 import com.mryqr.core.login.LoginApi;
 import com.mryqr.core.qr.domain.QR;
 import com.mryqr.core.qr.domain.attribute.DropdownAttributeValue;

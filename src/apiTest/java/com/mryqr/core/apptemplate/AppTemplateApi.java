@@ -1,10 +1,10 @@
 package com.mryqr.core.apptemplate;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.utils.PagedList;
 import com.mryqr.core.apptemplate.query.ListAppTemplateQuery;
 import com.mryqr.core.apptemplate.query.QDetailedAppTemplate;
 import com.mryqr.core.apptemplate.query.QListAppTemplate;
-import com.mryqr.core.common.utils.PagedList;
 import io.restassured.common.mapper.TypeRef;
 
 public class AppTemplateApi {

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.TypeAlias;
 
-import static com.mryqr.core.common.exception.ErrorCode.NOT_ALL_ANSWERS_IN_RADIO_OPTIONS;
+import static com.mryqr.common.exception.ErrorCode.NOT_ALL_ANSWERS_IN_RADIO_OPTIONS;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 

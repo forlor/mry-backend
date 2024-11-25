@@ -17,22 +17,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import static com.mryqr.core.common.exception.ErrorCode.AUTHENTICATION_FAILED;
-import static com.mryqr.core.common.exception.ErrorCode.MEMBER_ALREADY_DEACTIVATED;
-import static com.mryqr.core.common.exception.ErrorCode.MEMBER_ALREADY_LOCKED;
-import static com.mryqr.core.common.exception.ErrorCode.TENANT_ALREADY_DEACTIVATED;
-import static com.mryqr.core.common.exception.ErrorCode.VERIFICATION_CODE_CHECK_FAILED;
-import static com.mryqr.utils.RandomTestFixture.rEmail;
-import static com.mryqr.utils.RandomTestFixture.rMemberName;
-import static com.mryqr.utils.RandomTestFixture.rMobile;
-import static com.mryqr.utils.RandomTestFixture.rMobileWxOpenId;
-import static com.mryqr.utils.RandomTestFixture.rPassword;
-import static com.mryqr.utils.RandomTestFixture.rPcWxOpenId;
-import static com.mryqr.utils.RandomTestFixture.rVerificationCode;
-import static com.mryqr.utils.RandomTestFixture.rWxUnionId;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.utils.RandomTestFixture.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 class LoginControllerApiTest extends BaseApiTest {
 

@@ -1,7 +1,7 @@
 package com.mryqr.core.tenant.query;
 
+import com.mryqr.common.domain.user.User;
 import com.mryqr.common.ratelimit.MryRateLimiter;
-import com.mryqr.core.common.domain.user.User;
 import com.mryqr.core.order.domain.delivery.Consignee;
 import com.mryqr.core.plan.domain.Plan;
 import com.mryqr.core.tenant.domain.Packages;

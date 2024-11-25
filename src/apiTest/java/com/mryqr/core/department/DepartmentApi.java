@@ -1,7 +1,7 @@
 package com.mryqr.core.department;
 
 import com.mryqr.BaseApiTest;
-import com.mryqr.core.common.utils.ReturnId;
+import com.mryqr.common.utils.ReturnId;
 import com.mryqr.core.department.command.CreateDepartmentCommand;
 import com.mryqr.core.department.command.RenameDepartmentCommand;
 import io.restassured.response.Response;

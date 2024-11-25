@@ -2,7 +2,7 @@ package com.mryqr.core.order.domain.detail;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.mryqr.core.common.exception.MryException;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.core.order.domain.OrderPrice;
 import com.mryqr.core.tenant.domain.Tenant;
 import jakarta.validation.constraints.NotNull;
@@ -11,8 +11,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import static com.mryqr.core.common.exception.ErrorCode.ORDER_REQUIRE_NON_FREE_PLAN;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.exception.ErrorCode.ORDER_REQUIRE_NON_FREE_PLAN;
+import static com.mryqr.common.utils.MapUtils.mapOf;
 import static lombok.AccessLevel.PROTECTED;
 
 

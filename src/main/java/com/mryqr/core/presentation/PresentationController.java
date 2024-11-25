@@ -1,9 +1,9 @@
 package com.mryqr.core.presentation;
 
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.validation.id.control.ControlId;
-import com.mryqr.core.common.validation.id.page.PageId;
-import com.mryqr.core.common.validation.id.qr.QrId;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.validation.id.control.ControlId;
+import com.mryqr.common.validation.id.page.PageId;
+import com.mryqr.common.validation.id.qr.QrId;
 import com.mryqr.core.presentation.query.PresentationQueryService;
 import com.mryqr.core.presentation.query.QControlPresentation;
 import jakarta.validation.constraints.NotBlank;

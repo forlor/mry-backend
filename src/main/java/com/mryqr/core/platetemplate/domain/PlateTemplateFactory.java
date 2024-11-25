@@ -1,8 +1,8 @@
 package com.mryqr.core.platetemplate.domain;
 
+import com.mryqr.common.domain.user.User;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.plate.PlateSetting;
-import com.mryqr.core.common.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

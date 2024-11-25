@@ -1,7 +1,7 @@
 package com.mryqr.integration.qr.query;
 
-import com.mryqr.core.common.domain.Geolocation;
-import com.mryqr.core.common.domain.UploadedFile;
+import com.mryqr.common.domain.Geolocation;
+import com.mryqr.common.domain.UploadedFile;
 import com.mryqr.core.qr.domain.attribute.AttributeValue;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -2,24 +2,20 @@ package com.mryqr.common.dns;
 
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
-import com.aliyuncs.alidns.model.v20150109.AddDomainRecordRequest;
-import com.aliyuncs.alidns.model.v20150109.AddDomainRecordResponse;
-import com.aliyuncs.alidns.model.v20150109.DeleteDomainRecordRequest;
-import com.aliyuncs.alidns.model.v20150109.UpdateDomainRecordRequest;
-import com.aliyuncs.alidns.model.v20150109.UpdateDomainRecordResponse;
+import com.aliyuncs.alidns.model.v20150109.*;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
-import com.mryqr.core.common.properties.AliyunProperties;
-import com.mryqr.core.common.properties.CommonProperties;
-import com.mryqr.core.common.properties.PropertyService;
+import com.mryqr.common.properties.AliyunProperties;
+import com.mryqr.common.properties.CommonProperties;
+import com.mryqr.common.properties.PropertyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
-import static com.mryqr.core.common.utils.CommonUtils.requireNonBlank;
+import static com.mryqr.common.utils.CommonUtils.requireNonBlank;
 
 @Slf4j
 @Component

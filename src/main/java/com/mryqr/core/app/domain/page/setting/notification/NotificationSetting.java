@@ -1,6 +1,6 @@
 package com.mryqr.core.app.domain.page.setting.notification;
 
-import com.mryqr.core.common.validation.collection.NoNullElement;
+import com.mryqr.common.validation.collection.NoNullElement;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;

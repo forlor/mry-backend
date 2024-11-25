@@ -1,6 +1,8 @@
 package com.mryqr.core.app.control;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.domain.indexedfield.IndexedField;
+import com.mryqr.common.domain.indexedfield.IndexedValue;
 import com.mryqr.core.app.AppApi;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppSetting;
@@ -9,8 +11,6 @@ import com.mryqr.core.app.domain.page.control.AutoCalculateAliasContext;
 import com.mryqr.core.app.domain.page.control.Control;
 import com.mryqr.core.app.domain.page.control.FNumberInputControl;
 import com.mryqr.core.app.domain.page.control.FSingleLineTextControl;
-import com.mryqr.core.common.domain.indexedfield.IndexedField;
-import com.mryqr.core.common.domain.indexedfield.IndexedValue;
 import com.mryqr.core.qr.domain.QR;
 import com.mryqr.core.qr.domain.attribute.DoubleAttributeValue;
 import com.mryqr.core.submission.SubmissionApi;
@@ -23,40 +23,17 @@ import com.mryqr.utils.RandomTestFixture;
 import org.junit.jupiter.api.Test;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.common.utils.UuidGenerator.newShortUuid;
 import static com.mryqr.core.app.domain.attribute.Attribute.newAttributeId;
 import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.NO_LIMIT;
-import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_AVERAGE;
-import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_FIRST;
-import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_LAST;
-import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_MAX;
-import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_MIN;
-import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_SUM;
+import static com.mryqr.core.app.domain.attribute.AttributeType.*;
 import static com.mryqr.core.app.domain.page.control.FNumberInputControl.MAX_NUMBER;
 import static com.mryqr.core.app.domain.page.control.FNumberInputControl.MIN_NUMBER;
 import static com.mryqr.core.app.domain.ui.MinMaxSetting.minMaxOf;
-import static com.mryqr.core.common.exception.ErrorCode.CONTROL_NOT_NUMERICAL_VALUED;
-import static com.mryqr.core.common.exception.ErrorCode.CONTROL_SHOULD_NOT_SELF;
-import static com.mryqr.core.common.exception.ErrorCode.INCORRECT_INTEGER_PRECISION;
-import static com.mryqr.core.common.exception.ErrorCode.INCORRECT_NUMBER_INPUT_PRECISION;
-import static com.mryqr.core.common.exception.ErrorCode.MANDATORY_ANSWER_REQUIRED;
-import static com.mryqr.core.common.exception.ErrorCode.MAX_INPUT_NUMBER_REACHED;
-import static com.mryqr.core.common.exception.ErrorCode.MAX_OVERFLOW;
-import static com.mryqr.core.common.exception.ErrorCode.MIN_INPUT_NUMBER_REACHED;
-import static com.mryqr.core.common.exception.ErrorCode.MIN_OVERFLOW;
-import static com.mryqr.core.common.exception.ErrorCode.VALIDATION_CONTROL_NOT_EXIST;
-import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
 import static com.mryqr.core.submission.SubmissionUtils.newSubmissionCommand;
-import static com.mryqr.utils.RandomTestFixture.defaultFillableSettingBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultNumberInputControlBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultSingleLineTextControl;
-import static com.mryqr.utils.RandomTestFixture.rAnswerBuilder;
-import static com.mryqr.utils.RandomTestFixture.rAttributeName;
-import static com.mryqr.utils.RandomTestFixture.rEmail;
-import static com.mryqr.utils.RandomTestFixture.rPassword;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static com.mryqr.utils.RandomTestFixture.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class NumberInputControlApiTest extends BaseApiTest {
 

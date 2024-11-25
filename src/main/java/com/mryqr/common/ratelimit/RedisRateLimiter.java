@@ -1,7 +1,7 @@
 package com.mryqr.common.ratelimit;
 
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.properties.CommonProperties;
+import com.mryqr.common.exception.MryException;
+import com.mryqr.common.properties.CommonProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.SessionCallback;
@@ -12,9 +12,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static com.mryqr.core.common.exception.ErrorCode.TOO_MANY_REQUEST;
-import static com.mryqr.core.common.utils.CommonUtils.requireNonBlank;
-import static com.mryqr.core.common.utils.MapUtils.mapOf;
+import static com.mryqr.common.exception.ErrorCode.TOO_MANY_REQUEST;
+import static com.mryqr.common.utils.CommonUtils.requireNonBlank;
+import static com.mryqr.common.utils.MapUtils.mapOf;
 import static java.lang.Integer.parseInt;
 import static java.time.Instant.now;
 import static java.util.concurrent.TimeUnit.SECONDS;

@@ -1,6 +1,6 @@
 package com.mryqr.core.login.domain;
 
-import com.mryqr.core.common.properties.JwtProperties;
+import com.mryqr.common.properties.JwtProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;

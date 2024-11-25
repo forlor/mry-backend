@@ -13,13 +13,9 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.mryqr.core.common.domain.user.User.NOUSER;
+import static com.mryqr.common.domain.user.User.NOUSER;
 import static com.mryqr.management.MryManageTenant.MRY_MANAGE_TENANT_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.STATUS_SETTING_ACTIVE_OPTION_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.STATUS_SETTING_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.STATUS_SETTING_INACTIVE_OPTION_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.STATUS_SETTING_NOTE_CONTROL_ID;
-import static com.mryqr.management.crm.MryTenantManageApp.STATUS_SETTING_PAGE_ID;
+import static com.mryqr.management.crm.MryTenantManageApp.*;
 
 @Slf4j
 @Component

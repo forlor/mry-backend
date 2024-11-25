@@ -1,13 +1,13 @@
 package com.mryqr.core.assignmentplan;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.utils.ReturnId;
 import com.mryqr.core.assignmentplan.command.CreateAssignmentPlanCommand;
 import com.mryqr.core.assignmentplan.command.ExcludeGroupsCommand;
 import com.mryqr.core.assignmentplan.command.SetGroupOperatorsCommand;
 import com.mryqr.core.assignmentplan.command.UpdateAssignmentPlanSettingCommand;
 import com.mryqr.core.assignmentplan.query.QAssignmentPlan;
 import com.mryqr.core.assignmentplan.query.QAssignmentPlanSummary;
-import com.mryqr.core.common.utils.ReturnId;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.response.Response;
 

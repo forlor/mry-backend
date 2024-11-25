@@ -13,9 +13,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 
-import static com.mryqr.core.common.utils.CommonUtils.requireNonBlank;
-import static com.mryqr.core.common.utils.MryConstants.DEPARTMENT_COLLECTION;
-import static com.mryqr.core.common.utils.MryConstants.TENANT_DEPARTMENTS_CACHE;
+import static com.mryqr.common.utils.CommonUtils.requireNonBlank;
+import static com.mryqr.common.utils.MryConstants.DEPARTMENT_COLLECTION;
+import static com.mryqr.common.utils.MryConstants.TENANT_DEPARTMENTS_CACHE;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 

@@ -1,6 +1,7 @@
 package com.mryqr.core.app.page;
 
 import com.mryqr.BaseApiTest;
+import com.mryqr.common.domain.indexedfield.IndexedField;
 import com.mryqr.core.app.AppApi;
 import com.mryqr.core.app.command.UpdateAppReportSettingCommand;
 import com.mryqr.core.app.domain.App;
@@ -21,7 +22,6 @@ import com.mryqr.core.app.domain.report.number.NumberReport;
 import com.mryqr.core.app.domain.report.number.NumberReportConfiguration;
 import com.mryqr.core.app.domain.report.number.NumberReportSetting;
 import com.mryqr.core.app.domain.report.number.page.PageNumberReport;
-import com.mryqr.core.common.domain.indexedfield.IndexedField;
 import com.mryqr.core.qr.domain.QR;
 import com.mryqr.core.qr.domain.attribute.RadioAttributeValue;
 import com.mryqr.core.submission.SubmissionApi;
@@ -37,17 +37,17 @@ import java.util.List;
 import java.util.Set;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.mryqr.common.domain.event.DomainEventType.*;
+import static com.mryqr.common.domain.permission.Permission.*;
+import static com.mryqr.common.domain.report.ReportRange.NO_LIMIT;
+import static com.mryqr.common.exception.ErrorCode.*;
+import static com.mryqr.common.utils.UuidGenerator.newShortUuid;
 import static com.mryqr.core.app.domain.attribute.Attribute.newAttributeId;
 import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_LAST;
 import static com.mryqr.core.app.domain.page.setting.SubmitType.*;
 import static com.mryqr.core.app.domain.page.setting.SubmitterUpdateRange.*;
 import static com.mryqr.core.app.domain.report.number.NumberReportType.PAGE_NUMBER_REPORT;
 import static com.mryqr.core.app.domain.report.number.page.PageNumberReportType.PAGE_SUBMIT_COUNT;
-import static com.mryqr.core.common.domain.event.DomainEventType.*;
-import static com.mryqr.core.common.domain.permission.Permission.*;
-import static com.mryqr.core.common.domain.report.ReportRange.NO_LIMIT;
-import static com.mryqr.core.common.exception.ErrorCode.*;
-import static com.mryqr.core.common.utils.UuidGenerator.newShortUuid;
 import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
 import static com.mryqr.utils.RandomTestFixture.*;
 import static org.junit.jupiter.api.Assertions.*;

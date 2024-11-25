@@ -1,11 +1,11 @@
 package com.mryqr.core.app.domain.page.control;
 
+import com.mryqr.common.domain.UploadedFile;
+import com.mryqr.common.exception.MryException;
+import com.mryqr.common.validation.collection.NoNullElement;
 import com.mryqr.core.app.domain.AppSettingContext;
 import com.mryqr.core.app.domain.ui.border.Border;
 import com.mryqr.core.app.domain.ui.shadow.Shadow;
-import com.mryqr.core.common.domain.UploadedFile;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.validation.collection.NoNullElement;
 import com.mryqr.core.submission.domain.answer.Answer;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
@@ -20,12 +20,9 @@ import org.springframework.data.annotation.TypeAlias;
 
 import java.util.List;
 
-import static com.mryqr.core.common.exception.ErrorCode.IMAGE_ID_DUPLICATED;
-import static com.mryqr.core.common.utils.Identified.isDuplicated;
-import static com.mryqr.core.common.utils.MryConstants.MAX_BORDER_RADIUS;
-import static com.mryqr.core.common.utils.MryConstants.MAX_MARGIN;
-import static com.mryqr.core.common.utils.MryConstants.MIN_BORDER_RADIUS;
-import static com.mryqr.core.common.utils.MryConstants.MIN_MARGIN;
+import static com.mryqr.common.exception.ErrorCode.IMAGE_ID_DUPLICATED;
+import static com.mryqr.common.utils.Identified.isDuplicated;
+import static com.mryqr.common.utils.MryConstants.*;
 import static lombok.AccessLevel.PRIVATE;
 
 @Getter

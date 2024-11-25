@@ -1,21 +1,21 @@
 package com.mryqr.core.submission.query;
 
 import com.google.common.collect.ImmutableSet;
+import com.mryqr.common.domain.display.DisplayValue;
+import com.mryqr.common.domain.permission.AppOperatePermissionChecker;
+import com.mryqr.common.domain.permission.AppOperatePermissions;
+import com.mryqr.common.domain.permission.SubmissionPermissionChecker;
+import com.mryqr.common.domain.permission.SubmissionPermissions;
+import com.mryqr.common.domain.user.User;
+import com.mryqr.common.exception.MryException;
 import com.mryqr.common.ratelimit.MryRateLimiter;
+import com.mryqr.common.utils.EasyExcelResult;
+import com.mryqr.common.utils.PagedList;
+import com.mryqr.common.utils.Pagination;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.app.domain.page.Page;
 import com.mryqr.core.app.domain.page.control.Control;
-import com.mryqr.core.common.domain.display.DisplayValue;
-import com.mryqr.core.common.domain.permission.AppOperatePermissionChecker;
-import com.mryqr.core.common.domain.permission.AppOperatePermissions;
-import com.mryqr.core.common.domain.permission.SubmissionPermissionChecker;
-import com.mryqr.core.common.domain.permission.SubmissionPermissions;
-import com.mryqr.core.common.domain.user.User;
-import com.mryqr.core.common.exception.MryException;
-import com.mryqr.core.common.utils.EasyExcelResult;
-import com.mryqr.core.common.utils.PagedList;
-import com.mryqr.core.common.utils.Pagination;
 import com.mryqr.core.grouphierarchy.domain.GroupHierarchy;
 import com.mryqr.core.grouphierarchy.domain.GroupHierarchyRepository;
 import com.mryqr.core.member.domain.MemberAware;
@@ -38,29 +38,22 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.collect.ImmutableMap.toImmutableMap;
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
+import static com.mryqr.common.domain.permission.Permission.CAN_MANAGE_APP;
+import static com.mryqr.common.domain.permission.Permission.CAN_MANAGE_GROUP;
+import static com.mryqr.common.exception.ErrorCode.BAD_REQUEST;
+import static com.mryqr.common.utils.CommonUtils.splitSearchBySpace;
+import static com.mryqr.common.utils.MongoCriteriaUtils.mongoSortableFieldOf;
+import static com.mryqr.common.utils.MongoCriteriaUtils.mongoTextFieldOf;
+import static com.mryqr.common.utils.MryConstants.MRY_DATE_TIME_FORMATTER;
+import static com.mryqr.common.utils.MryConstants.SUBMISSION_COLLECTION;
+import static com.mryqr.common.utils.Pagination.pagination;
 import static com.mryqr.core.app.domain.operationmenu.SubmissionListType.ALL_SUBMIT_HISTORY;
 import static com.mryqr.core.app.domain.operationmenu.SubmissionListType.TO_BE_APPROVED;
-import static com.mryqr.core.common.domain.permission.Permission.CAN_MANAGE_APP;
-import static com.mryqr.core.common.domain.permission.Permission.CAN_MANAGE_GROUP;
-import static com.mryqr.core.common.exception.ErrorCode.BAD_REQUEST;
-import static com.mryqr.core.common.utils.CommonUtils.splitSearchBySpace;
-import static com.mryqr.core.common.utils.MongoCriteriaUtils.mongoSortableFieldOf;
-import static com.mryqr.core.common.utils.MongoCriteriaUtils.mongoTextFieldOf;
-import static com.mryqr.core.common.utils.MryConstants.MRY_DATE_TIME_FORMATTER;
-import static com.mryqr.core.common.utils.MryConstants.SUBMISSION_COLLECTION;
-import static com.mryqr.core.common.utils.Pagination.pagination;
 import static com.mryqr.core.submission.domain.ApprovalStatus.statusOf;
 import static com.mryqr.core.submission.domain.Submission.newSubmissionId;
 import static java.time.LocalDate.parse;
@@ -594,9 +587,9 @@ public class SubmissionQueryService {
 
     private boolean isIndexedEntry(Map.Entry<String, Set<String>> entry) {
         return !APPROVAL.equals(entry.getKey()) &&
-                !CREATED_BY.equals(entry.getKey()) &&
-                !GROUP_ID.equals(entry.getKey()) &&
-                isNotEmpty(entry.getValue());
+               !CREATED_BY.equals(entry.getKey()) &&
+               !GROUP_ID.equals(entry.getKey()) &&
+               isNotEmpty(entry.getValue());
     }
 
     private Criteria appendSearchableCriteria(Criteria criteria, ListSubmissionsQuery queryCommand) {

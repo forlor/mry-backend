@@ -13,7 +13,7 @@ import org.springframework.security.web.authentication.AnonymousAuthenticationFi
 import java.io.IOException;
 import java.util.UUID;
 
-import static com.mryqr.core.common.domain.user.User.ANONYMOUS_USER;
+import static com.mryqr.common.domain.user.User.ANONYMOUS_USER;
 import static org.springframework.security.core.authority.AuthorityUtils.createAuthorityList;
 
 public class JwtAnonymousAuthenticationFilter extends AnonymousAuthenticationFilter {

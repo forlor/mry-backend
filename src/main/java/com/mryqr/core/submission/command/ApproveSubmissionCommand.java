@@ -1,6 +1,6 @@
 package com.mryqr.core.submission.command;
 
-import com.mryqr.core.common.utils.Command;
+import com.mryqr.common.utils.Command;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

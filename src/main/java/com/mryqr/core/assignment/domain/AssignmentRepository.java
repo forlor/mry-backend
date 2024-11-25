@@ -1,6 +1,6 @@
 package com.mryqr.core.assignment.domain;
 
-import com.mryqr.core.common.domain.user.User;
+import com.mryqr.common.domain.user.User;
 
 import java.time.Instant;
 import java.time.LocalDateTime;

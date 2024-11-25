@@ -1,7 +1,7 @@
 package com.mryqr.core.member.eventhandler;
 
-import com.mryqr.core.common.domain.event.consume.AbstractDomainEventHandler;
-import com.mryqr.core.common.utils.MryTaskRunner;
+import com.mryqr.common.domain.event.consume.AbstractDomainEventHandler;
+import com.mryqr.common.utils.MryTaskRunner;
 import com.mryqr.core.member.domain.event.MemberNameChangedEvent;
 import com.mryqr.core.member.domain.task.SyncMemberNameToAggregateRootsTask;
 import lombok.RequiredArgsConstructor;
