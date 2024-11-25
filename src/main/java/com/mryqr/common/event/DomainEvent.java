@@ -1,4 +1,4 @@
-package com.mryqr.common.domain.event;
+package com.mryqr.common.event;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;

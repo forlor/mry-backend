@@ -1,4 +1,4 @@
-package com.mryqr.common.domain.event;
+package com.mryqr.common.event;
 
 import com.mongodb.client.result.DeleteResult;
 import com.mryqr.common.properties.MryRedisProperties;

@@ -1,10 +1,10 @@
 package com.mryqr;
 
-import com.mryqr.common.domain.event.DomainEvent;
-import com.mryqr.common.domain.event.DomainEventType;
-import com.mryqr.common.domain.event.consume.ConsumingDomainEventDao;
-import com.mryqr.common.domain.event.publish.PublishingDomainEvent;
-import com.mryqr.common.domain.event.publish.PublishingDomainEventDao;
+import com.mryqr.common.event.DomainEvent;
+import com.mryqr.common.event.DomainEventType;
+import com.mryqr.common.event.consume.ConsumingDomainEventDao;
+import com.mryqr.common.event.publish.PublishingDomainEvent;
+import com.mryqr.common.event.publish.PublishingDomainEventDao;
 import com.mryqr.common.exception.Error;
 import com.mryqr.common.exception.ErrorCode;
 import com.mryqr.common.exception.QErrorResponse;

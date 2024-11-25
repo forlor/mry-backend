@@ -1,6 +1,6 @@
-package com.mryqr.common.domain.event.publish;
+package com.mryqr.common.event.publish;
 
-import com.mryqr.common.domain.event.DomainEvent;
+import com.mryqr.common.event.DomainEvent;
 
 import java.util.concurrent.CompletableFuture;
 

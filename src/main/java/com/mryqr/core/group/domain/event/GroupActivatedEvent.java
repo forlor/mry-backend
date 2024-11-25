@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.TypeAlias;
 
-import static com.mryqr.common.domain.event.DomainEventType.GROUP_ACTIVATED;
+import static com.mryqr.common.event.DomainEventType.GROUP_ACTIVATED;
 import static lombok.AccessLevel.PRIVATE;
 
 @Getter

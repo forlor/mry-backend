@@ -1,6 +1,6 @@
 package com.mryqr.common.notification.publish;
 
-import com.mryqr.common.domain.event.DomainEvent;
+import com.mryqr.common.event.DomainEvent;
 import com.mryqr.common.notification.consume.NotificationEventConsumer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

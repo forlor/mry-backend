@@ -103,7 +103,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newHashSet;
 import static com.mryqr.common.domain.ValueType.*;
-import static com.mryqr.common.domain.event.DomainEventType.*;
+import static com.mryqr.common.event.DomainEventType.*;
 import static com.mryqr.common.domain.permission.Permission.*;
 import static com.mryqr.common.exception.ErrorCode.*;
 import static com.mryqr.common.utils.MryConstants.MRY_DATE_TIME_FORMATTER;

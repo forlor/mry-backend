@@ -7,7 +7,7 @@ import org.springframework.data.annotation.TypeAlias;
 
 import java.util.Set;
 
-import static com.mryqr.common.domain.event.DomainEventType.APP_PAGE_CHANGED_TO_SUBMIT_PER_MEMBER;
+import static com.mryqr.common.event.DomainEventType.APP_PAGE_CHANGED_TO_SUBMIT_PER_MEMBER;
 import static lombok.AccessLevel.PRIVATE;
 
 @Getter

@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.TypeAlias;
 
-import static com.mryqr.common.domain.event.DomainEventType.ORDER_BANK_TRANSFER_UPDATED;
+import static com.mryqr.common.event.DomainEventType.ORDER_BANK_TRANSFER_UPDATED;
 import static lombok.AccessLevel.PRIVATE;
 
 @Getter

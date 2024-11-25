@@ -1,9 +1,9 @@
 package com.mryqr.support;
 
-import com.mryqr.common.domain.event.DomainEvent;
-import com.mryqr.common.domain.event.consume.ConsumingDomainEvent;
-import com.mryqr.common.domain.event.consume.DomainEventConsumer;
-import com.mryqr.common.domain.event.publish.PublishingDomainEventDao;
+import com.mryqr.common.event.DomainEvent;
+import com.mryqr.common.event.consume.ConsumingDomainEvent;
+import com.mryqr.common.event.consume.DomainEventConsumer;
+import com.mryqr.common.event.publish.PublishingDomainEventDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +32,7 @@ public class SyncConsumeDomainEventHandlerInterceptor implements HandlerIntercep
     private final PublishingDomainEventDao publishingDomainEventDao;
     private final DomainEventConsumer<DomainEvent> domainEventConsumer;
 
-    @After("execution(* com.mryqr.common.domain.event.publish.PublishingDomainEventDao.stage(..))")
+    @After("execution(* com.mryqr.common.event.publish.PublishingDomainEventDao.stage(..))")
     public void storeDomainEventIds(JoinPoint joinPoint) {
         if (joinPoint.getArgs()[0] instanceof List<?> events) {
             events.forEach((Object event) -> {

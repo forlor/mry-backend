@@ -1,6 +1,6 @@
 package com.mryqr.core.tenant.eventhandler;
 
-import com.mryqr.common.domain.event.consume.AbstractDomainEventHandler;
+import com.mryqr.common.event.consume.AbstractDomainEventHandler;
 import com.mryqr.common.utils.MryTaskRunner;
 import com.mryqr.core.member.domain.task.SyncTenantActiveStatusToMembersTask;
 import com.mryqr.core.tenant.domain.event.TenantActivatedEvent;

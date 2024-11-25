@@ -1,4 +1,4 @@
-package com.mryqr.common.domain.event.consume;
+package com.mryqr.common.event.consume;
 
 import com.mongodb.client.result.UpdateResult;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
-import static com.mryqr.common.domain.event.consume.ConsumingDomainEvent.Fields.*;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
@@ -21,11 +20,11 @@ public class ConsumingDomainEventDao<T> {
 
     // return true means this event has never been consumed before
     public boolean recordAsConsumed(ConsumingDomainEvent<T> consumingDomainEvent, String handlerName) {
-        Query query = query(where(eventId).is(consumingDomainEvent.getEventId()).and(ConsumingDomainEvent.Fields.handlerName).is(handlerName));
+        Query query = query(where(ConsumingDomainEvent.Fields.eventId).is(consumingDomainEvent.getEventId()).and(ConsumingDomainEvent.Fields.handlerName).is(handlerName));
 
         Update update = new Update()
-                .setOnInsert(type, consumingDomainEvent.getType())
-                .setOnInsert(consumedAt, consumingDomainEvent.getConsumedAt());
+                .setOnInsert(ConsumingDomainEvent.Fields.type, consumingDomainEvent.getType())
+                .setOnInsert(ConsumingDomainEvent.Fields.consumedAt, consumingDomainEvent.getConsumedAt());
 
         UpdateResult result = this.mongoTemplate.update(ConsumingDomainEvent.class)
                 .matching(query)

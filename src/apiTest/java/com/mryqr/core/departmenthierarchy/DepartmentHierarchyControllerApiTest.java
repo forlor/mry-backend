@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mryqr.common.domain.event.DomainEventType.DEPARTMENT_HIERARCHY_CHANGED;
+import static com.mryqr.common.event.DomainEventType.DEPARTMENT_HIERARCHY_CHANGED;
 import static com.mryqr.common.exception.ErrorCode.*;
 import static com.mryqr.utils.RandomTestFixture.rDepartmentName;
 import static java.lang.Boolean.TRUE;

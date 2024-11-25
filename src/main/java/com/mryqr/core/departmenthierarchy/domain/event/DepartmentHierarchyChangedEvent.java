@@ -1,12 +1,12 @@
 package com.mryqr.core.departmenthierarchy.domain.event;
 
-import com.mryqr.common.domain.event.DomainEvent;
 import com.mryqr.common.domain.user.User;
+import com.mryqr.common.event.DomainEvent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.TypeAlias;
 
-import static com.mryqr.common.domain.event.DomainEventType.DEPARTMENT_HIERARCHY_CHANGED;
+import static com.mryqr.common.event.DomainEventType.DEPARTMENT_HIERARCHY_CHANGED;
 import static lombok.AccessLevel.PRIVATE;
 
 @Getter

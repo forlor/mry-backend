@@ -1,6 +1,6 @@
 package com.mryqr.core.assignment.eventhandler;
 
-import com.mryqr.common.domain.event.consume.AbstractDomainEventHandler;
+import com.mryqr.common.event.consume.AbstractDomainEventHandler;
 import com.mryqr.common.notification.publish.NotificationEventPublisher;
 import com.mryqr.core.assignment.event.AssignmentCreatedEvent;
 import lombok.RequiredArgsConstructor;

@@ -1,10 +1,6 @@
 package com.mryqr.core.printing.domain;
 
-import static com.mryqr.core.printing.domain.MaterialType.ARGENTOUS_ADHESIVE;
-import static com.mryqr.core.printing.domain.MaterialType.PORCELAIN_ACRYLIC;
-import static com.mryqr.core.printing.domain.MaterialType.PVC_CARD;
-import static com.mryqr.core.printing.domain.MaterialType.SYNTHETIC_ADHESIVE;
-import static com.mryqr.core.printing.domain.MaterialType.TRANSPARENT_ACRYLIC;
+import static com.mryqr.core.printing.domain.MaterialType.*;
 
 public enum PlatePrintingType {
     TRANSPARENT_ACRYLIC_50x40(TRANSPARENT_ACRYLIC, "50*40mm", 3.0),

@@ -15,8 +15,8 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
-import static com.mryqr.common.domain.event.DomainEventType.MEMBER_CREATED;
-import static com.mryqr.common.domain.event.DomainEventType.TENANT_CREATED;
+import static com.mryqr.common.event.DomainEventType.MEMBER_CREATED;
+import static com.mryqr.common.event.DomainEventType.TENANT_CREATED;
 import static com.mryqr.common.domain.user.Role.TENANT_ADMIN;
 import static com.mryqr.common.exception.ErrorCode.*;
 import static com.mryqr.utils.RandomTestFixture.*;

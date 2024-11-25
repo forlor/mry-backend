@@ -1,6 +1,6 @@
-package com.mryqr.common.domain.event.publish;
+package com.mryqr.common.event.publish;
 
-import com.mryqr.common.domain.event.DomainEvent;
+import com.mryqr.common.event.DomainEvent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldNameConstants;
@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
 
-import static com.mryqr.common.domain.event.publish.DomainEventPublishStatus.CREATED;
+import static com.mryqr.common.event.publish.DomainEventPublishStatus.CREATED;
 import static com.mryqr.common.utils.MryConstants.PUBLISHING_DOMAIN_EVENT_COLLECTION;
 import static java.util.Objects.requireNonNull;
 import static lombok.AccessLevel.PRIVATE;

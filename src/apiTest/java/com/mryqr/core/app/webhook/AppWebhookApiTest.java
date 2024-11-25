@@ -33,7 +33,7 @@ import org.junit.jupiter.api.parallel.Execution;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static com.mryqr.common.domain.event.DomainEventType.QR_RENAMED;
+import static com.mryqr.common.event.DomainEventType.QR_RENAMED;
 import static com.mryqr.common.domain.permission.Permission.AS_TENANT_MEMBER;
 import static com.mryqr.common.domain.permission.Permission.CAN_MANAGE_APP;
 import static com.mryqr.common.webhook.WebhookPayloadType.*;

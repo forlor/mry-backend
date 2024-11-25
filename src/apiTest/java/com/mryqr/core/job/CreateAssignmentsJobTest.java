@@ -23,7 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-import static com.mryqr.common.domain.event.DomainEventType.ASSIGNMENT_CREATED;
+import static com.mryqr.common.event.DomainEventType.ASSIGNMENT_CREATED;
 import static com.mryqr.core.assignment.domain.AssignmentStatus.IN_PROGRESS;
 import static com.mryqr.core.assignmentplan.domain.AssignmentFrequency.*;
 import static com.mryqr.core.plan.domain.PlanType.FREE;

@@ -1,4 +1,4 @@
-package com.mryqr.common.domain.event.consume;
+package com.mryqr.common.event.consume;
 
 public interface DomainEventHandler<T> {
 

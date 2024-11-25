@@ -1,6 +1,6 @@
 package com.mryqr.common.notification.consume;
 
-import com.mryqr.common.domain.event.DomainEvent;
+import com.mryqr.common.event.DomainEvent;
 import com.mryqr.common.notification.NotificationService;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;

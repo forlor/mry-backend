@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.TypeAlias;
 
-import static com.mryqr.common.domain.event.DomainEventType.SUBMISSION_DELETED;
+import static com.mryqr.common.event.DomainEventType.SUBMISSION_DELETED;
 import static lombok.AccessLevel.PRIVATE;
 
 @Getter

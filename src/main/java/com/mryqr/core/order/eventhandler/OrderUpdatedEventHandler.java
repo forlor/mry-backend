@@ -1,6 +1,6 @@
 package com.mryqr.core.order.eventhandler;
 
-import com.mryqr.common.domain.event.consume.AbstractDomainEventHandler;
+import com.mryqr.common.event.consume.AbstractDomainEventHandler;
 import com.mryqr.common.utils.MryTaskRunner;
 import com.mryqr.core.order.domain.event.OrderUpdatedEvent;
 import com.mryqr.core.order.domain.task.SyncOrderToManagedQrTask;

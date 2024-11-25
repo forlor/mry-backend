@@ -1,4 +1,4 @@
-package com.mryqr.common.domain.event.publish;
+package com.mryqr.common.event.publish;
 
 import com.mongodb.client.model.changestream.ChangeStreamDocument;
 import com.mongodb.client.model.changestream.OperationType;

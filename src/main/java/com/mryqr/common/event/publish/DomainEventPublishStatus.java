@@ -1,4 +1,4 @@
-package com.mryqr.common.domain.event.publish;
+package com.mryqr.common.event.publish;
 
 public enum DomainEventPublishStatus {
     CREATED,

@@ -1,14 +1,14 @@
 package com.mryqr.core.member.domain.event;
 
-import com.mryqr.common.domain.event.DomainEvent;
 import com.mryqr.common.domain.user.User;
+import com.mryqr.common.event.DomainEvent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.TypeAlias;
 
 import java.util.Set;
 
-import static com.mryqr.common.domain.event.DomainEventType.MEMBER_DEPARTMENTS_CHANGED;
+import static com.mryqr.common.event.DomainEventType.MEMBER_DEPARTMENTS_CHANGED;
 import static lombok.AccessLevel.PRIVATE;
 
 @Getter

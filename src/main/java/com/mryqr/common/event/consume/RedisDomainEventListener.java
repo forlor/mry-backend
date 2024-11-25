@@ -1,6 +1,6 @@
-package com.mryqr.common.domain.event.consume;
+package com.mryqr.common.event.consume;
 
-import com.mryqr.common.domain.event.DomainEvent;
+import com.mryqr.common.event.DomainEvent;
 import com.mryqr.common.tracing.MryTracingService;
 import com.mryqr.common.utils.MryObjectMapper;
 import io.micrometer.tracing.ScopedSpan;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class DomainEventListener implements StreamListener<String, ObjectRecord<String, String>> {
+public class RedisDomainEventListener implements StreamListener<String, ObjectRecord<String, String>> {
     private final MryObjectMapper mryObjectMapper;
     private final DomainEventConsumer<DomainEvent> domainEventConsumer;
     private final MryTracingService mryTracingService;

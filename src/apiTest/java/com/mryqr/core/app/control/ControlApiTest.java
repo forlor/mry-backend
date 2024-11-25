@@ -37,8 +37,8 @@ import org.springframework.test.util.ReflectionTestUtils;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static com.mryqr.common.domain.event.DomainEventType.APP_CONTROLS_DELETED;
-import static com.mryqr.common.domain.event.DomainEventType.APP_CONTROL_OPTIONS_DELETED;
+import static com.mryqr.common.event.DomainEventType.APP_CONTROLS_DELETED;
+import static com.mryqr.common.event.DomainEventType.APP_CONTROL_OPTIONS_DELETED;
 import static com.mryqr.common.domain.permission.Permission.AS_TENANT_MEMBER;
 import static com.mryqr.common.domain.permission.Permission.PUBLIC;
 import static com.mryqr.common.domain.report.NumberAggregationType.AVG;

@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Set;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static com.mryqr.common.domain.event.DomainEventType.*;
+import static com.mryqr.common.event.DomainEventType.*;
 import static com.mryqr.common.domain.permission.Permission.*;
 import static com.mryqr.common.domain.report.ReportRange.NO_LIMIT;
 import static com.mryqr.common.exception.ErrorCode.*;

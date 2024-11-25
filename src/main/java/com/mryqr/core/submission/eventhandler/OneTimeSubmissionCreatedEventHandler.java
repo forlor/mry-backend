@@ -1,6 +1,6 @@
 package com.mryqr.core.submission.eventhandler;
 
-import com.mryqr.common.domain.event.consume.AbstractDomainEventHandler;
+import com.mryqr.common.event.consume.AbstractDomainEventHandler;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.qr.domain.QR;

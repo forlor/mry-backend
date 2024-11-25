@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.mryqr.common.domain.event.DomainEventType.*;
+import static com.mryqr.common.event.DomainEventType.*;
 import static com.mryqr.common.exception.ErrorCode.*;
 import static com.mryqr.core.app.domain.attribute.Attribute.newAttributeId;
 import static com.mryqr.core.app.domain.attribute.AttributeType.INSTANCE_GROUP_MANAGERS;

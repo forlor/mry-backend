@@ -1,4 +1,4 @@
-package com.mryqr.common.domain.event.consume;
+package com.mryqr.common.event.consume;
 
 
 import com.mryqr.common.properties.MryRedisProperties;
@@ -30,7 +30,7 @@ import static org.springframework.data.redis.connection.stream.StreamOffset.crea
 @RequiredArgsConstructor
 public class RedisDomainEventConsumeConfiguration {
     private final MryRedisProperties mryRedisProperties;
-    private final DomainEventListener domainEventListener;
+    private final RedisDomainEventListener redisDomainEventListener;
 
     @Qualifier("consumeDomainEventTaskExecutor")
     private final TaskExecutor consumeDomainEventTaskExecutor;
@@ -51,7 +51,7 @@ public class RedisDomainEventConsumeConfiguration {
             container.receiveAutoAck(
                     from(REDIS_DOMAIN_EVENT_CONSUMER_GROUP, "DomainEventRedisStreamConsumer-" + stream),
                     create(stream, lastConsumed()),
-                    domainEventListener);
+                    redisDomainEventListener);
         });
 
         container.start();

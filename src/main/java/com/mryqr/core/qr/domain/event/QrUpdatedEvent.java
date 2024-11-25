@@ -1,7 +1,7 @@
 package com.mryqr.core.qr.domain.event;
 
-import com.mryqr.common.domain.event.DomainEventType;
 import com.mryqr.common.domain.user.User;
+import com.mryqr.common.event.DomainEventType;
 import com.mryqr.core.app.domain.event.AppAwareDomainEvent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

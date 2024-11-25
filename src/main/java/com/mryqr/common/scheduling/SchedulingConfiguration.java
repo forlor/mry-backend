@@ -1,6 +1,6 @@
 package com.mryqr.common.scheduling;
 
-import com.mryqr.common.domain.event.publish.DomainEventPublisher;
+import com.mryqr.common.event.publish.DomainEventPublisher;
 import com.mryqr.core.assignment.job.CreateAssignmentsJob;
 import com.mryqr.core.assignment.job.ExpireAssignmentsJob;
 import com.mryqr.core.assignment.job.NearExpireAssignmentsJob;

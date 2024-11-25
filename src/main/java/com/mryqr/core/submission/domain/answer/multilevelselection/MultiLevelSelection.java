@@ -33,8 +33,8 @@ public class MultiLevelSelection {
 
     public boolean isFilled() {
         return isNotBlank(level1) ||
-                isNotBlank(level2) ||
-                isNotBlank(level3);
+               isNotBlank(level2) ||
+               isNotBlank(level3);
     }
 
     public Set<String> indexedValues() {

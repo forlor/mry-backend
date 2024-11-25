@@ -1,4 +1,4 @@
-package com.mryqr.common.domain.event.consume;
+package com.mryqr.common.event.consume;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

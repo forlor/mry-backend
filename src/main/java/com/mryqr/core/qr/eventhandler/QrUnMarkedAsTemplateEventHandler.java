@@ -1,6 +1,6 @@
 package com.mryqr.core.qr.eventhandler;
 
-import com.mryqr.common.domain.event.consume.AbstractDomainEventHandler;
+import com.mryqr.common.event.consume.AbstractDomainEventHandler;
 import com.mryqr.common.utils.MryTaskRunner;
 import com.mryqr.core.qr.domain.event.QrUnMarkedAsTemplateEvent;
 import com.mryqr.core.qr.domain.task.SyncAttributeValuesForQrTask;

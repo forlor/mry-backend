@@ -1,9 +1,9 @@
 package com.mryqr.common.oss.mongo;
 
 import com.mryqr.common.domain.AggregateRoot;
-import com.mryqr.common.domain.event.DomainEvent;
-import com.mryqr.common.domain.event.publish.PublishingDomainEventDao;
 import com.mryqr.common.domain.user.User;
+import com.mryqr.common.event.DomainEvent;
+import com.mryqr.common.event.publish.PublishingDomainEventDao;
 import com.mryqr.common.exception.MryException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;

@@ -1,12 +1,7 @@
 package com.mryqr.core.presentation.query.instancelist;
 
 import com.mryqr.core.presentation.query.QControlPresentation;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Value;
+import lombok.*;
 
 import java.time.Instant;
 import java.util.List;

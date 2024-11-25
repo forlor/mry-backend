@@ -1,7 +1,7 @@
 package com.mryqr.common.domain;
 
-import com.mryqr.common.domain.event.DomainEvent;
 import com.mryqr.common.domain.user.User;
+import com.mryqr.common.event.DomainEvent;
 import com.mryqr.common.utils.Identified;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

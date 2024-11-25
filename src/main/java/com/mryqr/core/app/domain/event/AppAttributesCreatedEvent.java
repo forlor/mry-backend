@@ -8,7 +8,7 @@ import org.springframework.data.annotation.TypeAlias;
 
 import java.util.Set;
 
-import static com.mryqr.common.domain.event.DomainEventType.APP_ATTRIBUTES_CREATED;
+import static com.mryqr.common.event.DomainEventType.APP_ATTRIBUTES_CREATED;
 import static lombok.AccessLevel.PRIVATE;
 
 @Getter

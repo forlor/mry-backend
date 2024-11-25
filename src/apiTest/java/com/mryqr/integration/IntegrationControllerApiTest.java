@@ -68,7 +68,7 @@ import java.util.stream.IntStream;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newHashSet;
-import static com.mryqr.common.domain.event.DomainEventType.*;
+import static com.mryqr.common.event.DomainEventType.*;
 import static com.mryqr.common.exception.ErrorCode.*;
 import static com.mryqr.core.app.domain.attribute.Attribute.newAttributeId;
 import static com.mryqr.core.app.domain.attribute.AttributeType.DIRECT_INPUT;

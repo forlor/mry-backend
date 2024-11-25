@@ -1,6 +1,6 @@
 package com.mryqr.core.member.eventhandler;
 
-import com.mryqr.common.domain.event.consume.AbstractDomainEventHandler;
+import com.mryqr.common.event.consume.AbstractDomainEventHandler;
 import com.mryqr.common.utils.MryTaskRunner;
 import com.mryqr.core.group.domain.task.SyncDepartmentMembersToGroupTask;
 import com.mryqr.core.member.domain.event.MemberDepartmentsChangedEvent;

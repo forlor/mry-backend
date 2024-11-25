@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static com.mryqr.common.domain.event.DomainEventType.PLATE_BATCH_CREATED;
+import static com.mryqr.common.event.DomainEventType.PLATE_BATCH_CREATED;
 import static com.mryqr.common.exception.ErrorCode.PLATE_BATCH_WITH_NAME_ALREADY_EXISTS;
 import static com.mryqr.utils.RandomTestFixture.rPlateBatchName;
 import static com.mryqr.utils.RandomTestFixture.rQrName;

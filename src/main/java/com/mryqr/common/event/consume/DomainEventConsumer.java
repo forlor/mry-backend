@@ -1,4 +1,4 @@
-package com.mryqr.common.domain.event.consume;
+package com.mryqr.common.event.consume;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

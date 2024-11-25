@@ -64,7 +64,7 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static com.mryqr.common.domain.event.DomainEventType.*;
+import static com.mryqr.common.event.DomainEventType.*;
 import static com.mryqr.common.domain.user.Role.TENANT_ADMIN;
 import static com.mryqr.common.domain.user.Role.TENANT_MEMBER;
 import static com.mryqr.common.exception.ErrorCode.*;

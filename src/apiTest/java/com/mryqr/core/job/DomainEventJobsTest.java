@@ -2,10 +2,10 @@ package com.mryqr.core.job;
 
 import com.mryqr.BaseApiTest;
 import com.mryqr.common.domain.AggregateRoot;
-import com.mryqr.common.domain.event.DomainEvent;
-import com.mryqr.common.domain.event.DomainEventJobs;
-import com.mryqr.common.domain.event.consume.ConsumingDomainEvent;
-import com.mryqr.common.domain.event.publish.RedisDomainEventSender;
+import com.mryqr.common.event.DomainEvent;
+import com.mryqr.common.event.DomainEventJobs;
+import com.mryqr.common.event.consume.ConsumingDomainEvent;
+import com.mryqr.common.event.publish.RedisDomainEventSender;
 import com.mryqr.common.domain.user.Role;
 import com.mryqr.common.domain.user.User;
 import com.mryqr.common.notification.publish.RedisNotificationDomainEventSender;

@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.IntStream;
 
-import static com.mryqr.common.domain.event.DomainEventType.APP_CREATED_FROM_TEMPLATE;
+import static com.mryqr.common.event.DomainEventType.APP_CREATED_FROM_TEMPLATE;
 import static com.mryqr.common.domain.permission.Permission.CAN_MANAGE_GROUP;
 import static com.mryqr.common.domain.user.User.NOUSER;
 import static com.mryqr.common.exception.ErrorCode.*;

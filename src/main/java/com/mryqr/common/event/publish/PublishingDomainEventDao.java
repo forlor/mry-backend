@@ -1,6 +1,6 @@
-package com.mryqr.common.domain.event.publish;
+package com.mryqr.common.event.publish;
 
-import com.mryqr.common.domain.event.DomainEvent;
+import com.mryqr.common.event.DomainEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static com.mryqr.common.domain.event.publish.DomainEventPublishStatus.*;
-import static com.mryqr.common.domain.event.publish.PublishingDomainEvent.Fields.*;
+import static com.mryqr.common.event.publish.DomainEventPublishStatus.*;
+import static com.mryqr.common.event.publish.PublishingDomainEvent.Fields.*;
 import static com.mryqr.common.utils.CommonUtils.requireNonBlank;
 import static java.util.Objects.requireNonNull;
 import static org.springframework.data.domain.Sort.Direction.ASC;

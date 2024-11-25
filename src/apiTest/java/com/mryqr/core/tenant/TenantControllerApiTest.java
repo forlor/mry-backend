@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static com.mryqr.common.domain.event.DomainEventType.TENANT_SUBDOMAIN_UPDATED;
+import static com.mryqr.common.event.DomainEventType.TENANT_SUBDOMAIN_UPDATED;
 import static com.mryqr.common.exception.ErrorCode.*;
 import static com.mryqr.common.utils.UuidGenerator.newShortUuid;
 import static com.mryqr.core.plan.domain.PlanType.*;
