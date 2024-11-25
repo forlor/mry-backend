@@ -15,6 +15,7 @@ tmp.txt
 *.retry
 .ideaDataSources
 .DS_Store
+.idea
 
 #Below are files used for prod deployment
 deploy/
