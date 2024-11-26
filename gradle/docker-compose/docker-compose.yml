@@ -27,7 +27,7 @@ services:
       - "27018:27017"
   mry-redis:
     restart: always
-    #    container_name: mry-redis
+#    container_name: mry-redis
     image: redis:6.0
     networks:
       - mry-net
