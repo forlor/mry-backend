@@ -1,6 +1,6 @@
 package com.mryqr.common.webhook.consume;
 
-import com.mryqr.common.profile.NonBuildProfile;
+import com.mryqr.common.profile.NonCiProfile;
 import com.mryqr.common.properties.MryRedisProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,7 @@ import static org.springframework.data.redis.connection.stream.ReadOffset.lastCo
 import static org.springframework.data.redis.connection.stream.StreamOffset.create;
 
 @Slf4j
-@NonBuildProfile
+@NonCiProfile
 @Configuration
 @DependsOn("redisStreamInitializer")
 @RequiredArgsConstructor

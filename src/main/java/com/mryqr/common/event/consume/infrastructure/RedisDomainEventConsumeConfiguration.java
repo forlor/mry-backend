@@ -3,7 +3,7 @@ package com.mryqr.common.event.consume.infrastructure;
 import com.mryqr.common.event.DomainEvent;
 import com.mryqr.common.event.consume.ConsumingDomainEvent;
 import com.mryqr.common.event.consume.DomainEventConsumer;
-import com.mryqr.common.profile.NonBuildProfile;
+import com.mryqr.common.profile.NonCiProfile;
 import com.mryqr.common.properties.MryRedisProperties;
 import com.mryqr.common.tracing.MryTracingService;
 import com.mryqr.common.utils.MryObjectMapper;
@@ -28,7 +28,7 @@ import static org.springframework.data.redis.connection.stream.StreamOffset.crea
 
 @Slf4j
 @Configuration
-@NonBuildProfile
+@NonCiProfile
 @RequiredArgsConstructor
 @DependsOn("redisStreamInitializer")
 @ConditionalOnProperty(value = "mry.redis.domainEventStreamEnabled", havingValue = "true")

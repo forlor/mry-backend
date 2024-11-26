@@ -1,7 +1,7 @@
 package com.mryqr.common.webhook.publish;
 
 import com.mryqr.common.event.DomainEvent;
-import com.mryqr.common.profile.BuildProfile;
+import com.mryqr.common.profile.CiProfile;
 import com.mryqr.common.webhook.consume.WebhookEventConsumer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-@BuildProfile
+@CiProfile
 @RequiredArgsConstructor
 public class SynchronousWebhookEventPublisher implements MryWebhookEventPublisher {
     private final WebhookEventConsumer webhookEventConsumer;

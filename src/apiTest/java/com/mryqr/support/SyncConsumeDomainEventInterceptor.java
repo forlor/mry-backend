@@ -4,7 +4,7 @@ import com.mryqr.common.event.DomainEvent;
 import com.mryqr.common.event.consume.ConsumingDomainEvent;
 import com.mryqr.common.event.consume.DomainEventConsumer;
 import com.mryqr.common.event.publish.PublishingDomainEventDao;
-import com.mryqr.common.profile.BuildProfile;
+import com.mryqr.common.profile.CiProfile;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +28,7 @@ import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 @Slf4j
 @Aspect
 @Component
-@BuildProfile
+@CiProfile
 @Configuration
 @RequiredArgsConstructor
 @SuppressWarnings({"unchecked"})

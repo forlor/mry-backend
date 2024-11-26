@@ -4,7 +4,7 @@ import com.mongodb.client.model.changestream.ChangeStreamDocument;
 import com.mongodb.client.model.changestream.OperationType;
 import com.mryqr.common.event.publish.DomainEventPublisher;
 import com.mryqr.common.event.publish.PublishingDomainEvent;
-import com.mryqr.common.profile.NonBuildProfile;
+import com.mryqr.common.profile.NonCiProfile;
 import org.bson.Document;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +18,7 @@ import org.springframework.data.mongodb.core.messaging.MessageListenerContainer;
 import static com.mryqr.common.utils.MryConstants.PUBLISHING_DOMAIN_EVENT_COLLECTION;
 
 @Configuration
-@NonBuildProfile
+@NonCiProfile
 public class MongoDomainEventPublishConfiguration {
 
     @Bean(destroyMethod = "stop")

@@ -1,14 +1,14 @@
 package com.mryqr.common.webhook.publish;
 
 import com.mryqr.common.event.DomainEvent;
-import com.mryqr.common.profile.NonBuildProfile;
+import com.mryqr.common.profile.NonCiProfile;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-@NonBuildProfile
+@NonCiProfile
 @RequiredArgsConstructor
 public class AsynchronousWebhookEventPublisher implements MryWebhookEventPublisher {
     private final RedisWebhookEventSender redisWebhookEventSender;

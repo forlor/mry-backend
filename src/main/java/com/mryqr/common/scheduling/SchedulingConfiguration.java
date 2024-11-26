@@ -2,7 +2,7 @@ package com.mryqr.common.scheduling;
 
 import com.mryqr.common.event.DomainEventJobs;
 import com.mryqr.common.event.publish.DomainEventPublisher;
-import com.mryqr.common.profile.NonBuildProfile;
+import com.mryqr.common.profile.NonCiProfile;
 import com.mryqr.core.assignment.job.CreateAssignmentsJob;
 import com.mryqr.core.assignment.job.ExpireAssignmentsJob;
 import com.mryqr.core.assignment.job.NearExpireAssignmentsJob;
@@ -22,7 +22,7 @@ import static java.time.LocalDateTime.now;
 
 @Slf4j
 @Configuration
-@NonBuildProfile
+@NonCiProfile
 @EnableScheduling
 @RequiredArgsConstructor
 @EnableSchedulerLock(defaultLockAtMostFor = "60m", defaultLockAtLeastFor = "10s")

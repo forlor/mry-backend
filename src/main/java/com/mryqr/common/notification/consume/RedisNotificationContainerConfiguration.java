@@ -1,6 +1,6 @@
 package com.mryqr.common.notification.consume;
 
-import com.mryqr.common.profile.NonBuildProfile;
+import com.mryqr.common.profile.NonCiProfile;
 import com.mryqr.common.properties.MryRedisProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ import static org.springframework.data.redis.connection.stream.StreamOffset.crea
 
 @Slf4j
 @Configuration
-@NonBuildProfile
+@NonCiProfile
 @RequiredArgsConstructor
 @DependsOn("redisStreamInitializer")
 public class RedisNotificationContainerConfiguration {

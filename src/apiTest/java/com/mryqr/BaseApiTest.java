@@ -65,7 +65,7 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
 @SuppressWarnings({"unchecked"})
-@ActiveProfiles("build")
+@ActiveProfiles("ci")
 @Execution(CONCURRENT)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 public abstract class BaseApiTest {

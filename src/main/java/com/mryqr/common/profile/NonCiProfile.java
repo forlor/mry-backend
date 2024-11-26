@@ -6,6 +6,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Profile("!build")
-public @interface NonBuildProfile {
+@Profile("!ci")
+public @interface NonCiProfile {
 }
