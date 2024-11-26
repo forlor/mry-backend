@@ -1,8 +1,5 @@
 package com.mryqr.core.verification.infrastructure;
 
-import static com.mryqr.common.utils.CommonUtils.isMobileNumber;
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
-
 import com.mryqr.common.email.MryEmailSender;
 import com.mryqr.common.profile.ProdProfile;
 import com.mryqr.common.sms.MrySmsSender;
@@ -14,29 +11,32 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Component;
 
+import static com.mryqr.common.utils.CommonUtils.isMobileNumber;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+
 @Slf4j
 @Component
 @ProdProfile
 @RequiredArgsConstructor
 public class SmsVerificationCodeSender implements VerificationCodeSender {
-  private final TaskExecutor taskExecutor;
-  private final MryEmailSender mryEmailSender;
-  private final MrySmsSender mrySmsSender;
-  private final TenantSmsUsageCountTask tenantSmsUsageCountTask;
+    private final TaskExecutor taskExecutor;
+    private final MryEmailSender mryEmailSender;
+    private final MrySmsSender mrySmsSender;
+    private final TenantSmsUsageCountTask tenantSmsUsageCountTask;
 
-  public void send(VerificationCode code) {
-    String mobileOrEmail = code.getMobileOrEmail();
-    String theCode = code.getCode();
+    public void send(VerificationCode code) {
+        String mobileOrEmail = code.getMobileOrEmail();
+        String theCode = code.getCode();
 
-    if (isMobileNumber(mobileOrEmail)) {
-      taskExecutor.execute(() -> {
-        boolean result = mrySmsSender.sendVerificationCode(mobileOrEmail, theCode);
-        if (result && isNotBlank(code.getTenantId())) {
-          tenantSmsUsageCountTask.run(code.getTenantId());
+        if (isMobileNumber(mobileOrEmail)) {
+            taskExecutor.execute(() -> {
+                boolean result = mrySmsSender.sendVerificationCode(mobileOrEmail, theCode);
+                if (result && isNotBlank(code.getTenantId())) {
+                    tenantSmsUsageCountTask.run(code.getTenantId());
+                }
+            });
+        } else {
+            taskExecutor.execute(() -> mryEmailSender.sendVerificationCode(mobileOrEmail, theCode));
         }
-      });
-    } else {
-      taskExecutor.execute(() -> mryEmailSender.sendVerificationCode(mobileOrEmail, theCode));
     }
-  }
 }

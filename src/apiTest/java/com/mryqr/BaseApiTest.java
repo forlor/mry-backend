@@ -1,21 +1,5 @@
 package com.mryqr;
 
-import static com.fasterxml.jackson.databind.SerializationFeature.INDENT_OUTPUT;
-import static com.mryqr.common.utils.MryConstants.AUTHORIZATION;
-import static com.mryqr.common.utils.MryConstants.AUTH_COOKIE_NAME;
-import static io.restassured.config.RestAssuredConfig.config;
-import static io.restassured.http.ContentType.JSON;
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.parallel.ExecutionMode.CONCURRENT;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
-import static org.springframework.data.domain.Sort.Direction.DESC;
-import static org.springframework.data.domain.Sort.by;
-import static org.springframework.data.mongodb.core.query.Criteria.where;
-import static org.springframework.data.mongodb.core.query.Query.query;
-
-import java.util.function.Supplier;
-
 import com.mryqr.common.event.DomainEvent;
 import com.mryqr.common.event.DomainEventType;
 import com.mryqr.common.event.consume.ConsumingDomainEventDao;
@@ -64,149 +48,165 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.function.Supplier;
+
+import static com.fasterxml.jackson.databind.SerializationFeature.INDENT_OUTPUT;
+import static com.mryqr.common.utils.MryConstants.AUTHORIZATION;
+import static com.mryqr.common.utils.MryConstants.AUTH_COOKIE_NAME;
+import static io.restassured.config.RestAssuredConfig.config;
+import static io.restassured.http.ContentType.JSON;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.parallel.ExecutionMode.CONCURRENT;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+import static org.springframework.data.domain.Sort.Direction.DESC;
+import static org.springframework.data.domain.Sort.by;
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+import static org.springframework.data.mongodb.core.query.Query.query;
+
 @SuppressWarnings({"unchecked"})
 @ActiveProfiles("build")
 @Execution(CONCURRENT)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 public abstract class BaseApiTest {
 
-  @Autowired
-  protected MongoTemplate mongoTemplate;
+    @Autowired
+    protected MongoTemplate mongoTemplate;
 
-  @Autowired
-  protected MryObjectMapper objectMapper;
+    @Autowired
+    protected MryObjectMapper objectMapper;
 
-  @Autowired
-  protected StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    protected StringRedisTemplate stringRedisTemplate;
 
-  @Autowired
-  protected SetupApi setupApi;
+    @Autowired
+    protected SetupApi setupApi;
 
-  @Autowired
-  protected PublishingDomainEventDao publishingDomainEventDao;
-  @Autowired
-  protected ConsumingDomainEventDao<DomainEvent> consumingDomainEventDao;
+    @Autowired
+    protected PublishingDomainEventDao publishingDomainEventDao;
+    @Autowired
+    protected ConsumingDomainEventDao<DomainEvent> consumingDomainEventDao;
 
-  @Autowired
-  protected GroupRepository groupRepository;
+    @Autowired
+    protected GroupRepository groupRepository;
 
-  @Autowired
-  protected AppRepository appRepository;
+    @Autowired
+    protected AppRepository appRepository;
 
-  @Autowired
-  protected TenantRepository tenantRepository;
+    @Autowired
+    protected TenantRepository tenantRepository;
 
-  @Autowired
-  protected SubmissionRepository submissionRepository;
+    @Autowired
+    protected SubmissionRepository submissionRepository;
 
-  @Autowired
-  protected QrRepository qrRepository;
+    @Autowired
+    protected QrRepository qrRepository;
 
-  @Autowired
-  protected MemberRepository memberRepository;
+    @Autowired
+    protected MemberRepository memberRepository;
 
-  @Autowired
-  protected VerificationCodeRepository verificationCodeRepository;
+    @Autowired
+    protected VerificationCodeRepository verificationCodeRepository;
 
-  @Autowired
-  protected PlateRepository plateRepository;
+    @Autowired
+    protected PlateRepository plateRepository;
 
-  @Autowired
-  protected PlateBatchRepository plateBatchRepository;
+    @Autowired
+    protected PlateBatchRepository plateBatchRepository;
 
-  @Autowired
-  protected OrderRepository orderRepository;
+    @Autowired
+    protected OrderRepository orderRepository;
 
-  @Autowired
-  protected PlateTemplateRepository plateTemplateRepository;
+    @Autowired
+    protected PlateTemplateRepository plateTemplateRepository;
 
-  @Autowired
-  protected JwtService jwtService;
+    @Autowired
+    protected JwtService jwtService;
 
-  @Autowired
-  protected MryPasswordEncoder mryPasswordEncoder;
+    @Autowired
+    protected MryPasswordEncoder mryPasswordEncoder;
 
-  @Autowired
-  protected AppManualRepository appManualRepository;
+    @Autowired
+    protected AppManualRepository appManualRepository;
 
-  @Autowired
-  protected AssignmentPlanRepository assignmentPlanRepository;
+    @Autowired
+    protected AssignmentPlanRepository assignmentPlanRepository;
 
-  @Autowired
-  protected AssignmentRepository assignmentRepository;
+    @Autowired
+    protected AssignmentRepository assignmentRepository;
 
-  @Autowired
-  protected DepartmentRepository departmentRepository;
+    @Autowired
+    protected DepartmentRepository departmentRepository;
 
-  @Autowired
-  protected GroupHierarchyRepository groupHierarchyRepository;
+    @Autowired
+    protected GroupHierarchyRepository groupHierarchyRepository;
 
-  @Autowired
-  protected AppFactory appFactory;
+    @Autowired
+    protected AppFactory appFactory;
 
-  @Autowired
-  protected DepartmentHierarchyRepository departmentHierarchyRepository;
+    @Autowired
+    protected DepartmentHierarchyRepository departmentHierarchyRepository;
 
-  @LocalServerPort
-  protected int port;
+    @LocalServerPort
+    protected int port;
 
-  public static RequestSpecification given() {
-    return RestAssured.given()
-        .config(config()
-            .objectMapperConfig(new ObjectMapperConfig().jackson2ObjectMapperFactory(
-                (type, s) -> new MryObjectMapper()))
-            .encoderConfig(new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false))
-            .logConfig(LogConfig.logConfig().enableLoggingOfRequestAndResponseIfValidationFails()));
-  }
-
-  public static RequestSpecification given(String jwt) {
-    if (isNotBlank(jwt)) {
-      return given().cookie(AUTH_COOKIE_NAME, jwt);
+    public static RequestSpecification given() {
+        return RestAssured.given()
+                .config(config()
+                        .objectMapperConfig(new ObjectMapperConfig().jackson2ObjectMapperFactory(
+                                (type, s) -> new MryObjectMapper()))
+                        .encoderConfig(new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false))
+                        .logConfig(LogConfig.logConfig().enableLoggingOfRequestAndResponseIfValidationFails()));
     }
 
-    return given();
-  }
+    public static RequestSpecification given(String jwt) {
+        if (isNotBlank(jwt)) {
+            return given().cookie(AUTH_COOKIE_NAME, jwt);
+        }
 
-  public static RequestSpecification givenBearer(String jwt) {
-    if (isNotBlank(jwt)) {
-      return given().header(AUTHORIZATION, String.format("Bearer %s", jwt));
+        return given();
     }
 
-    return given();
-  }
+    public static RequestSpecification givenBearer(String jwt) {
+        if (isNotBlank(jwt)) {
+            return given().header(AUTHORIZATION, String.format("Bearer %s", jwt));
+        }
 
-  public static RequestSpecification givenBasic(String username, String password) {
-    return given().auth().preemptive().basic(username, password);
-  }
+        return given();
+    }
 
-  @BeforeEach
-  public void setUp() {
-    objectMapper.enable(INDENT_OUTPUT);
-    RestAssured.port = port;
+    public static RequestSpecification givenBasic(String username, String password) {
+        return given().auth().preemptive().basic(username, password);
+    }
+
+    @BeforeEach
+    public void setUp() {
+        objectMapper.enable(INDENT_OUTPUT);
+        RestAssured.port = port;
 //        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
-    RestAssured.requestSpecification = new RequestSpecBuilder()
-        .setContentType(JSON)
-        .setAccept(JSON)
-        .build();
-  }
-
-  @AfterEach
-  public void cleanUp() {
-  }
-
-  public static void assertError(Supplier<Response> apiCall, ErrorCode expectedCode) {
-    Error error = apiCall.get().then().statusCode(expectedCode.getStatus()).extract().as(QErrorResponse.class).getError();
-    assertEquals(expectedCode, error.getCode());
-  }
-
-  protected <T extends DomainEvent> T latestEventFor(String arId, DomainEventType type, Class<T> eventClass) {
-    Query query = query(where(PublishingDomainEvent.Fields.event + "." + DomainEvent.Fields.arId).is(arId)
-        .and(PublishingDomainEvent.Fields.event + "." + DomainEvent.Fields.type).is(type))
-        .with(by(DESC, PublishingDomainEvent.Fields.raisedAt));
-    PublishingDomainEvent publishingDomainEvent = mongoTemplate.findOne(query, PublishingDomainEvent.class);
-    if (publishingDomainEvent == null) {
-      return null;
+        RestAssured.requestSpecification = new RequestSpecBuilder()
+                .setContentType(JSON)
+                .setAccept(JSON)
+                .build();
     }
-    return (T) publishingDomainEvent.getEvent();
-  }
+
+    @AfterEach
+    public void cleanUp() {
+    }
+
+    public static void assertError(Supplier<Response> apiCall, ErrorCode expectedCode) {
+        Error error = apiCall.get().then().statusCode(expectedCode.getStatus()).extract().as(QErrorResponse.class).getError();
+        assertEquals(expectedCode, error.getCode());
+    }
+
+    protected <T extends DomainEvent> T latestEventFor(String arId, DomainEventType type, Class<T> eventClass) {
+        Query query = query(where(PublishingDomainEvent.Fields.event + "." + DomainEvent.Fields.arId).is(arId)
+                .and(PublishingDomainEvent.Fields.event + "." + DomainEvent.Fields.type).is(type))
+                .with(by(DESC, PublishingDomainEvent.Fields.raisedAt));
+        PublishingDomainEvent publishingDomainEvent = mongoTemplate.findOne(query, PublishingDomainEvent.class);
+        if (publishingDomainEvent == null) {
+            return null;
+        }
+        return (T) publishingDomainEvent.getEvent();
+    }
 }

@@ -75,12 +75,12 @@ public class JwtWebSecurityConfiguration {
     public WebSecurityCustomizer jwtWebSecurityCustomizer() {
         return web -> web.ignoring()
                 .requestMatchers(
-                    "/about",
-                    "/favicon.ico",
-                    "/error",
-                    "/api-testing/webhook",
-                    "/api-testing/orders/**",
-                    "/apptemplates/**"
+                        "/about",
+                        "/favicon.ico",
+                        "/error",
+                        "/api-testing/webhook",
+                        "/api-testing/orders/**",
+                        "/apptemplates/**"
                 )
                 .requestMatchers(GET, "/plans")
                 .requestMatchers(GET, "/printing-products")

@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class FakeSmsSender implements MrySmsSender {
 
-  @Override
-  public boolean sendVerificationCode(String mobile, String code) {
-    log.info("Verification code for {} is {}", mobile, code);
-    return true;
-  }
+    @Override
+    public boolean sendVerificationCode(String mobile, String code) {
+        log.info("Verification code for {} is {}", mobile, code);
+        return true;
+    }
 }

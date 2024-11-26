@@ -1,7 +1,7 @@
 package com.mryqr.common.domain;
 
-import com.mryqr.common.event.DomainEvent;
 import com.mryqr.common.domain.user.User;
+import com.mryqr.common.event.DomainEvent;
 import com.mryqr.core.member.domain.Member;
 import com.mryqr.core.tenant.domain.Tenant;
 import org.junit.jupiter.api.Test;

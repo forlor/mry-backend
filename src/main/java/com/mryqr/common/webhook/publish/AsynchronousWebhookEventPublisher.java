@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 @NonBuildProfile
 @RequiredArgsConstructor
 public class AsynchronousWebhookEventPublisher implements MryWebhookEventPublisher {
-  private final RedisWebhookEventSender redisWebhookEventSender;
+    private final RedisWebhookEventSender redisWebhookEventSender;
 
-  @Override
-  public void publish(DomainEvent domainEvent) {
-    redisWebhookEventSender.send(domainEvent);
-  }
+    @Override
+    public void publish(DomainEvent domainEvent) {
+        redisWebhookEventSender.send(domainEvent);
+    }
 }

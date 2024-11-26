@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
 @BuildProfile
 @RequiredArgsConstructor
 public class SynchronousNotificationEventPublisher implements NotificationEventPublisher {
-  private final NotificationEventConsumer notificationEventConsumer;
+    private final NotificationEventConsumer notificationEventConsumer;
 
-  @Override
-  public void publish(DomainEvent domainEvent) {
-    notificationEventConsumer.consume(domainEvent);
-  }
+    @Override
+    public void publish(DomainEvent domainEvent) {
+        notificationEventConsumer.consume(domainEvent);
+    }
 }

@@ -1,8 +1,5 @@
 package com.mryqr.core.verification.infrastructure;
 
-import static com.mryqr.common.utils.CommonUtils.isMobileNumber;
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
-
 import com.mryqr.common.profile.NonProdProfile;
 import com.mryqr.core.tenant.domain.task.TenantSmsUsageCountTask;
 import com.mryqr.core.verification.domain.VerificationCode;
@@ -11,22 +8,25 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import static com.mryqr.common.utils.CommonUtils.isMobileNumber;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+
 @Slf4j
 @Component
 @NonProdProfile
 @RequiredArgsConstructor
 public class FakeVerificationCodeSender implements VerificationCodeSender {
-  private final TenantSmsUsageCountTask tenantSmsUsageCountTask;
+    private final TenantSmsUsageCountTask tenantSmsUsageCountTask;
 
-  @Override
-  public void send(VerificationCode code) {
-    String mobileOrEmail = code.getMobileOrEmail();
-    String tenantId = code.getTenantId();
+    @Override
+    public void send(VerificationCode code) {
+        String mobileOrEmail = code.getMobileOrEmail();
+        String tenantId = code.getTenantId();
 
-    if (isMobileNumber(mobileOrEmail) && isNotBlank(tenantId)) {
-      tenantSmsUsageCountTask.run(tenantId);
+        if (isMobileNumber(mobileOrEmail) && isNotBlank(tenantId)) {
+            tenantSmsUsageCountTask.run(tenantId);
+        }
+
+        log.info("Verification code for {} is {}", mobileOrEmail, code.getCode());
     }
-
-    log.info("Verification code for {} is {}", mobileOrEmail, code.getCode());
-  }
 }

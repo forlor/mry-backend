@@ -1,7 +1,5 @@
 package com.mryqr.common.event.publish.infrastructure;
 
-import static com.mryqr.common.utils.MryConstants.PUBLISHING_DOMAIN_EVENT_COLLECTION;
-
 import com.mongodb.client.model.changestream.ChangeStreamDocument;
 import com.mongodb.client.model.changestream.OperationType;
 import com.mryqr.common.event.publish.DomainEventPublisher;
@@ -17,26 +15,28 @@ import org.springframework.data.mongodb.core.messaging.DefaultMessageListenerCon
 import org.springframework.data.mongodb.core.messaging.MessageListener;
 import org.springframework.data.mongodb.core.messaging.MessageListenerContainer;
 
+import static com.mryqr.common.utils.MryConstants.PUBLISHING_DOMAIN_EVENT_COLLECTION;
+
 @Configuration
 @NonBuildProfile
 public class MongoDomainEventPublishConfiguration {
 
-  @Bean(destroyMethod = "stop")
-  MessageListenerContainer mongoDomainEventChangeStreamListenerContainer(
-      MongoTemplate mongoTemplate,
-      TaskExecutor taskExecutor,
-      DomainEventPublisher domainEventPublisher) {
-    MessageListenerContainer container = new DefaultMessageListenerContainer(mongoTemplate, taskExecutor);
+    @Bean(destroyMethod = "stop")
+    MessageListenerContainer mongoDomainEventChangeStreamListenerContainer(
+            MongoTemplate mongoTemplate,
+            TaskExecutor taskExecutor,
+            DomainEventPublisher domainEventPublisher) {
+        MessageListenerContainer container = new DefaultMessageListenerContainer(mongoTemplate, taskExecutor);
 
-    // Get notification on DomainEvent insertion in MongoDB, then publish staged domain events to messaging middleware such as Kafka
-    container.register(ChangeStreamRequest.builder(
-            (MessageListener<ChangeStreamDocument<Document>, PublishingDomainEvent>) message -> {
-              domainEventPublisher.publishStagedDomainEvents();
-            })
-        .collection(PUBLISHING_DOMAIN_EVENT_COLLECTION)
-        .filter(new Document("$match", new Document("operationType", OperationType.INSERT.getValue())))
-        .build(), PublishingDomainEvent.class);
-    container.start();
-    return container;
-  }
+        // Get notification on DomainEvent insertion in MongoDB, then publish staged domain events to messaging middleware such as Kafka
+        container.register(ChangeStreamRequest.builder(
+                        (MessageListener<ChangeStreamDocument<Document>, PublishingDomainEvent>) message -> {
+                            domainEventPublisher.publishStagedDomainEvents();
+                        })
+                .collection(PUBLISHING_DOMAIN_EVENT_COLLECTION)
+                .filter(new Document("$match", new Document("operationType", OperationType.INSERT.getValue())))
+                .build(), PublishingDomainEvent.class);
+        container.start();
+        return container;
+    }
 }

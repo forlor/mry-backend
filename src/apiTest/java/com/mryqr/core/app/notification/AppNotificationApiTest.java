@@ -1,25 +1,5 @@
 package com.mryqr.core.app.notification;
 
-import static com.google.common.collect.Lists.newArrayList;
-import static com.mryqr.common.domain.permission.Permission.AS_TENANT_MEMBER;
-import static com.mryqr.common.domain.permission.Permission.CAN_MANAGE_APP;
-import static com.mryqr.common.domain.permission.Permission.CAN_MANAGE_GROUP;
-import static com.mryqr.core.app.domain.page.setting.SubmitType.NEW;
-import static com.mryqr.core.app.domain.page.setting.SubmitterUpdateRange.IN_1_HOUR;
-import static com.mryqr.core.app.domain.page.setting.notification.NotificationRole.SUBMITTER;
-import static com.mryqr.core.submission.SubmissionUtils.approveSubmissionCommand;
-import static com.mryqr.utils.RandomTestFixture.defaultCheckboxControl;
-import static com.mryqr.utils.RandomTestFixture.defaultPageSettingBuilder;
-import static com.mryqr.utils.RandomTestFixture.defaultSingleLineTextControl;
-import static com.mryqr.utils.RandomTestFixture.rAnswer;
-import static com.mryqr.utils.RandomTestFixture.rEmail;
-import static com.mryqr.utils.RandomTestFixture.rPassword;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD;
-
-import java.util.List;
-
 import com.mryqr.BaseApiTest;
 import com.mryqr.common.notification.FakeNotificationService;
 import com.mryqr.core.app.AppApi;
@@ -35,88 +15,101 @@ import com.mryqr.utils.PreparedQrResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
 
+import java.util.List;
+
+import static com.google.common.collect.Lists.newArrayList;
+import static com.mryqr.common.domain.permission.Permission.*;
+import static com.mryqr.core.app.domain.page.setting.SubmitType.NEW;
+import static com.mryqr.core.app.domain.page.setting.SubmitterUpdateRange.IN_1_HOUR;
+import static com.mryqr.core.app.domain.page.setting.notification.NotificationRole.SUBMITTER;
+import static com.mryqr.core.submission.SubmissionUtils.approveSubmissionCommand;
+import static com.mryqr.utils.RandomTestFixture.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD;
+
 @Execution(SAME_THREAD)
 public class AppNotificationApiTest extends BaseApiTest {
 
-  @Test
-  public void should_notify_when_create_submission() {
-    PreparedQrResponse response = setupApi.registerWithQr();
+    @Test
+    public void should_notify_when_create_submission() {
+        PreparedQrResponse response = setupApi.registerWithQr();
 
-    NotificationSetting notificationSetting = NotificationSetting.builder()
-        .notificationEnabled(true)
-        .onCreateNotificationRoles(List.of(SUBMITTER))
-        .onUpdateNotificationRoles(List.of())
-        .build();
-    PageSetting pageSetting = defaultPageSettingBuilder()
-        .notificationSetting(notificationSetting)
-        .build();
-    AppApi.updateAppHomePageSetting(response.getJwt(), response.getAppId(), pageSetting);
+        NotificationSetting notificationSetting = NotificationSetting.builder()
+                .notificationEnabled(true)
+                .onCreateNotificationRoles(List.of(SUBMITTER))
+                .onUpdateNotificationRoles(List.of())
+                .build();
+        PageSetting pageSetting = defaultPageSettingBuilder()
+                .notificationSetting(notificationSetting)
+                .build();
+        AppApi.updateAppHomePageSetting(response.getJwt(), response.getAppId(), pageSetting);
 
-    String submissionId = SubmissionApi.newSubmission(response.getJwt(), response.getQrId(), response.getHomePageId());
-    assertEquals(submissionId, FakeNotificationService.id);
-  }
+        String submissionId = SubmissionApi.newSubmission(response.getJwt(), response.getQrId(), response.getHomePageId());
+        assertEquals(submissionId, FakeNotificationService.id);
+    }
 
-  @Test
-  public void should_notify_when_update_submission() {
-    PreparedQrResponse response = setupApi.registerWithQr();
+    @Test
+    public void should_notify_when_update_submission() {
+        PreparedQrResponse response = setupApi.registerWithQr();
 
-    FCheckboxControl checkboxControl = defaultCheckboxControl();
+        FCheckboxControl checkboxControl = defaultCheckboxControl();
 
-    NotificationSetting notificationSetting = NotificationSetting.builder()
-        .notificationEnabled(true)
-        .onCreateNotificationRoles(List.of())
-        .onUpdateNotificationRoles(List.of(SUBMITTER))
-        .build();
-    PageSetting pageSetting = defaultPageSettingBuilder()
-        .notificationSetting(notificationSetting)
-        .build();
-    AppApi.updateAppHomePageSettingAndControls(response.getJwt(), response.getAppId(), pageSetting, checkboxControl);
+        NotificationSetting notificationSetting = NotificationSetting.builder()
+                .notificationEnabled(true)
+                .onCreateNotificationRoles(List.of())
+                .onUpdateNotificationRoles(List.of(SUBMITTER))
+                .build();
+        PageSetting pageSetting = defaultPageSettingBuilder()
+                .notificationSetting(notificationSetting)
+                .build();
+        AppApi.updateAppHomePageSettingAndControls(response.getJwt(), response.getAppId(), pageSetting, checkboxControl);
 
-    String submissionId = SubmissionApi.newSubmission(response.getJwt(), response.getQrId(), response.getHomePageId());
+        String submissionId = SubmissionApi.newSubmission(response.getJwt(), response.getQrId(), response.getHomePageId());
 
-    SubmissionApi.updateSubmission(response.getJwt(), submissionId, rAnswer(checkboxControl));
-    assertEquals(submissionId, FakeNotificationService.id);
-  }
+        SubmissionApi.updateSubmission(response.getJwt(), submissionId, rAnswer(checkboxControl));
+        assertEquals(submissionId, FakeNotificationService.id);
+    }
 
-  @Test
-  public void should_notify_when_approve_submission() {
-    PreparedQrResponse response = setupApi.registerWithQr(rEmail(), rPassword());
+    @Test
+    public void should_notify_when_approve_submission() {
+        PreparedQrResponse response = setupApi.registerWithQr(rEmail(), rPassword());
 
-    FSingleLineTextControl control = defaultSingleLineTextControl();
-    PageSetting pageSetting = defaultPageSettingBuilder()
-        .permission(AS_TENANT_MEMBER)
-        .modifyPermission(CAN_MANAGE_GROUP)
-        .submitType(NEW)
-        .submitterUpdatable(false)
-        .submitterUpdateRange(IN_1_HOUR)
-        .approvalSetting(ApprovalSetting.builder().approvalEnabled(true).permission(CAN_MANAGE_APP).notifySubmitter(true).build())
-        .build();
+        FSingleLineTextControl control = defaultSingleLineTextControl();
+        PageSetting pageSetting = defaultPageSettingBuilder()
+                .permission(AS_TENANT_MEMBER)
+                .modifyPermission(CAN_MANAGE_GROUP)
+                .submitType(NEW)
+                .submitterUpdatable(false)
+                .submitterUpdateRange(IN_1_HOUR)
+                .approvalSetting(ApprovalSetting.builder().approvalEnabled(true).permission(CAN_MANAGE_APP).notifySubmitter(true).build())
+                .build();
 
-    AppApi.updateAppHomePageSettingAndControls(response.getJwt(), response.getAppId(), pageSetting, newArrayList(control));
-    String submissionId = SubmissionApi.newSubmission(response.getJwt(), response.getQrId(), response.getHomePageId(), rAnswer(control));
+        AppApi.updateAppHomePageSettingAndControls(response.getJwt(), response.getAppId(), pageSetting, newArrayList(control));
+        String submissionId = SubmissionApi.newSubmission(response.getJwt(), response.getQrId(), response.getHomePageId(), rAnswer(control));
 
-    ApproveSubmissionCommand command = approveSubmissionCommand(true);
-    SubmissionApi.approveSubmission(response.getJwt(), submissionId, command);
-    assertEquals(submissionId, FakeNotificationService.id);
-  }
+        ApproveSubmissionCommand command = approveSubmissionCommand(true);
+        SubmissionApi.approveSubmission(response.getJwt(), submissionId, command);
+        assertEquals(submissionId, FakeNotificationService.id);
+    }
 
-  @Test
-  public void should_not_notify_if_package_too_low() {
-    PreparedQrResponse response = setupApi.registerWithQr();
-    Tenant theTenant = tenantRepository.byId(response.getTenantId());
-    setupApi.updateTenantPlan(theTenant, theTenant.currentPlan().withSubmissionNotifyAllowed(false));
+    @Test
+    public void should_not_notify_if_package_too_low() {
+        PreparedQrResponse response = setupApi.registerWithQr();
+        Tenant theTenant = tenantRepository.byId(response.getTenantId());
+        setupApi.updateTenantPlan(theTenant, theTenant.currentPlan().withSubmissionNotifyAllowed(false));
 
-    NotificationSetting notificationSetting = NotificationSetting.builder()
-        .notificationEnabled(true)
-        .onCreateNotificationRoles(List.of(SUBMITTER))
-        .onUpdateNotificationRoles(List.of())
-        .build();
-    PageSetting pageSetting = defaultPageSettingBuilder()
-        .notificationSetting(notificationSetting)
-        .build();
-    AppApi.updateAppHomePageSetting(response.getJwt(), response.getAppId(), pageSetting);
+        NotificationSetting notificationSetting = NotificationSetting.builder()
+                .notificationEnabled(true)
+                .onCreateNotificationRoles(List.of(SUBMITTER))
+                .onUpdateNotificationRoles(List.of())
+                .build();
+        PageSetting pageSetting = defaultPageSettingBuilder()
+                .notificationSetting(notificationSetting)
+                .build();
+        AppApi.updateAppHomePageSetting(response.getJwt(), response.getAppId(), pageSetting);
 
-    String submissionId = SubmissionApi.newSubmission(response.getJwt(), response.getQrId(), response.getHomePageId());
-    assertNotEquals(submissionId, FakeNotificationService.id);
-  }
+        String submissionId = SubmissionApi.newSubmission(response.getJwt(), response.getQrId(), response.getHomePageId());
+        assertNotEquals(submissionId, FakeNotificationService.id);
+    }
 }

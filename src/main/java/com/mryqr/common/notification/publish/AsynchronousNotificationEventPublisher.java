@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 @NonBuildProfile
 @RequiredArgsConstructor
 public class AsynchronousNotificationEventPublisher implements NotificationEventPublisher {
-  private final RedisNotificationDomainEventSender redisNotificationDomainEventSender;
+    private final RedisNotificationDomainEventSender redisNotificationDomainEventSender;
 
-  @Override
-  public void publish(DomainEvent domainEvent) {
-    redisNotificationDomainEventSender.send(domainEvent);
-  }
+    @Override
+    public void publish(DomainEvent domainEvent) {
+        redisNotificationDomainEventSender.send(domainEvent);
+    }
 }

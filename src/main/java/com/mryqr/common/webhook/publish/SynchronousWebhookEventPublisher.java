@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
 @BuildProfile
 @RequiredArgsConstructor
 public class SynchronousWebhookEventPublisher implements MryWebhookEventPublisher {
-  private final WebhookEventConsumer webhookEventConsumer;
+    private final WebhookEventConsumer webhookEventConsumer;
 
-  @Override
-  public void publish(DomainEvent domainEvent) {
-    webhookEventConsumer.consume(domainEvent);
-  }
+    @Override
+    public void publish(DomainEvent domainEvent) {
+        webhookEventConsumer.consume(domainEvent);
+    }
 }

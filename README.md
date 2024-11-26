@@ -23,7 +23,7 @@
 - 确保本地已安装Java 17+及Docker；
 - 本地启动：`./local-run.sh`，该命令将通过docker-compose自动运行MongoDB和Redis，再启动Spring Boot主程序，启动后访问 http://localhost:8080/about
   ，如可正常访问则表示启动成功；
-- 本地构建：`./build.sh`，该命令将通过docker-compose自动运行MongoDB和Redis，再运行单元测试，API测试以及动态代码检查等构建步骤；
+- 本地构建：`./ci-build.sh`，该命令将通过docker-compose自动运行MongoDB和Redis，再运行单元测试，API测试以及动态代码检查等构建步骤；
 -
 如需在本地进行前后端联调，请参考[码如云前端-本地环境搭建](https://github.com/mryqr-com/mry-frontend#%E6%9C%AC%E5%9C%B0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA)；
 
@@ -34,7 +34,7 @@
 | 在IntelliJ中打开工程     | `./idea.sh`              | 将自动启动IntelliJ，无需另行在IntelliJ中做导入操作        |
 | 本地启动               | `./local-run.sh`         | API端口：8080, 调试端口：5005                    |
 | 清空所有本地数据后再启动       | `clear-and-local-run.sh` | API端口：8080, 调试端口：5005                    |
-| 本地构建               | `./build.sh`             | 将运行单元测试，API测试以及静态代码检查                    |
+| 本地构建               | `./ci-build.sh`           | 将运行单元测试，API测试以及静态代码检查                    |
 | 单独停止docker-compose | `./gradlew composeDown`  | 将清除所有本地数据，包括MongoDB和Redis                |
 | 单独启动docker-compose | `./gradlew composeUp`    | 通过docker-compose启动MongoDB和Redis，如已经启动则跳过 |
 

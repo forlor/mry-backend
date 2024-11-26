@@ -2,19 +2,8 @@ package com.mryqr.core.tenant;
 
 import com.mryqr.BaseApiTest;
 import com.mryqr.core.order.domain.delivery.Consignee;
-import com.mryqr.core.tenant.command.AddConsigneeCommand;
-import com.mryqr.core.tenant.command.UpdateConsigneeCommand;
-import com.mryqr.core.tenant.command.UpdateTenantBaseSettingCommand;
-import com.mryqr.core.tenant.command.UpdateTenantInvoiceTitleCommand;
-import com.mryqr.core.tenant.command.UpdateTenantLogoCommand;
-import com.mryqr.core.tenant.command.UpdateTenantSubdomainCommand;
-import com.mryqr.core.tenant.query.QTenantApiSetting;
-import com.mryqr.core.tenant.query.QTenantBaseSetting;
-import com.mryqr.core.tenant.query.QTenantInfo;
-import com.mryqr.core.tenant.query.QTenantInvoiceTitle;
-import com.mryqr.core.tenant.query.QTenantLogo;
-import com.mryqr.core.tenant.query.QTenantPublicProfile;
-import com.mryqr.core.tenant.query.QTenantSubdomain;
+import com.mryqr.core.tenant.command.*;
+import com.mryqr.core.tenant.query.*;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.response.Response;
 
