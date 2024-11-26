@@ -102,8 +102,8 @@ public class KanbanControllerApiTest extends BaseApiTest {
         .pageId(response.getHomePageId()).controlId(control.getId()).range(NO_LIMIT).build();
     AppApi.updateAppAttributes(response.getJwt(), response.getAppId(), attribute);
 
-    Tenant tenant = tenantRepository.byId(response.getTenantId());
-    setupApi.updateTenantPlan(tenant, tenant.currentPlan().withKanbanAllowed(false));
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, theTenant.currentPlan().withKanbanAllowed(false));
 
     assertError(() -> KanbanApi.fetchKanbanRaw(response.getJwt(),
         FetchKanbanQuery.builder().appId(response.getAppId()).attributeId(attribute.getId()).build()), KANBAN_NOT_ALLOWED);

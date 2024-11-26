@@ -231,8 +231,8 @@ public class ControlApiTest extends BaseApiTest {
   @Test
   public void should_fail_update_app_setting_if_new_control_in_not_supported_by_packages() {
     PreparedAppResponse response = setupApi.registerWithApp(rMobile(), rPassword());
-    Tenant tenant = tenantRepository.byId(response.getTenantId());
-    setupApi.updateTenantPlan(tenant, tenant.currentPlan().withSupportedControlTypes(allControlTypesExcept(ITEM_COUNT)));
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, theTenant.currentPlan().withSupportedControlTypes(allControlTypesExcept(ITEM_COUNT)));
 
     String appId = response.getAppId();
     App app = appRepository.byId(appId);

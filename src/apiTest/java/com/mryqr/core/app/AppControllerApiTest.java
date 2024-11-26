@@ -131,7 +131,6 @@ import com.mryqr.core.group.GroupApi;
 import com.mryqr.core.group.domain.AppCachedGroup;
 import com.mryqr.core.group.domain.Group;
 import com.mryqr.core.grouphierarchy.domain.GroupHierarchy;
-import com.mryqr.core.plan.domain.Plan;
 import com.mryqr.core.platebatch.PlateBatchApi;
 import com.mryqr.core.qr.QrApi;
 import com.mryqr.core.qr.command.CreateQrResponse;
@@ -242,9 +241,8 @@ class AppControllerApiTest extends BaseApiTest {
     setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
     PTimeSegmentControl control = defaultTimeSegmentControlBuilder().build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
-    Tenant tenant = tenantRepository.byId(response.getTenantId());
-    Plan newPlan = tenant.currentPlan().withSupportedControlTypes(allControlTypesExcept(TIME_SEGMENT));
-    setupApi.updateTenantPlan(tenant, newPlan);
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, theTenant.currentPlan().withSupportedControlTypes(allControlTypesExcept(TIME_SEGMENT)));
 
     assertError(
         () -> AppApi.copyAppRaw(response.getJwt(), CopyAppCommand.builder().name(rAppName()).sourceAppId(response.getAppId()).build()),
@@ -1673,9 +1671,8 @@ class AppControllerApiTest extends BaseApiTest {
   @Test
   public void should_update_webhook_setting() {
     PreparedAppResponse response = setupApi.registerWithApp();
-    Tenant tenant = tenantRepository.byId(response.getTenantId());
-    Plan sourcePlan = tenant.currentPlan();
-    setupApi.updateTenantPlan(tenant, sourcePlan.withDeveloperAllowed(true));
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, theTenant.currentPlan().withDeveloperAllowed(true));
 
     WebhookSetting setting = WebhookSetting.builder()
         .enabled(true)
@@ -1714,9 +1711,8 @@ class AppControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_app_webhook_setting() {
     PreparedAppResponse response = setupApi.registerWithApp();
-    Tenant tenant = tenantRepository.byId(response.getTenantId());
-    Plan currentPlan = tenant.currentPlan();
-    setupApi.updateTenantPlan(tenant, currentPlan.withDeveloperAllowed(true));
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, theTenant.currentPlan().withDeveloperAllowed(true));
 
     WebhookSetting setting = WebhookSetting.builder()
         .enabled(true)

@@ -106,8 +106,8 @@ public class AppNotificationApiTest extends BaseApiTest {
   @Test
   public void should_not_notify_if_package_too_low() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    Tenant tenant = tenantRepository.byId(response.getTenantId());
-    setupApi.updateTenantPlan(tenant, tenant.currentPlan().withSubmissionNotifyAllowed(false));
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, theTenant.currentPlan().withSubmissionNotifyAllowed(false));
 
     NotificationSetting notificationSetting = NotificationSetting.builder()
         .notificationEnabled(true)

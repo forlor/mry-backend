@@ -12,7 +12,6 @@ import static com.mryqr.common.exception.ErrorCode.TENANT_WITH_SUBDOMAIN_PREFIX_
 import static com.mryqr.common.exception.ErrorCode.UPDATE_LOGO_NOT_ALLOWED;
 import static com.mryqr.common.exception.ErrorCode.UPDATE_SUBDOMAIN_NOT_ALLOWED;
 import static com.mryqr.common.utils.UuidGenerator.newShortUuid;
-import static com.mryqr.core.plan.domain.PlanType.BASIC;
 import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
 import static com.mryqr.management.MryManageTenant.ADMIN_MEMBER_ID;
 import static com.mryqr.management.MryManageTenant.MRY_MANAGE_TENANT_ID;
@@ -49,7 +48,6 @@ import com.mryqr.BaseApiTest;
 import com.mryqr.common.domain.UploadedFile;
 import com.mryqr.common.domain.invoice.InvoiceTitle;
 import com.mryqr.core.order.domain.delivery.Consignee;
-import com.mryqr.core.plan.domain.Plan;
 import com.mryqr.core.tenant.command.AddConsigneeCommand;
 import com.mryqr.core.tenant.command.UpdateConsigneeCommand;
 import com.mryqr.core.tenant.command.UpdateTenantBaseSettingCommand;
@@ -286,9 +284,8 @@ class TenantControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_tenant_public_profile() {
     LoginResponse response = setupApi.registerWithLogin(rMobile(), rPassword());
-    Tenant tenant = tenantRepository.byId(response.getTenantId());
-    Plan currentPlan = tenant.currentPlan();
-    setupApi.updateTenantPlan(tenant, currentPlan.withCustomLogoAllowed(true).withCustomSubdomainAllowed(true));
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, theTenant.currentPlan().withCustomLogoAllowed(true).withCustomSubdomainAllowed(true));
 
     UploadedFile logo = rImageFile();
     TenantApi.updateLogo(response.getJwt(), UpdateTenantLogoCommand.builder().logo(logo).build());

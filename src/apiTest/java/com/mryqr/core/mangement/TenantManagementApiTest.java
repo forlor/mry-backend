@@ -49,7 +49,6 @@ import com.mryqr.core.app.domain.page.control.FDropdownControl;
 import com.mryqr.core.app.domain.page.control.FRadioControl;
 import com.mryqr.core.app.domain.page.control.FSingleLineTextControl;
 import com.mryqr.core.login.LoginApi;
-import com.mryqr.core.plan.domain.Plan;
 import com.mryqr.core.qr.domain.QR;
 import com.mryqr.core.qr.domain.attribute.DropdownAttributeValue;
 import com.mryqr.core.qr.domain.attribute.IdentifierAttributeValue;
@@ -196,9 +195,8 @@ public class TenantManagementApiTest extends BaseApiTest {
   @Test
   public void should_clear_subdomain_for_tenant() {
     LoginResponse loginResponse = setupApi.registerWithLogin();
-    Tenant tenant = tenantRepository.byId(loginResponse.getTenantId());
-    Plan currentPlan = tenant.currentPlan();
-    setupApi.updateTenantPlan(tenant, currentPlan.withCustomSubdomainAllowed(true));
+    Tenant theTenant = tenantRepository.byId(loginResponse.getTenantId());
+    setupApi.updateTenantPlan(theTenant, theTenant.currentPlan().withCustomSubdomainAllowed(true));
 
     QR qr = qrRepository.byCustomId(MRY_TENANT_MANAGE_APP_ID, loginResponse.getTenantId());
     assertNotNull(qr);
@@ -223,19 +221,18 @@ public class TenantManagementApiTest extends BaseApiTest {
     SingleLineTextAnswer noteAnswer = SingleLineTextAnswer.answerBuilder(noteControl).content("some note").build();
     SubmissionApi.newSubmission(jwt, qr.getId(), CLEAR_SUBDOMAIN_PAGE_ID, noteAnswer);
 
-    Tenant dbTenant = tenantRepository.byId(loginResponse.getTenantId());
-    assertNull(dbTenant.getSubdomainPrefix());
-    assertFalse(dbTenant.isSubdomainReady());
-    assertNull(dbTenant.getSubdomainRecordId());
-    assertNull(dbTenant.getSubdomainUpdatedAt());
+    Tenant tenant = tenantRepository.byId(loginResponse.getTenantId());
+    assertNull(tenant.getSubdomainPrefix());
+    assertFalse(tenant.isSubdomainReady());
+    assertNull(tenant.getSubdomainRecordId());
+    assertNull(tenant.getSubdomainUpdatedAt());
   }
 
   @Test
   public void should_update_subdomain_ready_status_for_tenant() {
     LoginResponse loginResponse = setupApi.registerWithLogin();
-    Tenant tenant = tenantRepository.byId(loginResponse.getTenantId());
-    Plan currentPlan = tenant.currentPlan();
-    setupApi.updateTenantPlan(tenant, currentPlan.withCustomSubdomainAllowed(true));
+    Tenant theTenant = tenantRepository.byId(loginResponse.getTenantId());
+    setupApi.updateTenantPlan(theTenant, theTenant.currentPlan().withCustomSubdomainAllowed(true));
 
     QR qr = qrRepository.byCustomId(MRY_TENANT_MANAGE_APP_ID, loginResponse.getTenantId());
     assertNotNull(qr);

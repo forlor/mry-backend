@@ -30,7 +30,6 @@ import com.mryqr.core.app.domain.page.control.FSingleLineTextControl;
 import com.mryqr.core.app.domain.page.control.PSubmissionReferenceControl;
 import com.mryqr.core.app.domain.page.control.PTimeSegmentControl;
 import com.mryqr.core.member.MemberApi;
-import com.mryqr.core.plan.domain.Plan;
 import com.mryqr.core.presentation.query.submissionreference.QSubmissionReferencePresentation;
 import com.mryqr.core.submission.SubmissionApi;
 import com.mryqr.core.submission.domain.answer.singlelinetext.SingleLineTextAnswer;
@@ -153,9 +152,8 @@ public class PresentationControllerApiTest extends BaseApiTest {
 
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, control);
 
-    Tenant tenant = tenantRepository.byId(response.getTenantId());
-    Plan newPlan = tenant.currentPlan().withSupportedControlTypes(allControlTypesExcept(TIME_SEGMENT));
-    setupApi.updateTenantPlan(tenant, newPlan);
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, theTenant.currentPlan().withSupportedControlTypes(allControlTypesExcept(TIME_SEGMENT)));
     assertError(
         () -> PresentationApi.fetchPresentationRaw(response.getJwt(), response.getQrId(), response.getHomePageId(), control.getId()),
         CONTROL_TYPE_NOT_ALLOWED);

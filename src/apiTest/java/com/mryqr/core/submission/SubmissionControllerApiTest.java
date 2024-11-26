@@ -917,9 +917,8 @@ class SubmissionControllerApiTest extends BaseApiTest {
   @Test
   public void should_fail_to_approve_submission_if_package_approval_not_enabled() {
     PreparedQrResponse response = setupApi.registerWithQr(rEmail(), rPassword());
-    Tenant tenant = tenantRepository.byId(response.getTenantId());
-    Plan currentPlan = tenant.currentPlan();
-    setupApi.updateTenantPlan(tenant, currentPlan.withSubmissionApprovalAllowed(false));
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, theTenant.currentPlan().withSubmissionApprovalAllowed(false));
 
     FSingleLineTextControl control = defaultSingleLineTextControl();
     PageSetting pageSetting = defaultPageSettingBuilder()

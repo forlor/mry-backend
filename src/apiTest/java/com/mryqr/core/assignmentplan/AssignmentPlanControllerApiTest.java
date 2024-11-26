@@ -46,7 +46,6 @@ import com.mryqr.core.group.GroupApi;
 import com.mryqr.core.group.domain.Group;
 import com.mryqr.core.member.MemberApi;
 import com.mryqr.core.member.domain.Member;
-import com.mryqr.core.plan.domain.Plan;
 import com.mryqr.core.tenant.domain.Tenant;
 import com.mryqr.utils.PreparedAppResponse;
 import com.mryqr.utils.PreparedQrResponse;
@@ -129,9 +128,8 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
   public void should_fail_create_if_packages_too_low() {
     PreparedAppResponse response = setupApi.registerWithApp();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    Tenant tenant = tenantRepository.byId(response.getTenantId());
-    Plan currentPlan = tenant.currentPlan();
-    setupApi.updateTenantPlan(tenant, currentPlan.withAssignmentAllowed(false));
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, theTenant.currentPlan().withAssignmentAllowed(false));
 
     AssignmentSetting assignmentSetting = AssignmentSetting.builder()
         .name(rAssignmentPlanName())

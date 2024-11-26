@@ -171,8 +171,8 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_update_report_setting_if_package_not_enough() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    Tenant tenant = tenantRepository.byId(response.getTenantId());
-    setupApi.updateTenantPlan(tenant, tenant.currentPlan().withReportingAllowed(false));
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, theTenant.currentPlan().withReportingAllowed(false));
 
     InstanceNumberReport instanceNumberReport = InstanceNumberReport.builder()
         .id(newShortUuid())
