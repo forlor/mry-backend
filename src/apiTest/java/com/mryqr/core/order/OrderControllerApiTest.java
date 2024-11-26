@@ -31,6 +31,7 @@ import static com.mryqr.core.order.domain.detail.OrderDetailType.EXTRA_VIDEO_TRA
 import static com.mryqr.core.order.domain.detail.OrderDetailType.PLAN;
 import static com.mryqr.core.order.domain.detail.OrderDetailType.PLATE_PRINTING;
 import static com.mryqr.core.order.domain.invoice.InvoiceType.VAT_NORMAL;
+import static com.mryqr.core.plan.domain.Plan.FREE_PLAN;
 import static com.mryqr.core.plan.domain.PlanType.ADVANCED;
 import static com.mryqr.core.plan.domain.PlanType.BASIC;
 import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
@@ -100,6 +101,8 @@ public class OrderControllerApiTest extends BaseApiTest {
   @Test
   public void should_create_online_plan_order_with_wx_native_payment_type() {
     LoginResponse response = setupApi.registerWithLogin();
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, FREE_PLAN);
 
     CreateOrderCommand command = CreateOrderCommand.builder()
         .detail(PlanOrderDetail.builder()
@@ -128,6 +131,8 @@ public class OrderControllerApiTest extends BaseApiTest {
   @Test
   public void should_create_online_plan_order_with_bank_transfer_payment_type() {
     LoginResponse response = setupApi.registerWithLogin();
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, FREE_PLAN);
 
     CreateOrderCommand command = CreateOrderCommand.builder()
         .detail(PlanOrderDetail.builder()
@@ -321,6 +326,8 @@ public class OrderControllerApiTest extends BaseApiTest {
   @Test
   public void should_fail_create_order_if_non_free_plan_needed() {
     LoginResponse response = setupApi.registerWithLogin();
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, FREE_PLAN);
 
     CreateOrderCommand command = CreateOrderCommand.builder()
         .detail(ExtraStorageOrderDetail.builder()
@@ -336,6 +343,8 @@ public class OrderControllerApiTest extends BaseApiTest {
   @Test
   public void should_request_quote_for_free_plan() {
     LoginResponse loginResponse = setupApi.registerWithLogin();
+    Tenant theTenant = tenantRepository.byId(loginResponse.getTenantId());
+    setupApi.updateTenantPlan(theTenant, FREE_PLAN);
 
     QuotePriceQuery query = QuotePriceQuery.builder()
         .detail(PlanOrderDetail.builder()
@@ -488,6 +497,8 @@ public class OrderControllerApiTest extends BaseApiTest {
   @Test
   public void should_fail_request_quote_if_upgrade_only_for_free_plan() {
     LoginResponse loginResponse = setupApi.registerWithLogin();
+    Tenant theTenant = tenantRepository.byId(loginResponse.getTenantId());
+    setupApi.updateTenantPlan(theTenant, FREE_PLAN);
 
     QuotePriceQuery query = QuotePriceQuery.builder()
         .detail(PlanOrderDetail.builder()
@@ -658,6 +669,8 @@ public class OrderControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_order_status() {
     LoginResponse response = setupApi.registerWithLogin();
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, FREE_PLAN);
 
     CreateOrderCommand command = CreateOrderCommand.builder()
         .detail(PlanOrderDetail.builder()
@@ -676,7 +689,8 @@ public class OrderControllerApiTest extends BaseApiTest {
   @Test
   public void should_stub_notify_plan_order_paid() {
     LoginResponse response = setupApi.registerWithLogin();
-    Tenant initialTenant = tenantRepository.byId(response.getTenantId());
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, FREE_PLAN);
 
     CreateOrderCommand command = CreateOrderCommand.builder()
         .detail(PlanOrderDetail.builder()
@@ -701,7 +715,7 @@ public class OrderControllerApiTest extends BaseApiTest {
     Packages packages = tenant.getPackages();
     assertEquals(ADVANCED, packages.currentPlanType());
     assertEquals(LocalDate.now().plusYears(2).toString(), LocalDate.ofInstant(packages.expireAt(), systemDefault()).toString());
-    assertNotEquals(initialTenant.getPackages().planVersion(), packages.planVersion());
+    assertNotEquals(theTenant.getPackages().planVersion(), packages.planVersion());
   }
 
   @Test
@@ -837,7 +851,8 @@ public class OrderControllerApiTest extends BaseApiTest {
   @Test
   public void should_only_update_wx_info_if_called_repeatedly() {
     LoginResponse response = setupApi.registerWithLogin();
-    Tenant initialTenant = tenantRepository.byId(response.getTenantId());
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, FREE_PLAN);
 
     CreateOrderCommand command = CreateOrderCommand.builder()
         .detail(PlanOrderDetail.builder()
@@ -861,7 +876,8 @@ public class OrderControllerApiTest extends BaseApiTest {
   @Test
   public void should_stub_notify_order_paid_after_bank_transfer() {
     LoginResponse response = setupApi.registerWithLogin();
-    Tenant initialTenant = tenantRepository.byId(response.getTenantId());
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, FREE_PLAN);
 
     CreateOrderCommand command = CreateOrderCommand.builder()
         .detail(PlanOrderDetail.builder()
@@ -886,13 +902,14 @@ public class OrderControllerApiTest extends BaseApiTest {
     Packages packages = tenant.getPackages();
     assertEquals(ADVANCED, packages.currentPlanType());
     assertEquals(LocalDate.now().plusYears(2).toString(), LocalDate.ofInstant(packages.expireAt(), systemDefault()).toString());
-    assertNotEquals(initialTenant.getPackages().planVersion(), packages.planVersion());
+    assertNotEquals(theTenant.getPackages().planVersion(), packages.planVersion());
   }
 
   @Test
   public void should_only_update_bank_transfer_pay_info_if_called_repeatedly() {
     LoginResponse response = setupApi.registerWithLogin();
-    Tenant initialTenant = tenantRepository.byId(response.getTenantId());
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, FREE_PLAN);
 
     CreateOrderCommand command = CreateOrderCommand.builder()
         .detail(PlanOrderDetail.builder()
@@ -916,7 +933,8 @@ public class OrderControllerApiTest extends BaseApiTest {
   @Test
   public void should_stub_notify_order_paid_after_wx_transfer() {
     LoginResponse response = setupApi.registerWithLogin();
-    Tenant initialTenant = tenantRepository.byId(response.getTenantId());
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, FREE_PLAN);
 
     CreateOrderCommand command = CreateOrderCommand.builder()
         .detail(PlanOrderDetail.builder()
@@ -940,13 +958,14 @@ public class OrderControllerApiTest extends BaseApiTest {
     Packages packages = tenant.getPackages();
     assertEquals(ADVANCED, packages.currentPlanType());
     assertEquals(LocalDate.now().plusYears(2).toString(), LocalDate.ofInstant(packages.expireAt(), systemDefault()).toString());
-    assertNotEquals(initialTenant.getPackages().planVersion(), packages.planVersion());
+    assertNotEquals(theTenant.getPackages().planVersion(), packages.planVersion());
   }
 
   @Test
   public void should_not_apply_plan_order_if_plan_version_not_match() {
     LoginResponse response = setupApi.registerWithLogin();
-    Tenant initialTenant = tenantRepository.byId(response.getTenantId());
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, FREE_PLAN);
 
     CreateOrderResponse orderResponse = OrderApi.createOrder(response.getJwt(), CreateOrderCommand.builder()
         .detail(PlanOrderDetail.builder()
@@ -979,7 +998,7 @@ public class OrderControllerApiTest extends BaseApiTest {
     Packages packages = tenant.getPackages();
     assertEquals(BASIC, packages.currentPlanType());
     assertEquals(LocalDate.now().plusYears(2).toString(), LocalDate.ofInstant(packages.expireAt(), systemDefault()).toString());
-    assertNotEquals(initialTenant.getPackages().planVersion(), packages.planVersion());
+    assertNotEquals(theTenant.getPackages().planVersion(), packages.planVersion());
   }
 
   @Test
@@ -1200,6 +1219,8 @@ public class OrderControllerApiTest extends BaseApiTest {
   @Test
   public void should_request_invoice() {
     LoginResponse response = setupApi.registerWithLogin();
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, FREE_PLAN);
 
     CreateOrderCommand command = CreateOrderCommand.builder()
         .detail(PlanOrderDetail.builder()
@@ -1239,6 +1260,8 @@ public class OrderControllerApiTest extends BaseApiTest {
   @Test
   public void should_fail_request_invoice_if_no_invoice_title() {
     LoginResponse response = setupApi.registerWithLogin();
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, FREE_PLAN);
 
     CreateOrderCommand command = CreateOrderCommand.builder()
         .detail(PlanOrderDetail.builder()
@@ -1263,6 +1286,8 @@ public class OrderControllerApiTest extends BaseApiTest {
   @Test
   public void should_fail_request_invoice_if_already_requested() {
     LoginResponse response = setupApi.registerWithLogin();
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, FREE_PLAN);
 
     CreateOrderCommand command = CreateOrderCommand.builder()
         .detail(PlanOrderDetail.builder()
@@ -1299,6 +1324,8 @@ public class OrderControllerApiTest extends BaseApiTest {
   @Test
   public void should_fail_request_invoice_if_order_is_not_paid() {
     LoginResponse response = setupApi.registerWithLogin();
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, FREE_PLAN);
 
     CreateOrderCommand command = CreateOrderCommand.builder()
         .detail(PlanOrderDetail.builder()

@@ -1,18 +1,27 @@
 package com.mryqr.core.plan;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
+import static com.mryqr.core.plan.domain.Plan.BASIC_PLAN;
+import static com.mryqr.core.plan.domain.Plan.FREE_PLAN;
 import static com.mryqr.core.plan.domain.PlanType.ADVANCED;
 import static com.mryqr.core.plan.domain.PlanType.BASIC;
 import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
 import static com.mryqr.core.plan.domain.PlanType.FREE;
 import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
 import static com.mryqr.core.plan.query.QEnabledFeature.GEO_PREVENT_FRAUD;
+import static com.mryqr.utils.RandomTestFixture.rMobile;
+import static com.mryqr.utils.RandomTestFixture.rPassword;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.Instant;
 import java.util.List;
 
 import com.mryqr.BaseApiTest;
 import com.mryqr.core.plan.query.QListPlan;
+import com.mryqr.core.tenant.domain.Tenant;
+import com.mryqr.utils.LoginResponse;
 import org.junit.jupiter.api.Test;
 
 public class PlanControllerApiTest extends BaseApiTest {
@@ -38,5 +47,15 @@ public class PlanControllerApiTest extends BaseApiTest {
     assertEquals(5, flagshipPlan.getLevel());
 
     assertTrue(flagshipPlan.getAllFeatures().contains(GEO_PREVENT_FRAUD));
+  }
+
+  @Test
+  public void expired_plan_should_fall_back_to_free_plan() {
+    LoginResponse response = setupApi.registerWithLogin(rMobile(), rPassword());
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPackages(theTenant, BASIC, Instant.now().minus(10, DAYS));
+    Tenant tenant = tenantRepository.byId(response.getTenantId());
+    assertEquals(FREE_PLAN, tenant.effectivePlan());
+    assertEquals(BASIC_PLAN, tenant.currentPlan());
   }
 }
