@@ -1967,7 +1967,7 @@ public class IntegrationControllerApiTest extends BaseApiTest {
 
     @Test
     public void should_update_member_custom_id() {
-        RegisterResponse response = setupApi.register();
+        RegisterResponse response = setupApi.register(rMobile(), rPassword());
         Tenant tenant = tenantRepository.byId(response.getTenantId());
         setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
