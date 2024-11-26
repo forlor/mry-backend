@@ -4,6 +4,7 @@ import static java.time.Instant.now;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 import static com.mryqr.common.domain.user.User.NOUSER;
+import static com.mryqr.core.plan.domain.Plan.FLAGSHIP_PLAN;
 import static com.mryqr.utils.RandomTestFixture.rAppName;
 import static com.mryqr.utils.RandomTestFixture.rMemberName;
 import static com.mryqr.utils.RandomTestFixture.rMobile;
@@ -58,7 +59,9 @@ public class SetupApi {
         .agreement(true)
         .build();
 
-    return RegisterApi.register(command);
+    RegisterResponse response = RegisterApi.register(command);
+    this.updateTenantPlan(tenantRepository.byId(response.getTenantId()), FLAGSHIP_PLAN); // 测试时，默认创建最高级别的套餐
+    return response;
   }
 
   public LoginResponse registerWithLogin(String mobileOrEmail, String password) {

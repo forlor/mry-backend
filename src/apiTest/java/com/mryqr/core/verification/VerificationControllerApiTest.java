@@ -27,7 +27,6 @@ import com.mryqr.BaseApiTest;
 import com.mryqr.core.login.LoginApi;
 import com.mryqr.core.login.command.VerificationCodeLoginCommand;
 import com.mryqr.core.member.MemberApi;
-import com.mryqr.core.plan.domain.Plan;
 import com.mryqr.core.register.command.RegisterResponse;
 import com.mryqr.core.tenant.domain.Tenant;
 import com.mryqr.core.verification.command.CreateChangeMobileVerificationCodeCommand;
@@ -100,7 +99,7 @@ class VerificationControllerApiTest extends BaseApiTest {
     assertTrue(verificationCodeRepository.exists(VerificationCodeApi.createVerificationCodeForLogin(command)));
 
     Tenant tenant = tenantRepository.byId(response.getTenantId());
-    IntStream.range(0, Plan.FREE_PLAN.getMaxSmsCountPerMonth() + 1)
+    IntStream.range(0, tenant.currentPlan().getMaxSmsCountPerMonth() + 1)
         .forEach(value -> tenant.getResourceUsage().increaseSmsSentCountForCurrentMonth());
     tenantRepository.save(tenant);
 
@@ -119,7 +118,7 @@ class VerificationControllerApiTest extends BaseApiTest {
     assertTrue(verificationCodeRepository.exists(VerificationCodeApi.createVerificationCodeForLogin(command)));
 
     Tenant tenant = tenantRepository.byId(response.getTenantId());
-    IntStream.range(0, Plan.BASIC_PLAN.getMaxSmsCountPerMonth() + 1)
+    IntStream.range(0, tenant.currentPlan().getMaxSmsCountPerMonth() + 1)
         .forEach(value -> tenant.getResourceUsage().increaseSmsSentCountForCurrentMonth());
     tenantRepository.save(tenant);
     assertFalse(verificationCodeRepository.exists(VerificationCodeApi.createVerificationCodeForLogin(command)));

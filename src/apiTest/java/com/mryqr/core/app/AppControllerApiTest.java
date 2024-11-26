@@ -50,7 +50,6 @@ import static com.mryqr.core.app.domain.page.control.ControlType.TIME_SEGMENT;
 import static com.mryqr.core.app.domain.page.setting.SubmitType.ONCE_PER_INSTANCE;
 import static com.mryqr.core.member.MemberApi.createMemberAndLogin;
 import static com.mryqr.core.member.domain.Member.newMemberId;
-import static com.mryqr.core.plan.domain.Plan.FREE_PLAN;
 import static com.mryqr.core.plan.domain.Plan.PROFESSIONAL_PLAN;
 import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
 import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
@@ -448,7 +447,7 @@ class AppControllerApiTest extends BaseApiTest {
   public void should_fail_create_app_if_exceed_packages_limit() {
     LoginResponse admin = setupApi.registerWithLogin(rMobile(), rPassword());
     Tenant tenant = tenantRepository.byId(admin.getTenantId());
-    tenant.setAppCount(FREE_PLAN.getMaxAppCount(), NOUSER);
+    tenant.setAppCount(tenant.currentPlan().getMaxAppCount(), NOUSER);
     tenantRepository.save(tenant);
 
     CreateAppCommand command = CreateAppCommand.builder().name(rAppName()).build();
@@ -1696,6 +1695,8 @@ class AppControllerApiTest extends BaseApiTest {
   @Test
   public void should_not_update_webhook_setting_if_plan_not_allowed() {
     PreparedAppResponse response = setupApi.registerWithApp();
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, theTenant.currentPlan().withDeveloperAllowed(false));
 
     UpdateAppWebhookSettingCommand command = UpdateAppWebhookSettingCommand.builder().webhookSetting(WebhookSetting.builder()
             .enabled(true)

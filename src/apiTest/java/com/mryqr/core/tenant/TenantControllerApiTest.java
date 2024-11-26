@@ -219,6 +219,8 @@ class TenantControllerApiTest extends BaseApiTest {
   @Test
   public void should_not_refresh_api_secret_if_plan_not_allowed() {
     LoginResponse response = setupApi.registerWithLogin(rMobile(), rPassword());
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, theTenant.currentPlan().withDeveloperAllowed(false));
     assertError(() -> TenantApi.refreshApiSecretRaw(response.getJwt()), REFRESH_API_SECRET_NOT_ALLOWED);
   }
 

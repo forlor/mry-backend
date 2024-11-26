@@ -168,7 +168,6 @@ import com.mryqr.core.group.GroupApi;
 import com.mryqr.core.group.domain.Group;
 import com.mryqr.core.member.MemberApi;
 import com.mryqr.core.member.domain.Member;
-import com.mryqr.core.plan.domain.Plan;
 import com.mryqr.core.plate.domain.Plate;
 import com.mryqr.core.qr.QrApi;
 import com.mryqr.core.qr.command.CreateQrResponse;
@@ -401,9 +400,9 @@ class SubmissionControllerApiTest extends BaseApiTest {
     PreparedQrResponse response = setupApi.registerWithQr();
     FSingleLineTextControl control = defaultSingleLineTextControl();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
-    Tenant tenant = tenantRepository.byId(response.getTenantId());
-    tenant.setSubmissionCountForApp(response.getAppId(), Plan.FREE_PLAN.getMaxSubmissionCount());
-    tenantRepository.save(tenant);
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    theTenant.setSubmissionCountForApp(response.getAppId(), theTenant.currentPlan().getMaxSubmissionCount());
+    tenantRepository.save(theTenant);
 
     NewSubmissionCommand command = newSubmissionCommand(response.getQrId(), response.getHomePageId(), rAnswer(control));
 
