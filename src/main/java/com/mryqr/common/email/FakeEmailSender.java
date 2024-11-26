@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @NonProdProfile
-public class FakeMryEmailSender implements MryEmailSender {
+public class FakeEmailSender implements MryEmailSender {
   @Override
   public void sendVerificationCode(String email, String code) {
     log.info("Verification code for {} is {}", email, code);

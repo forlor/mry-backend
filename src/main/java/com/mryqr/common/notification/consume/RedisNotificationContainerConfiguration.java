@@ -25,10 +25,10 @@ import org.springframework.data.redis.stream.StreamMessageListenerContainer.Stre
 import org.springframework.util.ErrorHandler;
 
 @Slf4j
-@NonBuildProfile
 @Configuration
-@DependsOn("redisStreamInitializer")
+@NonBuildProfile
 @RequiredArgsConstructor
+@DependsOn("redisStreamInitializer")
 public class RedisNotificationContainerConfiguration {
   private final MryRedisProperties mryRedisProperties;
   private final NotificationEventListener notificationEventListener;

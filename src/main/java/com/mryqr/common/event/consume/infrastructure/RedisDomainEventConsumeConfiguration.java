@@ -5,8 +5,14 @@ import static org.springframework.data.redis.connection.stream.Consumer.from;
 import static org.springframework.data.redis.connection.stream.ReadOffset.lastConsumed;
 import static org.springframework.data.redis.connection.stream.StreamOffset.create;
 
+import com.mryqr.common.event.DomainEvent;
+import com.mryqr.common.event.consume.ConsumingDomainEvent;
+import com.mryqr.common.event.consume.DomainEventConsumer;
 import com.mryqr.common.profile.NonBuildProfile;
 import com.mryqr.common.properties.MryRedisProperties;
+import com.mryqr.common.tracing.MryTracingService;
+import com.mryqr.common.utils.MryObjectMapper;
+import io.micrometer.tracing.ScopedSpan;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,10 +35,11 @@ import org.springframework.util.ErrorHandler;
 @ConditionalOnProperty(value = "mry.redis.domainEventStreamEnabled", havingValue = "true")
 public class RedisDomainEventConsumeConfiguration {
   private final MryRedisProperties mryRedisProperties;
-  private final RedisDomainEventListener redisDomainEventListener;
-
   @Qualifier("consumeDomainEventTaskExecutor")
   private final TaskExecutor consumeDomainEventTaskExecutor;
+  private final MryObjectMapper mryObjectMapper;
+  private final DomainEventConsumer<DomainEvent> domainEventConsumer;
+  private final MryTracingService mryTracingService;
 
   @Bean
   public StreamMessageListenerContainer<String, ObjectRecord<String, String>> domainEventContainer(RedisConnectionFactory factory) {
@@ -50,7 +57,19 @@ public class RedisDomainEventConsumeConfiguration {
       container.receiveAutoAck(
           from(REDIS_DOMAIN_EVENT_CONSUMER_GROUP, "DomainEventRedisStreamConsumer-" + stream),
           create(stream, lastConsumed()),
-          redisDomainEventListener);
+          message -> {
+            ScopedSpan scopedSpan = mryTracingService.startNewSpan("domain-event-listener");
+
+            String jsonString = message.getValue();
+            DomainEvent domainEvent = mryObjectMapper.readValue(jsonString, DomainEvent.class);
+            try {
+              domainEventConsumer.consume(new ConsumingDomainEvent<>(domainEvent.getId(), domainEvent.getType().name(), domainEvent));
+            } catch (Throwable t) {
+              log.error("Failed to listen domain event[{}:{}].", domainEvent.getType(), domainEvent.getId(), t);
+            }
+
+            scopedSpan.end();
+          });
     });
 
     container.start();

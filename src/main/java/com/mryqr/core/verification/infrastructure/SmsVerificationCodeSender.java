@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ProdProfile
 @RequiredArgsConstructor
-public class DefaultVerificationCodeSender implements VerificationCodeSender {
+public class SmsVerificationCodeSender implements VerificationCodeSender {
   private final TaskExecutor taskExecutor;
   private final MryEmailSender mryEmailSender;
   private final MrySmsSender mrySmsSender;
