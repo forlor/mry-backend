@@ -7,6 +7,7 @@ import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.THIS_S
 import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.THIS_WEEK;
 import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.THIS_YEAR;
 
+import com.mryqr.common.event.DomainEventJobs;
 import com.mryqr.common.event.publish.DomainEventPublisher;
 import com.mryqr.common.profile.NonBuildProfile;
 import com.mryqr.core.assignment.job.CreateAssignmentsJob;
@@ -36,7 +37,7 @@ public class SchedulingConfiguration {
   private final CreateAssignmentsJob createAssignmentsJob;
   private final ExpireAssignmentsJob expireAssignmentsJob;
   private final NearExpireAssignmentsJob nearExpireAssignmentsJob;
-
+  private final DomainEventJobs domainEventJobs;
   private final DomainEventPublisher domainEventPublisher;
 
   //定时任务尽量放到前半个小时运行，以将后半个多小时留给部署时间
@@ -108,6 +109,41 @@ public class SchedulingConfiguration {
   @SchedulerLock(name = "operationalStatistics", lockAtMostFor = "30m", lockAtLeastFor = "1m")
   public void operationalStatistics() {
     mrySelfOperationJob.run();
+  }
+
+  //删除老的领域事件，包含mongo和redis，每季度第一天3点20分运行
+  @Scheduled(cron = "0 20 3 1 1,4,7,10 ?")
+  @SchedulerLock(name = "removeOldEvents", lockAtMostFor = "30m", lockAtLeastFor = "1m")
+  public void removeOldEvents() {
+    try {
+      domainEventJobs.removeOldPublishingDomainEventsFromMongo(100);
+    } catch (Throwable t) {
+      log.error("Failed remove old publishing domain events from mongo.", t);
+    }
+
+    try {
+      domainEventJobs.removeOldConsumingDomainEventsFromMongo(100);
+    } catch (Throwable t) {
+      log.error("Failed remove old consuming domain events from mongo.", t);
+    }
+
+    try {
+      domainEventJobs.removeOldDomainEventsFromRedis(1000000, true);
+    } catch (Throwable t) {
+      log.error("Failed remove old domain events from redis.", t);
+    }
+
+    try {
+      domainEventJobs.removeOldWebhookEventsFromRedis(1000000, true);
+    } catch (Throwable t) {
+      log.error("Failed remove old webhook events from redis.", t);
+    }
+
+    try {
+      domainEventJobs.removeOldNotificationEventsFromRedis(500000, true);
+    } catch (Throwable t) {
+      log.error("Failed remove old notification events from redis.", t);
+    }
   }
 }
 
