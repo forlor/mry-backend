@@ -1,6 +1,6 @@
 package com.mryqr.core.tenant.domain.task;
 
-import com.mryqr.common.domain.task.RepeatableTask;
+import com.mryqr.common.domain.task.RetryableTask;
 import com.mryqr.common.properties.AliyunProperties;
 import com.mryqr.core.tenant.domain.Tenant;
 import com.mryqr.core.tenant.domain.TenantRepository;
@@ -21,7 +21,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class CountStorageForTenantTask implements RepeatableTask {
+public class CountStorageForTenantTask implements RetryableTask {
     private static final String OUTPUT_PREFIX = "total du size(GB):";
     private final TenantRepository tenantRepository;
     private final AliyunProperties aliyunProperties;

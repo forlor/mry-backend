@@ -7,7 +7,7 @@ import com.mryqr.common.domain.indexedfield.IndexedField;
 import com.mryqr.common.domain.indexedfield.IndexedValue;
 import com.mryqr.common.domain.user.User;
 import com.mryqr.common.exception.MryException;
-import com.mryqr.common.oss.mongo.MongoBaseRepository;
+import com.mryqr.common.mongo.MongoBaseRepository;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.group.domain.Group;

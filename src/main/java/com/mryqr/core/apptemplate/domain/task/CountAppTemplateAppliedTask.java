@@ -1,6 +1,6 @@
 package com.mryqr.core.apptemplate.domain.task;
 
-import com.mryqr.common.domain.task.RepeatableTask;
+import com.mryqr.common.domain.task.RetryableTask;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.qr.domain.QrRepository;
@@ -16,7 +16,7 @@ import static com.mryqr.management.apptemplate.MryAppTemplateManageApp.APPLIED_C
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class CountAppTemplateAppliedTask implements RepeatableTask {
+public class CountAppTemplateAppliedTask implements RetryableTask {
     private final QrRepository qrRepository;
     private final AppRepository appRepository;
 

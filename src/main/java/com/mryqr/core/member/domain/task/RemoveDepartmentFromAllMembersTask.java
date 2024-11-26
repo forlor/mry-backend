@@ -1,6 +1,6 @@
 package com.mryqr.core.member.domain.task;
 
-import com.mryqr.common.domain.task.RepeatableTask;
+import com.mryqr.common.domain.task.RetryableTask;
 import com.mryqr.core.member.domain.MemberRepository;
 import com.mryqr.core.member.domain.TenantCachedMember;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.List;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class RemoveDepartmentFromAllMembersTask implements RepeatableTask {
+public class RemoveDepartmentFromAllMembersTask implements RetryableTask {
     private final MemberRepository memberRepository;
 
     public void run(String departmentId, String tenantId) {

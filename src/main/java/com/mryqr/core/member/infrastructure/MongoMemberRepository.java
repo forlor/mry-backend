@@ -5,7 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import com.mongodb.client.result.UpdateResult;
 import com.mryqr.common.domain.user.User;
 import com.mryqr.common.exception.MryException;
-import com.mryqr.common.oss.mongo.MongoBaseRepository;
+import com.mryqr.common.mongo.MongoBaseRepository;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.group.domain.Group;
 import com.mryqr.core.member.domain.Member;

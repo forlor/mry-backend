@@ -1,6 +1,6 @@
 package com.mryqr.core.appmanual.domain.task;
 
-import com.mryqr.common.domain.task.RepeatableTask;
+import com.mryqr.common.domain.task.RetryableTask;
 import com.mryqr.core.appmanual.domain.AppManualRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class RemoveManualForAppTask implements RepeatableTask {
+public class RemoveManualForAppTask implements RetryableTask {
     private final AppManualRepository appManualRepository;
 
     public void run(String appId) {

@@ -1,6 +1,6 @@
 package com.mryqr.core.app.domain.task;
 
-import com.mryqr.common.domain.task.RepeatableTask;
+import com.mryqr.common.domain.task.RetryableTask;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.app.domain.TenantCachedApp;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.List;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class RemoveManagerFromAllAppsTask implements RepeatableTask {
+public class RemoveManagerFromAllAppsTask implements RetryableTask {
     private final AppRepository appRepository;
 
     public void run(String memberId, String tenantId) {

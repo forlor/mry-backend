@@ -1,6 +1,6 @@
 package com.mryqr.core.app.infrastructure;
 
-import com.mryqr.common.oss.mongo.MongoBaseRepository;
+import com.mryqr.common.mongo.MongoBaseRepository;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.TenantCachedApp;
 import lombok.RequiredArgsConstructor;

@@ -2,7 +2,7 @@ package com.mryqr.management.crm.webhook;
 
 import com.mryqr.common.event.DomainEvent;
 import com.mryqr.common.event.publish.PublishingDomainEvent;
-import com.mryqr.common.event.publish.RedisDomainEventSender;
+import com.mryqr.common.event.publish.infrastructure.RedisDomainEventSender;
 import com.mryqr.common.webhook.submission.BaseSubmissionWebhookPayload;
 import com.mryqr.common.webhook.submission.SubmissionCreatedWebhookPayload;
 import com.mryqr.core.submission.domain.answer.Answer;

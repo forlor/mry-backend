@@ -1,6 +1,8 @@
-package com.mryqr.common.event.consume;
+package com.mryqr.common.event.consume.infrastructure;
 
 import com.mryqr.common.event.DomainEvent;
+import com.mryqr.common.event.consume.ConsumingDomainEvent;
+import com.mryqr.common.event.consume.DomainEventConsumer;
 import com.mryqr.common.tracing.MryTracingService;
 import com.mryqr.common.utils.MryObjectMapper;
 import io.micrometer.tracing.ScopedSpan;

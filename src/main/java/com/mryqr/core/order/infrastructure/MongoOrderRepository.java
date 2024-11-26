@@ -1,7 +1,7 @@
 package com.mryqr.core.order.infrastructure;
 
 import com.mryqr.common.domain.user.User;
-import com.mryqr.common.oss.mongo.MongoBaseRepository;
+import com.mryqr.common.mongo.MongoBaseRepository;
 import com.mryqr.core.order.domain.Order;
 import com.mryqr.core.order.domain.OrderRepository;
 import org.springframework.stereotype.Repository;

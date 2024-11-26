@@ -4,8 +4,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.task.TaskExecutor;
+import org.springframework.scheduling.SchedulingTaskExecutor;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
+@EnableAsync
 @Configuration
 public class TaskExecutorConfiguration {
 
@@ -28,7 +32,7 @@ public class TaskExecutorConfiguration {
         executor.setMaxPoolSize(50);
         executor.setQueueCapacity(500);
         executor.initialize();
-        executor.setThreadNamePrefix("access-qr-");
+        executor.setThreadNamePrefix("mry-access-qr-");
         return executor;
     }
 
@@ -64,5 +68,14 @@ public class TaskExecutorConfiguration {
         executor.setThreadNamePrefix("mry-notify-");
         return executor;
     }
+
+    @Bean
+    public SchedulingTaskExecutor threadPoolTaskScheduler() {
+        ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
+        threadPoolTaskScheduler.setPoolSize(10);
+        threadPoolTaskScheduler.setThreadNamePrefix("mry-scheduling-");
+        return threadPoolTaskScheduler;
+    }
+
 
 }

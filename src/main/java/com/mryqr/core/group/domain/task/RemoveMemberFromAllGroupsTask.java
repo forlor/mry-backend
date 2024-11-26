@@ -1,6 +1,6 @@
 package com.mryqr.core.group.domain.task;
 
-import com.mryqr.common.domain.task.RepeatableTask;
+import com.mryqr.common.domain.task.RetryableTask;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.group.domain.AppCachedGroup;
 import com.mryqr.core.group.domain.GroupRepository;
@@ -13,7 +13,7 @@ import java.util.List;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class RemoveMemberFromAllGroupsTask implements RepeatableTask {
+public class RemoveMemberFromAllGroupsTask implements RetryableTask {
     private final AppRepository appRepository;
     private final GroupRepository groupRepository;
 

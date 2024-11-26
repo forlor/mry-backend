@@ -74,10 +74,14 @@ public class JwtWebSecurityConfiguration {
     @Bean
     public WebSecurityCustomizer jwtWebSecurityCustomizer() {
         return web -> web.ignoring()
-                .requestMatchers("/about", "/favicon.ico", "/error", "/MP_verify_qXC2acLZ7a7qm3Xp.txt",
-                        "/local-manual-test/orders/**",
-                        "/local-manual-test/receive-webhook",
-                        "/api-testing/webhook", "/api-testing/orders/**", "/apptemplates/**")
+                .requestMatchers(
+                    "/about",
+                    "/favicon.ico",
+                    "/error",
+                    "/api-testing/webhook",
+                    "/api-testing/orders/**",
+                    "/apptemplates/**"
+                )
                 .requestMatchers(GET, "/plans")
                 .requestMatchers(GET, "/printing-products")
                 .requestMatchers(GET, "/mobile-wx/auth2-callback")

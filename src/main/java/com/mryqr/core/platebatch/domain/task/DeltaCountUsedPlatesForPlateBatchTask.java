@@ -1,6 +1,6 @@
 package com.mryqr.core.platebatch.domain.task;
 
-import com.mryqr.common.domain.task.OnetimeTask;
+import com.mryqr.common.domain.task.NonRetryableTask;
 import com.mryqr.core.platebatch.domain.PlateBatchRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class DeltaCountUsedPlatesForPlateBatchTask implements OnetimeTask {
+public class DeltaCountUsedPlatesForPlateBatchTask implements NonRetryableTask {
     private final PlateBatchRepository plateBatchRepository;
 
     public void delta(String plateBatchId, int delta) {

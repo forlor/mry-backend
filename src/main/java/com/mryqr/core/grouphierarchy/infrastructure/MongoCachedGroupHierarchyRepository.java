@@ -1,7 +1,7 @@
 package com.mryqr.core.grouphierarchy.infrastructure;
 
 import com.mryqr.common.exception.MryException;
-import com.mryqr.common.oss.mongo.MongoBaseRepository;
+import com.mryqr.common.mongo.MongoBaseRepository;
 import com.mryqr.core.grouphierarchy.domain.GroupHierarchy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

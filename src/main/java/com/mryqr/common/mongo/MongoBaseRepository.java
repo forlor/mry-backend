@@ -1,4 +1,4 @@
-package com.mryqr.common.oss.mongo;
+package com.mryqr.common.mongo;
 
 import com.mryqr.common.domain.AggregateRoot;
 import com.mryqr.common.domain.user.User;

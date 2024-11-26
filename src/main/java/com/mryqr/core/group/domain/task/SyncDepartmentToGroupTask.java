@@ -1,6 +1,6 @@
 package com.mryqr.core.group.domain.task;
 
-import com.mryqr.common.domain.task.RepeatableTask;
+import com.mryqr.common.domain.task.RetryableTask;
 import com.mryqr.core.department.domain.DepartmentRepository;
 import com.mryqr.core.group.domain.Group;
 import com.mryqr.core.group.domain.GroupRepository;
@@ -16,7 +16,7 @@ import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class SyncDepartmentToGroupTask implements RepeatableTask {
+public class SyncDepartmentToGroupTask implements RetryableTask {
     private final DepartmentRepository departmentRepository;
     private final GroupRepository groupRepository;
 

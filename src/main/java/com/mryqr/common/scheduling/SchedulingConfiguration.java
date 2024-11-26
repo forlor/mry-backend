@@ -1,5 +1,12 @@
 package com.mryqr.common.scheduling;
 
+import static java.time.LocalDateTime.now;
+
+import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.THIS_MONTH;
+import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.THIS_SEASON;
+import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.THIS_WEEK;
+import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.THIS_YEAR;
+
 import com.mryqr.common.event.publish.DomainEventPublisher;
 import com.mryqr.core.assignment.job.CreateAssignmentsJob;
 import com.mryqr.core.assignment.job.ExpireAssignmentsJob;
@@ -11,16 +18,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.javacrumbs.shedlock.spring.annotation.EnableSchedulerLock;
 import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.scheduling.SchedulingTaskExecutor;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
-
-import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.*;
-import static java.time.LocalDateTime.now;
 
 @Slf4j
 @Profile("!ci")
@@ -29,92 +30,83 @@ import static java.time.LocalDateTime.now;
 @RequiredArgsConstructor
 @EnableSchedulerLock(defaultLockAtMostFor = "60m", defaultLockAtLeastFor = "10s")
 public class SchedulingConfiguration {
-    private final RemoveQrRangedAttributeValuesForAllTenantsJob removeQrRangedAttributeValuesForAllTenantsJob;
-    private final CountStorageForAllTenantJob countStorageForAllTenantJob;
-    private final MrySelfOperationJob mrySelfOperationJob;
-    private final CreateAssignmentsJob createAssignmentsJob;
-    private final ExpireAssignmentsJob expireAssignmentsJob;
-    private final NearExpireAssignmentsJob nearExpireAssignmentsJob;
+  private final RemoveQrRangedAttributeValuesForAllTenantsJob removeQrRangedAttributeValuesForAllTenantsJob;
+  private final CountStorageForAllTenantJob countStorageForAllTenantJob;
+  private final MrySelfOperationJob mrySelfOperationJob;
+  private final CreateAssignmentsJob createAssignmentsJob;
+  private final ExpireAssignmentsJob expireAssignmentsJob;
+  private final NearExpireAssignmentsJob nearExpireAssignmentsJob;
 
-    private final DomainEventPublisher domainEventPublisher;
+  private final DomainEventPublisher domainEventPublisher;
 
-    //定时任务尽量放到前半个小时运行，以将后半个多小时留给部署时间
+  //定时任务尽量放到前半个小时运行，以将后半个多小时留给部署时间
 
-    //兜底发送尚未发送的事件，每2分钟运行，不能用@SchedulerLock，因为publishDomainEvents本身有分布式锁
-    @Scheduled(cron = "0 */2 * * * ?")
-    public void houseKeepPublishDomainEvent() {
-        domainEventPublisher.publishStagedDomainEvents();
-    }
+  //兜底发送尚未发送的事件，每2分钟运行，不能用@SchedulerLock，因为publishDomainEvents本身有分布式锁
+  @Scheduled(cron = "0 */2 * * * ?")
+  public void houseKeepPublishDomainEvent() {
+    domainEventPublisher.publishStagedDomainEvents();
+  }
 
-    //根据AssignmentPlan创建Assignment，每小时第1分钟运行，不能整点，因为整点有可能会被计算成上一小时
-    @Scheduled(cron = "0 1 */1 * * ?")
-    @SchedulerLock(name = "createAssignments", lockAtMostFor = "40m", lockAtLeastFor = "1m")
-    public void createAssignments() {
-        createAssignmentsJob.run(now());
-    }
+  //根据AssignmentPlan创建Assignment，每小时第1分钟运行，不能整点，因为整点有可能会被计算成上一小时
+  @Scheduled(cron = "0 1 */1 * * ?")
+  @SchedulerLock(name = "createAssignments", lockAtMostFor = "40m", lockAtLeastFor = "1m")
+  public void createAssignments() {
+    createAssignmentsJob.run(now());
+  }
 
-    //检查超期的Assignment，每小时运行的第5分钟运行，为了和createAssignments和nearExpireAssignments错开
-    @Scheduled(cron = "0 4 */1 * * ?")
-    @SchedulerLock(name = "expireAssignments", lockAtMostFor = "40m", lockAtLeastFor = "1m")
-    public void expireAssignments() {
-        expireAssignmentsJob.run(now());
-    }
+  //检查超期的Assignment，每小时运行的第5分钟运行，为了和createAssignments和nearExpireAssignments错开
+  @Scheduled(cron = "0 4 */1 * * ?")
+  @SchedulerLock(name = "expireAssignments", lockAtMostFor = "40m", lockAtLeastFor = "1m")
+  public void expireAssignments() {
+    expireAssignmentsJob.run(now());
+  }
 
-    //检查即将超期的Assignment，每小时运行的第8分钟运行，为了和createAssignments和expireAssignments错开
-    @Scheduled(cron = "0 8 */1 * * ?")
-    @SchedulerLock(name = "nearExpireAssignments", lockAtMostFor = "40m", lockAtLeastFor = "1m")
-    public void nearExpireAssignments() {
-        nearExpireAssignmentsJob.run(now());
-    }
+  //检查即将超期的Assignment，每小时运行的第8分钟运行，为了和createAssignments和expireAssignments错开
+  @Scheduled(cron = "0 8 */1 * * ?")
+  @SchedulerLock(name = "nearExpireAssignments", lockAtMostFor = "40m", lockAtLeastFor = "1m")
+  public void nearExpireAssignments() {
+    nearExpireAssignmentsJob.run(now());
+  }
 
-    //每周开始重置所有按周统计的属性，每周一1点10分运行
-    @Scheduled(cron = "0 10 1 ? * MON")
-    @SchedulerLock(name = "resetAllWeeklyRangedAttributes", lockAtMostFor = "120m", lockAtLeastFor = "1m")
-    public void resetAllWeeklyRangedAttributes() {
-        removeQrRangedAttributeValuesForAllTenantsJob.run(THIS_WEEK);
-    }
+  //每周开始重置所有按周统计的属性，每周一1点10分运行
+  @Scheduled(cron = "0 10 1 ? * MON")
+  @SchedulerLock(name = "resetAllWeeklyRangedAttributes", lockAtMostFor = "120m", lockAtLeastFor = "1m")
+  public void resetAllWeeklyRangedAttributes() {
+    removeQrRangedAttributeValuesForAllTenantsJob.run(THIS_WEEK);
+  }
 
-    //每月开始重置所有按周统计的属性，每月第一天2点10分运行
-    @Scheduled(cron = "0 10 2 1 * ?")
-    @SchedulerLock(name = "resetAllMonthlyRangedAttributes", lockAtMostFor = "120m", lockAtLeastFor = "1m")
-    public void resetAllMonthlyRangedAttributes() {
-        removeQrRangedAttributeValuesForAllTenantsJob.run(THIS_MONTH);
-    }
+  //每月开始重置所有按周统计的属性，每月第一天2点10分运行
+  @Scheduled(cron = "0 10 2 1 * ?")
+  @SchedulerLock(name = "resetAllMonthlyRangedAttributes", lockAtMostFor = "120m", lockAtLeastFor = "1m")
+  public void resetAllMonthlyRangedAttributes() {
+    removeQrRangedAttributeValuesForAllTenantsJob.run(THIS_MONTH);
+  }
 
-    //每季度开始重置所有按周统计的属性，每季度第一天3点10分运行
-    @Scheduled(cron = "0 10 3 1 1,4,7,10 ?")
-    @SchedulerLock(name = "resetAllSeasonlyRangedAttributes", lockAtMostFor = "120m", lockAtLeastFor = "1m")
-    public void resetAllSeasonlyRangedAttributes() {
-        removeQrRangedAttributeValuesForAllTenantsJob.run(THIS_SEASON);
-    }
+  //每季度开始重置所有按周统计的属性，每季度第一天3点10分运行
+  @Scheduled(cron = "0 10 3 1 1,4,7,10 ?")
+  @SchedulerLock(name = "resetAllSeasonlyRangedAttributes", lockAtMostFor = "120m", lockAtLeastFor = "1m")
+  public void resetAllSeasonlyRangedAttributes() {
+    removeQrRangedAttributeValuesForAllTenantsJob.run(THIS_SEASON);
+  }
 
-    //每年开始重置所有按周统计的属性，每年第一天4点10分运行
-    @Scheduled(cron = "0 10 4 1 1 ?")
-    @SchedulerLock(name = "resetAllYearlyRangedAttributes", lockAtMostFor = "120m", lockAtLeastFor = "1m")
-    public void resetAllYearlyRangedAttributes() {
-        removeQrRangedAttributeValuesForAllTenantsJob.run(THIS_YEAR);
-    }
+  //每年开始重置所有按周统计的属性，每年第一天4点10分运行
+  @Scheduled(cron = "0 10 4 1 1 ?")
+  @SchedulerLock(name = "resetAllYearlyRangedAttributes", lockAtMostFor = "120m", lockAtLeastFor = "1m")
+  public void resetAllYearlyRangedAttributes() {
+    removeQrRangedAttributeValuesForAllTenantsJob.run(THIS_YEAR);
+  }
 
+  //每周开始重置所有按周统计的属性，每周一1点2分运行
+  @Scheduled(cron = "0 2 1 ? * MON")
+  @SchedulerLock(name = "countStoragesForAllTenants", lockAtMostFor = "60m", lockAtLeastFor = "1m")
+  public void countStoragesForAllTenants() {
+    countStorageForAllTenantJob.run();
+  }
 
-    //每周开始重置所有按周统计的属性，每周一1点2分运行
-    @Scheduled(cron = "0 2 1 ? * MON")
-    @SchedulerLock(name = "countStoragesForAllTenants", lockAtMostFor = "60m", lockAtLeastFor = "1m")
-    public void countStoragesForAllTenants() {
-        countStorageForAllTenantJob.run();
-    }
-
-    //统计整体运营数据，每天6点10分运行
-    @Scheduled(cron = "0 10 6 * * ?")
-    @SchedulerLock(name = "operationalStatistics", lockAtMostFor = "30m", lockAtLeastFor = "1m")
-    public void operationalStatistics() {
-        mrySelfOperationJob.run();
-    }
-
-    @Bean
-    public SchedulingTaskExecutor threadPoolTaskScheduler() {
-        ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
-        threadPoolTaskScheduler.setPoolSize(10);
-        return threadPoolTaskScheduler;
-    }
-
+  //统计整体运营数据，每天6点10分运行
+  @Scheduled(cron = "0 10 6 * * ?")
+  @SchedulerLock(name = "operationalStatistics", lockAtMostFor = "30m", lockAtLeastFor = "1m")
+  public void operationalStatistics() {
+    mrySelfOperationJob.run();
+  }
 }

@@ -2,10 +2,6 @@
 <FindBugsFilter>
     <!--Attention: Match must contain single Package element-->
     <Match>
-        <Package name="com.mryqr.common.spike"/>
-    </Match>
-
-    <Match>
         <Package name="com.mryqr.utils.apitest"/>
     </Match>
 

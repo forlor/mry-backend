@@ -1,7 +1,7 @@
 package com.mryqr.core.qr.domain.task;
 
 import com.mryqr.common.domain.indexedfield.IndexedValue;
-import com.mryqr.common.domain.task.RepeatableTask;
+import com.mryqr.common.domain.task.RetryableTask;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.group.domain.GroupRepository;
@@ -24,7 +24,7 @@ import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class SyncGroupManagerAttributesForAllQrsUnderGroupTask implements RepeatableTask {
+public class SyncGroupManagerAttributesForAllQrsUnderGroupTask implements RetryableTask {
     private final AppRepository appRepository;
     private final GroupRepository groupRepository;
     private final QrRepository qrRepository;

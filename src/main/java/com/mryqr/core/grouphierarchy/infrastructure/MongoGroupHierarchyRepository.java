@@ -3,7 +3,7 @@ package com.mryqr.core.grouphierarchy.infrastructure;
 import com.mongodb.client.result.DeleteResult;
 import com.mryqr.common.domain.user.User;
 import com.mryqr.common.exception.MryException;
-import com.mryqr.common.oss.mongo.MongoBaseRepository;
+import com.mryqr.common.mongo.MongoBaseRepository;
 import com.mryqr.core.grouphierarchy.domain.GroupHierarchy;
 import com.mryqr.core.grouphierarchy.domain.GroupHierarchyRepository;
 import lombok.RequiredArgsConstructor;

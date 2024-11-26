@@ -1,6 +1,6 @@
 package com.mryqr.core.tenant.domain.task;
 
-import com.mryqr.common.domain.task.RepeatableTask;
+import com.mryqr.common.domain.task.RetryableTask;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.tenant.domain.TenantRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,7 @@ import static com.mryqr.common.domain.user.User.NOUSER;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class CountAppForTenantTask implements RepeatableTask {
+public class CountAppForTenantTask implements RetryableTask {
     private final TenantRepository tenantRepository;
     private final AppRepository appRepository;
 

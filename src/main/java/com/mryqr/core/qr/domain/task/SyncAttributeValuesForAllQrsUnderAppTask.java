@@ -1,6 +1,6 @@
 package com.mryqr.core.qr.domain.task;
 
-import com.mryqr.common.domain.task.RepeatableTask;
+import com.mryqr.common.domain.task.RetryableTask;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.app.domain.attribute.Attribute;
@@ -23,7 +23,7 @@ import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class SyncAttributeValuesForAllQrsUnderAppTask implements RepeatableTask {
+public class SyncAttributeValuesForAllQrsUnderAppTask implements RetryableTask {
     private static final int BATCH_SIZE = 100;
     private final AppRepository appRepository;
     private final QrAttributeValueSyncer qrAttributeValueSyncer;

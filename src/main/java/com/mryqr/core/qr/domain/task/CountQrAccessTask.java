@@ -1,6 +1,6 @@
 package com.mryqr.core.qr.domain.task;
 
-import com.mryqr.common.domain.task.OnetimeTask;
+import com.mryqr.common.domain.task.NonRetryableTask;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.qr.domain.QR;
@@ -19,7 +19,7 @@ import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class CountQrAccessTask implements OnetimeTask {
+public class CountQrAccessTask implements NonRetryableTask {
     private final QrAttributeValueSyncer qrAttributeValueSyncer;
     private final QrRepository qrRepository;
 

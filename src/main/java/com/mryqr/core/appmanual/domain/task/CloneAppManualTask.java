@@ -1,6 +1,6 @@
 package com.mryqr.core.appmanual.domain.task;
 
-import com.mryqr.common.domain.task.RepeatableTask;
+import com.mryqr.common.domain.task.RetryableTask;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.appmanual.domain.AppManual;
 import com.mryqr.core.appmanual.domain.AppManualFactory;
@@ -17,7 +17,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class CloneAppManualTask implements RepeatableTask {
+public class CloneAppManualTask implements RetryableTask {
     private final AppManualRepository appManualRepository;
     private final AppManualFactory appManualFactory;
     private final AppRepository appRepository;

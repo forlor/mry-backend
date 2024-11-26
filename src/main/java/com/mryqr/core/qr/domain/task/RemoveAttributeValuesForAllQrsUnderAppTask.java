@@ -1,6 +1,6 @@
 package com.mryqr.core.qr.domain.task;
 
-import com.mryqr.common.domain.task.RepeatableTask;
+import com.mryqr.common.domain.task.RetryableTask;
 import com.mryqr.core.qr.domain.QrRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +11,7 @@ import java.util.Set;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class RemoveAttributeValuesForAllQrsUnderAppTask implements RepeatableTask {
+public class RemoveAttributeValuesForAllQrsUnderAppTask implements RetryableTask {
     private final QrRepository qrRepository;
 
     public void run(Set<String> attributeIds, String appId) {

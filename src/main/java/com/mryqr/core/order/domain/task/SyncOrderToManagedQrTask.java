@@ -1,7 +1,7 @@
 package com.mryqr.core.order.domain.task;
 
 import com.mryqr.common.domain.permission.Permission;
-import com.mryqr.common.domain.task.RepeatableTask;
+import com.mryqr.common.domain.task.RetryableTask;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.app.domain.page.Page;
@@ -61,7 +61,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class SyncOrderToManagedQrTask implements RepeatableTask {
+public class SyncOrderToManagedQrTask implements RetryableTask {
     private final OrderRepository orderRepository;
     private final TenantRepository tenantRepository;
     private final QrRepository qrRepository;

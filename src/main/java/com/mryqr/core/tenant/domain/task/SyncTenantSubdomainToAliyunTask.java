@@ -1,7 +1,7 @@
 package com.mryqr.core.tenant.domain.task;
 
 import com.mryqr.common.dns.MryDnsService;
-import com.mryqr.common.domain.task.OnetimeTask;
+import com.mryqr.common.domain.task.NonRetryableTask;
 import com.mryqr.common.properties.AliyunProperties;
 import com.mryqr.core.tenant.domain.TenantRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class SyncTenantSubdomainToAliyunTask implements OnetimeTask {
+public class SyncTenantSubdomainToAliyunTask implements NonRetryableTask {
     private final MryDnsService mryDnsService;
     private final TenantRepository tenantRepository;
     private final AliyunProperties aliyunProperties;

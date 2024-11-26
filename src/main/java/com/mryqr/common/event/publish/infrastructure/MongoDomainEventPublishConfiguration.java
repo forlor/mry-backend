@@ -1,7 +1,9 @@
-package com.mryqr.common.event.publish;
+package com.mryqr.common.event.publish.infrastructure;
 
 import com.mongodb.client.model.changestream.ChangeStreamDocument;
 import com.mongodb.client.model.changestream.OperationType;
+import com.mryqr.common.event.publish.DomainEventPublisher;
+import com.mryqr.common.event.publish.PublishingDomainEvent;
 import org.bson.Document;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

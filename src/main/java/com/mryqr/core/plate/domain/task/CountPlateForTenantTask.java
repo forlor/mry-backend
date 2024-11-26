@@ -1,6 +1,6 @@
 package com.mryqr.core.plate.domain.task;
 
-import com.mryqr.common.domain.task.RepeatableTask;
+import com.mryqr.common.domain.task.RetryableTask;
 import com.mryqr.core.plate.domain.PlateRepository;
 import com.mryqr.core.tenant.domain.TenantRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class CountPlateForTenantTask implements RepeatableTask {
+public class CountPlateForTenantTask implements RetryableTask {
     private final TenantRepository tenantRepository;
     private final PlateRepository plateRepository;
 

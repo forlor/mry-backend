@@ -1,6 +1,6 @@
 package com.mryqr.core.submission.domain.task;
 
-import com.mryqr.common.domain.task.RepeatableTask;
+import com.mryqr.common.domain.task.RetryableTask;
 import com.mryqr.core.submission.domain.SubmissionRepository;
 import com.mryqr.core.tenant.domain.TenantRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class CountSubmissionForAppTask implements RepeatableTask {
+public class CountSubmissionForAppTask implements RetryableTask {
     private final TenantRepository tenantRepository;
     private final SubmissionRepository submissionRepository;
 

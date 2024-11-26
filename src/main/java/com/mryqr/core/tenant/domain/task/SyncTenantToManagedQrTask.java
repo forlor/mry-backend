@@ -3,7 +3,7 @@ package com.mryqr.core.tenant.domain.task;
 import com.mryqr.common.domain.AggregateRoot;
 import com.mryqr.common.domain.invoice.InvoiceTitle;
 import com.mryqr.common.domain.permission.Permission;
-import com.mryqr.common.domain.task.RepeatableTask;
+import com.mryqr.common.domain.task.RetryableTask;
 import com.mryqr.common.properties.PropertyService;
 import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.AppRepository;
@@ -66,7 +66,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class SyncTenantToManagedQrTask implements RepeatableTask {
+public class SyncTenantToManagedQrTask implements RetryableTask {
     private final TenantRepository tenantRepository;
     private final AppRepository appRepository;
     private final QrRepository qrRepository;

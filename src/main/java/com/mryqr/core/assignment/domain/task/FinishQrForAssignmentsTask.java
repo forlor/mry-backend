@@ -1,7 +1,7 @@
 package com.mryqr.core.assignment.domain.task;
 
 
-import com.mryqr.common.domain.task.RepeatableTask;
+import com.mryqr.common.domain.task.RetryableTask;
 import com.mryqr.core.assignment.domain.Assignment;
 import com.mryqr.core.assignment.domain.AssignmentFinishedQr;
 import com.mryqr.core.assignment.domain.AssignmentRepository;
@@ -17,7 +17,7 @@ import static com.mryqr.common.domain.user.User.NOUSER;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class FinishQrForAssignmentsTask implements RepeatableTask {
+public class FinishQrForAssignmentsTask implements RetryableTask {
     private final AssignmentRepository assignmentRepository;
 
     public void run(String qrId, String submissionId, String appId, String pageId, String operatorId, Instant finishedAt) {

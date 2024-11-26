@@ -32,7 +32,7 @@ public class SyncConsumeDomainEventHandlerInterceptor implements HandlerIntercep
     private final PublishingDomainEventDao publishingDomainEventDao;
     private final DomainEventConsumer<DomainEvent> domainEventConsumer;
 
-    @After("execution(* com.mryqr.common.event.publish.PublishingDomainEventDao.stage(..))")
+    @After("execution(* com.mryqr.common.event.publish.infrastructure.MongoPublishingDomainEventDao.stage(..))")
     public void storeDomainEventIds(JoinPoint joinPoint) {
         if (joinPoint.getArgs()[0] instanceof List<?> events) {
             events.forEach((Object event) -> {

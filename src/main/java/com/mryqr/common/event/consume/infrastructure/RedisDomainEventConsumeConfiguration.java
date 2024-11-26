@@ -1,4 +1,4 @@
-package com.mryqr.common.event.consume;
+package com.mryqr.common.event.consume.infrastructure;
 
 
 import com.mryqr.common.properties.MryRedisProperties;

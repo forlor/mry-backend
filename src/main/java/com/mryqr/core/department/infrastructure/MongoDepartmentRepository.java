@@ -3,7 +3,7 @@ package com.mryqr.core.department.infrastructure;
 import com.mongodb.client.result.UpdateResult;
 import com.mryqr.common.domain.user.User;
 import com.mryqr.common.exception.MryException;
-import com.mryqr.common.oss.mongo.MongoBaseRepository;
+import com.mryqr.common.mongo.MongoBaseRepository;
 import com.mryqr.core.department.domain.Department;
 import com.mryqr.core.department.domain.DepartmentRepository;
 import com.mryqr.core.department.domain.TenantCachedDepartment;

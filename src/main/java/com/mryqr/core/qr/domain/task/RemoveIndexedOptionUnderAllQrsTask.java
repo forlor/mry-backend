@@ -1,6 +1,6 @@
 package com.mryqr.core.qr.domain.task;
 
-import com.mryqr.common.domain.task.RepeatableTask;
+import com.mryqr.common.domain.task.RetryableTask;
 import com.mryqr.core.app.domain.AppRepository;
 import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.qr.domain.QrRepository;
@@ -13,7 +13,7 @@ import java.util.List;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class RemoveIndexedOptionUnderAllQrsTask implements RepeatableTask {
+public class RemoveIndexedOptionUnderAllQrsTask implements RetryableTask {
     private final AppRepository appRepository;
     private final QrRepository qrRepository;
 

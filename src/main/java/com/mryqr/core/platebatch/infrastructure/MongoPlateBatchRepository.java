@@ -3,7 +3,7 @@ package com.mryqr.core.platebatch.infrastructure;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import com.mryqr.common.domain.user.User;
-import com.mryqr.common.oss.mongo.MongoBaseRepository;
+import com.mryqr.common.mongo.MongoBaseRepository;
 import com.mryqr.core.platebatch.domain.PlateBatch;
 import com.mryqr.core.platebatch.domain.PlateBatchRepository;
 import org.springframework.data.mongodb.core.query.Query;

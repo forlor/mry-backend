@@ -1,6 +1,7 @@
-package com.mryqr.common.event.publish;
+package com.mryqr.common.event.publish.infrastructure;
 
 import com.mryqr.common.event.DomainEvent;
+import com.mryqr.common.event.publish.DomainEventSender;
 import com.mryqr.common.properties.MryRedisProperties;
 import com.mryqr.common.utils.MryObjectMapper;
 import lombok.RequiredArgsConstructor;

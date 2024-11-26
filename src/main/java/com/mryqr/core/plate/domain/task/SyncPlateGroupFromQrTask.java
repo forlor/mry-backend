@@ -1,6 +1,6 @@
 package com.mryqr.core.plate.domain.task;
 
-import com.mryqr.common.domain.task.RepeatableTask;
+import com.mryqr.common.domain.task.RetryableTask;
 import com.mryqr.core.plate.domain.Plate;
 import com.mryqr.core.plate.domain.PlateRepository;
 import com.mryqr.core.qr.domain.QrRepository;
@@ -13,7 +13,7 @@ import static com.mryqr.common.domain.user.User.NOUSER;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class SyncPlateGroupFromQrTask implements RepeatableTask {
+public class SyncPlateGroupFromQrTask implements RetryableTask {
     private final QrRepository qrRepository;
     private final PlateRepository plateRepository;
 
