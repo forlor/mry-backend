@@ -62,7 +62,7 @@ mry:
   common:
     httpsEnabled: false
     baseDomainName: build.mryqr.com
-    limitRate: false
+    limitRate: true
     webhookUserName: tFi7iVdAQwSQDnrhDGp7Vg
     webhookPassword: Dup7ANsTR0q6bIpbDTCl5w
   redis:
