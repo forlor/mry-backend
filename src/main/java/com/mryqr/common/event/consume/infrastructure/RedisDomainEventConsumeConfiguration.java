@@ -10,12 +10,11 @@ import com.mryqr.common.utils.MryObjectMapper;
 import io.micrometer.tracing.ScopedSpan;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.core.task.TaskExecutor;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.stream.ObjectRecord;
 import org.springframework.data.redis.stream.StreamMessageListenerContainer;
@@ -35,8 +34,6 @@ import static org.springframework.data.redis.connection.stream.StreamOffset.crea
 @ConditionalOnProperty(value = "mry.redis.domainEventStreamEnabled", havingValue = "true")
 public class RedisDomainEventConsumeConfiguration {
     private final MryRedisProperties mryRedisProperties;
-    @Qualifier("consumeDomainEventTaskExecutor")
-    private final TaskExecutor consumeDomainEventTaskExecutor;
     private final MryObjectMapper mryObjectMapper;
     private final DomainEventConsumer<DomainEvent> domainEventConsumer;
     private final MryTracingService mryTracingService;
@@ -46,7 +43,7 @@ public class RedisDomainEventConsumeConfiguration {
         var options = StreamMessageListenerContainerOptions
                 .builder()
                 .batchSize(20)
-                .executor(consumeDomainEventTaskExecutor)
+                .executor(new SimpleAsyncTaskExecutor("mry-event-"))
                 .targetType(String.class)
                 .errorHandler(new MryRedisErrorHandler())
                 .build();

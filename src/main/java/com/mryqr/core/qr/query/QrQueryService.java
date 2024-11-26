@@ -43,7 +43,6 @@ import com.mryqr.core.tenant.domain.TenantRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.MapUtils;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.geo.Point;
@@ -103,8 +102,7 @@ public class QrQueryService {
     private final GroupRepository groupRepository;
     private final GroupHierarchyRepository groupHierarchyRepository;
 
-    @Qualifier("qrAccessCountTaskExecutor")
-    private final TaskExecutor qrAccessCountTaskExecutor;
+    private final TaskExecutor taskExecutor;
     private final MryRateLimiter mryRateLimiter;
 
     public QSubmissionQr fetchSubmissionQr(String plateId, User user) {
@@ -176,7 +174,7 @@ public class QrQueryService {
                 .setting(app.getSetting())
                 .build();
 
-        qrAccessCountTaskExecutor.execute(() -> countQrAccessTask.run(qr, app));
+        taskExecutor.execute(() -> countQrAccessTask.run(qr, app));
 
         return QSubmissionQr.builder()
                 .qr(qrDetail)
