@@ -17,7 +17,7 @@ import static com.mryqr.common.domain.user.User.NOUSER;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class OneTimeSubmissionCreatedEventHandler extends AbstractDomainEventHandler<SubmissionCreatedEvent> {
+public class UpdateCirculationSubmissionCreatedEventHandler extends AbstractDomainEventHandler<SubmissionCreatedEvent> {
     private final AppRepository appRepository;
     private final QrRepository qrRepository;
 
