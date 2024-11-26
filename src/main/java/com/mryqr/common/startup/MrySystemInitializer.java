@@ -12,6 +12,7 @@ import com.mryqr.management.offencereport.MryOffenceReportApp;
 import com.mryqr.management.operation.MryOperationApp;
 import com.mryqr.management.order.MryOrderManageApp;
 import com.mryqr.management.printingproduct.PrintingProductApp;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -26,10 +27,15 @@ import static com.mryqr.common.utils.MongoCriteriaUtils.mongoSortableFieldOf;
 import static com.mryqr.common.utils.MongoCriteriaUtils.mongoTextFieldOf;
 import static com.mryqr.common.utils.MryConstants.*;
 import static java.util.Locale.CHINESE;
+import static java.util.TimeZone.getTimeZone;
+import static java.util.TimeZone.setDefault;
+
 import static org.springframework.data.domain.Sort.Direction.DESC;
 import static org.springframework.data.mongodb.core.CollectionOptions.just;
 import static org.springframework.data.mongodb.core.index.GeoSpatialIndexType.GEO_2DSPHERE;
 import static org.springframework.data.mongodb.core.query.Collation.of;
+
+import java.time.ZoneId;
 
 @Slf4j
 @Component
@@ -48,6 +54,11 @@ public class MrySystemInitializer implements ApplicationListener<ApplicationRead
     private final WxAccessTokenService wxAccessTokenService;
     private final WxJsSdkService wxJsSdkService;
     private final AdministrativeProvider administrativeProvider;
+
+    @PostConstruct
+    void init() {
+        setDefault(getTimeZone(ZoneId.of(CHINA_TIME_ZONE)));
+    }
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
