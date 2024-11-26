@@ -115,7 +115,6 @@ class TenantControllerApiTest extends BaseApiTest {
   @Test
   public void should_update_logo() {
     LoginResponse response = setupApi.registerWithLogin(rMobile(), rPassword());
-    setupApi.updateTenantPackages(response.getTenantId(), BASIC);
     UploadedFile logo = rImageFile();
     TenantApi.updateLogo(response.getJwt(), UpdateTenantLogoCommand.builder().logo(logo).build());
     Tenant tenant = tenantRepository.byId(response.getTenantId());
@@ -255,7 +254,6 @@ class TenantControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_logo() {
     LoginResponse response = setupApi.registerWithLogin(rMobile(), rPassword());
-    setupApi.updateTenantPackages(response.getTenantId(), BASIC);
     UploadedFile logo = rImageFile();
     TenantApi.updateLogo(response.getJwt(), UpdateTenantLogoCommand.builder().logo(logo).build());
     QTenantLogo qLogo = TenantApi.fetchLogo(response.getJwt());
