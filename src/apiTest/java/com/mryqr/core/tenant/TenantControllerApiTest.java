@@ -144,6 +144,9 @@ class TenantControllerApiTest extends BaseApiTest {
   @Test
   public void should_fail_update_subdomain_is_plan_not_allowed() {
     LoginResponse response = setupApi.registerWithLogin(rMobile(), rPassword());
+    Tenant theTenant = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant, theTenant.currentPlan().withCustomSubdomainAllowed(false));
+
     UpdateTenantSubdomainCommand command = UpdateTenantSubdomainCommand.builder().subdomainPrefix(rSubdomainPrefix()).build();
     assertError(() -> TenantApi.updateSubdomainRaw(response.getJwt(), command), UPDATE_SUBDOMAIN_NOT_ALLOWED);
   }

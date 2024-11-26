@@ -591,10 +591,11 @@ public class CreateAssignmentsJobTest extends BaseApiTest {
 
     Tenant theTenant = tenantRepository.byId(response.getTenantId());
     setupApi.updateTenantPlan(theTenant, theTenant.currentPlan().withAssignmentAllowed(false));
-
     createAssignmentsJob.run(of(2020, 7, 17, 14, 0));
     assertFalse(assignmentRepository.latestForGroup(response.getDefaultGroupId()).isPresent());
 
+    Tenant theTenant2 = tenantRepository.byId(response.getTenantId());
+    setupApi.updateTenantPlan(theTenant2, theTenant2.currentPlan().withAssignmentAllowed(true));
     createAssignmentsJob.run(of(2020, 7, 17, 14, 0));
     assertTrue(assignmentRepository.latestForGroup(response.getDefaultGroupId()).isPresent());
   }

@@ -1,6 +1,11 @@
 package com.mryqr.core.plan.domain;
 
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
+import static com.mryqr.core.app.domain.page.control.ControlType.ITEM_COUNT;
+import static com.mryqr.core.app.domain.page.control.ControlType.MEMBER_SELECT;
+import static com.mryqr.core.app.domain.page.control.ControlType.NUMBER_RANGE_SEGMENT;
+import static com.mryqr.core.app.domain.page.control.ControlType.TIME_SEGMENT;
+import static com.mryqr.core.app.domain.page.control.ControlType.VIDEO_VIEW;
 import static com.mryqr.core.plan.domain.PlanType.ADVANCED;
 import static com.mryqr.core.plan.domain.PlanType.BASIC;
 import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
@@ -23,8 +28,16 @@ import lombok.With;
 @AllArgsConstructor(access = PRIVATE)
 public class Plan {
   private static final Set<ControlType> FREE_PLAN_EXCLUDES = Set.of();
-  private static final Set<ControlType> BASIC_PLAN_EXCLUDES = Set.of();
 
+  private static final Set<ControlType> BASIC_PLAN_EXCLUDES = Set.of(
+      VIDEO_VIEW,
+      TIME_SEGMENT,
+      NUMBER_RANGE_SEGMENT,
+      MEMBER_SELECT,
+      ITEM_COUNT
+  );
+
+  // 只有FREE版本套餐经过单独提权设置，进而用于码如云在线免费服务，其他类型套餐均保留商业化阶梯分布
   public static final Plan FREE_PLAN = Plan.builder()
       .type(FREE)
       .maxAppCount(5)
@@ -57,7 +70,7 @@ public class Plan {
       .maxAppCount(5)
       .maxQrCount(10000)
       .maxSubmissionCount(50000)
-      .maxMemberCount(30)
+      .maxMemberCount(20)
       .maxStorage(3)
       .maxSmsCountPerMonth(200)
       .maxDepartmentCount(20)
@@ -68,18 +81,18 @@ public class Plan {
       .customLogoAllowed(true)
       .hideBottomMryLogo(false)
       .hideAds(false)
-      .videoAudioAllowed(true)
+      .videoAudioAllowed(false)
       .developerAllowed(false)
-      .reportingAllowed(true)
+      .reportingAllowed(false)
       .kanbanAllowed(true)
-      .submissionNotifyAllowed(true)
+      .submissionNotifyAllowed(false)
       .batchImportQrAllowed(true)
       .batchImportMemberAllowed(true)
-      .submissionApprovalAllowed(true)
-      .assignmentAllowed(true)
+      .submissionApprovalAllowed(false)
+      .assignmentAllowed(false)
       .build();
 
-  public static final Plan ADVANCED_PLAN = Plan.builder()//有租户需要调额度的话，优先用这个
+  public static final Plan ADVANCED_PLAN = Plan.builder()
       .type(ADVANCED)
       .maxAppCount(20)
       .maxQrCount(100000)
@@ -96,7 +109,7 @@ public class Plan {
       .hideBottomMryLogo(true)
       .hideAds(true)
       .videoAudioAllowed(true)
-      .developerAllowed(true)
+      .developerAllowed(false)
       .reportingAllowed(true)
       .kanbanAllowed(true)
       .submissionNotifyAllowed(true)
@@ -118,12 +131,12 @@ public class Plan {
       .maxGroupCountPerApp(200)
       .maxVideoTrafficPerMonth(300)
       .supportedControlTypes(allControlTypes())
-      .customSubdomainAllowed(false)
+      .customSubdomainAllowed(true)
       .customLogoAllowed(true)
-      .hideBottomMryLogo(false)
-      .hideAds(false)
+      .hideBottomMryLogo(true)
+      .hideAds(true)
       .videoAudioAllowed(true)
-      .developerAllowed(false)
+      .developerAllowed(true)
       .reportingAllowed(true)
       .kanbanAllowed(true)
       .submissionNotifyAllowed(true)
@@ -145,7 +158,7 @@ public class Plan {
       .maxGroupCountPerApp(300)
       .maxVideoTrafficPerMonth(1000)
       .supportedControlTypes(allControlTypes())
-      .customSubdomainAllowed(false)
+      .customSubdomainAllowed(true)
       .customLogoAllowed(true)
       .hideBottomMryLogo(true)
       .hideAds(true)
