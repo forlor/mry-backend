@@ -4,6 +4,7 @@ import com.mryqr.core.app.domain.page.control.ControlType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
+import lombok.With;
 
 import java.util.Map;
 import java.util.Set;
@@ -12,6 +13,7 @@ import static com.google.common.collect.ImmutableSet.toImmutableSet;
 import static com.mryqr.core.plan.domain.PlanType.*;
 import static lombok.AccessLevel.PRIVATE;
 
+@With
 @Value
 @Builder
 @AllArgsConstructor(access = PRIVATE)
