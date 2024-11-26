@@ -41,7 +41,10 @@ public class SchedulingConfiguration {
     //兜底发送尚未发送的事件，每2分钟运行，不能用@SchedulerLock，因为publishDomainEvents本身有分布式锁
     @Scheduled(cron = "0 */2 * * * ?")
     public void houseKeepPublishDomainEvent() {
-        domainEventPublisher.publishStagedDomainEvents();
+        int count = domainEventPublisher.publishStagedDomainEvents();
+        if (count > 0) {
+            log.info("House keep published {} domain events.", count);
+        }
     }
 
     //根据AssignmentPlan创建Assignment，每小时第1分钟运行，不能整点，因为整点有可能会被计算成上一小时

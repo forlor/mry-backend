@@ -30,7 +30,7 @@ public class DomainEventPublisher {
     private final DomainEventSender domainEventSender;
     private final TaskExecutor taskExecutor;
 
-    public void publishStagedDomainEvents() {
+    public int publishStagedDomainEvents() {
         try {
             // Use a distributed lock to ensure only one node get run as a time, otherwise it may easily result in duplicated events
             var result = lockingTaskExecutor.executeWithLock(this::doPublishStagedDomainEvents,
@@ -38,8 +38,10 @@ public class DomainEventPublisher {
             Integer publishedCount = result.getResult();
             int count = publishedCount != null ? publishedCount : 0;
             log.debug("Published {} domain events.", count);
+            return count;
         } catch (Throwable e) {
             log.error("Error happened while publish domain events.", e);
+            return 0;
         }
     }
 
