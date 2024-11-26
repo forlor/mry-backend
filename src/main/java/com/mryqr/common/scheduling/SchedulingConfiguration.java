@@ -8,6 +8,7 @@ import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.THIS_W
 import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.THIS_YEAR;
 
 import com.mryqr.common.event.publish.DomainEventPublisher;
+import com.mryqr.common.profile.NonBuildProfile;
 import com.mryqr.core.assignment.job.CreateAssignmentsJob;
 import com.mryqr.core.assignment.job.ExpireAssignmentsJob;
 import com.mryqr.core.assignment.job.NearExpireAssignmentsJob;
@@ -19,13 +20,12 @@ import lombok.extern.slf4j.Slf4j;
 import net.javacrumbs.shedlock.spring.annotation.EnableSchedulerLock;
 import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
 @Slf4j
-@Profile("!ci")
 @Configuration
+@NonBuildProfile
 @EnableScheduling
 @RequiredArgsConstructor
 @EnableSchedulerLock(defaultLockAtMostFor = "60m", defaultLockAtLeastFor = "10s")
@@ -110,3 +110,4 @@ public class SchedulingConfiguration {
     mrySelfOperationJob.run();
   }
 }
+

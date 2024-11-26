@@ -8,7 +8,7 @@ spring:
       max-request-size: 10MB
   data:
     mongodb:
-      uri: mongodb://localhost:27018/mry_ci_db
+      uri: mongodb://localhost:27018/mry_build_db
     redis:
       database: 1
       host: localhost
@@ -41,7 +41,7 @@ mry:
     ossUtilCommand: /opt/bin/ossutilmac64
     ossUtilConfigFile: ~/.ossutilconfig
   jwt:
-    issuer: mry-ci-issuer
+    issuer: mry-build-issuer
     secret: 3740243432434gegewf
     expire: 7200
     aheadAutoRefresh: 60
@@ -61,13 +61,13 @@ mry:
     wxApiV3Key: notapplicable
   common:
     httpsEnabled: false
-    baseDomainName: ci.mryqr.com
+    baseDomainName: build.mryqr.com
     limitRate: false
     webhookUserName: tFi7iVdAQwSQDnrhDGp7Vg
     webhookPassword: Dup7ANsTR0q6bIpbDTCl5w
   redis:
     domainEventStreamEnabled: false
-    domainEventStreamPrefix: DomainEvent.CI
+    domainEventStreamPrefix: DomainEvent.BUILD
     domainEventStreamCount: 10
-    notificationStream: Notification.CI
-    webhookStream: Webhook.CI
+    notificationStream: Notification.BUILD
+    webhookStream: Webhook.BUILD
