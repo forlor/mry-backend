@@ -19,19 +19,28 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Slf4j
 @Aspect
 @Component
 @BuildProfile
+@Configuration
 @RequiredArgsConstructor
 @SuppressWarnings({"unchecked"})
-public class SyncConsumeDomainEventHandlerInterceptor implements HandlerInterceptor {
+public class SyncConsumeDomainEventInterceptor implements HandlerInterceptor, WebMvcConfigurer {
   private final PublishingDomainEventDao publishingDomainEventDao;
   private final DomainEventConsumer<DomainEvent> domainEventConsumer;
+
+  @Override
+  public void addInterceptors(InterceptorRegistry registry) {
+    registry.addInterceptor(this);
+  }
 
   @After("execution(* com.mryqr.common.event.publish.PublishingDomainEventDao.stage(..))")
   public void storeDomainEventIds(JoinPoint joinPoint) {
