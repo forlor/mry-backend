@@ -17,7 +17,6 @@ import static com.mryqr.common.webhook.WebhookPayloadType.SUBMISSION_UPDATED;
 import static com.mryqr.core.app.domain.config.AppLandingPageType.DEFAULT;
 import static com.mryqr.core.app.domain.page.setting.SubmissionWebhookType.ON_APPROVAL;
 import static com.mryqr.core.app.domain.page.setting.SubmissionWebhookType.ON_UPDATE;
-import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
 import static com.mryqr.utils.RandomTestFixture.defaultPageSettingBuilder;
 import static com.mryqr.utils.RandomTestFixture.defaultSingleLineTextControl;
 import static com.mryqr.utils.RandomTestFixture.rAnswer;
@@ -68,7 +67,6 @@ public class AppWebhookApiTest extends BaseApiTest {
   @Test
   public void should_call_webhook_when_create_submission() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     String username = randomAlphanumeric(10);
     String password = randomAlphanumeric(10);
@@ -112,7 +110,6 @@ public class AppWebhookApiTest extends BaseApiTest {
   @Test
   public void should_call_webhook_when_update_submission() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     String username = randomAlphanumeric(10);
     String password = randomAlphanumeric(10);
@@ -157,7 +154,6 @@ public class AppWebhookApiTest extends BaseApiTest {
   @Test
   public void should_call_webhook_when_approve_submission() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     String username = randomAlphanumeric(10);
     String password = randomAlphanumeric(10);
@@ -203,7 +199,6 @@ public class AppWebhookApiTest extends BaseApiTest {
   @Test
   public void should_call_webhook_when_delete_submission() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     String username = randomAlphanumeric(10);
     String password = randomAlphanumeric(10);
@@ -243,7 +238,6 @@ public class AppWebhookApiTest extends BaseApiTest {
   @Test
   public void should_call_webhook_when_create_qr() {
     PreparedAppResponse response = setupApi.registerWithApp();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     String username = randomAlphanumeric(10);
     String password = randomAlphanumeric(10);
@@ -304,7 +298,6 @@ public class AppWebhookApiTest extends BaseApiTest {
   @Test
   public void should_call_webhook_when_update_qr() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     String username = randomAlphanumeric(10);
     String password = randomAlphanumeric(10);
@@ -367,7 +360,6 @@ public class AppWebhookApiTest extends BaseApiTest {
   @Test
   public void should_call_webhook_when_delete_qr() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     String username = randomAlphanumeric(10);
     String password = randomAlphanumeric(10);
@@ -415,7 +407,6 @@ public class AppWebhookApiTest extends BaseApiTest {
   @Test
   public void should_not_call_webhook_if_plan_not_allowed() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     String username = randomAlphanumeric(10);
     String password = randomAlphanumeric(10);
@@ -444,7 +435,6 @@ public class AppWebhookApiTest extends BaseApiTest {
   @Test
   public void should_not_call_webhook_if_not_enabled() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     String username = randomAlphanumeric(10);
     String password = randomAlphanumeric(10);

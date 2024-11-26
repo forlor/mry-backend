@@ -50,9 +50,6 @@ import static com.mryqr.core.app.domain.page.control.ControlType.TIME_SEGMENT;
 import static com.mryqr.core.app.domain.page.setting.SubmitType.ONCE_PER_INSTANCE;
 import static com.mryqr.core.member.MemberApi.createMemberAndLogin;
 import static com.mryqr.core.member.domain.Member.newMemberId;
-import static com.mryqr.core.plan.domain.Plan.PROFESSIONAL_PLAN;
-import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
-import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
 import static com.mryqr.utils.RandomTestFixture.defaultPageApproveSettingBuilder;
 import static com.mryqr.utils.RandomTestFixture.defaultPageBuilder;
 import static com.mryqr.utils.RandomTestFixture.defaultPageSettingBuilder;
@@ -191,7 +188,6 @@ class AppControllerApiTest extends BaseApiTest {
   @Test
   public void should_copy_app() {
     PreparedAppResponse response = setupApi.registerWithApp();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     String appName = rAppName();
     CreateAppResponse createAppResponse = AppApi.copyApp(response.getJwt(),
@@ -215,7 +211,6 @@ class AppControllerApiTest extends BaseApiTest {
   @Test
   public void non_tenant_admin_should_not_copy_app() {
     PreparedAppResponse response = setupApi.registerWithApp();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     CreateMemberResponse memberResponse = createMemberAndLogin(response.getJwt());
     AppApi.setAppManagers(response.getJwt(), response.getAppId(), memberResponse.getMemberId());
@@ -226,7 +221,7 @@ class AppControllerApiTest extends BaseApiTest {
   @Test
   public void should_fail_copy_app_if_name_already_exists() {
     LoginResponse loginResponse = setupApi.registerWithLogin();
-    setupApi.updateTenantPackages(loginResponse.getTenantId(), PROFESSIONAL);
+
     String name = rAppName();
     CreateAppResponse appResponse = AppApi.createApp(loginResponse.getJwt(), name);
     assertError(
@@ -237,7 +232,7 @@ class AppControllerApiTest extends BaseApiTest {
   @Test
   public void should_fail_copy_app_if_package_not_enough_for_control() {
     PreparedAppResponse response = setupApi.registerWithApp();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     PTimeSegmentControl control = defaultTimeSegmentControlBuilder().build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
     Tenant theTenant = tenantRepository.byId(response.getTenantId());
@@ -251,10 +246,9 @@ class AppControllerApiTest extends BaseApiTest {
   @Test
   public void should_fail_copy_app_if_max_app_count_reached() {
     PreparedAppResponse response = setupApi.registerWithApp();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     Tenant tenant = tenantRepository.byId(response.getTenantId());
-    tenant.setAppCount(PROFESSIONAL_PLAN.getMaxAppCount(), NOUSER);
+    tenant.setAppCount(tenant.currentPlan().getMaxAppCount(), NOUSER);
     tenantRepository.save(tenant);
 
     assertError(
@@ -771,7 +765,7 @@ class AppControllerApiTest extends BaseApiTest {
   @Test
   public void root_should_fetch_all_managed_app_list() {
     LoginResponse response = setupApi.registerWithLogin();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
+
     IntStream.rangeClosed(1, 30).forEach(value -> AppApi.createApp(response.getJwt(), rAppName()));
 
     PagedList<QManagedListApp> firstPage = AppApi.listMyManagedApps(response.getJwt(),
@@ -857,7 +851,6 @@ class AppControllerApiTest extends BaseApiTest {
   public void tenant_admin_should_fetch_own_viewable_apps() {
     LoginResponse loginResponse = setupApi.registerWithLogin(rMobile(), rPassword());
     String loginResponseJwt = loginResponse.getJwt();
-    setupApi.updateTenantPackages(loginResponse.getTenantId(), PROFESSIONAL);
 
     CreateAppResponse appResponse1 = AppApi.createApp(loginResponseJwt, AS_TENANT_MEMBER, AS_TENANT_MEMBER);
     CreateAppResponse appResponse2 = AppApi.createApp(loginResponseJwt, AS_TENANT_MEMBER, AS_GROUP_MEMBER);
@@ -882,7 +875,6 @@ class AppControllerApiTest extends BaseApiTest {
   public void app_manager_should_fetch_own_viewable_apps() {
     LoginResponse response = setupApi.registerWithLogin(rMobile(), rPassword());
     CreateMemberResponse memberResponse = createMemberAndLogin(response.getJwt(), rMemberName(), rMobile(), rPassword());
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     CreateAppResponse appResponse1 = AppApi.createApp(response.getJwt());
     CreateAppResponse appResponse2 = AppApi.createApp(response.getJwt());
@@ -898,7 +890,7 @@ class AppControllerApiTest extends BaseApiTest {
   @Test
   public void group_member_should_fetch_own_viewable_apps() {
     LoginResponse response = setupApi.registerWithLogin(rMobile(), rPassword());
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     CreateMemberResponse memberResponse = createMemberAndLogin(response.getJwt(), rMemberName(), rMobile(), rPassword());
 
     CreateAppResponse appResponse1 = AppApi.createApp(response.getJwt(), AS_TENANT_MEMBER, AS_GROUP_MEMBER);
@@ -914,7 +906,6 @@ class AppControllerApiTest extends BaseApiTest {
   public void tenant_common_member_should_fetch_own_viewable_apps() {
     LoginResponse response = setupApi.registerWithLogin(rMobile(), rPassword());
     CreateMemberResponse memberResponse = createMemberAndLogin(response.getJwt(), rMemberName(), rMobile(), rPassword());
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     CreateAppResponse appResponse1 = AppApi.createApp(response.getJwt(), AS_TENANT_MEMBER, AS_TENANT_MEMBER);
     CreateAppResponse appResponse2 = AppApi.createApp(response.getJwt());
@@ -1412,7 +1403,7 @@ class AppControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_operational_app_without_invisible_groups_for_group_member_permission() {
     PreparedAppResponse response = setupApi.registerWithApp();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     AppApi.updateAppOperationPermission(response.getJwt(), response.getAppId(), AS_GROUP_MEMBER);
 
     String managedGroupId = GroupApi.createGroup(response.getJwt(), response.getAppId());
@@ -1510,7 +1501,7 @@ class AppControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_operational_app_without_invisible_groups_for_tenant_member_permission() {
     PreparedAppResponse response = setupApi.registerWithApp();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     AppApi.updateAppOperationPermission(response.getJwt(), response.getAppId(), AS_TENANT_MEMBER);
 
     String managedGroupId = GroupApi.createGroup(response.getJwt(), response.getAppId());

@@ -11,7 +11,6 @@ import static com.mryqr.common.exception.ErrorCode.CONTROL_NOT_COMPLETE;
 import static com.mryqr.common.exception.ErrorCode.CONTROL_TYPE_NOT_ALLOWED;
 import static com.mryqr.common.utils.UuidGenerator.newShortUuid;
 import static com.mryqr.core.app.domain.page.control.ControlType.TIME_SEGMENT;
-import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
 import static com.mryqr.utils.RandomTestFixture.defaultNumberInputControlBuilder;
 import static com.mryqr.utils.RandomTestFixture.defaultSingleLineTextControl;
 import static com.mryqr.utils.RandomTestFixture.defaultSubmissionReferenceControlBuilder;
@@ -43,7 +42,6 @@ public class PresentationControllerApiTest extends BaseApiTest {
   @Test
   public void public_user_should_be_able_to_get_non_chart_presentation_if_control_if_public() {
     PreparedQrResponse qrResponse = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(qrResponse.getTenantId(), PROFESSIONAL);
 
     FSingleLineTextControl singleLineTextControl = defaultSingleLineTextControl();
     PSubmissionReferenceControl referenceControl = defaultSubmissionReferenceControlBuilder().pageId(qrResponse.getHomePageId()).build();
@@ -61,7 +59,6 @@ public class PresentationControllerApiTest extends BaseApiTest {
   @Test
   public void public_user_should_not_be_able_to_get_chart_presentation_if_control_is_public() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(3).build();
     PTimeSegmentControl control = defaultTimeSegmentControlBuilder()
@@ -85,7 +82,6 @@ public class PresentationControllerApiTest extends BaseApiTest {
   @Test
   public void should_return_401_if_not_logged_in_but_login_required() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(3).build();
     PTimeSegmentControl control = defaultTimeSegmentControlBuilder()
@@ -109,7 +105,6 @@ public class PresentationControllerApiTest extends BaseApiTest {
   @Test
   public void should_return_403_if_permission_not_enough() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(3).build();
     PTimeSegmentControl control = defaultTimeSegmentControlBuilder()
@@ -134,7 +129,6 @@ public class PresentationControllerApiTest extends BaseApiTest {
   @Test
   public void should_return_error_if_package_too_low_for_statistics_controls() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(3).build();
     PTimeSegmentControl control = defaultTimeSegmentControlBuilder()
@@ -162,7 +156,6 @@ public class PresentationControllerApiTest extends BaseApiTest {
   @Test
   public void should_return_error_if_control_not_complete() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(3).build();
     PTimeSegmentControl control = defaultTimeSegmentControlBuilder()

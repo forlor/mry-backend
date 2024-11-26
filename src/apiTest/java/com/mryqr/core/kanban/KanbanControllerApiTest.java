@@ -4,7 +4,6 @@ import static com.mryqr.common.exception.ErrorCode.KANBAN_NOT_ALLOWED;
 import static com.mryqr.core.app.domain.attribute.Attribute.newAttributeId;
 import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.NO_LIMIT;
 import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_LAST;
-import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
 import static com.mryqr.utils.RandomTestFixture.defaultCheckboxControl;
 import static com.mryqr.utils.RandomTestFixture.defaultItemStatusControl;
 import static com.mryqr.utils.RandomTestFixture.rAnswerBuilder;
@@ -33,7 +32,7 @@ public class KanbanControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_kanban() {
     PreparedAppResponse response = setupApi.registerWithApp();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
+
     FItemStatusControl control = defaultItemStatusControl();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
     Attribute attribute = Attribute.builder().name(rAttributeName()).id(newAttributeId()).type(CONTROL_LAST)
@@ -64,7 +63,7 @@ public class KanbanControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_kanban_with_sub_groups() {
     PreparedAppResponse response = setupApi.registerWithApp();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
+
     FItemStatusControl control = defaultItemStatusControl();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
     Attribute attribute = Attribute.builder().name(rAttributeName()).id(newAttributeId()).type(CONTROL_LAST)

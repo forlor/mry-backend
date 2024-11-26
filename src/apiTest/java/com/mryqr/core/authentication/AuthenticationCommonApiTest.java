@@ -2,7 +2,6 @@ package com.mryqr.core.authentication;
 
 import static com.mryqr.common.domain.user.User.NOUSER;
 import static com.mryqr.common.utils.MryConstants.AUTH_COOKIE_NAME;
-import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
 import static com.mryqr.utils.RandomTestFixture.rMobile;
 import static com.mryqr.utils.RandomTestFixture.rPassword;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -54,7 +53,6 @@ public class AuthenticationCommonApiTest extends BaseApiTest {
     PreparedAppResponse response = setupApi.registerWithApp();
 
     Tenant tenant = tenantRepository.byId(response.getTenantId());
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     BaseApiTest.given()
         .auth().preemptive()
@@ -100,7 +98,6 @@ public class AuthenticationCommonApiTest extends BaseApiTest {
   public void should_fail_api_authentication_if_credential_not_match() {
     PreparedAppResponse response = setupApi.registerWithApp();
     Tenant tenant = tenantRepository.byId(response.getTenantId());
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     BaseApiTest.given()
         .auth().preemptive()
@@ -114,7 +111,7 @@ public class AuthenticationCommonApiTest extends BaseApiTest {
   @Test
   public void should_fail_api_authentication_if_tenant_not_active() {
     PreparedAppResponse response = setupApi.registerWithApp();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
+
     Tenant tenant = tenantRepository.byId(response.getTenantId());
     tenant.deactivate(NOUSER);
     tenantRepository.save(tenant);

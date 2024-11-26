@@ -17,7 +17,6 @@ import static com.mryqr.core.app.domain.attribute.Attribute.newAttributeId;
 import static com.mryqr.core.app.domain.page.control.ControlType.ITEM_COUNT;
 import static com.mryqr.core.app.domain.page.control.ControlType.SECTION_TITLE;
 import static com.mryqr.core.app.domain.report.number.NumberReportType.CONTROL_NUMBER_REPORT;
-import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
 import static com.mryqr.utils.RandomTestFixture.defaultCheckboxControlBuilder;
 import static com.mryqr.utils.RandomTestFixture.defaultFillableSetting;
 import static com.mryqr.utils.RandomTestFixture.defaultItemCountControl;
@@ -116,7 +115,6 @@ public class ControlApiTest extends BaseApiTest {
   @Test
   public void delete_control_should_also_delete_control_aware_number_reports() {
     PreparedAppResponse response = setupApi.registerWithApp();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     String appId = response.getAppId();
     FNumberInputControl control = defaultNumberInputControlBuilder().precision(3).build();

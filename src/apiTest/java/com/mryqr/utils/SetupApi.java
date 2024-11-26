@@ -1,8 +1,5 @@
 package com.mryqr.utils;
 
-import static java.time.Instant.now;
-import static java.time.temporal.ChronoUnit.DAYS;
-
 import static com.mryqr.common.domain.user.User.NOUSER;
 import static com.mryqr.core.plan.domain.Plan.FLAGSHIP_PLAN;
 import static com.mryqr.utils.RandomTestFixture.rAppName;
@@ -108,12 +105,6 @@ public class SetupApi {
 
   public void updateTenantPackages(Tenant tenant, PlanType planType, Instant expireAt) {
     tenant.updatePlanType(planType, expireAt, NOUSER);
-    tenantRepository.save(tenant);
-  }
-
-  public void updateTenantPackages(String tenantId, PlanType planType) {
-    Tenant tenant = tenantRepository.byId(tenantId);
-    tenant.updatePlanType(planType, now().plus(365, DAYS), NOUSER);
     tenantRepository.save(tenant);
   }
 

@@ -13,7 +13,6 @@ import static com.mryqr.common.exception.ErrorCode.DEPARTMENT_HIERARCHY_TOO_DEEP
 import static com.mryqr.common.exception.ErrorCode.DEPARTMENT_NOT_FOUND;
 import static com.mryqr.common.exception.ErrorCode.DEPARTMENT_WITH_NAME_ALREADY_EXISTS;
 import static com.mryqr.common.exception.ErrorCode.NOT_DEPARTMENT_MEMBER;
-import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
 import static com.mryqr.utils.RandomTestFixture.rDepartmentName;
 import static com.mryqr.utils.RandomTestFixture.rEmail;
 import static com.mryqr.utils.RandomTestFixture.rMemberName;
@@ -131,7 +130,7 @@ public class DepartmentControllerApiTest extends BaseApiTest {
   @Test
   public void should_fail_create_department_if_hierarchy_too_deep() {
     LoginResponse loginResponse = setupApi.registerWithLogin();
-    setupApi.updateTenantPackages(loginResponse.getTenantId(), PROFESSIONAL);
+
     String departmentId1 = DepartmentApi.createDepartment(loginResponse.getJwt(), rDepartmentName());
     String departmentId2 = DepartmentApi.createDepartmentWithParent(loginResponse.getJwt(), departmentId1, rDepartmentName());
     String departmentId3 = DepartmentApi.createDepartmentWithParent(loginResponse.getJwt(), departmentId2, rDepartmentName());

@@ -13,7 +13,6 @@ import static com.mryqr.common.exception.ErrorCode.NOT_ALL_GROUPS_EXIST;
 import static com.mryqr.common.exception.ErrorCode.NOT_ALL_MEMBERS_EXIST;
 import static com.mryqr.common.exception.ErrorCode.PAGE_NOT_FOUND;
 import static com.mryqr.core.assignmentplan.domain.AssignmentFrequency.EVERY_MONTH;
-import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
 import static com.mryqr.utils.RandomTestFixture.defaultPage;
 import static com.mryqr.utils.RandomTestFixture.defaultRadioControl;
 import static com.mryqr.utils.RandomTestFixture.rAssignmentPlanName;
@@ -61,7 +60,6 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
   public void should_create_assignment_plan() {
     PreparedAppResponse response = setupApi.registerWithApp();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     AssignmentSetting assignmentSetting = AssignmentSetting.builder()
         .name(rAssignmentPlanName())
@@ -86,8 +84,6 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
     PreparedAppResponse response = setupApi.registerWithApp();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
 
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
-
     AssignmentSetting assignmentSetting = AssignmentSetting.builder()
         .name(rAssignmentPlanName())
         .appId(response.getAppId())
@@ -107,7 +103,6 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
   @Test
   public void should_fail_create_if_assignment_not_enabled() {
     PreparedAppResponse response = setupApi.registerWithApp();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     AssignmentSetting assignmentSetting = AssignmentSetting.builder()
         .name(rAssignmentPlanName())
@@ -151,8 +146,6 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
     PreparedAppResponse response = setupApi.registerWithApp();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
 
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
-
     AssignmentSetting assignmentSetting = AssignmentSetting.builder()
         .name(rAssignmentPlanName())
         .appId(response.getAppId())
@@ -172,8 +165,6 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
   public void should_fail_create_if_start_time_after_end_time() {
     PreparedAppResponse response = setupApi.registerWithApp();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     AssignmentSetting assignmentSetting = AssignmentSetting.builder()
         .name(rAssignmentPlanName())
@@ -195,8 +186,6 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
     PreparedAppResponse response = setupApi.registerWithApp();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
 
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
-
     AssignmentSetting assignmentSetting = AssignmentSetting.builder()
         .name(rAssignmentPlanName())
         .appId(response.getAppId())
@@ -217,8 +206,6 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
     PreparedAppResponse response = setupApi.registerWithApp();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
 
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
-
     AssignmentSetting assignmentSetting = AssignmentSetting.builder()
         .name(rAssignmentPlanName())
         .appId(response.getAppId())
@@ -238,7 +225,6 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
   public void should_update_assignment_plan_setting() {
     PreparedAppResponse response = setupApi.registerWithApp();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     AssignmentSetting assignmentSetting = AssignmentSetting.builder()
         .name(rAssignmentPlanName())
@@ -275,7 +261,6 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
   public void update_assignment_plan_setting_should_do_validation() {
     PreparedAppResponse response = setupApi.registerWithApp();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     AssignmentSetting assignmentSetting = AssignmentSetting.builder()
         .name(rAssignmentPlanName())
@@ -311,7 +296,6 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
   public void should_exclude_groups() {
     PreparedAppResponse response = setupApi.registerWithApp();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     AssignmentSetting assignmentSetting = AssignmentSetting.builder()
         .name(rAssignmentPlanName())
@@ -337,7 +321,6 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
   public void should_fail_exclude_group_if_not_all_groups_exists() {
     PreparedAppResponse response = setupApi.registerWithApp();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     AssignmentSetting assignmentSetting = AssignmentSetting.builder()
         .name(rAssignmentPlanName())
@@ -361,7 +344,6 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
   public void should_set_group_operators() {
     PreparedAppResponse response = setupApi.registerWithApp();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     AssignmentSetting assignmentSetting = AssignmentSetting.builder()
         .name(rAssignmentPlanName())
@@ -391,7 +373,7 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
   public void should_remove_operator_after_member_deleted() {
     PreparedAppResponse response = setupApi.registerWithApp();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     String memberId = MemberApi.createMember(response.getJwt());
 
     AssignmentSetting assignmentSetting = AssignmentSetting.builder()
@@ -422,7 +404,6 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
   public void should_fail_set_group_operators_if_not_all_members_exist() {
     PreparedAppResponse response = setupApi.registerWithApp();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     AssignmentSetting assignmentSetting = AssignmentSetting.builder()
         .name(rAssignmentPlanName())
@@ -450,7 +431,6 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
   public void should_list_assignment_plans() {
     PreparedAppResponse response = setupApi.registerWithApp();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     String name = rAssignmentPlanName();
     String assignmentPlanId1 = AssignmentPlanApi.createAssignmentPlan(response.getJwt(),
@@ -496,7 +476,7 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
   public void should_list_assignment_plan_with_excluded_groups() {
     PreparedAppResponse response = setupApi.registerWithApp();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     String subGroupId = GroupApi.createGroupWithParent(response.getJwt(), response.getAppId(), response.getDefaultGroupId());
 
     AssignmentSetting assignmentSetting = AssignmentSetting.builder()
@@ -551,7 +531,6 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
   public void should_delete_assignment_plan() {
     PreparedAppResponse response = setupApi.registerWithApp();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     AssignmentSetting assignmentSetting = AssignmentSetting.builder()
         .name(rAssignmentPlanName())
@@ -579,7 +558,6 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
   public void delete_assignment_plan_should_also_delete_assignments_under_it() {
     PreparedQrResponse response = setupApi.registerWithQr();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     AssignmentSetting assignmentSetting = AssignmentSetting.builder()
         .name(rAssignmentPlanName())
@@ -614,7 +592,6 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
   public void delete_app_should_also_delete_assignment_plans_under_it() {
     PreparedAppResponse response = setupApi.registerWithApp();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     AssignmentSetting assignmentSetting = AssignmentSetting.builder()
         .name(rAssignmentPlanName())
@@ -640,7 +617,6 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
   public void delete_page_should_also_delete_assignment_plans_for_it() {
     PreparedAppResponse response = setupApi.registerWithApp();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     AssignmentSetting assignmentSetting = AssignmentSetting.builder()
         .name(rAssignmentPlanName())
@@ -669,7 +645,6 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
   public void delete_group_should_also_delete_it_from_all_assignment_plans() {
     PreparedAppResponse response = setupApi.registerWithApp();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     String newGroupId = GroupApi.createGroup(response.getJwt(), response.getAppId());
 
@@ -711,7 +686,6 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
   public void should_deactivate_and_activate_assignment_plans() {
     PreparedAppResponse response = setupApi.registerWithApp();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     AssignmentSetting assignmentSetting = AssignmentSetting.builder()
         .name(rAssignmentPlanName())
@@ -739,7 +713,6 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
   public void should_not_list_deactivated_assignment_plan_for_group() {
     PreparedAppResponse response = setupApi.registerWithApp();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     String assignmentPlanId1 = AssignmentPlanApi.createAssignmentPlan(response.getJwt(),
         CreateAssignmentPlanCommand.builder().setting(AssignmentSetting.builder()
@@ -774,7 +747,6 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
   public void should_list_assignment_plan_summaries() {
     PreparedAppResponse response = setupApi.registerWithApp();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     String assignmentPlanId1 = AssignmentPlanApi.createAssignmentPlan(response.getJwt(),
         CreateAssignmentPlanCommand.builder().setting(AssignmentSetting.builder()
@@ -826,7 +798,7 @@ public class AssignmentPlanControllerApiTest extends BaseApiTest {
   public void should_list_assignment_plan_summaries_for_group() {
     PreparedAppResponse response = setupApi.registerWithApp();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     String subGroupId = GroupApi.createGroupWithParent(response.getJwt(), response.getAppId(), response.getDefaultGroupId());
 
     String assignmentPlanId1 = AssignmentPlanApi.createAssignmentPlan(response.getJwt(),

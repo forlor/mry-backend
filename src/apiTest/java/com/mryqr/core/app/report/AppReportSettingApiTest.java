@@ -42,7 +42,6 @@ import static com.mryqr.core.app.domain.report.number.NumberReportType.INSTANCE_
 import static com.mryqr.core.app.domain.report.number.NumberReportType.PAGE_NUMBER_REPORT;
 import static com.mryqr.core.app.domain.report.number.instance.InstanceNumberReportType.INSTANCE_COUNT;
 import static com.mryqr.core.app.domain.report.number.page.PageNumberReportType.PAGE_SUBMIT_COUNT;
-import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
 import static com.mryqr.utils.RandomTestFixture.defaultCheckboxControl;
 import static com.mryqr.utils.RandomTestFixture.defaultNumberInputControlBuilder;
 import static com.mryqr.utils.RandomTestFixture.defaultSingleLineTextControl;
@@ -107,7 +106,6 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_update_number_report_setting() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     FNumberInputControl control = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
@@ -198,7 +196,6 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_update_number_report_setting_if_referenced_attribute_not_exist() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     AttributeNumberReport attributeNumberReport = AttributeNumberReport.builder()
         .id(newShortUuid())
@@ -225,7 +222,6 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_update_number_report_setting_if_referenced_page_not_exist() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     FNumberInputControl control = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
@@ -255,7 +251,6 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_update_number_report_setting_if_referenced_control_not_exist() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     ControlNumberReport controlNumberReport = ControlNumberReport.builder()
         .id(newShortUuid())
@@ -282,7 +277,6 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_update_number_report_setting_if_referenced_control_type_not_supported() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     FSingleLineTextControl control = defaultSingleLineTextControl();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
@@ -312,7 +306,6 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_update_number_report_setting_if_referenced_page_not_exist_for_page_number_report() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     PageNumberReport pageNumberReport = PageNumberReport.builder()
         .id(newShortUuid())
@@ -338,7 +331,6 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_update_number_report_setting_if_attribute_type_not_supported() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     Attribute attribute = Attribute.builder().id(newAttributeId()).name(rAttributeName()).range(AttributeStatisticRange.NO_LIMIT)
         .type(DIRECT_INPUT).build();
@@ -369,7 +361,6 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_update_chart_report() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     FCheckboxControl checkboxControl = defaultCheckboxControl();
@@ -581,7 +572,6 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_create_categorized_control_chart_report_if_referenced_page_not_exists() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     FCheckboxControl checkboxControl = defaultCheckboxControl();
@@ -620,7 +610,6 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_create_categorized_control_chart_report_if_referenced_based_control_not_exists() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     FCheckboxControl checkboxControl = defaultCheckboxControl();
@@ -659,7 +648,6 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_create_categorized_control_chart_report_if_referenced_based_control_not_support_categorized() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     FCheckboxControl checkboxControl = defaultCheckboxControl();
@@ -698,7 +686,6 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_create_categorized_control_chart_report_if_referenced_target_control_not_exits() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     FCheckboxControl checkboxControl = defaultCheckboxControl();
@@ -737,7 +724,6 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_create_categorized_control_chart_report_if_referenced_target_control_not_support_numbered() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     FCheckboxControl checkboxControl = defaultCheckboxControl();
@@ -776,7 +762,6 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_create_number_range_control_chart_report_if_referenced_page_not_exist() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl);
@@ -813,7 +798,6 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_create_number_range_control_chart_report_if_referenced_based_control_not_exist() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl);
@@ -850,7 +834,7 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_create_number_range_control_chart_report_if_referenced_based_control_not_numbered() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -887,7 +871,7 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_create_number_range_control_chart_report_if_referenced_target_control_not_exist() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -924,7 +908,7 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_create_number_range_control_chart_report_if_referenced_target_control_not_numbered() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -961,7 +945,7 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_create_time_segment_control_chart_report_if_referenced_page_not_exist() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -1003,7 +987,7 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_create_time_segment_control_chart_report_if_referenced_control_not_exist() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -1043,7 +1027,7 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_create_time_segment_control_chart_report_if_referenced_control_not_numbered() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -1083,7 +1067,7 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_create_categorized_attribute_chart_report_if_referenced_based_attribute_not_exist() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -1126,7 +1110,7 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_create_categorized_attribute_chart_report_if_referenced_based_attribute_not_categorized() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -1169,7 +1153,7 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_create_categorized_attribute_chart_report_if_referenced_target_attribute_not_exist() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -1212,7 +1196,7 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_create_categorized_attribute_chart_report_if_referenced_target_attribute_not_numbered() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -1255,7 +1239,7 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_create_number_range_attribute_chart_report_if_referenced_based_attribute_not_exist() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -1297,7 +1281,7 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_create_number_range_attribute_chart_report_if_referenced_based_attribute_not_numbered() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -1339,7 +1323,7 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_create_number_range_attribute_chart_report_if_referenced_target_attribute_not_exist() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -1381,7 +1365,7 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_create_number_range_attribute_chart_report_if_referenced_target_attribute_not_numbered() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -1423,7 +1407,7 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_create_time_attribute_chart_report_if_referenced_target_attribute_not_exist() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -1468,7 +1452,7 @@ public class AppReportSettingApiTest extends BaseApiTest {
   @Test
   public void should_fail_create_time_attribute_chart_report_if_referenced_target_attribute_not_numbered() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);

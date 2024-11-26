@@ -65,8 +65,6 @@ import static com.mryqr.core.app.domain.page.setting.SubmitType.NEW;
 import static com.mryqr.core.app.domain.page.setting.SubmitType.ONCE_PER_INSTANCE;
 import static com.mryqr.core.app.domain.page.setting.SubmitType.ONCE_PER_MEMBER;
 import static com.mryqr.core.app.domain.page.setting.SubmitterUpdateRange.IN_1_HOUR;
-import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
-import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
 import static com.mryqr.core.submission.SubmissionApi.newSubmissionRaw;
 import static com.mryqr.core.submission.SubmissionApi.updateSubmissionRaw;
 import static com.mryqr.core.submission.SubmissionUtils.approveSubmissionCommand;
@@ -591,7 +589,6 @@ class SubmissionControllerApiTest extends BaseApiTest {
   @Test
   public void tenant_admin_can_update_submission_even_after_approved() {
     PreparedQrResponse response = setupApi.registerWithQr(rEmail(), rPassword());
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     FSingleLineTextControl control = defaultSingleLineTextControl();
     PageSetting pageSetting = defaultPageSettingBuilder()
@@ -779,7 +776,6 @@ class SubmissionControllerApiTest extends BaseApiTest {
   @Test
   public void submitter_should_fail_update_submission_once_approved() {
     PreparedQrResponse response = setupApi.registerWithQr(rEmail(), rPassword());
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     FSingleLineTextControl control = defaultSingleLineTextControl();
     PageSetting pageSetting = defaultPageSettingBuilder()
@@ -818,7 +814,6 @@ class SubmissionControllerApiTest extends BaseApiTest {
   @Test
   public void should_approve_submission() {
     PreparedQrResponse response = setupApi.registerWithQr(rEmail(), rPassword());
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     FSingleLineTextControl control = defaultSingleLineTextControl();
     PageSetting pageSetting = defaultPageSettingBuilder()
@@ -848,7 +843,6 @@ class SubmissionControllerApiTest extends BaseApiTest {
   @Test
   public void un_permissioned_member_should_fail_approve_submission() {
     PreparedQrResponse response = setupApi.registerWithQr(rEmail(), rPassword());
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     CreateMemberResponse memberResponse = MemberApi.createMemberAndLogin(response.getJwt(), rMemberName(), rMobile(), rPassword());
     FSingleLineTextControl control = defaultSingleLineTextControl();
@@ -872,7 +866,6 @@ class SubmissionControllerApiTest extends BaseApiTest {
   @Test
   public void should_fail_to_approve_already_approved_submission() {
     PreparedQrResponse response = setupApi.registerWithQr(rEmail(), rPassword());
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     FSingleLineTextControl control = defaultSingleLineTextControl();
     PageSetting pageSetting = defaultPageSettingBuilder()
@@ -894,7 +887,6 @@ class SubmissionControllerApiTest extends BaseApiTest {
   @Test
   public void should_fail_to_approve_submission_if_approval_not_enabled() {
     PreparedQrResponse response = setupApi.registerWithQr(rEmail(), rPassword());
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     FSingleLineTextControl control = defaultSingleLineTextControl();
     PageSetting pageSetting = defaultPageSettingBuilder()
@@ -939,7 +931,6 @@ class SubmissionControllerApiTest extends BaseApiTest {
   @Test
   public void should_fail_approve_submission_if_qr_inactive() {
     PreparedQrResponse response = setupApi.registerWithQr(rEmail(), rPassword());
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     FSingleLineTextControl control = defaultSingleLineTextControl();
     PageSetting pageSetting = defaultPageSettingBuilder()
@@ -1038,7 +1029,6 @@ class SubmissionControllerApiTest extends BaseApiTest {
   @Test
   public void should_list_approvable_submissions() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     FSingleLineTextControl control = defaultSingleLineTextControl();
     PageSetting pageSetting = defaultPageSettingBuilder().approvalSetting(
@@ -1699,7 +1689,6 @@ class SubmissionControllerApiTest extends BaseApiTest {
   @Test
   public void should_list_submissions_with_approval_filters() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     FSingleLineTextControl control = defaultSingleLineTextControl();
     PageSetting pageSetting = defaultPageSettingBuilder().approvalSetting(
@@ -2031,7 +2020,6 @@ class SubmissionControllerApiTest extends BaseApiTest {
   @Test
   public void should_list_approvable_submissions_with_sub_groups() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     FSingleLineTextControl control = defaultSingleLineTextControl();
     PageSetting pageSetting = defaultPageSettingBuilder().approvalSetting(
@@ -2062,7 +2050,6 @@ class SubmissionControllerApiTest extends BaseApiTest {
   @Test
   public void should_export_submissions_to_excel() {
     PreparedQrResponse response = setupApi.registerWithQr(rMobile(), rPassword());
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     FRadioControl radioControl = defaultRadioControl();
     RadioAnswer radioAnswer = rAnswer(radioControl);
@@ -2307,7 +2294,6 @@ class SubmissionControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_submission_with_approve_info() {
     PreparedQrResponse response = setupApi.registerWithQr(rEmail(), rPassword());
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     FSingleLineTextControl control = defaultSingleLineTextControl();
     PageSetting pageSetting = defaultPageSettingBuilder()
@@ -2500,7 +2486,6 @@ class SubmissionControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_listed_submission_with_approve_info() {
     PreparedQrResponse response = setupApi.registerWithQr(rEmail(), rPassword());
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     FSingleLineTextControl control = defaultSingleLineTextControl();
     PageSetting pageSetting = defaultPageSettingBuilder()
@@ -2661,7 +2646,7 @@ class SubmissionControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_auto_calculated_item_status_value() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
+
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(3).build();
 
     String option1Id = newShortUuid();

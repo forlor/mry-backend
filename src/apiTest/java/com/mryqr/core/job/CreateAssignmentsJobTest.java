@@ -11,7 +11,6 @@ import static com.mryqr.core.assignmentplan.domain.AssignmentFrequency.EVERY_SIX
 import static com.mryqr.core.assignmentplan.domain.AssignmentFrequency.EVERY_THREE_MONTH;
 import static com.mryqr.core.assignmentplan.domain.AssignmentFrequency.EVERY_WEEK;
 import static com.mryqr.core.assignmentplan.domain.AssignmentFrequency.EVERY_YEAR;
-import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
 import static com.mryqr.utils.RandomTestFixture.rAssignmentPlanName;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -52,7 +51,6 @@ public class CreateAssignmentsJobTest extends BaseApiTest {
   public void should_create_assignments_for_every_day_frequency() {
     PreparedQrResponse response = setupApi.registerWithQr();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     DateTime startDateTime = DateTime.builder().date("2020-07-08").time("00:00").build();
     DateTime nearExpireNotifyDateTime = DateTime.builder().date("2020-07-08").time("22:00").build();
@@ -105,7 +103,6 @@ public class CreateAssignmentsJobTest extends BaseApiTest {
   public void should_create_assignment_for_every_week_frequency() {
     PreparedQrResponse response = setupApi.registerWithQr();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     DateTime startDateTime = DateTime.builder().date("2020-07-09").time("02:00").build();
     DateTime nearExpireNotifyDateTime = DateTime.builder().date("2020-07-09").time("22:00").build();
@@ -153,7 +150,6 @@ public class CreateAssignmentsJobTest extends BaseApiTest {
   public void should_create_assignment_for_every_month_frequency() {
     PreparedQrResponse response = setupApi.registerWithQr();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     DateTime startDateTime = DateTime.builder().date("2020-07-10").time("03:00").build();
     DateTime nearExpireNotifyDateTime = DateTime.builder().date("2020-07-10").time("22:00").build();
@@ -202,7 +198,6 @@ public class CreateAssignmentsJobTest extends BaseApiTest {
   public void should_create_assignment_for_every_3_month_frequency() {
     PreparedQrResponse response = setupApi.registerWithQr();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     DateTime startDateTime = DateTime.builder().date("2020-07-11").time("04:00").build();
     DateTime nearExpireNotifyDateTime = DateTime.builder().date("2020-07-11").time("22:00").build();
@@ -249,7 +244,6 @@ public class CreateAssignmentsJobTest extends BaseApiTest {
   public void should_create_assignment_for_every_6_month_frequency() {
     PreparedQrResponse response = setupApi.registerWithQr();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     DateTime startDateTime = DateTime.builder().date("2020-07-12").time("05:00").build();
     DateTime nearExpireNotifyDateTime = DateTime.builder().date("2020-07-12").time("22:00").build();
@@ -296,7 +290,6 @@ public class CreateAssignmentsJobTest extends BaseApiTest {
   public void should_create_assignment_for_every_year_frequency() {
     PreparedQrResponse response = setupApi.registerWithQr();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     DateTime startDateTime = DateTime.builder().date("2020-07-13").time("06:00").build();
     DateTime nearExpireNotifyDateTime = DateTime.builder().date("2020-07-13").time("22:00").build();
@@ -343,7 +336,6 @@ public class CreateAssignmentsJobTest extends BaseApiTest {
   public void should_create_assignments_for_each_group() {
     PreparedQrResponse response = setupApi.registerWithQr();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     String newGroupId = GroupApi.createGroup(response.getJwt(), response.getAppId());
     CreateQrResponse qr1 = QrApi.createQr(response.getJwt(), newGroupId);
@@ -391,7 +383,6 @@ public class CreateAssignmentsJobTest extends BaseApiTest {
   public void should_copy_group_operators_of_assignment_plan_to_assignment() {
     PreparedQrResponse response = setupApi.registerWithQr();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     DateTime startDateTime = DateTime.builder().date("2020-07-15").time("08:00").build();
     DateTime expireDateTime = DateTime.builder().date("2020-07-15").time("23:00").build();
@@ -428,7 +419,6 @@ public class CreateAssignmentsJobTest extends BaseApiTest {
   public void should_deal_with_last_day_of_month() {
     PreparedQrResponse response = setupApi.registerWithQr();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     DateTime startDateTime = DateTime.builder().date("2020-08-31").time("09:00").build();
     DateTime expireDateTime = DateTime.builder().date("2020-08-31").time("23:00").build();
@@ -459,7 +449,6 @@ public class CreateAssignmentsJobTest extends BaseApiTest {
   public void should_deal_with_non_last_day_of_month() {
     PreparedQrResponse response = setupApi.registerWithQr();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     DateTime startDateTime = DateTime.builder().date("2020-08-30").time("10:00").build();
     DateTime expireDateTime = DateTime.builder().date("2020-08-30").time("23:00").build();
@@ -490,7 +479,6 @@ public class CreateAssignmentsJobTest extends BaseApiTest {
   public void should_fix_time_for_day_30_and_31() {
     PreparedQrResponse response = setupApi.registerWithQr();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     DateTime startDateTime = DateTime.builder().date("2020-08-30").time("11:00").build();
     DateTime nearExpireNotifyDateTime = DateTime.builder().date("2020-08-31").time("02:00").build();
@@ -523,7 +511,6 @@ public class CreateAssignmentsJobTest extends BaseApiTest {
   public void should_fix_time_for_leap_year() {
     PreparedQrResponse response = setupApi.registerWithQr();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     DateTime startDateTime = DateTime.builder().date("2020-01-30").time("12:00").build();
     DateTime expireDateTime = DateTime.builder().date("2020-01-31").time("03:00").build();
@@ -554,7 +541,6 @@ public class CreateAssignmentsJobTest extends BaseApiTest {
   public void should_not_create_assignments_if_time_not_match() {
     PreparedQrResponse response = setupApi.registerWithQr();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     DateTime startDateTime = DateTime.builder().date("2020-07-16").time("13:00").build();
     DateTime expireDateTime = DateTime.builder().date("2020-07-16").time("23:00").build();
@@ -583,7 +569,6 @@ public class CreateAssignmentsJobTest extends BaseApiTest {
   public void should_not_create_assignment_if_package_not_allowed() {
     PreparedQrResponse response = setupApi.registerWithQr();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     DateTime startDateTime = DateTime.builder().date("2020-07-17").time("14:00").build();
     DateTime expireDateTime = DateTime.builder().date("2020-07-17").time("23:00").build();
@@ -610,7 +595,6 @@ public class CreateAssignmentsJobTest extends BaseApiTest {
     createAssignmentsJob.run(of(2020, 7, 17, 14, 0));
     assertFalse(assignmentRepository.latestForGroup(response.getDefaultGroupId()).isPresent());
 
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
     createAssignmentsJob.run(of(2020, 7, 17, 14, 0));
     assertTrue(assignmentRepository.latestForGroup(response.getDefaultGroupId()).isPresent());
   }
@@ -619,7 +603,6 @@ public class CreateAssignmentsJobTest extends BaseApiTest {
   public void should_not_create_assignment_if_app_assignment_not_enabled() {
     PreparedQrResponse response = setupApi.registerWithQr();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     DateTime startDateTime = DateTime.builder().date("2020-07-18").time("15:00").build();
     DateTime expireDateTime = DateTime.builder().date("2020-07-18").time("23:00").build();
@@ -653,7 +636,7 @@ public class CreateAssignmentsJobTest extends BaseApiTest {
   public void should_not_create_assignment_if_group_excluded() {
     PreparedQrResponse response = setupApi.registerWithQr();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     String subGroupId = GroupApi.createGroupWithParent(response.getJwt(), response.getAppId(), response.getDefaultGroupId());
     QrApi.createQr(response.getJwt(), subGroupId);
 
@@ -692,7 +675,6 @@ public class CreateAssignmentsJobTest extends BaseApiTest {
   public void should_not_create_assignment_if_assignment_plan_deactivated() {
     PreparedQrResponse response = setupApi.registerWithQr();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     DateTime startDateTime = DateTime.builder().date("2020-07-19").time("17:00").build();
     DateTime expireDateTime = DateTime.builder().date("2020-07-19").time("23:00").build();
@@ -724,7 +706,6 @@ public class CreateAssignmentsJobTest extends BaseApiTest {
   public void should_not_create_assignments_again_with_the_same_group_and_start_at() {
     PreparedQrResponse response = setupApi.registerWithQr();
     AppApi.setAppAssignmentEnabled(response.getJwt(), response.getAppId(), true);
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     DateTime startDateTime = DateTime.builder().date("2020-07-19").time("18:00").build();
     DateTime expireDateTime = DateTime.builder().date("2020-07-19").time("23:00").build();

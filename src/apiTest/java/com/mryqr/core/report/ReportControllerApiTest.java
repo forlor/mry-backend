@@ -50,7 +50,6 @@ import static com.mryqr.core.app.domain.report.number.instance.InstanceNumberRep
 import static com.mryqr.core.app.domain.report.number.instance.InstanceNumberReportType.INSTANCE_COUNT;
 import static com.mryqr.core.app.domain.report.number.instance.InstanceNumberReportType.INSTANCE_SUBMIT_COUNT;
 import static com.mryqr.core.app.domain.report.number.page.PageNumberReportType.PAGE_SUBMIT_COUNT;
-import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
 import static com.mryqr.utils.RandomTestFixture.defaultCheckboxControl;
 import static com.mryqr.utils.RandomTestFixture.defaultDateControl;
 import static com.mryqr.utils.RandomTestFixture.defaultNumberInputControlBuilder;
@@ -126,7 +125,6 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_instance_count_number_report() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     InstanceNumberReport report = InstanceNumberReport.builder()
         .id(newShortUuid())
@@ -172,7 +170,6 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_number_report_for_specific_group() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     InstanceNumberReport report = InstanceNumberReport.builder()
         .id(newShortUuid())
@@ -198,7 +195,6 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_number_report_based_on_range() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     InstanceNumberReport report = InstanceNumberReport.builder()
         .id(newShortUuid())
@@ -226,7 +222,6 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fail_fetch_number_report_if_not_app_manager() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     CreateMemberResponse memberResponse = MemberApi.createMemberAndLogin(response.getJwt());
 
@@ -255,7 +250,6 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fail_fetch_number_report_if_not_group_manager() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     CreateMemberResponse memberResponse = MemberApi.createMemberAndLogin(response.getJwt());
 
@@ -282,7 +276,6 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_instance_submission_count_number_report() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     InstanceNumberReport report = InstanceNumberReport.builder()
         .id(newShortUuid())
@@ -305,7 +298,6 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_instance_accessed_number_report() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     InstanceNumberReport report = InstanceNumberReport.builder()
         .id(newShortUuid())
@@ -330,7 +322,6 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_sum_attribute_number_report() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     Attribute attribute = Attribute.builder().id(newAttributeId()).name(rAttributeName()).range(AttributeStatisticRange.NO_LIMIT)
         .type(AttributeType.INSTANCE_SUBMIT_COUNT).build();
@@ -358,7 +349,6 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_avg_attribute_number_report() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     Attribute attribute = Attribute.builder().id(newAttributeId()).name(rAttributeName()).range(AttributeStatisticRange.NO_LIMIT)
         .type(AttributeType.INSTANCE_SUBMIT_COUNT).build();
@@ -392,7 +382,6 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_max_attribute_number_report() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     Attribute attribute = Attribute.builder().id(newAttributeId()).name(rAttributeName()).range(AttributeStatisticRange.NO_LIMIT)
         .type(AttributeType.INSTANCE_SUBMIT_COUNT).build();
@@ -426,7 +415,6 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_min_attribute_number_report() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     Attribute attribute = Attribute.builder().id(newAttributeId()).name(rAttributeName()).range(AttributeStatisticRange.NO_LIMIT)
         .type(AttributeType.INSTANCE_SUBMIT_COUNT).build();
@@ -460,7 +448,6 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_number_report_for_range() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     Attribute attribute = Attribute.builder().id(newAttributeId()).name(rAttributeName()).range(AttributeStatisticRange.NO_LIMIT)
         .type(AttributeType.INSTANCE_SUBMIT_COUNT).build();
@@ -493,7 +480,6 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_number_report_for_specific_group() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     Attribute attribute = Attribute.builder().id(newAttributeId()).name(rAttributeName()).range(AttributeStatisticRange.NO_LIMIT)
         .type(AttributeType.INSTANCE_SUBMIT_COUNT).build();
@@ -527,7 +513,6 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_page_submit_count_number_report() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     PageNumberReport report = PageNumberReport.builder()
         .id(newShortUuid())
@@ -551,7 +536,6 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_page_number_report_for_specific_group() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     PageNumberReport report = PageNumberReport.builder()
         .id(newShortUuid())
@@ -581,7 +565,6 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_page_number_report_for_sub_groups() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     PageNumberReport report = PageNumberReport.builder()
         .id(newShortUuid())
@@ -609,7 +592,6 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_page_number_report_for_range() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     PageNumberReport report = PageNumberReport.builder()
         .id(newShortUuid())
@@ -638,7 +620,6 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_sum_control_number_report() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     FNumberInputControl control = defaultNumberInputControlBuilder().precision(3).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
@@ -669,7 +650,6 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_avg_control_number_report() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     FNumberInputControl control = defaultNumberInputControlBuilder().precision(3).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
@@ -700,7 +680,6 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_max_control_number_report() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     FNumberInputControl control = defaultNumberInputControlBuilder().precision(3).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
@@ -731,7 +710,6 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_min_control_number_report() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     FNumberInputControl control = defaultNumberInputControlBuilder().precision(3).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
@@ -762,7 +740,6 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_control_number_report_for_range() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     FNumberInputControl control = defaultNumberInputControlBuilder().precision(3).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
@@ -794,7 +771,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_control_bar_report_for_submission_count() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -845,7 +822,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_control_bar_report_for_answer_sum() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -890,7 +867,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_control_bar_report_for_answer_avg() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -937,7 +914,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_control_bar_report_for_answer_max() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -984,7 +961,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_control_bar_report_for_answer_min() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -1031,7 +1008,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_control_bar_report_for_given_range() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -1078,7 +1055,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_control_bar_report_for_given_group() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -1129,7 +1106,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_control_pie_report() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -1180,7 +1157,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_control_doughnut_report() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -1231,7 +1208,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_control_number_range_report_for_submit_count() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl basedControl = defaultNumberInputControlBuilder().precision(0).build();
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), basedControl, targetControl);
@@ -1278,7 +1255,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_control_number_range_report_for_answer_sum() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl basedControl = defaultNumberInputControlBuilder().precision(0).build();
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), basedControl, targetControl);
@@ -1323,7 +1300,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_control_number_range_report_for_answer_avg() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl basedControl = defaultNumberInputControlBuilder().precision(0).build();
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), basedControl, targetControl);
@@ -1368,7 +1345,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_control_number_range_report_for_answer_max() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl basedControl = defaultNumberInputControlBuilder().precision(0).build();
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), basedControl, targetControl);
@@ -1413,7 +1390,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_control_number_range_report_for_answer_min() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl basedControl = defaultNumberInputControlBuilder().precision(0).build();
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), basedControl, targetControl);
@@ -1458,7 +1435,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_control_number_range_report_for_given_range() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl basedControl = defaultNumberInputControlBuilder().precision(0).build();
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), basedControl, targetControl);
@@ -1500,7 +1477,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_control_number_range_report_for_given_group() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl basedControl = defaultNumberInputControlBuilder().precision(0).build();
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), basedControl, targetControl);
@@ -1549,7 +1526,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_control_time_segment_report_for_submit_count() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), targetControl);
 
@@ -1598,7 +1575,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_control_time_segment_report_for_answer_sum() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), targetControl);
 
@@ -1646,7 +1623,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_control_time_segment_report_for_answer_avg() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), targetControl);
 
@@ -1694,7 +1671,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_control_time_segment_report_for_answer_max() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), targetControl);
 
@@ -1742,7 +1719,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_control_time_segment_report_for_answer_min() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), targetControl);
 
@@ -1790,7 +1767,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_control_time_segment_report_for_given_group() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), targetControl);
 
@@ -1843,7 +1820,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_control_time_segment_report_for_per_season() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), targetControl);
 
@@ -1895,7 +1872,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_control_time_segment_report_for_per_year() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), targetControl);
 
@@ -1947,7 +1924,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_control_time_segment_report_for_submit_count_based_on_date_control() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FDateControl basedControl = defaultDateControl();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), basedControl);
 
@@ -1995,7 +1972,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_control_time_segment_report_for_multiple_items() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FDateControl basedControl = defaultDateControl();
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), basedControl, targetControl);
@@ -2060,7 +2037,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_bar_report_for_qr_count() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -2114,7 +2091,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_bar_report_for_attribute_value_sum() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -2168,7 +2145,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_bar_report_for_attribute_value_avg() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -2222,7 +2199,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_bar_report_for_attribute_value_max() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -2276,7 +2253,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_bar_report_for_attribute_value_min() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -2330,7 +2307,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_bar_report_for_given_range() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -2388,7 +2365,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_bar_report_for_given_group() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -2461,7 +2438,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_pie_report() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -2515,7 +2492,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_doughnut_report() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -2569,7 +2546,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_number_range_report_for_qr_count() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl basedControl = defaultNumberInputControlBuilder().precision(0).build();
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
 
@@ -2623,7 +2600,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_number_range_report_for_attribute_value_sum() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl basedControl = defaultNumberInputControlBuilder().precision(0).build();
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
 
@@ -2674,7 +2651,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_number_range_report_for_attribute_value_avg() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl basedControl = defaultNumberInputControlBuilder().precision(0).build();
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
 
@@ -2725,7 +2702,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_number_range_report_for_attribute_value_max() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl basedControl = defaultNumberInputControlBuilder().precision(0).build();
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
 
@@ -2776,7 +2753,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_number_range_report_for_attribute_value_min() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl basedControl = defaultNumberInputControlBuilder().precision(0).build();
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
 
@@ -2827,7 +2804,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_number_range_report_for_given_range() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl basedControl = defaultNumberInputControlBuilder().precision(0).build();
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
 
@@ -2882,7 +2859,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_number_range_report_for_given_group() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl basedControl = defaultNumberInputControlBuilder().precision(0).build();
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
 
@@ -2935,7 +2912,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_time_segment_report_for_qr_count() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl basedControl = defaultNumberInputControlBuilder().precision(0).build();
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
 
@@ -2985,7 +2962,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_time_segment_report_for_attribute_value_sum() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
 
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), targetControl);
@@ -3040,7 +3017,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_time_segment_report_for_attribute_value_avg() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), targetControl);
 
@@ -3095,7 +3072,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_time_segment_report_for_attribute_value_max() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), targetControl);
 
@@ -3150,7 +3127,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_time_segment_report_for_attribute_value_min() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), targetControl);
 
@@ -3205,7 +3182,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_time_segment_report_for_given_group() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), targetControl);
 
@@ -3262,7 +3239,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_chart_report_for_sub_groups() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl numberInputControl = defaultNumberInputControlBuilder().precision(0).build();
     FCheckboxControl checkboxControl = defaultCheckboxControl();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), numberInputControl, checkboxControl);
@@ -3318,7 +3295,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_time_segment_report_for_per_season() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), targetControl);
 
@@ -3374,7 +3351,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_time_segment_report_for_per_year() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), targetControl);
 
@@ -3431,7 +3408,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_time_segment_report_for_qr_count_with_based_attribute() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FDateControl basedControl = defaultDateControl();
 
     AppApi.updateAppControls(response.getJwt(), response.getAppId(), basedControl);
@@ -3483,7 +3460,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_time_segment_report_for_sum_with_based_attribute() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FDateControl basedControl = defaultDateControl();
     FNumberInputControl targetControl = defaultNumberInputControlBuilder().precision(0).build();
 
@@ -3541,7 +3518,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_attribute_time_segment_report_mutiple_itmes() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FDateControl basedControl = defaultDateControl();
     FNumberInputControl targetControl1 = defaultNumberInputControlBuilder().precision(0).build();
     FNumberInputControl targetControl2 = defaultNumberInputControlBuilder().precision(0).build();
@@ -3616,7 +3593,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_multiple_report_item_for_control_bar() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl numberInputControl1 = defaultNumberInputControlBuilder().precision(0).build();
     FNumberInputControl numberInputControl2 = defaultNumberInputControlBuilder().precision(0).build();
     FCheckboxControl checkboxControl = defaultCheckboxControl();
@@ -3672,7 +3649,7 @@ public class ReportControllerApiTest extends BaseApiTest {
   @Test
   public void should_fetch_multiple_report_item_for_attribute_bar() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     FNumberInputControl numberInputControl1 = defaultNumberInputControlBuilder().precision(0).build();
     FNumberInputControl numberInputControl2 = defaultNumberInputControlBuilder().precision(0).build();
     FCheckboxControl checkboxControl = defaultCheckboxControl();

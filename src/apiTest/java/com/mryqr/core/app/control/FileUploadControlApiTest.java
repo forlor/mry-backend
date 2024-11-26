@@ -1,5 +1,24 @@
 package com.mryqr.core.app.control;
 
+import static com.google.common.collect.Lists.newArrayList;
+import static com.mryqr.common.exception.ErrorCode.MANDATORY_ANSWER_REQUIRED;
+import static com.mryqr.common.exception.ErrorCode.MAX_FILE_NUMBER_REACHED;
+import static com.mryqr.common.exception.ErrorCode.UPLOAD_FILE_ID_DUPLICATED;
+import static com.mryqr.core.app.domain.attribute.Attribute.newAttributeId;
+import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.NO_LIMIT;
+import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_FIRST;
+import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_LAST;
+import static com.mryqr.core.submission.SubmissionUtils.newSubmissionCommand;
+import static com.mryqr.utils.RandomTestFixture.defaultFileUploadControl;
+import static com.mryqr.utils.RandomTestFixture.defaultFileUploadControlBuilder;
+import static com.mryqr.utils.RandomTestFixture.defaultFillableSettingBuilder;
+import static com.mryqr.utils.RandomTestFixture.rAnswer;
+import static com.mryqr.utils.RandomTestFixture.rAnswerBuilder;
+import static com.mryqr.utils.RandomTestFixture.rAttributeName;
+import static com.mryqr.utils.RandomTestFixture.rUploadedFile;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import com.mryqr.BaseApiTest;
 import com.mryqr.common.domain.UploadedFile;
 import com.mryqr.core.app.AppApi;
@@ -17,125 +36,114 @@ import com.mryqr.utils.PreparedAppResponse;
 import com.mryqr.utils.PreparedQrResponse;
 import org.junit.jupiter.api.Test;
 
-import static com.google.common.collect.Lists.newArrayList;
-import static com.mryqr.common.exception.ErrorCode.*;
-import static com.mryqr.core.app.domain.attribute.Attribute.newAttributeId;
-import static com.mryqr.core.app.domain.attribute.AttributeStatisticRange.NO_LIMIT;
-import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_FIRST;
-import static com.mryqr.core.app.domain.attribute.AttributeType.CONTROL_LAST;
-import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
-import static com.mryqr.core.submission.SubmissionUtils.newSubmissionCommand;
-import static com.mryqr.utils.RandomTestFixture.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 public class FileUploadControlApiTest extends BaseApiTest {
 
-    @Test
-    public void should_create_control_normally() {
-        PreparedAppResponse response = setupApi.registerWithApp();
-        setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
+  @Test
+  public void should_create_control_normally() {
+    PreparedAppResponse response = setupApi.registerWithApp();
 
-        FFileUploadControl control = defaultFileUploadControl();
-        AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
+    FFileUploadControl control = defaultFileUploadControl();
+    AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
 
-        App app = appRepository.byId(response.getAppId());
-        Control updatedControl = app.controlByIdOptional(control.getId()).get();
-        assertEquals(control, updatedControl);
-    }
+    App app = appRepository.byId(response.getAppId());
+    Control updatedControl = app.controlByIdOptional(control.getId()).get();
+    assertEquals(control, updatedControl);
+  }
 
-    @Test
-    public void should_answer_normally() {
-        PreparedQrResponse response = setupApi.registerWithQr();
-        setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
-        FFileUploadControl control = defaultFileUploadControl();
-        AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
+  @Test
+  public void should_answer_normally() {
+    PreparedQrResponse response = setupApi.registerWithQr();
 
-        FileUploadAnswer answer = rAnswer(control);
-        String submissionId = SubmissionApi.newSubmission(response.getJwt(), response.getQrId(), response.getHomePageId(), answer);
+    FFileUploadControl control = defaultFileUploadControl();
+    AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
 
-        Submission submission = submissionRepository.byId(submissionId);
-        FileUploadAnswer updatedAnswer = (FileUploadAnswer) submission.allAnswers().get(control.getId());
-        assertEquals(answer, updatedAnswer);
-        assertNull(submission.getIndexedValues());
-    }
+    FileUploadAnswer answer = rAnswer(control);
+    String submissionId = SubmissionApi.newSubmission(response.getJwt(), response.getQrId(), response.getHomePageId(), answer);
 
-    @Test
-    public void should_fail_answer_if_file_size_greater_than_max() {
-        PreparedQrResponse response = setupApi.registerWithQr();
-        setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
-        FFileUploadControl control = defaultFileUploadControlBuilder().max(1).build();
-        AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
+    Submission submission = submissionRepository.byId(submissionId);
+    FileUploadAnswer updatedAnswer = (FileUploadAnswer) submission.allAnswers().get(control.getId());
+    assertEquals(answer, updatedAnswer);
+    assertNull(submission.getIndexedValues());
+  }
 
-        FileUploadAnswer answer = rAnswerBuilder(control).files(newArrayList(rUploadedFile(), rUploadedFile())).build();
-        NewSubmissionCommand command = newSubmissionCommand(response.getQrId(), response.getHomePageId(), answer);
+  @Test
+  public void should_fail_answer_if_file_size_greater_than_max() {
+    PreparedQrResponse response = setupApi.registerWithQr();
 
-        assertError(() -> SubmissionApi.newSubmissionRaw(response.getJwt(), command), MAX_FILE_NUMBER_REACHED);
-    }
+    FFileUploadControl control = defaultFileUploadControlBuilder().max(1).build();
+    AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
 
-    @Test
-    public void should_fail_answer_if_file_id_duplicated() {
-        PreparedQrResponse response = setupApi.registerWithQr();
-        setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
-        FFileUploadControl control = defaultFileUploadControlBuilder().max(2).build();
-        AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
+    FileUploadAnswer answer = rAnswerBuilder(control).files(newArrayList(rUploadedFile(), rUploadedFile())).build();
+    NewSubmissionCommand command = newSubmissionCommand(response.getQrId(), response.getHomePageId(), answer);
 
-        UploadedFile uploadedFile = rUploadedFile();
-        FileUploadAnswer answer = rAnswerBuilder(control).files(newArrayList(uploadedFile, uploadedFile)).build();
-        NewSubmissionCommand command = newSubmissionCommand(response.getQrId(), response.getHomePageId(), answer);
+    assertError(() -> SubmissionApi.newSubmissionRaw(response.getJwt(), command), MAX_FILE_NUMBER_REACHED);
+  }
 
-        assertError(() -> SubmissionApi.newSubmissionRaw(response.getJwt(), command), UPLOAD_FILE_ID_DUPLICATED);
-    }
+  @Test
+  public void should_fail_answer_if_file_id_duplicated() {
+    PreparedQrResponse response = setupApi.registerWithQr();
 
-    @Test
-    public void should_fail_answer_if_not_filled_for_mandatory() {
-        PreparedQrResponse response = setupApi.registerWithQr();
-        setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
-        FFileUploadControl control = defaultFileUploadControlBuilder().fillableSetting(defaultFillableSettingBuilder().mandatory(true).build()).build();
-        AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
+    FFileUploadControl control = defaultFileUploadControlBuilder().max(2).build();
+    AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
 
-        FileUploadAnswer answer = rAnswerBuilder(control).files(newArrayList()).build();
-        NewSubmissionCommand command = newSubmissionCommand(response.getQrId(), response.getHomePageId(), answer);
+    UploadedFile uploadedFile = rUploadedFile();
+    FileUploadAnswer answer = rAnswerBuilder(control).files(newArrayList(uploadedFile, uploadedFile)).build();
+    NewSubmissionCommand command = newSubmissionCommand(response.getQrId(), response.getHomePageId(), answer);
 
-        assertError(() -> SubmissionApi.newSubmissionRaw(response.getJwt(), command), MANDATORY_ANSWER_REQUIRED);
-    }
+    assertError(() -> SubmissionApi.newSubmissionRaw(response.getJwt(), command), UPLOAD_FILE_ID_DUPLICATED);
+  }
 
-    @Test
-    public void should_calculate_first_submission_answer_as_attribute_value() {
-        PreparedQrResponse response = setupApi.registerWithQr();
-        setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
-        FFileUploadControl control = defaultFileUploadControl();
-        AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
-        Attribute attribute = Attribute.builder().name(rAttributeName()).id(newAttributeId()).type(CONTROL_FIRST).pageId(response.getHomePageId()).controlId(control.getId()).range(NO_LIMIT).build();
-        AppApi.updateAppAttributes(response.getJwt(), response.getAppId(), attribute);
+  @Test
+  public void should_fail_answer_if_not_filled_for_mandatory() {
+    PreparedQrResponse response = setupApi.registerWithQr();
 
-        FileUploadAnswer answer = rAnswer(control);
-        SubmissionApi.newSubmission(response.getJwt(), response.getQrId(), response.getHomePageId(), answer);
-        SubmissionApi.newSubmission(response.getJwt(), response.getQrId(), response.getHomePageId(), rAnswer(control));
+    FFileUploadControl control = defaultFileUploadControlBuilder().fillableSetting(defaultFillableSettingBuilder().mandatory(true).build())
+        .build();
+    AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
 
-        QR qr = qrRepository.byId(response.getQrId());
-        FilesAttributeValue attributeValue = (FilesAttributeValue) qr.getAttributeValues().get(attribute.getId());
-        assertEquals(answer.getFiles(), attributeValue.getFiles());
-        assertNull(qr.getIndexedValues());
-    }
+    FileUploadAnswer answer = rAnswerBuilder(control).files(newArrayList()).build();
+    NewSubmissionCommand command = newSubmissionCommand(response.getQrId(), response.getHomePageId(), answer);
 
-    @Test
-    public void should_calculate_last_submission_answer_as_attribute_value() {
-        PreparedQrResponse response = setupApi.registerWithQr();
-        setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
-        FFileUploadControl control = defaultFileUploadControl();
-        AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
-        Attribute attribute = Attribute.builder().name(rAttributeName()).id(newAttributeId()).type(CONTROL_LAST).pageId(response.getHomePageId()).controlId(control.getId()).range(NO_LIMIT).build();
-        AppApi.updateAppAttributes(response.getJwt(), response.getAppId(), attribute);
+    assertError(() -> SubmissionApi.newSubmissionRaw(response.getJwt(), command), MANDATORY_ANSWER_REQUIRED);
+  }
 
-        FileUploadAnswer answer = rAnswer(control);
-        SubmissionApi.newSubmission(response.getJwt(), response.getQrId(), response.getHomePageId(), rAnswer(control));
-        SubmissionApi.newSubmission(response.getJwt(), response.getQrId(), response.getHomePageId(), answer);
+  @Test
+  public void should_calculate_first_submission_answer_as_attribute_value() {
+    PreparedQrResponse response = setupApi.registerWithQr();
 
-        QR qr = qrRepository.byId(response.getQrId());
-        FilesAttributeValue attributeValue = (FilesAttributeValue) qr.getAttributeValues().get(attribute.getId());
-        assertEquals(answer.getFiles(), attributeValue.getFiles());
-        assertNull(qr.getIndexedValues());
-    }
+    FFileUploadControl control = defaultFileUploadControl();
+    AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
+    Attribute attribute = Attribute.builder().name(rAttributeName()).id(newAttributeId()).type(CONTROL_FIRST)
+        .pageId(response.getHomePageId()).controlId(control.getId()).range(NO_LIMIT).build();
+    AppApi.updateAppAttributes(response.getJwt(), response.getAppId(), attribute);
 
+    FileUploadAnswer answer = rAnswer(control);
+    SubmissionApi.newSubmission(response.getJwt(), response.getQrId(), response.getHomePageId(), answer);
+    SubmissionApi.newSubmission(response.getJwt(), response.getQrId(), response.getHomePageId(), rAnswer(control));
+
+    QR qr = qrRepository.byId(response.getQrId());
+    FilesAttributeValue attributeValue = (FilesAttributeValue) qr.getAttributeValues().get(attribute.getId());
+    assertEquals(answer.getFiles(), attributeValue.getFiles());
+    assertNull(qr.getIndexedValues());
+  }
+
+  @Test
+  public void should_calculate_last_submission_answer_as_attribute_value() {
+    PreparedQrResponse response = setupApi.registerWithQr();
+
+    FFileUploadControl control = defaultFileUploadControl();
+    AppApi.updateAppControls(response.getJwt(), response.getAppId(), control);
+    Attribute attribute = Attribute.builder().name(rAttributeName()).id(newAttributeId()).type(CONTROL_LAST)
+        .pageId(response.getHomePageId()).controlId(control.getId()).range(NO_LIMIT).build();
+    AppApi.updateAppAttributes(response.getJwt(), response.getAppId(), attribute);
+
+    FileUploadAnswer answer = rAnswer(control);
+    SubmissionApi.newSubmission(response.getJwt(), response.getQrId(), response.getHomePageId(), rAnswer(control));
+    SubmissionApi.newSubmission(response.getJwt(), response.getQrId(), response.getHomePageId(), answer);
+
+    QR qr = qrRepository.byId(response.getQrId());
+    FilesAttributeValue attributeValue = (FilesAttributeValue) qr.getAttributeValues().get(attribute.getId());
+    assertEquals(answer.getFiles(), attributeValue.getFiles());
+    assertNull(qr.getIndexedValues());
+  }
 }

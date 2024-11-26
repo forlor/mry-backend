@@ -95,9 +95,6 @@ import static com.mryqr.core.app.domain.ui.align.HorizontalAlignType.JUSTIFY;
 import static com.mryqr.core.app.domain.ui.align.HorizontalPositionType.RIGHT;
 import static com.mryqr.core.app.domain.ui.align.VerticalAlignType.MIDDLE;
 import static com.mryqr.core.app.domain.ui.borderradius.BorderRadius.noBorderRadius;
-import static com.mryqr.core.plan.domain.Plan.FREE_PLAN;
-import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
-import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
 import static com.mryqr.core.submission.domain.ApprovalStatus.NONE;
 import static com.mryqr.utils.RandomTestFixture.defaultAddressControlBuilder;
 import static com.mryqr.utils.RandomTestFixture.defaultCheckboxControl;
@@ -387,7 +384,7 @@ class QrControllerApiTest extends BaseApiTest {
   public void should_fail_create_qr_if_qr_count_exceeds_packages_limit() {
     PreparedAppResponse response = setupApi.registerWithApp();
     Tenant tenant = tenantRepository.byId(response.getTenantId());
-    tenant.setQrCountForApp(response.getAppId(), FREE_PLAN.getMaxQrCount());
+    tenant.setQrCountForApp(response.getAppId(), tenant.currentPlan().getMaxQrCount());
     tenantRepository.save(tenant);
 
     CreateQrCommand command = CreateQrCommand.builder().name(rQrName()).groupId(response.getDefaultGroupId()).build();
@@ -502,7 +499,6 @@ class QrControllerApiTest extends BaseApiTest {
   @Test
   public void should_import_qrs_via_excel() throws IOException {
     PreparedAppResponse response = setupApi.registerWithApp();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     Page homePage = defaultPageBuilder().setting(defaultPageSettingBuilder().submitType(ONCE_PER_INSTANCE).build()).build();
     Page childPage = defaultPageBuilder().setting(defaultPageSettingBuilder().submitType(ONCE_PER_INSTANCE).build()).build();
@@ -666,7 +662,7 @@ class QrControllerApiTest extends BaseApiTest {
   @Test
   public void should_skip_already_exists_custom_id() throws IOException {
     PreparedAppResponse response = setupApi.registerWithApp();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
+
     ClassPathResource resource = new ClassPathResource("testdata/qr/simple-qrs-import.xlsx");
     QrApi.importQrExcel(response.getJwt(), response.getDefaultGroupId(), resource.getFile());
     QrImportResponse importResponse = QrApi.importQrExcel(response.getJwt(), response.getDefaultGroupId(), resource.getFile());
@@ -690,7 +686,6 @@ class QrControllerApiTest extends BaseApiTest {
   @Test
   public void should_fail_import_qr_excel_if_wrong_format() throws IOException {
     PreparedAppResponse response = setupApi.registerWithApp();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     ClassPathResource resource = new ClassPathResource("testdata/qr/a-text-file.txt");
     File file = resource.getFile();
@@ -700,7 +695,6 @@ class QrControllerApiTest extends BaseApiTest {
   @Test
   public void should_fail_import_qrs_excel_if_max_qr_count_reached() throws IOException {
     PreparedAppResponse response = setupApi.registerWithApp();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     Tenant tenant = tenantRepository.byId(response.getTenantId());
     ResourceUsage resourceUsage = tenant.getResourceUsage();
@@ -715,7 +709,6 @@ class QrControllerApiTest extends BaseApiTest {
   @Test
   public void should_fail_import_qrs_if_no_name_field() throws IOException {
     PreparedAppResponse response = setupApi.registerWithApp();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     ClassPathResource resource = new ClassPathResource("testdata/qr/no-name-qrs-import.xlsx");
     File file = resource.getFile();
@@ -725,7 +718,6 @@ class QrControllerApiTest extends BaseApiTest {
   @Test
   public void should_fail_import_qrs_if_no_custom_id_field() throws IOException {
     PreparedAppResponse response = setupApi.registerWithApp();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     ClassPathResource resource = new ClassPathResource("testdata/qr/no-custom-id-qrs-import.xlsx");
     File file = resource.getFile();
@@ -735,7 +727,6 @@ class QrControllerApiTest extends BaseApiTest {
   @Test
   public void should_fail_import_qrs_if_no_records() throws IOException {
     PreparedAppResponse response = setupApi.registerWithApp();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     ClassPathResource resource = new ClassPathResource("testdata/qr/no-record-qrs-import.xlsx");
     File file = resource.getFile();
@@ -745,7 +736,6 @@ class QrControllerApiTest extends BaseApiTest {
   @Test
   public void should_fail_import_qrs_if_custom_id_duplicates() throws IOException {
     PreparedAppResponse response = setupApi.registerWithApp();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     ClassPathResource resource = new ClassPathResource("testdata/qr/duplicated-qrs-import.xlsx");
     File file = resource.getFile();
@@ -1002,7 +992,7 @@ class QrControllerApiTest extends BaseApiTest {
   @Test
   public void should_fail_change_group_if_qrs_not_in_same_app() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
+
     CreateAppResponse appResponse1 = AppApi.createApp(response.getJwt());
     CreateQrResponse qrResponse1 = QrApi.createQr(response.getJwt(), appResponse1.getDefaultGroupId());
     CreateAppResponse appResponse2 = AppApi.createApp(response.getJwt());
@@ -1759,7 +1749,7 @@ class QrControllerApiTest extends BaseApiTest {
   @Test
   public void should_download_qrs_for_non_control_ref_values() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
+
     AppApi.enableAppPosition(response.getJwt(), response.getAppId());
 
     Geolocation qrGeolocation = rGeolocation();
@@ -1874,7 +1864,6 @@ class QrControllerApiTest extends BaseApiTest {
   @Test
   public void should_export_control_ref_attribute_values() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), PROFESSIONAL);
 
     FRadioControl radioControl = defaultRadioControl();
     RadioAnswer radioAnswer = rAnswer(radioControl);
@@ -2578,7 +2567,6 @@ class QrControllerApiTest extends BaseApiTest {
   @Test
   public void should_list_qr_submissions_for_to_be_approved_submissions() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     FSingleLineTextControl control = defaultSingleLineTextControlBuilder().fillableSetting(
         defaultFillableSettingBuilder().submissionSummaryEligible(true).build()).build();
@@ -2732,7 +2720,6 @@ class QrControllerApiTest extends BaseApiTest {
   @Test
   public void should_list_qr_submissions_with_approval_filters() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     FSingleLineTextControl control = defaultSingleLineTextControlBuilder().fillableSetting(
         defaultFillableSettingBuilder().submissionSummaryEligible(true).build()).build();

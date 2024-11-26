@@ -7,7 +7,6 @@ import static com.mryqr.common.domain.permission.Permission.CAN_MANAGE_GROUP;
 import static com.mryqr.core.app.domain.page.setting.SubmitType.NEW;
 import static com.mryqr.core.app.domain.page.setting.SubmitterUpdateRange.IN_1_HOUR;
 import static com.mryqr.core.app.domain.page.setting.notification.NotificationRole.SUBMITTER;
-import static com.mryqr.core.plan.domain.PlanType.FLAGSHIP;
 import static com.mryqr.core.submission.SubmissionUtils.approveSubmissionCommand;
 import static com.mryqr.utils.RandomTestFixture.defaultCheckboxControl;
 import static com.mryqr.utils.RandomTestFixture.defaultPageSettingBuilder;
@@ -42,7 +41,6 @@ public class AppNotificationApiTest extends BaseApiTest {
   @Test
   public void should_notify_when_create_submission() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     NotificationSetting notificationSetting = NotificationSetting.builder()
         .notificationEnabled(true)
@@ -61,7 +59,7 @@ public class AppNotificationApiTest extends BaseApiTest {
   @Test
   public void should_notify_when_update_submission() {
     PreparedQrResponse response = setupApi.registerWithQr();
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
+
     FCheckboxControl checkboxControl = defaultCheckboxControl();
 
     NotificationSetting notificationSetting = NotificationSetting.builder()
@@ -83,7 +81,6 @@ public class AppNotificationApiTest extends BaseApiTest {
   @Test
   public void should_notify_when_approve_submission() {
     PreparedQrResponse response = setupApi.registerWithQr(rEmail(), rPassword());
-    setupApi.updateTenantPackages(response.getTenantId(), FLAGSHIP);
 
     FSingleLineTextControl control = defaultSingleLineTextControl();
     PageSetting pageSetting = defaultPageSettingBuilder()

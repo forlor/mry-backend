@@ -16,9 +16,7 @@ import static com.mryqr.core.app.domain.page.control.ControlType.MULTI_LINE_TEXT
 import static com.mryqr.core.app.domain.page.control.ControlType.SINGLE_LINE_TEXT;
 import static com.mryqr.core.app.domain.page.setting.SubmitType.ONCE_PER_INSTANCE;
 import static com.mryqr.core.plan.domain.Plan.FREE_PLAN;
-import static com.mryqr.core.plan.domain.Plan.PROFESSIONAL_PLAN;
 import static com.mryqr.core.plan.domain.PlanType.BASIC;
-import static com.mryqr.core.plan.domain.PlanType.PROFESSIONAL;
 import static com.mryqr.management.apptemplate.MryAppTemplateManageApp.APPLIED_COUNT_ATTRIBUTE_ID;
 import static com.mryqr.management.apptemplate.MryAppTemplateManageApp.CARD_DESCRIPTION_CONTROL_ID;
 import static com.mryqr.management.apptemplate.MryAppTemplateManageApp.CATEGORY_AGRICULTURE_ID;
@@ -281,9 +279,9 @@ public class AppTemplateControllerApiTest extends BaseApiTest {
         List.of(SCENARIO_INSPECTION_OPTION_ID), List.of(FEATURE_GEOLOCATION_ID));
 
     LoginResponse loginResponse = setupApi.registerWithLogin();
-    setupApi.updateTenantPackages(loginResponse.getTenantId(), PROFESSIONAL);
+
     Tenant tenant = tenantRepository.byId(loginResponse.getTenantId());
-    tenant.setAppCount(PROFESSIONAL_PLAN.getMaxAppCount(), NOUSER);
+    tenant.setAppCount(tenant.currentPlan().getMaxAppCount(), NOUSER);
     tenantRepository.save(tenant);
 
     assertError(() -> AppApi.createAppFromTemplateRaw(loginResponse.getJwt(), template.getId()), APP_COUNT_LIMIT_REACHED);
