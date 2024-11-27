@@ -1,18 +1,27 @@
 package com.mryqr.core.tenant.domain.task;
 
 import java.time.Instant;
-import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Component;
+
+@Component
+@RequiredArgsConstructor
 public final class TenantRecentActiveTimeHolder {
-  private static final Map<String, Instant> holders = new ConcurrentHashMap<>();
+  private final StringRedisTemplate stringRedisTemplate;
 
-  public static void recordRecentActiveTime(String tenantId) {
-    holders.put(tenantId, Instant.now());
+  public void recordRecentActiveTime(String tenantId) {
+    stringRedisTemplate.opsForValue().set(getKey(tenantId), Instant.now().toString());
   }
 
-  public static Optional<Instant> getRecentActiveTime(String tenantId) {
-    return Optional.ofNullable(holders.get(tenantId));
+  public Optional<Instant> getRecentActiveTime(String tenantId) {
+    String timeString = stringRedisTemplate.opsForValue().get(getKey(tenantId));
+    return Optional.ofNullable(timeString).map(Instant::parse);
+  }
+
+  private String getKey(String tenantId) {
+    return "TenantRecentActiveTime:" + tenantId;
   }
 }

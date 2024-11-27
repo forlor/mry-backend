@@ -13,7 +13,6 @@ import static com.mryqr.common.domain.user.User.NOUSER;
 import static com.mryqr.common.utils.MryConstants.MRY_DATE_FORMATTER;
 import static com.mryqr.common.utils.MryConstants.MRY_DATE_TIME_FORMATTER;
 import static com.mryqr.core.app.domain.page.control.FNumberInputControl.MAX_NUMBER;
-import static com.mryqr.core.tenant.domain.task.TenantRecentActiveTimeHolder.getRecentActiveTime;
 import static com.mryqr.management.common.PlanTypeControl.PLAN_TO_OPTION_MAP;
 import static com.mryqr.management.crm.MryTenantManageApp.ACTIVE_STATUS_CONTROL_ID;
 import static com.mryqr.management.crm.MryTenantManageApp.ACTIVE_STATUS_NO_OPTION_ID;
@@ -109,6 +108,7 @@ public class SyncTenantToManagedQrTask implements RetryableTask {
   private final MemberRepository memberRepository;
   private final GroupRepository groupRepository;
   private final PropertyService propertyService;
+  private final TenantRecentActiveTimeHolder tenantRecentActiveTimeHolder;
 
   @Transactional
   public void sync(String tenantId) {
@@ -187,7 +187,7 @@ public class SyncTenantToManagedQrTask implements RetryableTask {
 
     FDateControl recentActiveDateControl = (FDateControl) allControls.get(RECENT_ACTIVE_DATE_CONTROL_ID);
     Instant defaultRecentActiveInstant = LocalDate.of(2000, 1, 1).atStartOfDay(systemDefault()).toInstant();
-    Instant recentTenantActiveTime = getRecentActiveTime(tenant.getId()).orElse(defaultRecentActiveInstant);
+    Instant recentTenantActiveTime = tenantRecentActiveTimeHolder.getRecentActiveTime(tenant.getId()).orElse(defaultRecentActiveInstant);
     String recentActiveDate = MRY_DATE_FORMATTER.format(recentTenantActiveTime);
     DateAnswer recentActiveDateAnswer = DateAnswer.answerBuilder(requireNonNull(recentActiveDateControl))
         .date(recentActiveDate)
