@@ -1,4 +1,4 @@
-package com.mryqr.core.app.domain;
+package com.mryqr.core.group.domain;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -11,6 +11,6 @@ import lombok.Value;
 @Value
 @Builder
 @AllArgsConstructor(access = PRIVATE)
-public class TenantCachedApps {
-  private final List<TenantCachedApp> apps;
+public class AppCachedGroups {
+  private final List<AppCachedGroup> groups;
 }

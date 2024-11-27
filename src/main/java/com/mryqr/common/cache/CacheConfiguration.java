@@ -25,6 +25,7 @@ import com.mryqr.core.app.domain.App;
 import com.mryqr.core.app.domain.TenantCachedApps;
 import com.mryqr.core.department.domain.TenantCachedDepartments;
 import com.mryqr.core.departmenthierarchy.domain.DepartmentHierarchy;
+import com.mryqr.core.group.domain.AppCachedGroups;
 import com.mryqr.core.group.domain.Group;
 import com.mryqr.core.grouphierarchy.domain.GroupHierarchy;
 import com.mryqr.core.member.domain.Member;
@@ -51,6 +52,7 @@ public class CacheConfiguration {
     var tenantCachedMembersSerializer = new Jackson2JsonRedisSerializer<>(objectMapper, TenantCachedMembers.class);
     var tenantCachedAppsSerializer = new Jackson2JsonRedisSerializer<>(objectMapper, TenantCachedApps.class);
     var tenantCachedDepartmentsSerializer = new Jackson2JsonRedisSerializer<>(objectMapper, TenantCachedDepartments.class);
+    var appCachedGroupsSerializer = new Jackson2JsonRedisSerializer<>(objectMapper, AppCachedGroups.class);
     var appSerializer = new Jackson2JsonRedisSerializer<>(objectMapper, App.class);
     var groupSerializer = new Jackson2JsonRedisSerializer<>(objectMapper, Group.class);
     var groupHierarchySerializer = new Jackson2JsonRedisSerializer<>(objectMapper, GroupHierarchy.class);
@@ -76,7 +78,7 @@ public class CacheConfiguration {
             .entryTtl(ofDays(7)))
         .withCacheConfiguration(APP_GROUPS_CACHE, defaultCacheConfig()
             .prefixCacheNameWith(CACHE_PREFIX)
-            .serializeValuesWith(fromSerializer(defaultSerializer))
+            .serializeValuesWith(fromSerializer(appCachedGroupsSerializer))
             .entryTtl(ofDays(7)))
         .withCacheConfiguration(OPEN_ASSIGNMENT_PAGES_CACHE, defaultCacheConfig()
             .prefixCacheNameWith(CACHE_PREFIX)
