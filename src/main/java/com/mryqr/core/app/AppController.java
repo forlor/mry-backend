@@ -9,6 +9,7 @@ import com.mryqr.common.validation.id.app.AppId;
 import com.mryqr.common.validation.id.qr.QrId;
 import com.mryqr.core.app.command.*;
 import com.mryqr.core.app.query.*;
+import com.mryqr.core.tenant.domain.task.TenantRecentActiveTimeHolder;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -32,6 +33,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 public class AppController {
     private final AppCommandService appCommandService;
     private final AppQueryService appQueryService;
+    private final TenantRecentActiveTimeHolder tenantRecentActiveTimeHolder;
 
     @PostMapping
     @ResponseStatus(CREATED)
@@ -134,6 +136,7 @@ public class AppController {
 
     @GetMapping(value = "/my-viewable-apps")
     public List<QViewableListApp> listMyViewableApps(@AuthenticationPrincipal User user) {
+        tenantRecentActiveTimeHolder.recordRecentActiveTime(user.getTenantId());
         return appQueryService.listMyViewableApps(user);
     }
 
