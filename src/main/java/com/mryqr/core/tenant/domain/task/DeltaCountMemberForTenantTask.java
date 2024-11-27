@@ -15,7 +15,7 @@ public class DeltaCountMemberForTenantTask implements NonRetryableTask {
     public void delta(String tenantId, int delta) {
         int modifiedCount = tenantRepository.deltaCountMember(tenantId, delta);
         if (modifiedCount > 0) {
-            log.info("Delta counted members for tenant[{}] by {}.", tenantId, delta);
+            log.debug("Delta counted members for tenant[{}] by {}.", tenantId, delta);
         }
     }
 }

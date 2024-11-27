@@ -15,7 +15,7 @@ public class DeltaCountUsedPlatesForPlateBatchTask implements NonRetryableTask {
     public void delta(String plateBatchId, int delta) {
         int modifiedCount = plateBatchRepository.deltaCountUsedPlatesForPlateBatch(plateBatchId, delta);
         if (modifiedCount > 0) {
-            log.info("Delta counted used plates for plate batch[{}] by {}.", plateBatchId, delta);
+            log.debug("Delta counted used plates for plate batch[{}] by {}.", plateBatchId, delta);
         }
     }
 

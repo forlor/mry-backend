@@ -19,7 +19,7 @@ public class CountGroupForAppTask implements RetryableTask {
             int count = groupRepository.countGroupForApp(appId);
             tenant.setGroupCountForApp(appId, count);
             tenantRepository.save(tenant);
-            log.info("Counted {} groups for app[{}] for tenant[{}].", count, appId, tenant.getId());
+            log.debug("Counted {} groups for app[{}] for tenant[{}].", count, appId, tenant.getId());
         });
     }
 }

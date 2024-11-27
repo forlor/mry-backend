@@ -41,7 +41,7 @@ public class SyncAllDepartmentsToGroupTask implements RetryableTask {
         appRepository.byIdOptional(appId).ifPresent(app -> {
             if (app.isGroupSynced()) {
                 doSync(app.getId(), app.getTenantId());
-                log.info("Synced all departments to groups for app[{}].", appId);
+                log.debug("Synced all departments to groups for app[{}].", appId);
             }
         });
     }

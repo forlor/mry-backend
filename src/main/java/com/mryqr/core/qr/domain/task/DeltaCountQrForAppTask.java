@@ -15,7 +15,7 @@ public class DeltaCountQrForAppTask implements NonRetryableTask {
     public void delta(String appId, String tenantId, int delta) {
         int modifiedCount = tenantRepository.deltaCountQrUnderApp(appId, tenantId, delta);
         if (modifiedCount > 0) {
-            log.info("Delta counted qrs for app[{}] by {}.", appId, delta);
+            log.debug("Delta counted qrs for app[{}] by {}.", appId, delta);
         }
     }
 }

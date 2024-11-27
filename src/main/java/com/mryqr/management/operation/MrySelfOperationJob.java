@@ -107,7 +107,7 @@ public class MrySelfOperationJob {
                 NOUSER
         );
         submissionRepository.houseKeepSave(submission, app);
-        log.info("Synced mry operation delta statistics to managed QR.");
+        log.debug("Synced mry operation delta statistics to managed QR.");
     }
 
     private Set<Answer> buildDeltaAnswers(Page page) {
@@ -163,7 +163,7 @@ public class MrySelfOperationJob {
                 NOUSER
         );
         submissionRepository.houseKeepSave(submission, app);
-        log.info("Synced mry operation total statistics to managed QR.");
+        log.debug("Synced mry operation total statistics to managed QR.");
     }
 
     private Set<Answer> buildTotalAnswers(Page page) {

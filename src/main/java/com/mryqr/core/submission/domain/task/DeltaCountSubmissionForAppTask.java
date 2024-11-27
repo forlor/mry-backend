@@ -15,7 +15,7 @@ public class DeltaCountSubmissionForAppTask implements NonRetryableTask {
     public void delta(String appId, String tenantId, int delta) {
         int modifiedCount = tenantRepository.deltaCountSubmissionForApp(appId, tenantId, delta);
         if (modifiedCount > 0) {
-            log.info("Delta counted submissions for app[{}] by {}.", appId, delta);
+            log.debug("Delta counted submissions for app[{}] by {}.", appId, delta);
         }
     }
 

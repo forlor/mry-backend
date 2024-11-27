@@ -19,7 +19,7 @@ public class CountDepartmentForTenantTask implements RetryableTask {
             int count = departmentRepository.countDepartmentForTenant(tenantId);
             tenant.setDepartmentCount(count);
             tenantRepository.save(tenant);
-            log.info("Counted all {} departments for tenant[{}].", count, tenantId);
+            log.debug("Counted all {} departments for tenant[{}].", count, tenantId);
         });
     }
 }

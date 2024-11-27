@@ -19,7 +19,7 @@ public class CountUsedPlatesForPlateBatchTask implements RetryableTask {
             int count = plateRepository.countUsedPlatesForPlateBatch(plateBatchId);
             plateBatch.updateUsedCount(count);
             plateBatchRepository.save(plateBatch);
-            log.info("Counted {} used plates for plate batch[{}].", count, plateBatchId);
+            log.debug("Counted {} used plates for plate batch[{}].", count, plateBatchId);
         });
     }
 

@@ -29,7 +29,7 @@ public class SyncDepartmentToGroupTask implements RetryableTask {
         departmentRepository.byIdOptional(departmentId).ifPresent(department -> groups.forEach(group -> {
             group.syncDepartment(department, NOUSER);
             groupRepository.save(group);
-            log.info("Synced department[{}] to group[{}] of app[{}].", departmentId, group.getId(), group.getAppId());
+            log.debug("Synced department[{}] to group[{}] of app[{}].", departmentId, group.getId(), group.getAppId());
         }));
     }
 }

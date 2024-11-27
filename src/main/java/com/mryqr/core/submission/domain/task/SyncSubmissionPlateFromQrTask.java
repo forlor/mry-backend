@@ -17,7 +17,7 @@ public class SyncSubmissionPlateFromQrTask implements RetryableTask {
     public void run(String qrId) {
         qrRepository.byIdOptional(qrId).ifPresent(qr -> {
             int count = submissionRepository.syncPlateFromQr(qr);
-            log.info("Synced plate ids for all {} submissions with qr[{}].", count, qrId);
+            log.debug("Synced plate ids for all {} submissions with qr[{}].", count, qrId);
         });
     }
 }

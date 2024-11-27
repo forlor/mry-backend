@@ -79,7 +79,7 @@ public class SyncAttributeValuesForAllQrsUnderAppTask implements RetryableTask {
             forkJoinPool.shutdown();
         }
 
-        log.info("Synced attributes{} values for all {} qrs of app[{}].", attributeIds, count, appId);
+        log.debug("Synced attributes{} values for all {} qrs of app[{}].", attributeIds, count, appId);
     }
 
 }

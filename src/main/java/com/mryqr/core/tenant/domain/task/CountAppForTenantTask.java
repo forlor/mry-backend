@@ -21,7 +21,7 @@ public class CountAppForTenantTask implements RetryableTask {
             int count = appRepository.countApp(tenantId);
             tenant.setAppCount(count, NOUSER);
             tenantRepository.save(tenant);
-            log.info("Counted all {} apps for tenant[{}].", count, tenantId);
+            log.debug("Counted all {} apps for tenant[{}].", count, tenantId);
         });
     }
 }

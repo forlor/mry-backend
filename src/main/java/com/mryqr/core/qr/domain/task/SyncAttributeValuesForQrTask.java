@@ -34,7 +34,7 @@ public class SyncAttributeValuesForQrTask implements RetryableTask {
             }
 
             qrAttributeValueSyncer.sync(qr, app, attributes, NOUSER);
-            log.info("Synced all {} calculated attributes{} for qr[{}].",
+            log.debug("Synced all {} calculated attributes{} for qr[{}].",
                     attributes.size(), attributes.stream().map(Attribute::getId).collect(toImmutableList()), qr.getId());
         }));
     }
@@ -49,7 +49,7 @@ public class SyncAttributeValuesForQrTask implements RetryableTask {
             }
 
             qrAttributeValueSyncer.sync(qr, app, attributes, NOUSER);
-            log.info("Synced {} attributes{} for qr[{}].",
+            log.debug("Synced {} attributes{} for qr[{}].",
                     attributes.size(), attributes.stream().map(Attribute::getId).collect(toImmutableList()), qr.getId());
         }));
     }

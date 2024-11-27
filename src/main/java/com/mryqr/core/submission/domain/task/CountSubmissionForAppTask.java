@@ -19,7 +19,7 @@ public class CountSubmissionForAppTask implements RetryableTask {
             int count = submissionRepository.countSubmissionForApp(appId);
             tenant.setSubmissionCountForApp(appId, count);
             tenantRepository.save(tenant);
-            log.info("Counted {} submissions for app[{}] of tenant[{}].", count, appId, tenantId);
+            log.debug("Counted {} submissions for app[{}] of tenant[{}].", count, appId, tenantId);
         });
     }
 

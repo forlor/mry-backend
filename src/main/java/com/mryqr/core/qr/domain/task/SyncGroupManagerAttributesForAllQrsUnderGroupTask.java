@@ -59,7 +59,7 @@ public class SyncGroupManagerAttributesForAllQrsUnderGroupTask implements Retrya
                 }
 
                 int attributeUpdateCount = qrRepository.updateAttributeValueForAllQrsUnderGroup(groupId, attributeValue);
-                log.info("Synced group[{}] managers for attributes[{}] of all {} qrs of app[{}].",
+                log.debug("Synced group[{}] managers for attributes[{}] of all {} qrs of app[{}].",
                         groupId, attributes.stream().map(Attribute::getId).collect(toImmutableList()), attributeUpdateCount, app.getId());
 
                 app.indexedFieldForAttributeOptional(attribute.getId()).ifPresent(indexedField -> {
@@ -69,7 +69,7 @@ public class SyncGroupManagerAttributesForAllQrsUnderGroupTask implements Retrya
                             .tv(Set.copyOf(group.getManagers()))
                             .build();
                     int indexedUpdateCount = qrRepository.updateIndexValueForAllQrsUnderGroup(groupId, indexedField, indexedValue);
-                    log.info("Synced group[{}] managers for attributes[{}] indexed values of all {} qrs of app[{}].",
+                    log.debug("Synced group[{}] managers for attributes[{}] indexed values of all {} qrs of app[{}].",
                             groupId, attributes.stream().map(Attribute::getId).collect(toImmutableList()), indexedUpdateCount, app.getId());
                 });
             });
