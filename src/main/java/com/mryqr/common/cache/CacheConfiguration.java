@@ -22,6 +22,7 @@ import static org.springframework.data.redis.serializer.RedisSerializationContex
 
 import com.mryqr.common.utils.MryObjectMapper;
 import com.mryqr.core.app.domain.App;
+import com.mryqr.core.app.domain.TenantCachedApps;
 import com.mryqr.core.departmenthierarchy.domain.DepartmentHierarchy;
 import com.mryqr.core.group.domain.Group;
 import com.mryqr.core.grouphierarchy.domain.GroupHierarchy;
@@ -47,6 +48,7 @@ public class CacheConfiguration {
     GenericJackson2JsonRedisSerializer defaultSerializer = new GenericJackson2JsonRedisSerializer(defaultObjectMapper);
 
     var tenantCachedMembersSerializer = new Jackson2JsonRedisSerializer<>(objectMapper, TenantCachedMembers.class);
+    var tenantCachedAppsSerializer = new Jackson2JsonRedisSerializer<>(objectMapper, TenantCachedApps.class);
     var appSerializer = new Jackson2JsonRedisSerializer<>(objectMapper, App.class);
     var groupSerializer = new Jackson2JsonRedisSerializer<>(objectMapper, Group.class);
     var groupHierarchySerializer = new Jackson2JsonRedisSerializer<>(objectMapper, GroupHierarchy.class);
@@ -64,7 +66,7 @@ public class CacheConfiguration {
             .entryTtl(ofDays(7)))
         .withCacheConfiguration(TENANT_APPS_CACHE, defaultCacheConfig()
             .prefixCacheNameWith(CACHE_PREFIX)
-            .serializeValuesWith(fromSerializer(defaultSerializer))
+            .serializeValuesWith(fromSerializer(tenantCachedAppsSerializer))
             .entryTtl(ofDays(7)))
         .withCacheConfiguration(TENANT_DEPARTMENTS_CACHE, defaultCacheConfig()
             .prefixCacheNameWith(CACHE_PREFIX)

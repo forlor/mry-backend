@@ -4,6 +4,7 @@ import static com.mryqr.common.utils.CommonUtils.requireNonBlank;
 import static com.mryqr.common.utils.MryConstants.MEMBER_CACHE;
 import static com.mryqr.common.utils.MryConstants.MEMBER_COLLECTION;
 import static com.mryqr.common.utils.MryConstants.TENANT_MEMBERS_CACHE;
+import static org.apache.commons.collections4.ListUtils.emptyIfNull;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
@@ -35,7 +36,6 @@ public class MongoCachedMemberRepository extends MongoBaseRepository<Member> {
     return super.byId(memberId);
   }
 
-  //必须返回ArrayList而非List，否则缓存中由于没有ArrayList类型信息而失败
   @Cacheable(value = TENANT_MEMBERS_CACHE, key = "#tenantId")
   public TenantCachedMembers cachedTenantAllMembers(String tenantId) {
     requireNonBlank(tenantId, "Tenant ID must not be blank.");
@@ -43,7 +43,7 @@ public class MongoCachedMemberRepository extends MongoBaseRepository<Member> {
     Query query = query(where("tenantId").is(tenantId));
     query.fields().include("name", "role", "mobile", "email", "mobileWxOpenId", "customId", "departmentIds", "active");
     List<TenantCachedMember> tenantCachedMembers = mongoTemplate.find(query, TenantCachedMember.class, MEMBER_COLLECTION);
-    return TenantCachedMembers.builder().members(tenantCachedMembers).build();
+    return TenantCachedMembers.builder().members(emptyIfNull(tenantCachedMembers)).build();
   }
 
   @Caching(evict = {@CacheEvict(value = MEMBER_CACHE, key = "#memberId")})
