@@ -41,10 +41,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import static com.google.common.collect.ImmutableMap.toImmutableMap;
 import static com.mryqr.common.domain.user.User.NOUSER;
@@ -77,7 +74,6 @@ public class SyncTenantToManagedQrTask implements RetryableTask {
     private final MemberRepository memberRepository;
     private final GroupRepository groupRepository;
     private final PropertyService propertyService;
-    private final TenantRecentActiveTimeHolder tenantRecentActiveTimeHolder;
 
     @Transactional
     public void sync(String tenantId) {
@@ -156,7 +152,7 @@ public class SyncTenantToManagedQrTask implements RetryableTask {
 
         FDateControl recentActiveDateControl = (FDateControl) allControls.get(RECENT_ACTIVE_DATE_CONTROL_ID);
         Instant defaultRecentActiveInstant = LocalDate.of(2000, 1, 1).atStartOfDay(systemDefault()).toInstant();
-        Instant recentTenantActiveTime = tenantRecentActiveTimeHolder.getRecentActiveTime(tenant.getId()).orElse(defaultRecentActiveInstant);
+        Instant recentTenantActiveTime = Optional.ofNullable(tenant.getRecentAccessTime()).orElse(defaultRecentActiveInstant);
         String recentActiveDate = MRY_DATE_FORMATTER.format(recentTenantActiveTime);
         DateAnswer recentActiveDateAnswer = DateAnswer.answerBuilder(requireNonNull(recentActiveDateControl))
                 .date(recentActiveDate)

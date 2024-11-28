@@ -10,7 +10,7 @@ import com.mryqr.common.validation.id.qr.QrId;
 import com.mryqr.core.app.command.*;
 import com.mryqr.core.app.query.*;
 import com.mryqr.core.tenant.domain.task.SyncTenantToManagedQrTask;
-import com.mryqr.core.tenant.domain.task.TenantRecentActiveTimeHolder;
+import com.mryqr.core.tenant.domain.task.TenantRecentAccessRecorder;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -35,7 +35,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 public class AppController {
     private final AppCommandService appCommandService;
     private final AppQueryService appQueryService;
-    private final TenantRecentActiveTimeHolder tenantRecentActiveTimeHolder;
+    private final TenantRecentAccessRecorder tenantRecentAccessRecorder;
     private final TaskExecutor taskExecutor;
     private final SyncTenantToManagedQrTask syncTenantToManagedQrTask;
 
@@ -141,7 +141,7 @@ public class AppController {
     @GetMapping(value = "/my-viewable-apps")
     public List<QViewableListApp> listMyViewableApps(@AuthenticationPrincipal User user) {
         taskExecutor.execute(() -> {
-            tenantRecentActiveTimeHolder.recordRecentActiveTime(user.getTenantId());
+            tenantRecentAccessRecorder.record(user.getTenantId());
             syncTenantToManagedQrTask.sync(user.getTenantId());
         });
         return appQueryService.listMyViewableApps(user);

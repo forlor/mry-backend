@@ -13,6 +13,7 @@ import com.mryqr.core.plan.domain.PlanType;
 import com.mryqr.core.tenant.domain.event.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldNameConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -35,6 +36,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @Slf4j
 @Getter
+@FieldNameConstants
 @Document(TENANT_COLLECTION)
 @TypeAlias(TENANT_COLLECTION)
 @NoArgsConstructor(access = PRIVATE)
@@ -56,6 +58,8 @@ public class Tenant extends AggregateRoot {
     private boolean active;//用于后台管理端设置，非active时所有成员无法登录，无法访问API
     private InvoiceTitle invoiceTitle;//发票抬头
     private List<Consignee> consignees;//收货人
+
+    private Instant recentAccessTime;//最近活跃时间
 
     public Tenant(String name, User user) {
         super(user.getTenantId(), user);
