@@ -28,6 +28,6 @@ public class CacheClearer {
             @CacheEvict(value = OPEN_ASSIGNMENT_PAGES_CACHE, allEntries = true)
     })
     public void evictAllCache() {
-        log.debug("Evicted all cache.");
+        log.info("Evicted all cache.");
     }
 }

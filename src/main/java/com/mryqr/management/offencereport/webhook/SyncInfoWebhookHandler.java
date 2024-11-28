@@ -81,7 +81,7 @@ public class SyncInfoWebhookHandler implements OffenceWebhookHandler {
                     NOUSER
             );
             submissionRepository.houseKeepSave(submission, offenceApp);
-            log.debug("Synced offence target QR[{}] to managed offence QR.", targetQr.getId());
+            log.info("Synced offence target QR[{}] to managed offence QR.", targetQr.getId());
         });
 
     }

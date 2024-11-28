@@ -34,7 +34,7 @@ public class SyncDepartmentMembersToGroupTask implements RetryableTask {
             groups.forEach(group -> {
                 group.syncDepartment(department, members, NOUSER);
                 groupRepository.save(group);
-                log.debug("Synced department[{}] with members to group[{}].", departmentId, group.getId());
+                log.info("Synced department[{}] with members to group[{}].", departmentId, group.getId());
             });
         });
 

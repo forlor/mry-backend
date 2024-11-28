@@ -32,7 +32,7 @@ public class SyncSubmissionAwareAttributeValuesForQrTask implements RetryableTas
             }
 
             qrAttributeValueSyncer.sync(qr, app, attributes, NOUSER);
-            log.debug("Synced all {} submission aware attributes for qr[{}].", attributes.size(), qrId);
+            log.info("Synced all {} submission aware attributes for qr[{}].", attributes.size(), qrId);
         }));
     }
 
@@ -48,7 +48,7 @@ public class SyncSubmissionAwareAttributeValuesForQrTask implements RetryableTas
             }
 
             qrAttributeValueSyncer.sync(qr, app, attributes, NOUSER);
-            log.debug("Synced all {} submission aware attributes for qr[{}] with page[{}].", attributes.size(), qrId, pageId);
+            log.info("Synced all {} submission aware attributes for qr[{}] with page[{}].", attributes.size(), qrId, pageId);
         }));
     }
 

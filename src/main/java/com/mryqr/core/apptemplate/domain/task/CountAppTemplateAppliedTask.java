@@ -28,7 +28,7 @@ public class CountAppTemplateAppliedTask implements RetryableTask {
                 DoubleAttributeValue attributeValue = new DoubleAttributeValue(attribute, (double) count);
                 qr.putAttributeValues(of(attribute.getId(), attributeValue), NOUSER);
                 qrRepository.houseKeepSave(qr, app, NOUSER);
-                log.debug("Counted {} usages for app template[{}].", count, appTemplateId);
+                log.info("Counted {} usages for app template[{}].", count, appTemplateId);
             });
         });
     }

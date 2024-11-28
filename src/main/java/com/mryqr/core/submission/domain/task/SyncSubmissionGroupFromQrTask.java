@@ -17,7 +17,7 @@ public class SyncSubmissionGroupFromQrTask implements RetryableTask {
     public void run(String qrId) {
         qrRepository.byIdOptional(qrId).ifPresent(qr -> {
             int count = submissionRepository.syncGroupFromQr(qr);
-            log.debug("Synced group ID for all {} submissions with qr[{}].", count, qrId);
+            log.info("Synced group ID for all {} submissions with qr[{}].", count, qrId);
         });
     }
 }

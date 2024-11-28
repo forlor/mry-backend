@@ -19,7 +19,7 @@ public class CountQrForAppTask implements RetryableTask {
             int count = qrRepository.countQrUnderApp(appId);
             tenant.setQrCountForApp(appId, count);
             tenantRepository.save(tenant);
-            log.debug("Counted {} qrs for app[{}] of tenant[{}].", count, appId, tenant.getId());
+            log.info("Counted {} qrs for app[{}] of tenant[{}].", count, appId, tenant.getId());
         });
     }
 }

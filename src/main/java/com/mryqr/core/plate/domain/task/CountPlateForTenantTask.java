@@ -19,7 +19,7 @@ public class CountPlateForTenantTask implements RetryableTask {
             int count = plateRepository.countPlateUnderTenant(tenantId);
             tenant.setPlateCount(count);
             tenantRepository.save(tenant);
-            log.debug("Counted all {} plates for tenant[{}].", count, tenantId);
+            log.info("Counted all {} plates for tenant[{}].", count, tenantId);
         });
     }
 

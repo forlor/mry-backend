@@ -21,7 +21,7 @@ public class CountMembersForTenantTask implements RetryableTask {
             int count = memberRepository.countMembersUnderTenant(tenantId);
             tenant.setMemberCount(count, NOUSER);
             tenantRepository.save(tenant);
-            log.debug("Counted all {} members for tenant[{}].", count, tenantId);
+            log.info("Counted all {} members for tenant[{}].", count, tenantId);
         });
     }
 }
