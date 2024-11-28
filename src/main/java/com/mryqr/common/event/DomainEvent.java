@@ -45,7 +45,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
         visible = true)
 @JsonSubTypes(value = {
         @JsonSubTypes.Type(value = AppAttributesCreatedEvent.class, name = "APP_ATTRIBUTES_CREATED"),
-        @JsonSubTypes.Type(value = AppAttributesDeletedEvent.class, name = "APP_ATTRIBUTES_CREATED"),
+        @JsonSubTypes.Type(value = AppAttributesDeletedEvent.class, name = "APP_ATTRIBUTES_DELETED"),
         @JsonSubTypes.Type(value = AppControlOptionsDeletedEvent.class, name = "APP_CONTROL_OPTIONS_DELETED"),
         @JsonSubTypes.Type(value = AppControlsDeletedEvent.class, name = "APP_CONTROLS_DELETED"),
         @JsonSubTypes.Type(value = AppCreatedEvent.class, name = "APP_CREATED"),

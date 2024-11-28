@@ -63,7 +63,7 @@ public class RedisNotificationContainerConfiguration {
     private static class MryRedisErrorHandler implements ErrorHandler {
         @Override
         public void handleError(Throwable t) {
-            log.error(t.getMessage());
+            log.error(t.getMessage(), t);
         }
     }
 }
