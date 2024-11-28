@@ -75,11 +75,11 @@ public class SendDomainEventWebhookHandler implements TenantWebhookHandler {
         while (true) {
             Criteria criteria = where("raisedAt").gte(startedAt).lte(endAt).and("_id").gt(startEventId);
             if (isNotBlank(appId)) {
-                criteria.and("appId").is(appId);
+                criteria.and("event.appId").is(appId);
             }
 
             if (isNotBlank(tenantId)) {
-                criteria.and("arTenantId").is(tenantId);
+                criteria.and("event.arTenantId").is(tenantId);
             }
 
             Query query = Query.query(criteria).with(by(ASC, raisedAt)).limit(200);
