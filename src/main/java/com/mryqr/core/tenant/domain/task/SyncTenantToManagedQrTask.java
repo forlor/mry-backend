@@ -152,7 +152,7 @@ public class SyncTenantToManagedQrTask implements RetryableTask {
 
         FDateControl recentActiveDateControl = (FDateControl) allControls.get(RECENT_ACTIVE_DATE_CONTROL_ID);
         Instant defaultRecentActiveInstant = LocalDate.of(2000, 1, 1).atStartOfDay(systemDefault()).toInstant();
-        Instant recentTenantActiveTime = Optional.ofNullable(tenant.getRecentAccessTime()).orElse(defaultRecentActiveInstant);
+        Instant recentTenantActiveTime = Optional.ofNullable(tenant.getRecentAccessedAt()).orElse(defaultRecentActiveInstant);
         String recentActiveDate = MRY_DATE_FORMATTER.format(recentTenantActiveTime);
         DateAnswer recentActiveDateAnswer = DateAnswer.answerBuilder(requireNonNull(recentActiveDateControl))
                 .date(recentActiveDate)

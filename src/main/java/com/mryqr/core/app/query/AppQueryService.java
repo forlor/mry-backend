@@ -17,7 +17,9 @@ import com.mryqr.core.app.domain.attribute.Attribute;
 import com.mryqr.core.tenant.domain.ResourceUsage;
 import com.mryqr.core.tenant.domain.Tenant;
 import com.mryqr.core.tenant.domain.TenantRepository;
+import com.mryqr.core.tenant.domain.task.RecordTenantRecentAccessTask;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
@@ -51,13 +53,14 @@ import static org.springframework.data.mongodb.core.query.Query.query;
 @RequiredArgsConstructor
 public class AppQueryService {
     private final static Set<String> ALLOWED_SORT_FIELDS = Set.of("name", "createdAt", "active");
-
     private final AppRepository appRepository;
     private final MongoTemplate mongoTemplate;
     private final ManagePermissionChecker managePermissionChecker;
     private final AppOperatePermissionChecker appOperatePermissionChecker;
     private final MryRateLimiter mryRateLimiter;
     private final TenantRepository tenantRepository;
+    private final RecordTenantRecentAccessTask recordTenantRecentAccessTask;
+    private final TaskExecutor taskExecutor;
 
     public PagedList<QManagedListApp> listMyManagedApps(ListMyManagedAppsQuery queryCommand, User user) {
         mryRateLimiter.applyFor(user.getTenantId(), "App:ListMyManagedApps", 5);
@@ -116,6 +119,8 @@ public class AppQueryService {
 
     public List<QViewableListApp> listMyViewableApps(User user) {
         mryRateLimiter.applyFor(user.getTenantId(), "App:ListMyViewableApps", 20);
+
+        taskExecutor.execute(() -> recordTenantRecentAccessTask.run(user.getTenantId()));
 
         String tenantId = user.getTenantId();
         String memberId = user.getMemberId();

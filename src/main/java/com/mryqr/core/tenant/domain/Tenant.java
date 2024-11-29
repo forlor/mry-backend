@@ -58,8 +58,7 @@ public class Tenant extends AggregateRoot {
     private boolean active;//用于后台管理端设置，非active时所有成员无法登录，无法访问API
     private InvoiceTitle invoiceTitle;//发票抬头
     private List<Consignee> consignees;//收货人
-
-    private Instant recentAccessTime;//最近活跃时间
+    private Instant recentAccessedAt;//最近活跃时间
 
     public Tenant(String name, User user) {
         super(user.getTenantId(), user);

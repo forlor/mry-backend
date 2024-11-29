@@ -40,6 +40,7 @@ import com.mryqr.core.qr.query.submission.QSubmissionQrDetail;
 import com.mryqr.core.qr.query.submission.QSubmissionQrMemberProfile;
 import com.mryqr.core.tenant.domain.Tenant;
 import com.mryqr.core.tenant.domain.TenantRepository;
+import com.mryqr.core.tenant.domain.task.RecordTenantRecentAccessTask;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.MapUtils;
@@ -99,6 +100,7 @@ public class QrQueryService {
     private final AppOperatePermissionChecker appOperatePermissionChecker;
     private final SubmissionPermissionChecker submissionPermissionChecker;
     private final CountQrAccessTask countQrAccessTask;
+    private final RecordTenantRecentAccessTask recordTenantRecentAccessTask;
     private final GroupRepository groupRepository;
     private final GroupHierarchyRepository groupHierarchyRepository;
 
@@ -174,7 +176,10 @@ public class QrQueryService {
                 .setting(app.getSetting())
                 .build();
 
-        taskExecutor.execute(() -> countQrAccessTask.run(qr, app));
+        taskExecutor.execute(() -> {
+            countQrAccessTask.run(qr, app);
+            recordTenantRecentAccessTask.run(app.getTenantId()); // 如果以后服务器负担过重，可以考虑去掉recordTenantRecentAccessTask
+        });
 
         return QSubmissionQr.builder()
                 .qr(qrDetail)

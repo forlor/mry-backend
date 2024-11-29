@@ -24,6 +24,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -258,6 +259,7 @@ public class MongoQrRepository extends MongoBaseRepository<QR> implements QrRepo
         Query query = Query.query(where("_id").is(qr.getId()));
         Update update = new Update();
         update.inc("accessCount");
+        update.set("lastAccessedAt", Instant.now());
         mongoTemplate.updateFirst(query, update, QR.class);
     }
 
