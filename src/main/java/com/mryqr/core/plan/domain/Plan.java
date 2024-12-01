@@ -35,7 +35,7 @@ public class Plan {
             .maxAppCount(5)
             .maxQrCount(10000)
             .maxSubmissionCount(30000)
-            .maxMemberCount(30)
+            .maxMemberCount(10)
             .maxStorage(1)
             .maxSmsCountPerMonth(20)
             .maxDepartmentCount(10)
