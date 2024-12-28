@@ -97,6 +97,7 @@ public class JwtWebSecurityConfiguration {
                 .requestMatchers(POST, "/verification-code-login")
                 .requestMatchers(POST, "/members/findback-password")
                 .requestMatchers(POST, "/registration")
+                .requestMatchers(POST, "/platform/qr-generation-record")
                 .requestMatchers(GET, "/tenants/public-profile/*");
     }
 

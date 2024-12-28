@@ -16,7 +16,7 @@ public class PlatformController {
     private final PlatformCommandService platformCommandService;
     private final MryRateLimiter mryRateLimiter;
 
-    @PostMapping(value = "/qr-generation")
+    @PostMapping(value = "/qr-generation-record")
     public void count() {
         mryRateLimiter.applyFor("Platform:qrGeneration", 100);
         platformCommandService.recordQrGeneration();
