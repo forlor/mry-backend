@@ -66,6 +66,8 @@ public class MryConstants {
     public static final String PUBLISHING_DOMAIN_EVENT_COLLECTION = "publishing_domain_event";
     public static final String CONSUMING_DOMAIN_EVENT_COLLECTION = "consuming_domain_event";
 
+    public static final String PLATFORM_COLLECTION = "platform";
+
     public static final String APP_CACHE = "APP";
     public static final String TENANT_APPS_CACHE = "TENANT_APPS";
 

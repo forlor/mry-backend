@@ -11,6 +11,9 @@ import com.mryqr.management.crm.MryTenantManageApp;
 import com.mryqr.management.offencereport.MryOffenceReportApp;
 import com.mryqr.management.operation.MryOperationApp;
 import com.mryqr.management.order.MryOrderManageApp;
+import com.mryqr.management.platform.domain.Platform;
+import com.mryqr.management.platform.domain.PlatformFactory;
+import com.mryqr.management.platform.domain.PlatformRepository;
 import com.mryqr.management.printingproduct.PrintingProductApp;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -54,6 +57,10 @@ public class MrySystemInitializer implements ApplicationListener<ApplicationRead
     private final WxJsSdkService wxJsSdkService;
     private final AdministrativeProvider administrativeProvider;
 
+    private final PlatformRepository platformRepository;
+
+    private final PlatformFactory platformFactory;
+
     @PostConstruct
     void init() {
         setDefault(getTimeZone(ZoneId.of(CHINA_TIME_ZONE)));
@@ -65,6 +72,7 @@ public class MrySystemInitializer implements ApplicationListener<ApplicationRead
         ensureMongoCollectionExist();
         ensureMongoIndexExist();
         ensureMryManageAppsExist();
+        ensurePlatformArExists();
         wxAccessTokenService.refreshAccessToken();
         wxJsSdkService.refreshJsApiTicket();
         administrativeProvider.init();
@@ -91,6 +99,7 @@ public class MrySystemInitializer implements ApplicationListener<ApplicationRead
         createCollection(VERIFICATION_COLLECTION);
         createCollection(PUBLISHING_DOMAIN_EVENT_COLLECTION);
         createCollection(CONSUMING_DOMAIN_EVENT_COLLECTION);
+        createCollection(PLATFORM_COLLECTION);
         createCollection(SHEDLOCK_COLLECTION);
     }
 
@@ -295,6 +304,13 @@ public class MrySystemInitializer implements ApplicationListener<ApplicationRead
     private void ensureConsumingDomainEventIndex() {
         IndexOperations indexOperations = mongoTemplate.indexOps(CONSUMING_DOMAIN_EVENT_COLLECTION);
         indexOperations.ensureIndex(new Index().on("eventId", DESC));
+    }
+
+    private void ensurePlatformArExists() {
+        if (!platformRepository.platformExists()) {
+            Platform platform = platformFactory.createPlatform();
+            platformRepository.save(platform);
+        }
     }
 
     private void ensureMryManageAppsExist() {
