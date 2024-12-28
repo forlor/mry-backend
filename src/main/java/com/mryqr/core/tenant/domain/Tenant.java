@@ -44,7 +44,7 @@ public class Tenant extends AggregateRoot {
     private static final Set<String> FORBIDDEN_SUBDOMAIN_PREFIXES = Set.of("www", "ww", "help", "helps", "api", "apis", "image", "images",
             "doc", "docs", "blog", "blogs", "admin", "administrator", "ops", "kibana", "console", "consoles", "manager", "managers",
             "mry", "contact", "contacts", "new", "news", "mail", "mails", "ftp", "ftps", "me", "my", "video", "videos", "tv", "sex", "porn", "naked",
-            "official", "gov", "government", "file", "files", "hr", "job", "work", "career", "forum", "m", "static");
+            "official", "gov", "government", "file", "files", "hr", "job", "work", "career", "forum", "m", "static", "g");
     private String name;//租户名称
     private Packages packages;//当前套餐
     private ResourceUsage resourceUsage;//当前资源使用量统计
