@@ -25,6 +25,7 @@ import com.mryqr.core.submission.domain.answer.numberinput.NumberInputAnswer;
 import com.mryqr.core.tenant.domain.Tenant;
 import com.mryqr.core.tenant.domain.TenantRepository;
 import com.mryqr.core.tenant.domain.task.SyncTenantToManagedQrTask;
+import com.mryqr.management.platform.domain.PlatformRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -58,6 +59,8 @@ public class MrySelfOperationJob {
     private final GroupRepository groupRepository;
     private final TenantRepository tenantRepository;
     private final SyncTenantToManagedQrTask syncTenantToManagedQrTask;
+
+    private final PlatformRepository platformRepository;
 
     public void run() {
         syncOverallStatistics();
@@ -196,7 +199,12 @@ public class MrySelfOperationJob {
                 .number((double) mongoTemplate.count(query, Member.class))
                 .build();
 
-        return Set.of(totalTenantAnswer, totalAppAnswer, totalQrAnswer, totalSubmissionAnswer, totalMemberAnswer);
+        FNumberInputControl totalQrGenerationControl = (FNumberInputControl) allControls.get(TOTAL_QR_GENERATION_ID);
+        NumberInputAnswer totalQrGenerationAnswer = NumberInputAnswer.answerBuilder(requireNonNull(totalQrGenerationControl))
+                .number((double) platformRepository.getPlatform().getQrGenerationCount())
+                .build();
+
+        return Set.of(totalTenantAnswer, totalAppAnswer, totalQrAnswer, totalSubmissionAnswer, totalMemberAnswer, totalQrGenerationAnswer);
     }
 
     private void syncAllTenantsToManagedQrs() {

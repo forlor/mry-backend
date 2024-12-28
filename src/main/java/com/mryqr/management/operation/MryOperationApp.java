@@ -61,6 +61,7 @@ public class MryOperationApp {
     public static final String TOTAL_QR_CONTROL_ID = "c_ONw0n7MXRoymSTnO9-WcIA";
     public static final String TOTAL_SUBMISSION_CONTROL_ID = "c_u1MHtIm_Q0WPWOJAxiHE0Q";
     public static final String TOTAL_MEMBER_CONTROL_ID = "c_Jv2GvxZtTU-F2aCofIp0FA";
+    public static final String TOTAL_QR_GENERATION_ID = "c_xnumTg163xuP9LskJ9MrQX";
 
     public static final String SYNC_DELTA_PAGE_ID = "p_xlOcxTIBQMqki1a6D5sskw";
     public static final String DELTA_TENANT_CONTROL_ID = "c_058wJ8RHSlS7EPBsu3XvVA";
@@ -87,12 +88,18 @@ public class MryOperationApp {
         FNumberInputControl totalQrControl = createNumberInputControl("总实例数", TOTAL_QR_CONTROL_ID);
         FNumberInputControl totalSubmissionControl = createNumberInputControl("总提交数", TOTAL_SUBMISSION_CONTROL_ID);
         FNumberInputControl totalMemberControl = createNumberInputControl("总用户数", TOTAL_MEMBER_CONTROL_ID);
+        FNumberInputControl totalQrGenerationControl = createNumberInputControl("二维码生成器总生成数", TOTAL_QR_GENERATION_ID);
 
         Page syncTotalPage = Page.builder()
                 .id(SYNC_TOTAL_PAGE_ID)
                 .header(defaultPageHeaderBuilder().type(INHERITED).build())
                 .title(defaultPageTitleBuilder().text("每日总量统计").build())
-                .controls(List.of(totalTenantControl, totalAppControl, totalQrControl, totalSubmissionControl, totalMemberControl))
+                .controls(List.of(totalTenantControl,
+                        totalAppControl,
+                        totalQrControl,
+                        totalSubmissionControl,
+                        totalMemberControl,
+                        totalQrGenerationControl))
                 .submitButton(defaultSubmitButton())
                 .setting(defaultPageSettingBuilder()
                         .submitType(NEW)
