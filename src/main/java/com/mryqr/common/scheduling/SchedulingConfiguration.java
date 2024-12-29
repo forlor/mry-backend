@@ -43,7 +43,7 @@ public class SchedulingConfiguration {
     public void houseKeepPublishDomainEvent() {
         int count = domainEventPublisher.publishStagedDomainEvents();
         if (count > 0) {
-            log.info("House keep published {} domain events.", count);
+            log.debug("House keep published {} domain events.", count);
         }
     }
 

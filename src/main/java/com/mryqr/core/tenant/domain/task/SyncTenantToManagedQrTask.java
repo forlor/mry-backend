@@ -101,7 +101,7 @@ public class SyncTenantToManagedQrTask implements RetryableTask {
                         NOUSER
                 );
                 submissionRepository.houseKeepSave(submission, app);
-                log.info("Synced tenant[{}] to managed QR.", tenantId);
+                log.debug("Synced tenant[{}] to managed QR.", tenantId);
                 syncAttributeValuesForQrTask.run(qr.getId());//及时计算属性值，不过兜底机制也会计算，只是有时延
             });
         });

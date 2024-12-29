@@ -211,9 +211,9 @@ public class MrySelfOperationJob {
         tenantRepository.allTenantIds().forEach(tenantId -> {
             try {
                 syncTenantToManagedQrTask.sync(tenantId);
-                log.info("Synced tenant[{}] information to managed qr.", tenantId);
+                log.debug("Synced tenant[{}] information to managed QR.", tenantId);
             } catch (Throwable t) {
-                log.error("Error happened while sync tenant[{}] to managed qr.", tenantId, t);
+                log.error("Error happened while sync tenant[{}] to managed QR.", tenantId, t);
             }
         });
     }
