@@ -1,7 +1,7 @@
 # 运营数据
 
 ## 本地环境
-- 以`15111111111`(密码：11111111)登录本地[码如云自运营页面](http://console.local.mryqr.com/management/my-apps)
+- 以`15111111111`(密码：11111111)登录本地[码如云自运营页面](http://console.mryqrlocal.com/management/my-apps)
 - 点击`运营数据`即可进入运营数据页面
 
 ## 原理

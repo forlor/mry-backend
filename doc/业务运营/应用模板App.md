@@ -1,7 +1,7 @@
 # 应用模板
 
 ## 本地环境
-- 以`15222222222`(密码：11111111)登录本地[应用模板管理页面](http://console.local.mryqr.com/management/my-apps)
+- 以`15222222222`(密码：11111111)登录本地[应用模板管理页面](http://console.mryqrlocal.com/management/my-apps)
 
 ## 添加应用模板步骤
 
@@ -30,7 +30,7 @@
 | 标签   | 标签将记录为关键字，用于搜索    |
 |页面类型和权限设置|用于客户使用模板时设置页面的权限，因为为了演示，应用模板的所有页面权限将被设置为公开|
 
-- 到此，便可在[应用模板](http://console.local.mryqr.com/public/app-templates)看到该模板了
+- 到此，便可在[应用模板](http://console.mryqrlocal.com/public/app-templates)看到该模板了
 
 ## 应用图标
 可以从[icon8](https://icons8.com/icons)网站搜索图标，下载64*64尺寸的即可。

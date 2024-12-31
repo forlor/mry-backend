@@ -61,7 +61,7 @@ mry:
     wxApiV3Key: notapplicable
   common:
     httpsEnabled: false
-    baseDomainName: local.mryqr.com
+    baseDomainName: mryqrlocal.com
     limitRate: false
     webhookUserName: kJ_4LPrrT5W3wVMK_RhzMA
     webhookPassword: qW-2S-9fTs26MnGigO0mTw
