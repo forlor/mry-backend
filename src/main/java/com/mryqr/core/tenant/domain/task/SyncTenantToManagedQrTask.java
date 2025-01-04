@@ -83,13 +83,9 @@ public class SyncTenantToManagedQrTask implements RetryableTask {
             }
 
             qrRepository.byCustomIdOptional(MRY_TENANT_MANAGE_APP_ID, tenantId).ifPresent(qr -> {
-                if (!Objects.equals(qr.getName(), tenant.getName())) {
-                    qr.rename(tenant.getName(), NOUSER);
-                    if (tenant.getLogo() != null) {
-                        qr.updateHeaderImage(tenant.getLogo(), NOUSER);
-                    }
-                    qrRepository.save(qr);
-                }
+                qr.rename(tenant.getName(), NOUSER);
+                qr.updateHeaderImage(tenant.getLogo(), NOUSER);
+                qrRepository.save(qr);
 
                 App app = appRepository.cachedById(MRY_TENANT_MANAGE_APP_ID);
                 Page page = app.pageById(TENANT_SYNC_PAGE_ID);
