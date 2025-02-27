@@ -17,7 +17,7 @@ import java.util.List;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class OneTimeOrderInvoiceIssuedEventHandler extends AbstractDomainEventHandler<OrderInvoiceIssuedEvent> {
+public class OrderInvoiceIssuedEventHandler extends AbstractDomainEventHandler<OrderInvoiceIssuedEvent> {
     private final MryEmailSender mryEmailSender;
     private final OrderRepository orderRepository;
 

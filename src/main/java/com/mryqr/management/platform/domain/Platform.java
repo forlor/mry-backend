@@ -16,10 +16,10 @@ import static lombok.AccessLevel.PRIVATE;
 @Document(PLATFORM_COLLECTION)
 @TypeAlias(PLATFORM_COLLECTION)
 @NoArgsConstructor(access = PRIVATE)
-public class Platform extends AggregateRoot {
-    private long qrGenerationCount = 0;
+public class Platform extends AggregateRoot { // Used to store information of the whole platform
+    private long qrGenerationCount;
 
-    public static String PLATFORM_ID = "PLF000000000000000001";
+    public final static String PLATFORM_ID = "PLF000000000000000001";
 
     public Platform(User user) {
         super(PLATFORM_ID, user);

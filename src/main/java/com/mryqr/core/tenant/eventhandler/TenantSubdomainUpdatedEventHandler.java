@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class OneTimeTenantSubdomainUpdatedEventHandler extends AbstractDomainEventHandler<TenantSubdomainUpdatedEvent> {
+public class TenantSubdomainUpdatedEventHandler extends AbstractDomainEventHandler<TenantSubdomainUpdatedEvent> {
     private final SyncTenantSubdomainToAliyunTask syncTenantSubdomainToAliyunTask;
 
     @Override
