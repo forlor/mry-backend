@@ -1,7 +1,7 @@
 services:
   mry-mongodb_local:
     restart: always
-    image: mongo:4.2.7-bionic
+    image: mongo:8
     networks:
       - mry-net
     environment:
@@ -14,7 +14,7 @@ services:
       - "27017:27017"
   mry-mongodb_ci:
     restart: always
-    image: mongo:4.2.7-bionic
+    image: mongo:8
     networks:
       - mry-net
     environment:
@@ -27,8 +27,7 @@ services:
       - "27018:27017"
   mry-redis:
     restart: always
-#    container_name: mry-redis
-    image: redis:6.0
+    image: redis:7.4.2
     networks:
       - mry-net
     volumes:
